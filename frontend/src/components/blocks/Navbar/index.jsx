@@ -4,106 +4,68 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <>
-      <header className="p-3 mb-3 border-bottom">
-        {" "}
-        <div className="container">
-          {" "}
-          <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            {" "}
-            <a
-              href="/"
-              className="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none"
+      <nav className="navbar bg-white border-bottom px-3 py-2 d-flex justify-content-between align-items-center">
+        <div className="d-flex align-items-center">
+          <img
+            src="General_Motors_(2021).svg.png"
+            alt="Logo"
+            style={{ height: 35, width: 35 }}
+          />
+          <span
+            className="ms-2 fw-semibold text-primary"
+            style={{ color: "#0d3b66" }}
+          >
+            GM | Ignite
+          </span>
+        </div>
+
+        <div className="d-flex align-items-center">
+          <button className="btn position-relative me-3">
+            <img src="sino.png" alt="sino" style={{ height: 20, width: 20 }} />
+          </button>
+
+          <div className="dropdown">
+            <button
+              className="btn d-flex align-items-center dropdown-toggle"
+              data-bs-toggle="dropdown"
             >
-              {" "}
-              <svg
-                className="bi me-2"
-                width={40}
-                height={32}
-                role="img"
-                aria-label="Bootstrap"
+              <div
+                className="rounded-circle d-flex justify-content-center align-items-center me-2"
+                style={{
+                  width: 35,
+                  height: 35,
+                  backgroundColor: "#0d3b66",
+                  color: "white"
+                }}
               >
-                <use xlinkHref="#bootstrap" />
-              </svg>{" "}
-            </a>{" "}
-            <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              {" "}
+                JS
+              </div>
+              João Silva
+            </button>
+
+            <ul className="dropdown-menu dropdown-menu-end">
               <li>
-                <a href="#" className="nav-link px-2 link-secondary">
-                  Overview
-                </a>
-              </li>{" "}
+                <h6 className="dropdown-header">Minha Conta</h6>
+              </li>
               <li>
-                <a href="#" className="nav-link px-2 link-body-emphasis">
-                  Inventory
-                </a>
-              </li>{" "}
+                <a className="dropdown-item" href="#">Perfil</a>
+              </li>
               <li>
-                <a href="#" className="nav-link px-2 link-body-emphasis">
-                  Customers
-                </a>
-              </li>{" "}
+                <a className="dropdown-item" href="#">Configurações</a>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
               <li>
-                <a href="#" className="nav-link px-2 link-body-emphasis">
-                  Products
-                </a>
-              </li>{" "}
-            </ul>{" "}
-            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-              {" "}
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Search..."
-                aria-label="Search"
-              />{" "}
-            </form>{" "}
-            <div className="dropdown text-end">
-              {" "}
-              <a
-                href="#"
-                className="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {" "}
-                <img
-                  src="https://github.com/mdo.png"
-                  alt="mdo"
-                  width={32}
-                  height={32}
-                  className="rounded-circle"
-                />{" "}
-              </a>{" "}
-              <ul className="dropdown-menu text-small" style={{}}>
-                {" "}
-                <li>
-                  <a className="dropdown-item" href="#">
-                    New project...
-                  </a>
-                </li>{" "}
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Settings
-                  </a>
-                </li>{" "}
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Profile
-                  </a>
-                </li>{" "}
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>{" "}
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Sign out
-                  </a>
-                </li>{" "}
-              </ul>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </header>
+                <h6 className="dropdown-header">Área Administrativa</h6>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
+              <li>
+                <a className="dropdown-item text-danger" href="#">Sair</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
     </>
   );
 }

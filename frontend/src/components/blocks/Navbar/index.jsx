@@ -4,6 +4,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <>
+    <div></div>
       <header className="p-3 mb-3 border-bottom">
         {" "}
         <div className="container">

@@ -1,7 +1,13 @@
-/* Layout geral */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* garante rolagem geral da página */
+}
+
 .pagina-usuario {
   display: flex;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 /* Sidebar */
@@ -37,16 +43,22 @@
 
 /* Conteúdo */
 .bemVindo {
-  padding: 30px 0 10px 0;
+  padding: 20px 0 10px 0;
+}
+
+.paginaPrincipal{
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 0px;
 }
 
 /* === CARDS === */
 .card-info {
-  border: 1px solid #e6e6e6;
+  border: 1px solid #dbd9d9;
   border-radius: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  height: 120px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,29 +72,41 @@
 /* Ícones */
 .icon {
   font-size: 1.8rem;
-  border-radius: 12px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 50px;
-  min-height: 50px;
+  margin: 0px;
+  padding: 0;
+}
+
+.posicaoIcon{
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.progresso{
+  margin-right: 30px;
 }
 
 /* Cores */
 .card-info.azul .icon {
+  padding: 15px;
+  border-radius: 10px;
   background-color: #eaf1ff;
   color: #004b9b;
 }
 .card-info.laranja .icon {
+  padding: 15px;
+  border-radius: 10px;
   background-color: #fff4e6;
   color: #f28b1a;
 }
 .card-info.verde .icon {
+  padding: 15px;
+  border-radius: 10px;
   background-color: #eafaf1;
   color: #1ea672;
 }
 .card-info.roxo .icon {
+  padding: 15px;
+  border-radius: 10px;
   background-color: #f5eaff;
   color: #8b3ef7;
 }
@@ -92,11 +116,145 @@
   color: #555;
   font-size: 0.95rem;
   margin: 0;
+   white-space: nowrap;
 }
 
 .valor {
   color: #002b6b;
   font-size: 1.6rem;
   font-weight: 600;
+  margin: auto;
+}
+
+.Cards {
+  max-width: 830px;
+  border: 1px solid #dbd9d9;
+  border-radius: 16px;
+  padding: 25px;
+  margin-top: 30px;
+  background: #fff;
+  margin-left: 30px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.Cards-estrutura {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.icone-trilha {
+  background-color: #0a2b6b;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.titulo-principal {
+  font-weight: 600;
   margin: 0;
+  color: #0a2b6b;
+}
+
+.subtitulo-trilha {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.progresso-container {
+  margin-top: 15px;
+}
+
+.progress {
+  height: 10px;
+  background-color: #e9ecef;
+  border-radius: 10px;
+  border: 1px solid #dbd9d9;
+}
+
+.progress-bar.azul-escuro {
+  background-color: #0a2b6b !important;
+}
+
+.porcentagemCurso {
+  font-weight: 500;
+  color: #0a2b6b;
+}
+
+.dados-trilha .label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.valor-trilha {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0a2b6b;
+}
+
+.proximo-curso {
+  color: #0a2b6b;
+  font-weight: 500;
+  margin: 0;
+}
+
+.btn-continuar {
+  background-color: #0a2b6b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.btn-continuar:hover {
+  background-color: #09235a;
+}
+
+.cursos{
+ max-width: 780px;
+ border: 1px solid #dbd9d9;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.primeiro-curso{
+  margin: 15px;
+}
+
+.icon-curso {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* espaço entre o ícone e o texto */
+  color: #0a2b6b; /* azul escuro */
+  font-size: 0.95rem;
+  margin: 10px;
+}
+
+.icon-curso i {
+  font-size: 1rem;
+}
+
+.subtopcio {
+  max-width: 100px;
+  border: 1px solid #dbd9d9;
+  border-radius: 10px;
+  padding: 3px;
+  margin: 0;
+  font-size:12px;
+  color: #0a2b6b;
+}
+
+.nivel{
+  padding: 3px;
+  margin: 0;
+  font-size:12px;
+  color: #0a2b6b;
 }

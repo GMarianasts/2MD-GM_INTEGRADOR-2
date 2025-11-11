@@ -31,81 +31,167 @@ export default function PaginaUsuario() {
         </aside>
 
         {/* Conteúdo principal */}
-        <main className="col px-4 py-4 conteudo">
-          <section className="bemVindo mb-4">
-            <p className="fs-5 fw-semibold">
-              Bem-vindo, <strong>(Nome)</strong>
-              <br />
-              <span className="text-muted">
-                Continue seu desenvolvimento profissional.
-              </span>
-            </p>
-          </section>
+        <section className="paginaPrincipal">
+          <main className="col px-4 py-4 conteudo">
+            <section className="bemVindo mb-4">
+              <p className="fs-5 fw-semibold">
+                Bem-vindo, <strong>(Nome)</strong>
+                <br />
+                <span className="text-muted">
+                  Continue seu desenvolvimento profissional.
+                </span>
+              </p>
+            </section>
 
-          {/* Cards dos tópicos */}
-          <div class="container my-4">
-            <div class="row justify-content-center g-4">
+            {/* Cards dos tópicos */}
+            <div className="container my-4">
+              <div className="row justify-content-center g-4">
 
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card card-info azul">
-                  <div class="card-body d-flex align-items-center">
-                    <div class="icon me-3">
-                      <i class="bi bi-book"></i>
+                <div className="col-12 col-sm-6 col-md-3 px-2">
+                  <div className="card card-info azul">
+                    <div className="card-body d-flex align-items-center">
+                      <div className="progresso">
+                        <p className="titulo mb-1">Cursos Concluídos</p>
+                        <p className="valor mb-0">24</p>
+                      </div>
+                      <div className="posicaoIcon">
+                        <div className="icon me-0">
+                          <i className="bi bi-book"></i>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p class="titulo mb-1">Cursos Concluídos</p>
-                      <p class="valor mb-0">24</p>
+                  </div>
+                </div>
+
+                <div className="col-12 col-sm-6 col-md-3 px-2">
+                  <div className="card card-info laranja">
+                    <div className="card-body d-flex align-items-center">
+                      <div className="progresso">
+                        <p className="titulo mb-1">Horas de Treinamento</p>
+                        <p className="valor mb-0">156h</p>
+                      </div>
+                      <div className="posicaoIcon">
+                        <div className="icon me-0">
+                          <i className="bi bi-clock"></i>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                </div>
+
+                <div className="col-12 col-sm-6 col-md-3 px-2">
+                  <div className="card card-info verde">
+                    <div className="card-body d-flex align-items-center">
+                      <div className="progresso">
+                        <p className="titulo mb-1">Badges Conquistados</p>
+                        <p className="valor mb-0">18</p>
+                      </div>
+                      <div className="posicaoIcon">
+                        <div className="icon me-0">
+                          <i className="bi bi-award"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-12 col-sm-6 col-md-3 px-2">
+                  <div className="card card-info roxo">
+                    <div className="card-body d-flex align-items-center">
+                      <div className="progresso">
+                        <p className="titulo mb-1">Progresso Geral</p>
+                        <p className="valor mb-0">78%</p>
+                      </div>
+                      <div className="posicaoIcon">
+                        <div className="icon mb-0">
+                          <i className="bi bi-graph-up"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </main>
+
+          <section className="direita">
+            <div className="Cards">
+              <div className="Cards-estrutura">
+                <div className="icone-trilha">
+                  <i className="bi bi-graph-up"></i>
+                </div>
+                <div>
+                  <p className="titulo-principal">Minha Trilha de Desenvolvimento</p>
+                  <p className="subtitulo-trilha">Liderança e Gestão de Pessoas</p>
+                </div>
+              </div>
+
+              <div className="progresso-container">
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <p className="m-0">Progresso</p>
+                  <p className="m-0 porcentagemCurso">65%</p>
+                </div>
+
+                <div className="progress" role="progressbar" aria-label="Progresso" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                  <div className="progress-bar azul-escuro" style={{ width: "65%" }}></div>
+                </div>
+              </div>
+
+              <div className="dados-trilha d-flex justify-content-between mt-3">
+                <div>
+                  <p className="label">Cursos Concluídos</p>
+                  <p className="valor-trilha">13/20</p>
+                </div>
+                <div>
+                  <p className="label">Próximo Curso</p>
+                  <p className="proximo-curso">Comunicação Assertiva para Líderes</p>
+                </div>
+              </div>
+
+              <button className="btn-continuar mt-4">
+                Continuar Trilha <i className="bi bi-arrow-right"></i>
+              </button>
+            </div>
+
+
+
+            <div className="Cards">
+              <div className="Cards-estrutura">
+                <div>
+                  <p className="titulo-principal">Cursos Recomendados</p>
+                  <p className="subtitulo-trilha">Com base no seu perfil e objetivos</p>
+                </div>
+              </div>
+
+              <div className="progresso-container">
+                <div className="cursos">
+                  <p className="primeiro-curso">Metodologias Ágeis na Prática</p>
+                  <div className="icon-curso d-flex align-items-center gap-2">
+                    <i className="bi bi-clock"></i>
+                    <p className="subtopcio mb-0">Agilidade</p>
+                    <p className="nivel mb-0">Intermediário</p>
+                  </div>
+                </div>
+
+                <div className="cursos">
+                  <p className="primeiro-curso">Metodologias Ágeis na Prática</p>
+                  <div className="icon-curso d-flex align-items-center gap-2">
+                    <i className="bi bi-clock"></i>
+                    <p className="subtopcio mb-0">Agilidade</p>
+                    <p className="nivel mb-0">Intermediário</p>
                   </div>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card card-info laranja">
-                  <div class="card-body d-flex align-items-center">
-                    <div class="icon me-3">
-                      <i class="bi bi-clock"></i>
-                    </div>
-                    <div>
-                      <p class="titulo mb-1">Horas de Treinamento</p>
-                      <p class="valor mb-0">156h</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card card-info verde">
-                  <div class="card-body d-flex align-items-center">
-                    <div class="icon me-3">
-                      <i class="bi bi-award"></i>
-                    </div>
-                    <div>
-                      <p class="titulo mb-1">Badges Conquistados</p>
-                      <p class="valor mb-0">18</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card card-info roxo">
-                  <div class="card-body d-flex align-items-center">
-                    <div class="icon me-3">
-                      <i class="bi bi-graph-up"></i>
-                    </div>
-                    <div>
-                      <p class="titulo mb-1">Progresso Geral</p>
-                      <p class="valor mb-0">78%</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
             </div>
-          </div>
-        </main>
-      </div>
-    </div>
+          </section>
+        </section>
+      </div >
+    </div >
+
+
+
   );
 }

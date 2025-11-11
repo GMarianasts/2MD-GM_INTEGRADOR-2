@@ -83,10 +83,6 @@ export default function Home() {
               </div>
             </form>
           </div>
-
-          <small className="login-copyright d-none d-lg-block">
-            &copy; 2025 General Motors. Todos os direitos reservados.
-          </small>
         </div>
       </div>
     </main>

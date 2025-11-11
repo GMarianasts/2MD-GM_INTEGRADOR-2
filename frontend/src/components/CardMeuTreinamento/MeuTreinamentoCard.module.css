@@ -1,0 +1,22 @@
+.cardContainer {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.cardContainer:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.cardImagenpm  {
+    object-fit: cover;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.concluidoBadge {
+    background-color: var(--bs-success); 
+    color: white;
+    font-weight: bold;
+}

@@ -1,0 +1,229 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+/* Layout geral */
+.pagina-perfil {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: #fff;
+    border-right: 1px solid #e6e6e6;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: sticky;
+    top: 0;
+}
+
+/* Menu */
+.menu li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.menu li:hover {
+    background-color: #e9efff;
+    color: #0a2b6b;
+}
+
+.menu li.ativo {
+    background-color: #0a2b6b;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Card Informações Pessoais */
+.perfil-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 100%
+}
+
+.perfil-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.perfil-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.btn-acao {
+    background-color: #0a2b6b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.info-perfil {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #0a2b6b;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.texto-perfil {
+    display: flex;
+    flex-direction: column;
+}
+
+.nome-completo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.cargo {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: #0a2b6b;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.info-detalhes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 40px;
+    margin-bottom: 30px;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-grupo label,
+.info-sobre label {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.campo-grupo input,
+.info-sobre textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.campo-grupo input:read-only,
+.info-sobre textarea:read-only {
+    background-color: #f0f0f0;
+    border-color: #e0e0e0;
+}
+
+.info-sobre textarea {
+    resize: vertical;
+    width: 100%;
+}
+
+/* Card Conquistas */
+.conquista-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 100%;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+h4{
+    font-size: 16px;
+}
+
+p{
+    font-size: 14px;
+}
+
+.card-conquista {
+    display: flex;
+}
+
+.card-conquista .icon {
+    color: #fff;
+    background-color: #0a2b6b;
+}
+
+.icon {
+    font-size: 1.8rem;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.conteudo-conquista{
+    flex-direction: column;
+}
+
+/* Card Informações Pessoais */
+.infoProfissionais-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 100%;
+}
+
+.alinha{
+    display: flex;
+    gap: 30%;
+}

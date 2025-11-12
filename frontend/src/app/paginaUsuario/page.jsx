@@ -30,9 +30,7 @@ export default function PaginaUsuario() {
           </ul>
         </aside>
 
-        {/* Área principal: aqui criamos uma coluna larga (9 cols) que conterá duas colunas internas */}
         <main className="col-12 col-md-9 px-4 py-4">
-          {/* Cabeçalho de boas-vindas e cards resumidos */}
           <section className="bemVindo mb-4">
             <p className="fs-5 fw-semibold">
               Bem-vindo, <strong>(Nome)</strong>
@@ -43,7 +41,6 @@ export default function PaginaUsuario() {
 
           <div className="container-fluid my-2">
             <div className="row g-3">
-              {/* cartões pequenos (4 itens) - mantive sua grid original */}
               <div className="col-12">
                 <div className="row justify-content-start g-3">
                   <div className="col-6 col-sm-6 col-md-3 px-2">
@@ -110,13 +107,12 @@ export default function PaginaUsuario() {
                     </div>
                   </div>
                 </div>
-              </div> {/* fim cartões resumidos */}
+              </div>
             </div>
           </div>
 
-          {/* ===== Aqui vem a divisão fixa em duas colunas: esquerda (8) e direita (4) ===== */}
           <div className="row g-4 mt-2">
-            {/* Coluna esquerda (maior) */}
+      
             <div className="col-12 col-lg-8 coluna-esquerda">
               {/* Minha Trilha */}
               <div className="Cards">
@@ -211,7 +207,7 @@ export default function PaginaUsuario() {
               </div>
             </div>
 
-            {/* Coluna direita (menor) */}
+        
             <aside className="col-12 col-lg-4 coluna-direita">
               <div className="Cards">
                 <p className="titulo-principal mb-3">

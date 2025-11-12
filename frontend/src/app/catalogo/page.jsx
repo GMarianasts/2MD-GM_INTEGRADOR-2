@@ -7,7 +7,6 @@ export default function Page() {
   return (
     <div className="container-fluid pagina-usuario">
       <div className="row flex-nowrap">
-        {/* Sidebar */}
         <aside className="d-none d-md-block col-md-3 col-lg-2 sidebar p-3">
           <ul className="list-unstyled menu">
             <li className="mb-3 d-flex align-items-center gap-2">

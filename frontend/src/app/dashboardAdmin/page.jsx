@@ -3,8 +3,30 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./dashboardAdmin.css";
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+    PieChart, Pie, Cell
+} from "recharts";
 
 export default function DashboardAdmin() {
+
+    const dadosTendencia = [
+        { mes: "Jan", inscricoes: 70, conclusoes: 68 },
+        { mes: "Fev", inscricoes: 75, conclusoes: 72 },
+        { mes: "Mar", inscricoes: 90, conclusoes: 85 },
+        { mes: "Abr", inscricoes: 110, conclusoes: 100 },
+        { mes: "Mai", inscricoes: 125, conclusoes: 115 },
+        { mes: "Jun", inscricoes: 140, conclusoes: 125 },
+    ];
+
+    const dadosCategorias = [
+        { name: "Segurança", value: 30, color: "#1E56A0" },
+        { name: "Técnico", value: 27, color: "#00B894" },
+        { name: "Liderança", value: 17, color: "#A29BFE" },
+        { name: "Compliance", value: 14, color: "#F0932B" },
+        { name: "Qualidade", value: 11, color: "#E74C3C" },
+    ];
+
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row g-0">
@@ -33,34 +55,33 @@ export default function DashboardAdmin() {
                 <main className="col-12 col-md-9 px-4 py-4">
                     <section className="introducao mb-4">
                         <div className="trocaPagina">
-                        <ul className="nav nav-pills nav-fill">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Dashboard</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Treinamentos</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Inscrições</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link " aria-disabled="true">Presença</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link " aria-disabled="true">Certificados</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link " aria-disabled="true">Histórico</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link " aria-disabled="true">Relatórios</a>
-                            </li>
-                        </ul>
+                            <ul className="nav nav-pills nav-fill">
+                                <li className="nav-item">
+                                    <a className="nav-link active" aria-current="page" href="#">Dashboard</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Inscrições</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link " aria-disabled="true">Presença</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link " aria-disabled="true">Certificados</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link " aria-disabled="true">Histórico</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link " aria-disabled="true">Relatórios</a>
+                                </li>
+                            </ul>
                         </div>
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        <div className="input-group search-bar">
+                            <span className="input-group-text bg-white border-end-0">
+                                <i className="bi bi-search"></i>
+                            </span>
+                            <input type="text" className="form-control border-start-0" placeholder="Buscar..." />
+                        </div>
                     </section>
 
                     <div className="container-fluid my-2">
@@ -92,7 +113,7 @@ export default function DashboardAdmin() {
                                                 </div>
                                                 <div className="posicaoIcon">
                                                     <div className="icon me-0">
-                                                        <i class="bi bi-people"></i>
+                                                        <i className="bi bi-people"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -108,7 +129,7 @@ export default function DashboardAdmin() {
                                                 </div>
                                                 <div className="posicaoIcon">
                                                     <div className="icon me-0">
-                                                        <i class="bi bi-award"></i>
+                                                        <i className="bi bi-award"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,7 +145,7 @@ export default function DashboardAdmin() {
                                                 </div>
                                                 <div className="posicaoIcon">
                                                     <div className="icon mb-0">
-                                                        <i class="bi bi-graph-up-arrow"></i>
+                                                        <i className="bi bi-graph-up-arrow"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,153 +156,65 @@ export default function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="row g-4 mt-2">
-
-                        <div className="col-12 col-lg-8 coluna-esquerda">
-                            {/* Minha Trilha */}
-                            <div className="Cards">
-                                <div className="Cards-estrutura">
-                                    <div className="icone-trilha">
-                                        <i className="bi bi-graph-up"></i>
-                                    </div>
-                                    <div>
-                                        <p className="titulo-principal">Minha Trilha de Desenvolvimento</p>
-                                        <p className="subtitulo-trilha">Liderança e Gestão de Pessoas</p>
-                                    </div>
+                    <div className="d-flex flex-wrap justify-content-between align-items-stretch gap-3 mt-3">
+                        {/* Gráfico de Tendência Mensal */}
+                        <div className="card shadow-sm border-0 p-3 flex-grow-1" style={{ flexBasis: "60%", minWidth: "400px" }}>
+                            <div className="d-flex align-items-center mb-2">
+                                <div className="icon bg-primary text-white rounded-3 p-2 me-2">
+                                    <i className="bi bi-graph-up"></i>
                                 </div>
-
-                                <div className="progresso-container">
-                                    <div className="d-flex justify-content-between align-items-center mb-1">
-                                        <p className="m-0">Progresso</p>
-                                        <p className="m-0 porcentagemCurso">65%</p>
-                                    </div>
-
-                                    <div className="progress" role="progressbar" aria-label="Progresso" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
-                                        <div className="progress-bar azul-escuro" style={{ width: "65%" }}></div>
-                                    </div>
+                                <div>
+                                    <h6 className="fw-bold mb-0">Tendência Mensal</h6>
+                                    <small className="text-muted">Inscrições vs Conclusões</small>
                                 </div>
-
-                                <div className="dados-trilha d-flex justify-content-between mt-3">
-                                    <div>
-                                        <p className="label">Cursos Concluídos</p>
-                                        <p className="valor-trilha">13/20</p>
-                                    </div>
-                                    <div>
-                                        <p className="label">Próximo Curso</p>
-                                        <p className="proximo-curso">Comunicação Assertiva para Líderes</p>
-                                    </div>
-                                </div>
-
-                                <button className="btn-continuar mt-4">
-                                    Continuar Trilha <i className="bi bi-arrow-right"></i>
-                                </button>
                             </div>
 
-                            {/* Cursos Recomendados */}
-                            <div className="Cards">
-                                <div className="Cards-estrutura">
-                                    <div>
-                                        <p className="titulo-principal">Cursos Recomendados</p>
-                                        <p className="subtitulo-trilha">Com base no seu perfil e objetivos</p>
-                                    </div>
-                                </div>
-
-                                <div className="lista-cursos">
-                                    <div className="curso-item">
-                                        <div className="curso-info">
-                                            <p className="nome-curso">Metodologias Ágeis na Prática</p>
-                                            <div className="detalhes-curso">
-                                                <i className="bi bi-clock"></i>
-                                                <span className="duracao">12h</span>
-                                                <span className="categoria">Agilidade</span>
-                                                <span className="nivel">Intermediário</span>
-                                            </div>
-                                        </div>
-                                        <button className="btn-verDetalhes">Ver Detalhes</button>
-                                    </div>
-
-                                    <div className="curso-item">
-                                        <div className="curso-info">
-                                            <p className="nome-curso">Análise de Dados com Power BI</p>
-                                            <div className="detalhes-curso">
-                                                <i className="bi bi-clock"></i>
-                                                <span className="duracao">16h</span>
-                                                <span className="categoria">Análise de Dados</span>
-                                                <span className="nivel">Básico</span>
-                                            </div>
-                                        </div>
-                                        <button className="btn-verDetalhes">Ver Detalhes</button>
-                                    </div>
-
-                                    <div className="curso-item">
-                                        <div className="curso-info">
-                                            <p className="nome-curso">Inovação e Design Thinking</p>
-                                            <div className="detalhes-curso">
-                                                <i className="bi bi-clock"></i>
-                                                <span className="duracao">8h</span>
-                                                <span className="categoria">Inovação</span>
-                                                <span className="nivel">Intermediário</span>
-                                            </div>
-                                        </div>
-                                        <button className="btn-verDetalhes">Ver Detalhes</button>
-                                    </div>
-                                </div>
-
-                                <button className="btn-todos-cursos">Ver Todos os Cursos</button>
-                            </div>
+                            <ResponsiveContainer width="100%" height={220}>
+                                <LineChart data={dadosTendencia} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <XAxis dataKey="mes" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line type="monotone" dataKey="inscricoes" stroke="#1E56A0" strokeWidth={2} dot={{ r: 5 }} />
+                                    <Line type="monotone" dataKey="conclusoes" stroke="#00B894" strokeWidth={2} dot={{ r: 5 }} />
+                                </LineChart>
+                            </ResponsiveContainer>
                         </div>
 
-
-                        <aside className="col-12 col-lg-4 coluna-direita">
-                            <div className="Cards">
-                                <p className="titulo-principal mb-3">
-                                    <i className="bi bi-calendar-event me-2"></i> Próximos Treinamentos
-                                </p>
-
-                                <div className="treinamento mb-3">
-                                    <p className="titulo-treinamento">Workshop: Cultura de Segurança</p>
-                                    <p className="detalhe-treinamento">
-                                        <i className="bi bi-calendar"></i> 15/11/2025 às 14:00
-                                    </p>
-                                    <p className="detalhe-treinamento">
-                                        <i className="bi bi-geo-alt"></i> Presencial - Sala 301
-                                    </p>
-                                    <span className="status confirmado">Confirmado</span>
+                        {/* Gráfico de Treinamentos por Categoria */}
+                        <div className="card shadow-sm border-0 p-3 flex-grow-1" style={{ flexBasis: "38%", minWidth: "300px" }}>
+                            <div className="d-flex align-items-center mb-2">
+                                <div className="icon bg-primary text-white rounded-3 p-2 me-2">
+                                    <i className="bi bi-pie-chart"></i>
                                 </div>
-
-                                <div className="treinamento">
-                                    <p className="titulo-treinamento">Webinar: Tendências Automotivas 2026</p>
-                                    <p className="detalhe-treinamento">
-                                        <i className="bi bi-calendar"></i> 20/11/2025 às 10:00
-                                    </p>
-                                    <p className="detalhe-treinamento">
-                                        <i className="bi bi-laptop"></i> Online - Teams
-                                    </p>
-                                    <span className="status aguardando">Aguardando Confirmação</span>
+                                <div>
+                                    <h6 className="fw-bold mb-0">Treinamentos por Categoria</h6>
+                                    <small className="text-muted">Distribuição de participantes</small>
                                 </div>
                             </div>
 
-                            <div className="Cards">
-                                <p className="titulo-principal mb-3">
-                                    <i className="bi bi-award me-2"></i> Conquistas Recentes
-                                </p>
-
-                                <div className="conquista">
-                                    <i className="bi bi-trophy-fill icone-conquista ouro"></i>
-                                    <span>Líder Inspirador</span>
-                                </div>
-                                <div className="conquista">
-                                    <i className="bi bi-star icone-conquista azul"></i>
-                                    <span>Aluno Dedicado</span>
-                                </div>
-                                <div className="conquista">
-                                    <i className="bi bi-bullseye icone-conquista verde"></i>
-                                    <span>Meta Alcançada</span>
-                                </div>
-
-                                <button className="btn-todas-conquistas mt-3">Ver Todas</button>
-                            </div>
-                        </aside>
+                            <ResponsiveContainer width="100%" height={280}>
+                                <PieChart>
+                                    <Pie
+                                        data={dadosCategorias}
+                                        dataKey="value"
+                                        nameKey="name"
+                                        cx="50%"
+                                        cy="50%"
+                                        outerRadius={90}
+                                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                    >
+                                        {dadosCategorias.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.color} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip
+                                        formatter={(value, name, props) => [`${value}`, `${props.payload.name}`]}
+                                    />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
                     </div>
                 </main>
             </div>

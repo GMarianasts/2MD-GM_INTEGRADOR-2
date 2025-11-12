@@ -3,6 +3,14 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./paginaPerfil.css";
 
+const dadosCompetencias = [
+    { nome: "Liderança", atual: 65, meta: 85 },
+    { nome: "Análise de Dados", atual: 75, meta: 90 },
+    { nome: "Agilidade", atual: 55, meta: 80 },
+    { nome: "Inovação", atual: 60, meta: 75 },
+    { nome: "Tecnologia", atual: 70, meta: 95 },
+];
+
 export default function PaginaUsuario() {
     return (
         <div className="container-fluid pagina-perfil">
@@ -32,7 +40,7 @@ export default function PaginaUsuario() {
                 {/* Conteúdo principal */}
                 <main className="flex-grow-1 px-4 py-4">
                     <div className="row">
-                        <div className="col">
+                        <div className="col mb-3">
                             <h1>Meu Perfil</h1>
                             <p>Gerencie suas informações pessoais e profissionais</p>
                         </div>
@@ -100,23 +108,23 @@ export default function PaginaUsuario() {
                                 </section>
                             </div>
 
-                            <div className="infoProfissionais-container mt-5">
+                            <div className="infoProfissionais-container mt-3">
                                 <div className="alinha">
-                                    <div className="card-conquista">
+                                    <div className="card-infoProfissional">
                                         <div className="icon me-3">
                                             <i className="bi bi-buildings"></i>
                                         </div>
-                                        <div className="conteudo-conquista">
+                                        <div className="conteudo-infoProfissional">
                                             <h4>Departamento</h4>
                                             <p>Engenharia</p>
                                         </div>
                                     </div>
 
-                                    <div className="card-conquista">
+                                    <div className="card-infoProfissional">
                                         <div className="icon me-3">
                                             <i className="bi bi-suitcase-lg"></i>
                                         </div>
-                                        <div className="conteudo-conquista">
+                                        <div className="conteudo-infoProfissional">
                                             <h4>Cargo</h4>
                                             <p>Engenheiro Sênior</p>
                                         </div>
@@ -124,25 +132,59 @@ export default function PaginaUsuario() {
                                 </div>
 
                                 <div className="alinha">
-                                    <div className="card-conquista">
+                                    <div className="card-infoProfissional">
                                         <div className="icon me-3">
                                             <i className="bi bi-geo-alt"></i>
                                         </div>
-                                        <div className="conteudo-conquista">
+                                        <div className="conteudo-infoProfissional">
                                             <h4>Unidade</h4>
                                             <p>São Caetano do Sul</p>
                                         </div>
                                     </div>
 
-                                    <div className="card-conquista">
+                                    <div className="card-infoProfissional">
                                         <div className="icon me-3">
                                             <i className="bi bi-person"></i>
                                         </div>
-                                        <div className="conteudo-conquista">
+                                        <div className="conteudo-infoProfissional">
                                             <h4>Data de Admissão</h4>
                                             <p>15/03/2020</p>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div className="competencias-container mt-3">
+                                <header className="competencias-header">
+                                    <h2>Mapa de Competências</h2>
+                                    <p>Acompanhe seu desenvolvimento em relação às metas</p>
+                                </header>
+
+                                <div className="competencias-list">
+                                    {dadosCompetencias.map((item) => (
+                                        <div key={item.nome} className="competencia-item">
+                                            <span className="competencia-nome">{item.nome}</span>
+
+                                            <div className="competencia-valores">
+                                                <span className="valor-atual">Atual: {item.atual}%</span>
+                                                <span className="valor-meta">Meta: {item.meta}%</span>
+                                            </div>
+
+                                            <div className="barra-progresso">
+                                                {/* Barra de Progresso Laranja (Atual) */}
+                                                <div
+                                                    className="barra-atual"
+                                                    style={{ width: `${item.atual}%` }}
+                                                ></div>
+
+                                                {/* Marcador da Meta (Linha Vertical) */}
+                                                <div
+                                                    className="barra-meta-marcador"
+                                                    style={{ left: `${item.meta}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -184,8 +226,44 @@ export default function PaginaUsuario() {
                                 </div>
                             </div>
 
-                            <div className="estatistica-container">
-                                
+                            <div className="estatistica-container mt-3">
+                                <h2>Estatísticas</h2>
+                                <div className="card-estatistica">
+                                    <div className="info-estatistica">
+                                        <h3>24</h3>
+                                        <p>Cursos Concluídos</p>
+                                    </div>
+                                    <hr className="separator" />
+                                    <div className="info-estatistica">
+                                        <h3>156h</h3>
+                                        <p>Horas de Treinamento</p>
+                                    </div>
+                                    <hr className="separator" />
+                                    <div className="info-estatistica">
+                                        <h3>18</h3>
+                                        <p>Badges Conquistados</p>
+                                    </div>
+                                    <hr className="separator" />
+                                    <div className="info-estatistica">
+                                        <h3>87%</h3>
+                                        <p>Taxa de Conclusão</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="preferencias-container mt-3">
+                                <h2>Preferências</h2>
+                                <div className="card-preferencias">
+                                    <button className="botao-preferencias">
+                                        <i className="bi bi-envelope"></i> Notificações
+                                    </button>
+                                    <button className="botao-preferencias">
+                                        <i className="bi bi-person"></i> Privacidade
+                                    </button>
+                                    <button className="botao-preferencias vermelho">
+                                        <i className="bi bi-key"></i> Alterar senha
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

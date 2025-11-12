@@ -1,16 +1,30 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
+/*CONFIGURAÇÃO GERAL DA TELA*/
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
 }
 
-/* Layout geral */
+h2 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+p {
+    font-size: 14px;
+}
+
+/* LAYOUT GERAL */
 .pagina-perfil {
     display: flex;
 }
 
-/* Sidebar */
+/* SIDEBAR */
 .sidebar {
     width: 260px;
     background-color: #fff;
@@ -23,7 +37,7 @@ html, body {
     top: 0;
 }
 
-/* Menu */
+/* Menu do Sidebar*/
 .menu li {
     display: flex;
     align-items: center;
@@ -45,8 +59,12 @@ html, body {
     font-weight: 500;
 }
 
-/* Card Informações Pessoais */
-.perfil-container {
+/*LAYOUT GERAL DOS CONTAINERS*/
+.perfil-container,
+.conquista-container,
+.infoProfissionais-container,
+.estatistica-container,
+.preferencias-container {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -54,6 +72,7 @@ html, body {
     width: 100%
 }
 
+/* CARD INFORMAÇÕES PESSOAIS */
 .perfil-header {
     display: flex;
     justify-content: space-between;
@@ -169,32 +188,14 @@ html, body {
     width: 100%;
 }
 
-/* Card Conquistas */
-.conquista-container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 24px;
-    width: 100%;
-}
-
-h2 {
-    font-size: 18px;
-}
-
-h4{
-    font-size: 16px;
-}
-
-p{
-    font-size: 14px;
-}
-
-.card-conquista {
+/* CARD CONQUISTAS E INFORMAÇÕES PROFISSIONAIS */
+.card-conquista,
+.card-infoProfissional {
     display: flex;
 }
 
-.card-conquista .icon {
+.card-conquista .icon,
+.card-infoProfissional .icon {
     color: #fff;
     background-color: #0a2b6b;
 }
@@ -210,20 +211,148 @@ p{
     height: 50px;
 }
 
-.conteudo-conquista{
+.conteudo-conquista,
+.conteudo-infoProfissional {
     flex-direction: column;
 }
 
-/* Card Informações Pessoais */
-.infoProfissionais-container {
+.alinha {
+    display: flex;
+    gap: 30%;
+}
+
+/* CARD ESTATÍSTICAS */
+.card-estatistica,
+.info-estatistica {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+/* CARD PREFERÊNCIAS */
+.botao-preferencias{
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgb(182, 182, 182);
+}
+
+.card-preferencias{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.vermelho{
+    color: red;
+}
+
+/* CARD MAPA DE COMPETÊNCIAS */
+.competencias-container {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 24px;
-    width: 100%;
+    width: 100%; 
+    font-family: Arial, sans-serif;
 }
 
-.alinha{
+/* Cabeçalho */
+.competencias-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.competencias-header p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* Item de Competência */
+.competencia-item {
+    margin-bottom: 20px;
+}
+
+.competencia-nome {
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Valores (Atual e Meta) */
+.competencia-valores {
     display: flex;
-    gap: 30%;
+    justify-content: flex-end; 
+    gap: 15px; 
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.valor-atual {
+    font-weight: 700;
+    color: #333;
+}
+
+.valor-meta {
+    font-weight: 400;
+    color: #666;
+}
+
+/* Barras de Progresso */
+.barra-progresso {
+    background-color: #e0e0e0;
+    height: 12px;
+    border-radius: 6px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Barra Laranja (Progresso Atual) */
+.barra-atual {
+    background-color: #ff9933; 
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Marcador da Meta (Linha Vertical) */
+.barra-meta-marcador {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 2px; 
+    background-color: #333; 
+    transform: translateX(-50%); 
+    z-index: 10;
+}
+
+@media (max-width: 600px) {
+    .competencias-container {
+        padding: 15px;
+    }
+
+    .competencias-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .competencias-header p {
+        font-size: 0.8rem;
+    }
+
+    .competencia-valores {
+        font-size: 0.75rem;
+        gap: 10px;
+    }
+    
+    .barra-progresso {
+        height: 10px; 
+    }
 }

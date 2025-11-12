@@ -275,23 +275,23 @@ p {
 }
 
 .icon-azul {
-    background-color: #e9efff; /* Fundo azul claro */
-    color: #0a2b6b; /* Ícone azul escuro */
+    background-color: #e9efff; 
+    color: #0a2b6b;
 }
 
 .icon-laranja {
-    background-color: #fff0e0; /* Fundo laranja claro */
-    color: #ff9933; /* Ícone laranja escuro */
+    background-color: #fff0e0; 
+    color: #ff9933; 
 }
 
 .icon-verde {
-    background-color: #e6fae6; /* Fundo verde claro */
-    color: #3cb44e; /* Ícone verde escuro */
+    background-color: #e6fae6; 
+    color: #3cb44e; 
 }
 
 .icon-roxo {
-    background-color: #f5f0ff; /* Fundo roxo claro */
-    color: #9966ff; /* Ícone roxo/lavanda escuro */
+    background-color: #f5f0ff; 
+    color: #9966ff;
 }
 
 /* CARD ESTATÍSTICAS */

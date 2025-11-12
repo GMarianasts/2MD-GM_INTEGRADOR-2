@@ -2,6 +2,7 @@
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./paginaPerfil.css";
+import Link from "next/link";
 
 const dadosCompetencias = [
     { nome: "Liderança", atual: 65, meta: 85 },
@@ -111,8 +112,10 @@ export default function PaginaPerfil() {
                             </div>
 
                             <div className="infoProfissionais-container mt-3">
+                                <h2>Informações Profissionais</h2>
+
                                 <div className="card-infoProfissional">
-                                    <div className="icon me-3">
+                                    <div className="icon icon-azul me-3">
                                         <i className="bi bi-buildings"></i>
                                     </div>
                                     <div className="conteudo-infoProfissional">
@@ -122,7 +125,7 @@ export default function PaginaPerfil() {
                                 </div>
 
                                 <div className="card-infoProfissional">
-                                    <div className="icon me-3">
+                                    <div className="icon icon-laranja me-3">
                                         <i className="bi bi-suitcase-lg"></i>
                                     </div>
                                     <div className="conteudo-infoProfissional">
@@ -132,7 +135,7 @@ export default function PaginaPerfil() {
                                 </div>
 
                                 <div className="card-infoProfissional">
-                                    <div className="icon me-3">
+                                    <div className="icon icon-verde me-3">
                                         <i className="bi bi-geo-alt"></i>
                                     </div>
                                     <div className="conteudo-infoProfissional">
@@ -142,7 +145,7 @@ export default function PaginaPerfil() {
                                 </div>
 
                                 <div className="card-infoProfissional">
-                                    <div className="icon me-3">
+                                    <div className="icon icon-roxo me-3">
                                         <i className="bi bi-person"></i>
                                     </div>
                                     <div className="conteudo-infoProfissional">
@@ -191,7 +194,7 @@ export default function PaginaPerfil() {
                             <div className="conquista-container">
                                 <h2>Conquistas Recentes</h2>
                                 <div className="card-conquista mt-4">
-                                    <div className="icon me-3">
+                                    <div className="icon icon-azulescuro me-3">
                                         <i className="bi bi-award"></i>
                                     </div>
                                     <div className="conteudo-conquista">
@@ -202,7 +205,7 @@ export default function PaginaPerfil() {
                                 </div>
 
                                 <div className="card-conquista">
-                                    <div className="icon me-3">
+                                    <div className="icon icon-azulescuro me-3">
                                         <i className="bi bi-reception-4"></i>
                                     </div>
                                     <div className="conteudo-conquista">
@@ -213,7 +216,7 @@ export default function PaginaPerfil() {
                                 </div>
 
                                 <div className="card-conquista">
-                                    <div className="icon me-3">
+                                    <div className="icon icon-azulescuro me-3">
                                         <i className="bi bi-graph-up-arrow"></i>
                                     </div>
                                     <div className="conteudo-conquista">

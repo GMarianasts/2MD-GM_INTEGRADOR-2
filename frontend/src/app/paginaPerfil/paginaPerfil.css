@@ -140,17 +140,6 @@ p {
     margin-bottom: 5px;
 }
 
-.btn-link {
-    background: none;
-    border: none;
-    color: #0a2b6b;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-    text-align: left;
-    font-size: 0.9rem;
-}
-
 .info-detalhes {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -192,80 +181,7 @@ p {
     width: 100%;
 }
 
-/* CARD CONQUISTAS E INFORMAÇÕES PROFISSIONAIS */
-.card-conquista,
-.card-infoProfissional {
-    display: flex;
-}
-
-.card-conquista .icon,
-.card-infoProfissional .icon {
-    color: #fff;
-    background-color: #0a2b6b;
-}
-
-.icon {
-    font-size: 1.8rem;
-    border-radius: 12px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-}
-
-.conteudo-conquista,
-.conteudo-infoProfissional {
-    flex-direction: column;
-}
-
-.alinha {
-    display: flex;
-    gap: 30%;
-}
-
-.infoProfissionais-container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 24px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.card-infoProfissional {
-    display: flex;
-    align-items: center;
-}
-
-.card-infoProfissional .icon {
-    color: #fff;
-    background-color: #0a2b6b;
-}
-
-.conteudo-infoProfissional {
-    display: flex;
-    flex-direction: column;
-}
-
-.conteudo-infoProfissional h4 {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #666;
-    margin-bottom: 2px;
-}
-
-.conteudo-infoProfissional p {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #333;
-    margin: 0;
-}
-
-/*CARD CONQUISTA*/
+/* CARD CONQUISTAS*/
 .conteudo-conquista h4 {
     font-size: 16px;
     font-weight: 500;
@@ -292,6 +208,92 @@ p {
     font-size: 13px;
 }
 
+.card-conquista{
+    display: flex;
+}
+
+.card-conquista .icon-azulescuro{
+    color: #fff;
+    background-color: #0a2b6b;
+}
+
+.icon {
+    font-size: 1.8rem;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.conteudo-conquista {
+    flex-direction: column;
+}
+
+/*CARD INFORMAÇÕES PROFISSIONAIS */
+.infoProfissionais-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card-infoProfissional {
+    display: flex;
+    align-items: center;
+}
+
+.conteudo-infoProfissional {
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudo-infoProfissional h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.conteudo-infoProfissional p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #333;
+    margin: 0;
+}
+
+.infoProfissionais-container h2 {
+    grid-column: 1 / -1; 
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.icon-azul {
+    background-color: #e9efff; /* Fundo azul claro */
+    color: #0a2b6b; /* Ícone azul escuro */
+}
+
+.icon-laranja {
+    background-color: #fff0e0; /* Fundo laranja claro */
+    color: #ff9933; /* Ícone laranja escuro */
+}
+
+.icon-verde {
+    background-color: #e6fae6; /* Fundo verde claro */
+    color: #3cb44e; /* Ícone verde escuro */
+}
+
+.icon-roxo {
+    background-color: #f5f0ff; /* Fundo roxo claro */
+    color: #9966ff; /* Ícone roxo/lavanda escuro */
+}
+
 /* CARD ESTATÍSTICAS */
 .card-estatistica,
 .info-estatistica {
@@ -300,7 +302,6 @@ p {
     justify-content: center;
     display: flex;
 }
-
 
 .estatistica-container {
     background-color: #ffffff;
@@ -375,7 +376,7 @@ p {
 .botao-conquista-ver:hover,
 .botao-perfil-foto:hover,
 .botao-preferencias:hover {
-    background-color: #ececec;
+    background-color: #f3f3f3;
 }
 
 .card-preferencias {

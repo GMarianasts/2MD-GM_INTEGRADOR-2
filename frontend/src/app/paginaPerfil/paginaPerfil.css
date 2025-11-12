@@ -7,6 +7,11 @@ body {
     overflow-y: auto;
 }
 
+h1 {
+    font-size: 26px;
+    color: #000082;
+}
+
 h2 {
     font-size: 18px;
 }
@@ -16,7 +21,7 @@ h4 {
 }
 
 p {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 /* LAYOUT GERAL */
@@ -81,7 +86,6 @@ p {
 }
 
 .perfil-header h2 {
-    font-size: 1.5rem;
     color: #333;
     font-weight: 500;
 }
@@ -221,6 +225,73 @@ p {
     gap: 30%;
 }
 
+.infoProfissionais-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card-infoProfissional {
+    display: flex;
+    align-items: center;
+}
+
+.card-infoProfissional .icon {
+    color: #fff;
+    background-color: #0a2b6b;
+}
+
+.conteudo-infoProfissional {
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudo-infoProfissional h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.conteudo-infoProfissional p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #333;
+    margin: 0;
+}
+
+/*CARD CONQUISTA*/
+.conteudo-conquista h4 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 2px;
+    line-height: 1.3;
+}
+
+.conteudo-conquista p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.conquista-container .card-conquista {
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.conteudo-conquista p:last-child {
+    margin-top: 2px;
+    font-size: 13px;
+}
+
 /* CARD ESTATÍSTICAS */
 .card-estatistica,
 .info-estatistica {
@@ -230,20 +301,90 @@ p {
     display: flex;
 }
 
+
+.estatistica-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 100%;
+}
+
+.info-estatistica {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+    width: 100%;
+}
+
+.info-estatistica h3 {
+    color: #333;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.info-estatistica p {
+    color: #666;
+    margin: 0;
+    text-align: center;
+}
+
+/* Estilo do Divisor */
+.estatistica-container .separator {
+    border: 0;
+    height: 1px;
+    background-color: #4e4e4e;
+    width: 90%;
+    margin: 0 auto;
+}
+
 /* CARD PREFERÊNCIAS */
-.botao-preferencias{
+
+.botao-preferencias {
     background-color: #fff;
     border-radius: 10px;
     border: 1px solid rgb(182, 182, 182);
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.card-preferencias{
+.botao-conquista-ver {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgb(182, 182, 182);
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    padding: 0.4rem;
+}
+
+.botao-perfil-foto {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgb(182, 182, 182);
+    color: #0a2b6b;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.botao-conquista-ver:hover,
+.botao-perfil-foto:hover,
+.botao-preferencias:hover {
+    background-color: #ececec;
+}
+
+.card-preferencias {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.vermelho{
+.vermelho {
     color: red;
 }
 
@@ -253,14 +394,12 @@ p {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 24px;
-    width: 100%; 
+    width: 100%;
     font-family: Arial, sans-serif;
 }
 
 /* Cabeçalho */
 .competencias-header h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
     color: #333;
     margin-bottom: 4px;
 }
@@ -280,14 +419,14 @@ p {
     font-weight: 500;
     color: #333;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: -20px;
 }
 
 /* Valores (Atual e Meta) */
 .competencia-valores {
     display: flex;
-    justify-content: flex-end; 
-    gap: 15px; 
+    justify-content: flex-end;
+    gap: 15px;
     font-size: 0.85rem;
     margin-bottom: 5px;
 }
@@ -314,7 +453,7 @@ p {
 
 /* Barra Laranja (Progresso Atual) */
 .barra-atual {
-    background-color: #ff9933; 
+    background-color: #ff9933;
     height: 100%;
     border-radius: 6px;
     transition: width 0.5s ease-in-out;
@@ -328,9 +467,9 @@ p {
     position: absolute;
     top: 0;
     height: 100%;
-    width: 2px; 
-    background-color: #333; 
-    transform: translateX(-50%); 
+    width: 2px;
+    background-color: #333;
+    transform: translateX(-50%);
     z-index: 10;
 }
 
@@ -351,8 +490,8 @@ p {
         font-size: 0.75rem;
         gap: 10px;
     }
-    
+
     .barra-progresso {
-        height: 10px; 
+        height: 10px;
     }
 }

@@ -11,7 +11,7 @@ const dadosCompetencias = [
     { nome: "Tecnologia", atual: 70, meta: 95 },
 ];
 
-export default function PaginaUsuario() {
+export default function PaginaPerfil() {
     return (
         <div className="container-fluid pagina-perfil">
             <div className="row flex-nowrap">
@@ -59,7 +59,9 @@ export default function PaginaUsuario() {
                                     <div className="texto-perfil">
                                         <span className="nome-completo">João Silva</span>
                                         <span className="cargo">Engenheiro Sênior</span>
-                                        <button className="btn-link">Alterar Foto</button>
+                                        <button className="botao-perfil-foto">
+                                            Alterar Foto
+                                        </button>
                                     </div>
                                 </section>
                                 <section className="info-detalhes">
@@ -109,47 +111,43 @@ export default function PaginaUsuario() {
                             </div>
 
                             <div className="infoProfissionais-container mt-3">
-                                <div className="alinha">
-                                    <div className="card-infoProfissional">
-                                        <div className="icon me-3">
-                                            <i className="bi bi-buildings"></i>
-                                        </div>
-                                        <div className="conteudo-infoProfissional">
-                                            <h4>Departamento</h4>
-                                            <p>Engenharia</p>
-                                        </div>
+                                <div className="card-infoProfissional">
+                                    <div className="icon me-3">
+                                        <i className="bi bi-buildings"></i>
                                     </div>
-
-                                    <div className="card-infoProfissional">
-                                        <div className="icon me-3">
-                                            <i className="bi bi-suitcase-lg"></i>
-                                        </div>
-                                        <div className="conteudo-infoProfissional">
-                                            <h4>Cargo</h4>
-                                            <p>Engenheiro Sênior</p>
-                                        </div>
+                                    <div className="conteudo-infoProfissional">
+                                        <h4>Departamento</h4>
+                                        <p>Engenharia</p>
                                     </div>
                                 </div>
 
-                                <div className="alinha">
-                                    <div className="card-infoProfissional">
-                                        <div className="icon me-3">
-                                            <i className="bi bi-geo-alt"></i>
-                                        </div>
-                                        <div className="conteudo-infoProfissional">
-                                            <h4>Unidade</h4>
-                                            <p>São Caetano do Sul</p>
-                                        </div>
+                                <div className="card-infoProfissional">
+                                    <div className="icon me-3">
+                                        <i className="bi bi-suitcase-lg"></i>
                                     </div>
+                                    <div className="conteudo-infoProfissional">
+                                        <h4>Cargo</h4>
+                                        <p>Engenheiro Sênior</p>
+                                    </div>
+                                </div>
 
-                                    <div className="card-infoProfissional">
-                                        <div className="icon me-3">
-                                            <i className="bi bi-person"></i>
-                                        </div>
-                                        <div className="conteudo-infoProfissional">
-                                            <h4>Data de Admissão</h4>
-                                            <p>15/03/2020</p>
-                                        </div>
+                                <div className="card-infoProfissional">
+                                    <div className="icon me-3">
+                                        <i className="bi bi-geo-alt"></i>
+                                    </div>
+                                    <div className="conteudo-infoProfissional">
+                                        <h4>Unidade</h4>
+                                        <p>São Caetano do Sul</p>
+                                    </div>
+                                </div>
+
+                                <div className="card-infoProfissional">
+                                    <div className="icon me-3">
+                                        <i className="bi bi-person"></i>
+                                    </div>
+                                    <div className="conteudo-infoProfissional">
+                                        <h4>Data de Admissão</h4>
+                                        <p>15/03/2020</p>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +190,7 @@ export default function PaginaUsuario() {
                         <div className="col-md-4 flex-direction-column">
                             <div className="conquista-container">
                                 <h2>Conquistas Recentes</h2>
-                                <div className="card-conquista">
+                                <div className="card-conquista mt-4">
                                     <div className="icon me-3">
                                         <i className="bi bi-award"></i>
                                     </div>
@@ -224,6 +222,10 @@ export default function PaginaUsuario() {
                                         <p>08/2025</p>
                                     </div>
                                 </div>
+
+                                <button className="botao-conquista-ver">
+                                    Ver Todas as Conquistas
+                                </button>
                             </div>
 
                             <div className="estatistica-container mt-3">

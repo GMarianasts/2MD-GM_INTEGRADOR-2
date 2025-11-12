@@ -2,7 +2,6 @@
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./paginaPerfil.css";
-import Link from "next/link";
 
 const dadosCompetencias = [
     { nome: "Liderança", atual: 65, meta: 85 },

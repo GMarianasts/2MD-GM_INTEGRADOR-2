@@ -1,37 +1,43 @@
-"use client"; 
+'use client';
 
-import CardMeuTreinamento from '../components/blocks/CardMeuTreinamento/index.jsx';
-import { getMeusTreinamentosMock } from './utils/mockTreinamentos';
+import { useState } from 'react';
+import ResumoCard from '@/components/ResumoCard';
+import TabsTreinamento from '@/components/TabsTreinamento';
+import CardEmAndamento from '@/components/CardemAndamento';
+import CardConcluido from '@/components/CardConcluido';
+import CardAgendado from '@/components/CardAgendado';
+import { resumo, emAndamento, concluidos, agendados } from '@/data/TreinamentosMock';
 
-const mainLayoutStyles = {
-  marginLeft: '280px', 
-  padding: '2rem',
-  minHeight: '100vh',
-  backgroundColor: '#f8f9fa' 
-};
+export default function MeuTreinamentosPage() {
+  const [activeTab, setActiveTab] = useState('Em Andamento');
 
-export default function MeusTreinamentosPage() {
-  const treinamentos = getMeusTreinamentosMock();
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'Concluídos':
+        return concluidos.map((t) => <CardConcluido key={t.id} t={t} />);
+      case 'Agendados':
+        return agendados.map((t) => <CardAgendado key={t.id} t={t} />);
+      default:
+        return emAndamento.map((t) => <CardEmAndamento key={t.id} t={t} />);
+    }
+  };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <main style={mainLayoutStyles}>
-        
-        <header className="mb-5">
-          <h1 className="fw-bold text-dark">Meus Treinamentos</h1>
-          <p className="lead text-muted">
-            Visualize seu progresso nos cursos inscritos.
-          </p>
-        </header>
+    <div className="container py-4">
+      <h2 className="fw-bold text-dark">Meus Treinamentos</h2>
+      <p className="text-secondary mb-4">
+        Acompanhe seu progresso e histórico de aprendizado.
+      </p>
 
-        <div className="row row-cols-1 row-cols-lg-2 g-4">
-          {treinamentos.map((treinamento) => (
-            <div key={treinamento.id} className="col">
-              <CardMeuTreinamento treinamento={treinamento} />
-            </div>
-          ))}
-        </div>
-      </main>
+      <div className="row row-cols-2 row-cols-lg-4 g-3">
+        {resumo.map((item, index) => (
+          <ResumoCard key={index} {...item} />
+        ))}
+      </div>
+
+      <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      <div className="mt-4">{renderContent()}</div>
     </div>
   );
 }

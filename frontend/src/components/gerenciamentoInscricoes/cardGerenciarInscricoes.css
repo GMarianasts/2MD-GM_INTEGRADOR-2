@@ -161,7 +161,7 @@
 }
 
 .status-ativo {
-    background-color: #57b372; 
+    background-color: #3ec279; 
 }
 
 .status-concluido {
@@ -173,7 +173,7 @@
 }
 
 
-/* AÇÕES */
+/* --- AÇÕES --- */
 .acoes-cell {
     display: flex !important;
     gap: 10px;
@@ -194,7 +194,7 @@
     color: #dc3545; 
 }
 
-/* RESPONSIVIDADE */
+/* RESPONSIVIDADE - Mantida para garantir o colapso em mobile */
 @media (max-width: 768px) {
     .inscricoes-table {
         grid-template-columns: 1fr 1fr 1fr;

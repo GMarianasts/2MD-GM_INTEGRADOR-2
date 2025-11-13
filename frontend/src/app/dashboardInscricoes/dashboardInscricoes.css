@@ -1,139 +1,144 @@
 /*CONFIGURAÇÃO GERAL DA TELA*/
 html,
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-y: auto;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
 }
 
 /* LAYOUT GERAL */
 .pagina-dashboardInscricoes {
-    display: flex;
-    min-height: 100%;
+  display: flex;
+  min-height: 100%;
 }
 
 /* SIDEBAR */
 .sidebar {
-    width: 260px;
-    background-color: #fff;
-    border-right: 1px solid #e6e6e6;
-    padding: 20px 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: sticky;
-    top: 0;
+  width: 260px;
+  background-color: #fff;
+  border-right: 1px solid #e6e6e6;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: sticky;
+  top: 0;
 }
 
 /* Menu do Sidebar*/
 .menu li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
 }
 
 .menu li:hover {
-    background-color: #e9efff;
-    color: #0a2b6b;
+  background-color: #e9efff;
+  color: #0a2b6b;
 }
 
 .menu li.ativo {
-    background-color: #0a2b6b;
-    color: #fff;
-    font-weight: 500;
+  background-color: #0a2b6b;
+  color: #fff;
+  font-weight: 500;
 }
 
-
-.introducao{
-    margin-right: 40px;
+.introducao {
+  margin-right: 40px;
 }
 
 .trocaPagina {
-    width: 100%;
-    background-color: #f1f1f5;
-    border-radius: 20px !important;
-    padding: 6px;            
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .trocaPagina .nav {
-    width: 100%;
-  }
-  
-  .trocaPagina .nav-item {
-    flex: 1 1 0;
-    text-align: center;
-  }
-  
-  .nav-pills .nav-link {
-    color: #000 !important;
-    background: transparent !important;
-    border-radius: 15px !important;
-    font-weight: 500;
-    font-size: 14px;
-    padding: 8px 12px;
-    transition: all 0.2s ease;
-    display: inline-block;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .nav-pills .nav-link.active {
-    background-color: #fff !important;
-    color: #000 !important;
-    border-radius: 15px;
-    font-weight: 600;
-    box-shadow: 0 1px 0 0 rgba(0,0,0,0.06) inset;
-  }
-  
-  .nav-pills .nav-link:hover {
-    background-color: rgba(255,255,255,0.6) !important;
-  }
-  
-  /* ======== CAMPO DE BUSCA ======== */
-  .introducao form {
-    background-color: #fff;
-    border: 1px solid #e6e6e6;
-    border-radius: 12px;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  }
-  
-  .introducao form input.form-control {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    background-color: #f9f9fb;
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .introducao form input.form-control::placeholder {
-    color: #999;
-  }
-  
-  .introducao form button {
-    display: none; /* remove o botão Search */
-  }
-  
-  /* Ícone da lupa dentro do input */
-  .introducao form::before {
-    content: "\f52a"; /* ícone bootstrap search */
-    font-family: "bootstrap-icons";
-    position: relative;
-    left: 10px;
-    color: #999;
-    font-size: 16px;
-    margin-right: 6px;
-  }
+  width: 100%;
+  background-color: #f1f1f5;
+  border-radius: 20px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.trocaPagina .nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.trocaPagina .nav-item {
+  flex: 1 1 0;
+  text-align: center;
+}
+
+.nav-pills .nav-link {
+  color: #000 !important;
+  background: transparent !important;
+  border-radius: 15px !important;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-radius: 15px;
+  font-weight: 600;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.06) inset;
+}
+
+.nav-pills .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* CAMPO DE BUSCA */
+.introducao form {
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.introducao form input.form-control {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: #f9f9fb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #555;
+}
+
+.introducao form input.form-control::placeholder {
+  color: #999;
+}
+
+.introducao form button {
+  display: none;
+}
+
+.introducao form::before {
+  content: "\f52a";
+  font-family: "bootstrap-icons";
+  position: relative;
+  left: 10px;
+  color: #999;
+  font-size: 16px;
+  margin-right: 6px;
+}
+
+.pagina-usuario main {
+  margin-left: 30px;
+}

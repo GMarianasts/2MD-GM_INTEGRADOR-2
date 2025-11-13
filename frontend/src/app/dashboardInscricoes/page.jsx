@@ -3,11 +3,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./dashboardInscricoes.css";
+import GerenciarInscricoes from "@/components/gerenciamentoInscricoes/cardGerenciaInscricoes";
 
 export default function DashboardInscricoes() {
     return (
-        <div className="container-fluid pagina-dashboardInscricoes">
-            <div className="row flex-nowrap">
+        <div className="container-fluid pagina-usuario">
+            <div className="row g-0">
+
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
@@ -34,13 +36,10 @@ export default function DashboardInscricoes() {
                         <div className="trocaPagina">
                             <ul className="nav nav-pills nav-fill">
                                 <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="#">Dashboard</a>
+                                    <a className="nav-link" aria-current="page" href="#">Dashboard</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Treinamentos</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Inscrições</a>
+                                    <a className="nav-link active" href="#">Inscrições</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link " aria-disabled="true">Presença</a>
@@ -56,11 +55,9 @@ export default function DashboardInscricoes() {
                                 </li>
                             </ul>
                         </div>
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
                     </section>
+
+                    <GerenciarInscricoes/>
                 </main>
             </div>
         </div>

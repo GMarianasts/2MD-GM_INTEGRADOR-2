@@ -1,0 +1,173 @@
+
+* {
+  box-sizing: border-box;
+  font-family: 'Montserrat', 'Open Sans', sans-serif;
+}
+
+.card {
+  background-color: #F4F6FA;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+}
+
+.card h5 {
+  font-weight: 700;
+  color: #1b1b1b;
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+
+.card p {
+  color: #4a4a4a;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+}
+
+.card-em-andamento {
+  border-left: 6px solid #005daa;
+}
+
+.card-em-andamento .badge {
+  background-color: #e7f1fb;
+  color: #005daa;
+}
+
+.card-em-andamento .progress {
+  height: 8px;
+  background-color: #e7f1fb;
+}
+
+.card-em-andamento .progress-bar {
+  background-color: #005daa;
+}
+
+.card-em-andamento i.bi-play-circle-fill {
+  font-size: 1.4rem;
+  color: #005daa;
+}
+
+.card-agendado {
+  border-left: 6px solid #005daa;
+}
+
+.card-agendado .badge {
+  background-color: #fff6e0;
+  color: #005daa;
+}
+
+.card-agendado i.bi-calendar-check {
+  font-size: 1.4rem;
+  color: #005daa;
+}
+
+
+.card-concluido {
+  border-left: 6px solid #005daa;
+}
+
+.card-concluido .badge {
+  background-color: #eaf8ef;
+  color: #005daa;
+}
+
+.card-concluido i.bi-trophy-fill {
+  font-size: 1.4rem;
+  color: #005daa;
+}
+
+.btn {
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background-color: #005daa;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #00447d;
+}
+
+.btn-outline-secondary {
+  border: 2px solid #005daa;
+  color: #005daa;
+  background-color: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #005daa;
+  color: #fff;
+}
+
+
+.resumo-card {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.resumo-card:hover {
+  background-color: #e7f1fb;
+}
+
+.resumo-card h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+
+.resumo-card .valor {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #005daa;
+  margin: 0;
+}
+
+.tabs-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.tab-item {
+  font-weight: 600;
+  color: #6c757d;
+  padding: 0.5rem 0.25rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #005daa;
+}
+
+.tab-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #005daa;
+  border-radius: 2px;
+}

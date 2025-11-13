@@ -84,7 +84,7 @@ export default function DashboardAdmin() {
                         </div>
                     </section>
 
-                    <div className="container-fluid my-2">
+                    <div className="container-fluid my-2 px-0">
                         <div className="row g-3">
                             <div className="col-12">
                                 <div className="row justify-content-start g-3">
@@ -156,9 +156,8 @@ export default function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="d-flex flex-wrap justify-content-between align-items-stretch gap-3 mt-3">
-                        {/* Gráfico de Tendência Mensal */}
-                        <div className="card shadow-sm border-0 p-3 flex-grow-1" style={{ flexBasis: "60%", minWidth: "400px" }}>
+                    <div className="d-flex flex-wrap justify-content-between align-items-start gap-3 mt-3 align-section">
+                        <div className="card-treinamento shadow-sm p-3 flex-grow-1" style={{ flexBasis: "60%", minWidth: "400px" }}>
                             <div className="d-flex align-items-center mb-2">
                                 <div className="icon bg-primary text-white rounded-3 p-2 me-2">
                                     <i className="bi bi-graph-up"></i>
@@ -215,6 +214,58 @@ export default function DashboardAdmin() {
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
+                    </div>
+
+                    <div className="Cards">
+                        <div className="Cards-estrutura">
+                            <div>
+                                <p className="titulo-principal">Próximos Treinamentos</p>
+                                <p className="subtitulo-trilha">Agendados para as próximas semanas</p>
+                            </div>
+                        </div>
+
+                        <div className="lista-cursos">
+                            <div className="curso-item">
+                                <div className="curso-info">
+                                    <p className="nome-curso">Workshop: Cultura de Segurança</p>
+                                    <div className="detalhes-curso">
+                                        <i className="bi bi-calendar"></i>
+                                        <span className="duracao">15/11/2025</span>
+                                        <span className="nivel">• Instrutor: Carlos Mendes</span>
+                                    </div>
+                                </div>
+                                <button className="btn-verDetalhes">Ver Detalhes</button>
+                            </div>
+
+                            <div className="curso-item">
+                                <div className="curso-info">
+                                    <p className="nome-curso">Lean Manufacturing</p>
+                                    <div className="detalhes-curso">
+                                        <i className="bi bi-calendar"></i>
+                                        <span className="duracao">20/11/2025</span>
+                                        <span className="nivel">•
+                                            Instrutor: Ana Paula</span>
+                                    </div>
+                                </div>
+                                <button className="btn-verDetalhes">Ver Detalhes</button>
+                            </div>
+
+                            <div className="curso-item">
+                                <div className="curso-info">
+                                    <i className="bi bi-calendar"></i>
+                                    <p className="nome-curso">Gestão de Qualidade Total</p>
+                                    <div className="detalhes-curso">
+                                        
+                                        <span className="duracao">25/11/2025</span>
+                                        <span className="nivel">•
+                                            Instrutor: Roberto Silva</span>
+                                    </div>
+                                </div>
+                                <button className="btn-verDetalhes">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <button className="btn-todos-cursos">Ver Todos os Cursos</button>
                     </div>
                 </main>
             </div>

@@ -7,6 +7,9 @@ import CardEmAndamento from '@/components/CardemAndamento';
 import CardConcluido from '@/components/CardConcluido';
 import CardAgendado from '@/components/CardAgendado';
 import { resumo, emAndamento, concluidos, agendados } from '@/data/TreinamentosMock';
+import './meutreinamento.css';
+import '@/components/components.css';
+
 
 export default function MeuTreinamentosPage() {
   const [activeTab, setActiveTab] = useState('Em Andamento');
@@ -23,21 +26,45 @@ export default function MeuTreinamentosPage() {
   };
 
   return (
-    <div className="container py-4">
-      <h2 className="fw-bold text-dark">Meus Treinamentos</h2>
-      <p className="text-secondary mb-4">
-        Acompanhe seu progresso e histórico de aprendizado.
-      </p>
+    <div className="container-fluid pagina-treinamentos">
+      <div className="row flex-nowrap">
 
-      <div className="row row-cols-2 row-cols-lg-4 g-3">
-        {resumo.map((item, index) => (
-          <ResumoCard key={index} {...item} />
-        ))}
+        <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+          <ul className="list-unstyled menu">
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-house-door"></i>
+              <span>Dashboard</span>
+            </li>
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-book"></i>
+              <span>Catálogo de Treinamentos</span>
+            </li>
+            <li className="ativo mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-award"></i>
+              <span>Meus Treinamentos</span>
+            </li>
+            <li className="d-flex align-items-center gap-2">
+              <i className="bi bi-person"></i>
+              <span>Meu Perfil</span>
+            </li>
+          </ul>
+        </aside>
+
+        <main className="col px-4 py-4 conteudo-treinamentos">
+          <h2 className="titulo-azul">Meus Treinamentos</h2>
+          <p className="text-secondary">Acompanhe seu progresso e histórico de aprendizado.</p>
+
+          <div className="row row-cols-2 row-cols-lg-4 g-3 mb-4">
+            {resumo.map((item, index) => (
+              <ResumoCard key={index} {...item} />
+            ))}
+          </div>
+
+          <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
+
+          <div className="mt-4">{renderContent()}</div>
+        </main>
       </div>
-
-      <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
-
-      <div className="mt-4">{renderContent()}</div>
     </div>
   );
 }

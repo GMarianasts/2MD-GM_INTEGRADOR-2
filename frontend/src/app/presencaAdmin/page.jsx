@@ -2,12 +2,11 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "./dashboardInscricoes.css";
-import GerenciarInscricoes from "@/components/gerenciamentoInscricoes/cardGerenciaInscricoes";
+import "./presencaAdmin.css";
 
-export default function DashboardInscricoes() {
+export default function DashboardPresenca() {
     return (
-        <div className="container-fluid pagina-usuario">
+        <div className="container-fluid pagina-dashboardInscricoes">
             <div className="row g-0">
 
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
@@ -39,10 +38,10 @@ export default function DashboardInscricoes() {
                                     <a className="nav-link" aria-current="page" href="#">Dashboard</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link active" href="#">Inscrições</a>
+                                    <a className="nav-link" href="#">Inscrições</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Presença</a>
+                                    <a className="nav-link active" aria-disabled="true">Presença</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link " aria-disabled="true">Certificados</a>
@@ -57,7 +56,13 @@ export default function DashboardInscricoes() {
                         </div>
                     </section>
 
-                    <GerenciarInscricoes/>
+                    <div className="container-fluid my-2">
+                        <div className="row g-3">
+                            <div className="col-12">
+                                
+                            </div>
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>

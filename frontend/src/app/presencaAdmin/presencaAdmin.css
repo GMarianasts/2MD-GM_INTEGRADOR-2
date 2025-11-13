@@ -7,12 +7,6 @@ body {
   overflow-y: auto;
 }
 
-/* LAYOUT GERAL */
-.pagina-dashboardInscricoes {
-  display: flex;
-  min-height: 100%;
-}
-
 /* SIDEBAR */
 .sidebar {
   width: 260px;
@@ -139,6 +133,3 @@ body {
   margin-right: 6px;
 }
 
-.pagina-usuario main {
-  margin-left: 30px;
-}

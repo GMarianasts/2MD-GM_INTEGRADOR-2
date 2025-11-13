@@ -1,5 +1,6 @@
 export default function TabsTreinamento({ activeTab, setActiveTab }) {
     const tabs = ['Em Andamento', 'Concluídos', 'Agendados'];
+    <i class="bi bi-check-square"></i>
   
     return (
       <ul className="nav nav-tabs border-0 mt-4">

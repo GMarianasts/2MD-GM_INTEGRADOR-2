@@ -7,7 +7,7 @@ import GerenciarInscricoes from "@/components/gerenciamentoInscricoes/cardGerenc
 
 export default function DashboardInscricoes() {
     return (
-        <div className="container-fluid pagina-usuario">
+        <div className="container-fluid pagina-dashboardInscricoes">
             <div className="row g-0">
 
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
@@ -57,7 +57,12 @@ export default function DashboardInscricoes() {
                         </div>
                     </section>
 
-                    <GerenciarInscricoes/>
+                    <div className="container-fluid my-2">
+                        <div className="row g-3">
+                            <div className="col-12"></div>
+                            <GerenciarInscricoes />
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>

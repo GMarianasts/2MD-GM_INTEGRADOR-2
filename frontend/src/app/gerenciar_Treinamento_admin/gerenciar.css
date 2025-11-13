@@ -1,0 +1,60 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    /* garante rolagem geral da página */
+}
+
+.sidebar {
+    width: 260px;
+    height: 130vh;
+    background-color: #fff;
+    border-right: 1px solid #e6e6e6;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.pagina-usuario main {
+    margin-left: 30px;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.menu li:hover {
+    background-color: #e9efff;
+    color: #0a2b6b;
+}
+
+.menu li.ativo {
+    background-color: #0a2b6b;
+    color: #fff;
+    font-weight: 500;
+}
+
+.btn-no-hover {
+    background-color: white !important;
+    border: 1px solid #dee2e6 !important;
+    color: #212529 !important;
+    transition: none !important;
+}
+
+.btn-no-hover:hover,
+.btn-no-hover:active,
+.btn-no-hover:focus {
+    background-color: white !important;
+    border-color: #dee2e6 !important;
+    color: #212529 !important;
+    box-shadow: none !important;
+}

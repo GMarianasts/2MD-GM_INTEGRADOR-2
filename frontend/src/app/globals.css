@@ -261,14 +261,14 @@ a {
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-open-sans);
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-title);
+  font-family: var(--font-montserrat);
   color: var(--color-primary);
   font-weight: 600;
 }
@@ -277,6 +277,7 @@ a {
   color: var(--color-secondary);
   text-decoration: none;
   transition: color 0.3s ease;
+  font-family: var(--font-open-sans);
 }
 
 a:hover {
@@ -289,7 +290,7 @@ a:hover {
   border: none;
   border-radius: 0.75rem;
   padding: 0.6rem 1rem;
-  font-family: var(--font-title);
+  font-family: var(--font-montserrat);
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -313,7 +314,7 @@ a:hover {
 }
 
 .card-title {
-  font-family: var(--font-title);
+  font-family: var(--font-montserrat);
   font-size: var(--font-size-title);
   color: var(--color-primary);
 }

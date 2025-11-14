@@ -1,0 +1,106 @@
+/* ===== LAYOUT GERAL ===== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7ff;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 260px;
+  background: white;
+  border-right: 1px solid #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.menu-item {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 15px;
+}
+
+.menu-item.ativo {
+  background: #0d2f73;
+  color: white;
+}
+
+/* ===== CONTEÚDO ===== */
+.conteudo-principal {
+  margin-left: 260px;
+  padding: 30px;
+  width: calc(100% - 260px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtitulo {
+  margin-top: -10px;
+  color: #666;
+}
+
+.btn-emitir {
+  background: #0d2f73;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.search-bar input {
+  width: 350px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+/* ===== TABELA ===== */
+.tabela-container {
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.cert-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cert-table th,
+.cert-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.badge {
+  background: #d7f5d2;
+  color: #1c7c2e;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}

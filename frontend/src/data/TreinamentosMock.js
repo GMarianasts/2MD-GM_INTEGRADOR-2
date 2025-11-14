@@ -13,6 +13,7 @@ export const concluidos = [
     dataConclusao: '10/09/2025',
     modulos: 3,
     horas: '3',
+    nota: 95
   },
   {
     id: 5,

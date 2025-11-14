@@ -59,8 +59,9 @@ export default function DashboardInscricoes() {
 
                     <div className="container-fluid my-2">
                         <div className="row g-3">
-                            <div className="col-12"></div>
-                            <GerenciarInscricoes />
+                            <div className="col-12">
+                                <GerenciarInscricoes />
+                            </div>
                         </div>
                     </div>
                 </main>

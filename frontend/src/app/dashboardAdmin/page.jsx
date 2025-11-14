@@ -71,82 +71,79 @@ export default function DashboardAdmin() {
                                 <li className="nav-item">
                                     <a className="nav-link " aria-disabled="true">Histórico</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Relatórios</a>
-                                </li>
                             </ul>
                         </div>
-                        <div className="input-group search-bar">
-                            <span className="input-group-text bg-white border-end-0">
-                                <i className="bi bi-search"></i>
-                            </span>
-                            <input type="text" className="form-control border-start-0" placeholder="Buscar..." />
+                        <div className="search-container">
+                            <i className="bi bi-search search-icon"></i>
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Buscar treinamentos, colaboradores..."
+                            />
                         </div>
                     </section>
 
-                    <div className="container-fluid my-2 px-0">
-                        <div className="row g-3">
-                            <div className="col-12">
-                                <div className="row justify-content-start g-3">
-                                    <div className="col-6 col-sm-6 col-md-3 px-2">
-                                        <div className="card card-info azul">
-                                            <div className="card-body d-flex align-items-center">
-                                                <div className="progresso">
-                                                    <p className="titulo mb-1">Treinamentos Ativos</p>
-                                                    <p className="valor mb-0">24</p>
-                                                </div>
-                                                <div className="posicaoIcon">
-                                                    <div className="icon me-0">
-                                                        <i className="bi bi-bar-chart"></i>
-                                                    </div>
+                    <div className="row g-3 cards-wrapper">
+                        <div className="col-12">
+                            <div className="row g-3">
+                                <div className="col-6 col-sm-6 col-md-3 px-2">
+                                    <div className="card card-info azul">
+                                        <div className="card-body d-flex align-items-center">
+                                            <div className="progresso">
+                                                <p className="titulo mb-1">Treinamentos Ativos</p>
+                                                <p className="valor mb-0">24</p>
+                                            </div>
+                                            <div className="posicaoIcon">
+                                                <div className="icon me-0">
+                                                    <i className="bi bi-bar-chart"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="col-6 col-sm-6 col-md-3 px-2">
-                                        <div className="card card-info laranja">
-                                            <div className="card-body d-flex align-items-center">
-                                                <div className="progresso">
-                                                    <p className="titulo mb-1">Colaboradores Inscritos</p>
-                                                    <p className="valor mb-0">1.247</p>
-                                                </div>
-                                                <div className="posicaoIcon">
-                                                    <div className="icon me-0">
-                                                        <i className="bi bi-people"></i>
-                                                    </div>
+                                <div className="col-6 col-sm-6 col-md-3 px-2">
+                                    <div className="card card-info laranja">
+                                        <div className="card-body d-flex align-items-center">
+                                            <div className="progresso">
+                                                <p className="titulo mb-1">Colaboradores Inscritos</p>
+                                                <p className="valor mb-0">1.247</p>
+                                            </div>
+                                            <div className="posicaoIcon">
+                                                <div className="icon me-0">
+                                                    <i className="bi bi-people"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="col-6 col-sm-6 col-md-3 px-2">
-                                        <div className="card card-info verde">
-                                            <div className="card-body d-flex align-items-center">
-                                                <div className="progresso">
-                                                    <p className="titulo mb-1">Certificados Emitidos</p>
-                                                    <p className="valor mb-0">892</p>
-                                                </div>
-                                                <div className="posicaoIcon">
-                                                    <div className="icon me-0">
-                                                        <i className="bi bi-award"></i>
-                                                    </div>
+                                <div className="col-6 col-sm-6 col-md-3 px-2">
+                                    <div className="card card-info verde">
+                                        <div className="card-body d-flex align-items-center">
+                                            <div className="progresso">
+                                                <p className="titulo mb-1">Certificados Emitidos</p>
+                                                <p className="valor mb-0">892</p>
+                                            </div>
+                                            <div className="posicaoIcon">
+                                                <div className="icon me-0">
+                                                    <i className="bi bi-award"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="col-6 col-sm-6 col-md-3 px-2">
-                                        <div className="card card-info roxo">
-                                            <div className="card-body d-flex align-items-center">
-                                                <div className="progresso">
-                                                    <p className="titulo mb-1">Taxa de Conclusão</p>
-                                                    <p className="valor mb-0">87%</p>
-                                                </div>
-                                                <div className="posicaoIcon">
-                                                    <div className="icon mb-0">
-                                                        <i className="bi bi-graph-up-arrow"></i>
-                                                    </div>
+                                <div className="col-6 col-sm-6 col-md-3 px-2">
+                                    <div className="card card-info roxo">
+                                        <div className="card-body d-flex align-items-center">
+                                            <div className="progresso">
+                                                <p className="titulo mb-1">Taxa de Conclusão</p>
+                                                <p className="valor mb-0">87%</p>
+                                            </div>
+                                            <div className="posicaoIcon">
+                                                <div className="icon mb-0">
+                                                    <i className="bi bi-graph-up-arrow"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +179,7 @@ export default function DashboardAdmin() {
                         </div>
 
                         {/* Gráfico de Treinamentos por Categoria */}
-                        <div className="card shadow-sm border-0 p-3 flex-grow-1" style={{ flexBasis: "38%", minWidth: "300px" }}>
+                        <div className="card-treinamento shadow-sm p-3 flex-grow-1" style={{ flexBasis: "38%", minWidth: "300px" }}>
                             <div className="d-flex align-items-center mb-2">
                                 <div className="icon bg-primary text-white rounded-3 p-2 me-2">
                                     <i className="bi bi-pie-chart"></i>
@@ -216,59 +213,105 @@ export default function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="Cards">
-                        <div className="Cards-estrutura">
-                            <div>
-                                <p className="titulo-principal">Próximos Treinamentos</p>
-                                <p className="subtitulo-trilha">Agendados para as próximas semanas</p>
+                    <div className="card-treinamento">
+                        <div className="Cards">
+                            <div className="Cards-estrutura">
+                                <div>
+                                    <p className="titulo-principal">Próximos Treinamentos</p>
+                                    <p className="subtitulo-trilha">Agendados para as próximas semanas</p>
+                                </div>
+                            </div>
+
+                            <div className="lista-cursos">
+
+                                <div className="curso-item">
+                                    <div className="curso-esquerda">
+                                        <div className="icon-curso-quadro">
+                                            <i className="bi bi-calendar-event"></i>
+                                        </div>
+
+                                        <div className="curso-info">
+                                            <p className="nome-curso">Workshop: Cultura de Segurança</p>
+                                            <div className="detalhes-curso">
+                                                <span className="duracao">15/11/2025</span>
+                                                <span className="nivel">• Instrutor: Carlos Mendes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="curso-direita">
+                                        <p className="vagas">28/30</p>
+                                        <button className="status-quase">Quase Lotado</button>
+                                    </div>
+                                </div>
+
+                                <div className="curso-item">
+                                    <div className="curso-esquerda">
+                                        <div className="icon-curso-quadro">
+                                            <i className="bi bi-calendar-event"></i>
+                                        </div>
+
+                                        <div className="curso-info">
+                                            <p className="nome-curso">Lean Manufacturing</p>
+                                            <div className="detalhes-curso">
+                                                <span className="duracao">20/11/2025</span>
+                                                <span className="nivel">• Instrutor: Ana Paula</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="curso-direita">
+                                        <p className="vagas">45/50</p>
+                                        <button className="status-quase">Quase Lotado</button>
+                                    </div>
+                                </div>
+
+                                <div className="curso-item">
+                                    <div className="curso-esquerda">
+                                        <div className="icon-curso-quadro">
+                                            <i className="bi bi-calendar-event"></i>
+                                        </div>
+
+                                        <div className="curso-info">
+                                            <p className="nome-curso">Gestão de Qualidade Total</p>
+                                            <div className="detalhes-curso">
+                                                <span className="duracao">25/11/2025</span>
+                                                <span className="nivel">• Instrutor: Roberto Silva</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="curso-direita">
+                                        <p className="vagas">32/40</p>
+                                        <button className="status-disponivel">Vagas Disponíveis</button>
+                                    </div>
+                                </div>
+
+                                <div className="curso-item">
+                                    <div className="curso-esquerda">
+                                        <div className="icon-curso-quadro">
+                                            <i className="bi bi-calendar-event"></i>
+                                        </div>
+
+                                        <div className="curso-info">
+                                            <p className="nome-curso">Liderança 4.0</p>
+                                            <div className="detalhes-curso">
+                                                <span className="duracao">01/12/2025</span>
+                                                <span className="nivel">• Instrutor: Maria Santos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="curso-direita">
+                                        <p className="vagas">18/25</p>
+                                        <button className="status-disponivel">Vagas Disponíveis</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div className="lista-cursos">
-                            <div className="curso-item">
-                                <div className="curso-info">
-                                    <p className="nome-curso">Workshop: Cultura de Segurança</p>
-                                    <div className="detalhes-curso">
-                                        <i className="bi bi-calendar"></i>
-                                        <span className="duracao">15/11/2025</span>
-                                        <span className="nivel">• Instrutor: Carlos Mendes</span>
-                                    </div>
-                                </div>
-                                <button className="btn-verDetalhes">Ver Detalhes</button>
-                            </div>
-
-                            <div className="curso-item">
-                                <div className="curso-info">
-                                    <p className="nome-curso">Lean Manufacturing</p>
-                                    <div className="detalhes-curso">
-                                        <i className="bi bi-calendar"></i>
-                                        <span className="duracao">20/11/2025</span>
-                                        <span className="nivel">•
-                                            Instrutor: Ana Paula</span>
-                                    </div>
-                                </div>
-                                <button className="btn-verDetalhes">Ver Detalhes</button>
-                            </div>
-
-                            <div className="curso-item">
-                                <div className="curso-info">
-                                    <i className="bi bi-calendar"></i>
-                                    <p className="nome-curso">Gestão de Qualidade Total</p>
-                                    <div className="detalhes-curso">
-                                        
-                                        <span className="duracao">25/11/2025</span>
-                                        <span className="nivel">•
-                                            Instrutor: Roberto Silva</span>
-                                    </div>
-                                </div>
-                                <button className="btn-verDetalhes">Ver Detalhes</button>
-                            </div>
-                        </div>
-
-                        <button className="btn-todos-cursos">Ver Todos os Cursos</button>
                     </div>
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

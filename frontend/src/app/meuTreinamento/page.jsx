@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import ResumoCard from '@/components/ResumoCard';
-import TabsTreinamento from '@/components/TabsTreinamento';
-import CardEmAndamento from '@/components/CardemAndamento';
-import CardConcluido from '@/components/CardConcluido';
-import CardAgendado from '@/components/CardAgendado';
+import ResumoCard from '@/components/componentsMeusTreinamentos/ResumoCard';
+import TabsTreinamento from '@/components/componentsMeusTreinamentos/TabsTreinamento';
+import CardEmAndamento from '@/components/componentsMeusTreinamentos/CardemAndamento';
+import CardConcluido from '@/components/componentsMeusTreinamentos/CardConcluido';
+import CardAgendado from '@/components/componentsMeusTreinamentos/CardAgendado';
 import { resumo, emAndamento, concluidos, agendados } from '@/data/TreinamentosMock';
-import './meutreinamento.css';
+import '@/meutreinamento.css';
 import '@/components/components.css';
 
 

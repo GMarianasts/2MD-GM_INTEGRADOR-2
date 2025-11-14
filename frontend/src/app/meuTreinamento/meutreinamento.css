@@ -39,7 +39,6 @@ html, body {
     font-weight: 500;
 }
 
-
 .pagina-treinamentos {
   background-color: #fff;
 }
@@ -79,7 +78,7 @@ html, body {
 }
 
 .tab-button:hover {
-  color: #005DAA;
+  color: #e0e0e0;
 }
 
 .tab-button.active {

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./inscricoesAdmin.css";
 import GerenciarInscricoes from "@/components/gerenciamentoInscricoes/cardGerenciaInscricoes";
+import Link from "next/link";
 
 export default function DashboardInscricoes() {
     return (
@@ -36,22 +37,19 @@ export default function DashboardInscricoes() {
                         <div className="trocaPagina">
                             <ul className="nav nav-pills nav-fill">
                                 <li className="nav-item">
-                                    <a className="nav-link" aria-current="page" href="#">Dashboard</a>
+                                    <Link className="nav-link" aria-current="page" href={"/dashboardAdmin"}>Dashboard</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link active" href="#">Inscrições</a>
+                                    <Link className="nav-link active" href={"/inscricoesAdmin"}>Inscrições</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Presença</a>
+                                    <Link className="nav-link" href={"/presencaAdmin"} aria-disabled="true">Presença</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Certificados</a>
+                                    <Link className="nav-link" href={"#"} aria-disabled="true">Certificados</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Histórico</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Relatórios</a>
+                                    <Link className="nav-link" href={"/historicoAdmin"} aria-disabled="true">Histórico</Link>
                                 </li>
                             </ul>
                         </div>

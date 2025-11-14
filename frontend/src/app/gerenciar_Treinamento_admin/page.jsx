@@ -10,11 +10,11 @@ export default function DashboardAdmin() {
             <div className="row flex-nowrap">
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: '100vh' }}>
                     <ul className="list-unstyled menu">
-                        <li className="ativo mb-3 d-flex align-items-center gap-2">
+                        <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
                             <span>Dashboard</span>
                         </li>
-                        <li className="mb-3 d-flex align-items-center gap-2">
+                        <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-grid"></i>
                             <span>Gerenciar Treinamentos</span>
                         </li>
@@ -30,10 +30,24 @@ export default function DashboardAdmin() {
                 </aside>
                 <main className="col-12 col-md-9 col-lg-10 p-4 bg-light">
 
-                    <h2 className="h4 mb-3 titulo">Gerenciar Treinamentos</h2>
-                    <p className="descricao">
-                        Administre todos os treinamentos da plataforma
-                    </p>
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+                            <h2 className="h4 mb-1 titulo">Gerenciar Treinamentos</h2>
+                            <p className="descricao text-muted mb-0">
+                                Administre todos os treinamentos da plataforma
+                            </p>
+                        </div>
+
+                        <button
+                            className="btn text-white d-flex align-items-center gap-2 px-4 py-2 rounded-3 fw-semibold shadow-sm"
+                            style={{ backgroundColor: "#0a2b6b", borderColor: "#0a2b6b" }}
+                        >
+                            <i className="bi bi-plus-lg fs-5"></i>
+                            <span>Novo Treinamento</span>
+                        </button>
+
+                    </div>
 
                     <div className="row g-3">
                         <div className="col-12">

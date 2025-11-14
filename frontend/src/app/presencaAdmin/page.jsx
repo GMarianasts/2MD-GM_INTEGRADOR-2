@@ -3,6 +3,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./presencaAdmin.css";
+import GerenciarPresenca from "@/components/gerenciamentoPresencas/cardGerenciaPresenca";
 
 export default function DashboardPresenca() {
     return (
@@ -59,7 +60,7 @@ export default function DashboardPresenca() {
                     <div className="container-fluid my-2">
                         <div className="row g-3">
                             <div className="col-12">
-                                
+                                <GerenciarPresenca />
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,63 @@
+.resumo-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.resumo-card .valor {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--cor-titulo-azul);
+    line-height: 1;
+}
+
+.resumo-card .titulo {
+    font-size: 1rem;
+    color: var(--cor-secundaria);
+    margin-bottom: 10px;
+}
+.resumo-card .icon-circulo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.resumo-card .icon-azul { background-color: #007bff; }
+.resumo-card .icon-verde { background-color: #28a745; }
+.resumo-card .icon-laranja { background-color: #ffc107; }
+.resumo-card .icon-roxo { background-color: #6f42c1; }
+
+.tag-categoria {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 5px;
+    /* Use cores mais escuras ou variáveis para cada categoria */
+}
+
+.tag-Inovacao {
+    background-color: #e6f7ff;
+    color: #0050b3;
+}
+.tag-Agilidade {
+    background-color: #fff1b8;
+    color: #ad8b00;
+}
+.tag-Lideranca {
+    background-color: #f9f0ff;
+    color: #531dab;
+}

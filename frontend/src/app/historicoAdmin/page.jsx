@@ -2,11 +2,10 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "./presencaAdmin.css";
-import GerenciarPresenca from "@/components/gerenciamentoPresencas/cardGerenciaPresenca";
+import "./historicoAdmin.css";
 import Link from "next/link";
 
-export default function DashboardPresenca() {
+export default function DashboardHistorico() {
     return (
         <div className="container-fluid pagina-dashboardInscricoes">
             <div className="row g-0">
@@ -43,22 +42,22 @@ export default function DashboardPresenca() {
                                     <Link className="nav-link" href={"/inscricoesAdmin"}>Inscrições</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" href={"/presencaAdmin"} aria-disabled="true">Presença</Link>
+                                    <Link className="nav-link" href={"/presencaAdmin"} aria-disabled="true">Presença</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" href={"#"} aria-disabled="true">Certificados</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" href={"/historicoAdmin"} aria-disabled="true">Histórico</Link>
+                                    <Link className="nav-link active" href={"/historicoAdmin"} aria-disabled="true">Histórico</Link>
                                 </li>
-                            </ul>
+                            </ul>            
                         </div>
                     </section>
 
                     <div className="container-fluid my-2">
                         <div className="row g-3">
                             <div className="col-12">
-                                <GerenciarPresenca />
+                                
                             </div>
                         </div>
                     </div>

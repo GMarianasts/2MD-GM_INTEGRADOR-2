@@ -1,0 +1,106 @@
+
+
+.pagina-usuario {
+  min-height: 100vh;        /* ocupa a tela inteira */
+  background: #f5f7fb;      /* fundo cinza claro igual ao modelo */
+}
+
+.pagina-usuario main {
+  min-height: 100vh;        /* garante que o conteúdo preencha a tela toda */
+  padding-bottom: 40px;
+}
+
+.col-12.col-md-9 {
+  width: 100% !important;
+  flex: 1;
+}
+
+.table-container {
+  width: 100% !important;   /* usa toda a largura */
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e6e6e6;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.cert-table {
+  width: 100% !important;    /* tabela cheia */
+  table-layout: auto;
+}
+
+.cert-table thead {
+  background: #f5f7fb;
+}
+
+.cert-table thead th {
+  padding: 16px;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.cert-table tbody tr {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.cert-table tbody td {
+  padding: 16px;
+  color: #333;
+}
+
+/* ===== BADGES (NOTA) ===== */
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.badge-high {      /* verde */
+  background: #d4f7d9;
+  color: #1b7a29;
+}
+
+.badge-mid {       /* azul suave */
+  background: #dce7ff;
+  color: #2656c9;
+}
+
+.badge-low {       /* amarelo (caso note < 80) */
+  background: #fff4cc;
+  color: #a37b00;
+}
+
+/* ===== AÇÕES (ÍCONES) ===== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px;
+  color: #444;
+  transition: 0.2s;
+}
+
+.icon-btn:hover {
+  color: #000;
+}
+
+/* Ícone de download */
+.download-btn i {
+  font-size: 18px;
+}
+
+/* Ícone de visualizar */
+.view-btn i {
+  font-size: 18px;
+}

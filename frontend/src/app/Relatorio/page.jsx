@@ -18,6 +18,7 @@ import {
   Title,
 } from "chart.js";
 import { Radar, Bar } from "react-chartjs-2";
+import Link from "next/link";
 
 // Registrando os componentes do Chart.js
 ChartJS.register(
@@ -121,13 +122,16 @@ export default function RelatorioSkillGap() {
         >
           <ul className="list-unstyled menu sticky-top pt-3">
             <li className="mb-3 d-flex align-items-center gap-2">
-              <i className="bi bi-house-door"></i> <span>Dashboard</span>
+              <i className="bi bi-house-door"></i> 
+              <Link href={'dashboardAdmin'}><span>Dashboard</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
-              <i className="bi bi-book"></i> <span>Gerenciar Treinamentos</span>
+              <i className="bi bi-book"></i> 
+              <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
             </li>
             <li className="ativo mb-3 d-flex align-items-center gap-2">
-              <i className="bi bi-bar-chart"></i> <span>Relatório de Skill Gap</span>
+              <i className="bi bi-bar-chart"></i> 
+              <Link href={'Relatorio'}><span>Relatório de Skill Gap</span></Link>
             </li>
             <li className="d-flex align-items-center gap-2">
               <i className="bi bi-person"></i> <span>Gerenciar Colaboradores</span>

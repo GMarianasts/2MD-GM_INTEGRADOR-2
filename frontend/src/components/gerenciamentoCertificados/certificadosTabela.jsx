@@ -1,3 +1,5 @@
+import "./gerenciamentoCertificado.css"
+
 export default function CertificatesTable() {
   const data = [
     { id: "CERT-2025-001234", nome: "João Silva", curso: "Segurança da Informação", data: "20/10/2025", nota: 92 },
@@ -7,36 +9,50 @@ export default function CertificatesTable() {
     { id: "CERT-2025-001087", nome: "Carlos Mendes", curso: "Design Thinking", data: "18/09/2025", nota: 85 },
   ];
 
-  return (
-    <table className="cert-table">
-      <thead>
-        <tr>
-          <th>ID Certificado</th>
-          <th>Colaborador</th>
-          <th>Curso</th>
-          <th>Data de Emissão</th>
-          <th>Nota</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
+  function badgeClass(nota) {
+    if (nota >= 90) return "badge badge-high";
+    if (nota >= 80) return "badge badge-mid";
+    return "badge badge-low";
+  }
 
-      <tbody>
-        {data.map((item) => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
-            <td>{item.nome}</td>
-            <td>{item.curso}</td>
-            <td>{item.data}</td>
-            <td>
-              <span className="badge">{item.nota}%</span>
-            </td>
-            <td className="actions">
-              <button className="icon-btn">👁️</button>
-              <button className="icon-btn">⬇️</button>
-            </td>
+  return (
+    <div className="table-container">
+      <table className="cert-table">
+        <thead>
+          <tr>
+            <th>ID Certificado</th>
+            <th>Colaborador</th>
+            <th>Curso</th>
+            <th>Data de Emissão</th>
+            <th>Nota</th>
+            <th>Ações</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.nome}</td>
+              <td>{item.curso}</td>
+              <td>{item.data}</td>
+              <td>
+                <span className={badgeClass(item.nota)}>{item.nota}%</span>
+              </td>
+
+              <td className="actions">
+                <button className="icon-btn view-btn">
+                  <i className="bi bi-eye"></i>
+                </button>
+
+                <button className="icon-btn download-btn">
+                  <i className="bi bi-download"></i>
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

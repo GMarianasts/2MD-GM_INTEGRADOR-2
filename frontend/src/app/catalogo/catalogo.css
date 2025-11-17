@@ -5,6 +5,15 @@ html, body {
   overflow-y: auto;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+  color: white;
+}
+
 .pagina-usuario {
   display: flex;
   min-height: 100vh;

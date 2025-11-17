@@ -7,6 +7,15 @@ body {
   /* garante rolagem geral da página */
 }
 
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+  color: white;
+}
+
 .pagina-usuario {
   display: flex;
   min-height: 100%;
@@ -30,11 +39,11 @@ body {
 
 .pagina-usuario main {
   margin-left: 30px;
-
+}
   .pagina-usuario main {
     margin-left: 0 !important;
   }
-}
+
 
 /* Menu */
 .menu li {

@@ -7,8 +7,8 @@ import CardEmAndamento from '@/components/componentsMeusTreinamentos/CardemAndam
 import CardConcluido from '@/components/componentsMeusTreinamentos/CardConcluido';
 import CardAgendado from '@/components/componentsMeusTreinamentos/CardAgendado';
 import { resumo, emAndamento, concluidos, agendados } from '@/data/TreinamentosMock';
-import '@/meutreinamento.css';
-import '@/components/components.css';
+import './meutreinamento.css';
+import Link from 'next/link';
 
 
 export default function MeuTreinamentosPage() {
@@ -33,19 +33,19 @@ export default function MeuTreinamentosPage() {
           <ul className="list-unstyled menu">
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-house-door"></i>
-              <span>Dashboard</span>
+              <Link href={'paginaUsuario'}><span>Dashboard</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-book"></i>
-              <span>Catálogo de Treinamentos</span>
+              <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
             </li>
             <li className="ativo mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-award"></i>
-              <span>Meus Treinamentos</span>
+              <Link href={'meuTreinamento'}><span>Meus Treinamentos</span></Link>
             </li>
             <li className="d-flex align-items-center gap-2">
               <i className="bi bi-person"></i>
-              <span>Meu Perfil</span>
+              <Link href={'paginaPerfil'}><span>Meu Perfil</span></Link>
             </li>
           </ul>
         </aside>

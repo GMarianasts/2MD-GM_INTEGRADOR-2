@@ -7,6 +7,15 @@ body {
     /* garante rolagem geral da página */
 }
 
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+  color: white;
+}
+
 .sidebar {
     width: 260px;
     height: 130vh;

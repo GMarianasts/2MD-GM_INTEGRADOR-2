@@ -3,6 +3,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./paginaUsuario.css";
+import Link from "next/link";
 
 export default function PaginaUsuario() {
   return (
@@ -17,15 +18,15 @@ export default function PaginaUsuario() {
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-book"></i>
-              <span>Catálogo de Treinamentos</span>
+             <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-award"></i>
-              <span>Meus Treinamentos</span>
+              <Link href={'meuTreinamento'}><span>Meus Treinamentos</span></Link>
             </li>
             <li className="d-flex align-items-center gap-2">
               <i className="bi bi-person"></i>
-              <span>Meu Perfil</span>
+              <Link href={'paginaPerfil'}><span>Meu Perfil</span></Link>
             </li>
           </ul>
         </aside>

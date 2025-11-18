@@ -9,6 +9,13 @@ import CardAgendado from '@/components/componentsMeusTreinamentos/CardAgendado';
 import { resumo, emAndamento, concluidos, agendados } from '@/data/TreinamentosMock';
 import './meutreinamento.css';
 import Link from 'next/link';
+ 
+const iconMap = {
+  'Em Andamento': { icon: 'bi-play-circle-fill', bgColor: '#e9f0ff' }, 
+  'Concluídos': { icon: 'bi-check-circle-fill', bgColor: '#e5faed' }, 
+  'Agendados': { icon: 'bi-calendar-event-fill', bgColor: '#fff4e5' }, 
+  'Taxa de conclusão': { icon: 'bi-graph-up', bgColor: '#f9f0ff' } 
+};
 
 
 export default function MeuTreinamentosPage() {
@@ -60,6 +67,7 @@ export default function MeuTreinamentosPage() {
             ))}
           </div>
 
+          
           <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
 
           <div className="mt-4">{renderContent()}</div>

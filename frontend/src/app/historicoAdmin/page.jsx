@@ -35,30 +35,31 @@ export default function DashboardHistorico() {
                 <main className="col-12 col-md-9 px-4 py-4">
                     <section className="introducao mb-4">
                         <div className="trocaPagina">
-                            <ul className="nav nav-pills nav-fill">
-                                <li className="nav-item">
-                                    <Link className="nav-link" aria-current="page" href={"dashboardAdmin"}>Dashboard</Link>
+                            <ul className="list-unstyled menu">
+                                <li className="ativo mb-3 d-flex align-items-center gap-2">
+                                    <i className="bi bi-house-door"></i>
+                                    <Link href={'dashboardAdmin'}><span>Dashboard</span></Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href={"inscricoesAdmin"}>Inscrições</Link>
+                                <li className="mb-3 d-flex align-items-center gap-2">
+                                    <i className="bi bi-grid"></i>
+                                    <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href={"presencaAdmin"} aria-disabled="true">Presença</Link>
+                                <li className="mb-3 d-flex align-items-center gap-2">
+                                    <i className="bi bi-bar-chart"></i>
+                                    <Link href={'Relatorio'}><span>Relatório de Skill Gap</span></Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href={"certificadosAdmin"} aria-disabled="true">Certificados</Link>
+                                <li className="d-flex align-items-center gap-2">
+                                    <i className="bi bi-person"></i>
+                                    <Link href={'colaboradorAdmin'}></Link><span>Gerenciar Colaboradores</span>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link active" href={'historicoAdmin'} aria-disabled="true">Histórico</Link>
-                                </li>
-                            </ul>            
+                            </ul>
                         </div>
                     </section>
 
                     <div className="container-fluid my-2">
                         <div className="row g-3">
                             <div className="col-12">
-                                <GerenciarHistorico/>
+                                <GerenciarHistorico />
                             </div>
                         </div>
                     </div>

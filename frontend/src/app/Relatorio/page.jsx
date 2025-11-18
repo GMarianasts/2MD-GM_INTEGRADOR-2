@@ -119,21 +119,22 @@ export default function RelatorioSkillGap() {
           className="d-none d-md-block col-md-3 col-lg-2 sidebar p-3 border-end bg-white"
           style={{ minHeight: "100vh" }}
         >
-          <ul className="list-unstyled menu sticky-top pt-3">
-            <li className="mb-3 d-flex align-items-center gap-2">
-              <i className="bi bi-house-door"></i> 
+          <ul className="list-unstyled menu">
+            <li className="ativo mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-house-door"></i>
               <Link href={'dashboardAdmin'}><span>Dashboard</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
-              <i className="bi bi-book"></i> 
+              <i className="bi bi-grid"></i>
               <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
             </li>
-            <li className="ativo mb-3 d-flex align-items-center gap-2">
-              <i className="bi bi-bar-chart"></i> 
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-bar-chart"></i>
               <Link href={'Relatorio'}><span>Relatório de Skill Gap</span></Link>
             </li>
             <li className="d-flex align-items-center gap-2">
-              <i className="bi bi-person"></i> <span>Gerenciar Colaboradores</span>
+              <i className="bi bi-person"></i>
+              <Link href={'colaboradorAdmin'}></Link><span>Gerenciar Colaboradores</span>
             </li>
           </ul>
         </aside>

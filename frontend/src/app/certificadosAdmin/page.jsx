@@ -28,7 +28,7 @@ export default function CertificadosAdmin() {
             </li>
             <li className="d-flex align-items-center gap-2">
               <i className="bi bi-person"></i>
-              <span>Gerencial Colaboradores</span>
+              <Link href={'colaboradorAdmin'}></Link><span>Gerenciar Colaboradores</span>
             </li>
           </ul>
         </aside>

@@ -36,7 +36,7 @@ export default function DashboardAdmin() {
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
-                            <span>Dashboard</span>
+                            <Link href={'dashboardAdmin'}><span>Dashboard</span></Link>
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-grid"></i>
@@ -48,7 +48,7 @@ export default function DashboardAdmin() {
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
-                            <span>Gerencial Colaboradores</span>
+                            <Link href={'colaboradorAdmin'}></Link><span>Gerenciar Colaboradores</span>
                         </li>
                     </ul>
                 </aside>
@@ -61,7 +61,7 @@ export default function DashboardAdmin() {
                                     <Link className="nav-link active" aria-current="page" href={'dashboardAdmin'}>Dashboard</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link  href={'inscricoesAdmin'} className="nav-link" aria-disabled="true">Inscrições</Link>
+                                    <Link href={'inscricoesAdmin'} className="nav-link" aria-disabled="true">Inscrições</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link href={'presencaAdmin'} className="nav-link " aria-disabled="true">Presença</Link>

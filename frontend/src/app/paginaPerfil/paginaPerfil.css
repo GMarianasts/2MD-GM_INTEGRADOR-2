@@ -7,6 +7,15 @@ body {
     overflow-y: auto;
 }
 
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+  color: white;
+}
+
 h1 {
     font-size: 26px;
     color: #000082;

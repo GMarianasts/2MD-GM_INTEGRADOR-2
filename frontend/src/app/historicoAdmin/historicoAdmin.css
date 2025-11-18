@@ -7,6 +7,15 @@ body {
   overflow-y: auto;
 }
 
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+  color: white;
+}
+
 /* SIDEBAR */
 .sidebar {
   width: 260px;

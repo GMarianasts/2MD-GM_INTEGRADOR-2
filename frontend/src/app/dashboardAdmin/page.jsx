@@ -7,6 +7,7 @@ import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
     PieChart, Pie, Cell
 } from "recharts";
+import Link from "next/link";
 
 export default function DashboardAdmin() {
 
@@ -39,11 +40,11 @@ export default function DashboardAdmin() {
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-grid"></i>
-                            <span>Gerenciar Treinamentos</span>
+                            <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-bar-chart"></i>
-                            <span>Relatório de Skill Gap</span>
+                            <Link href={'Relatorio'}><span>Relatório de Skill Gap</span></Link>
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
@@ -57,19 +58,19 @@ export default function DashboardAdmin() {
                         <div className="trocaPagina">
                             <ul className="nav nav-pills nav-fill">
                                 <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="#">Dashboard</a>
+                                    <Link className="nav-link active" aria-current="page" href={'dashboardAdmin'}>Dashboard</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Inscrições</a>
+                                    <Link  href={'inscricoesAdmin'} className="nav-link" aria-disabled="true">Inscrições</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Presença</a>
+                                    <Link href={'presencaAdmin'} className="nav-link " aria-disabled="true">Presença</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Certificados</a>
+                                    <Link href={'certificadosAdmin'} className="nav-link " aria-disabled="true">Certificados</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link " aria-disabled="true">Histórico</a>
+                                    <Link href={'historicoAdmin'} className="nav-link " aria-disabled="true">Histórico</Link>
                                 </li>
                             </ul>
                         </div>

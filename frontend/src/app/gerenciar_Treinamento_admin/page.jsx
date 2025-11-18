@@ -3,8 +3,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./gerenciar.css";
+import Link from "next/link";
 
-export default function DashboardAdmin() {
+export default function gerecinadorTreinamento() {
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row flex-nowrap">
@@ -12,15 +13,15 @@ export default function DashboardAdmin() {
                     <ul className="list-unstyled menu">
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
-                            <span>Dashboard</span>
+                            <Link href={'dashboardAdmin'}><span>Dashboard</span></Link>
                         </li>
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-grid"></i>
-                            <span>Gerenciar Treinamentos</span>
+                            <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-bar-chart"></i>
-                            <span>Relatório de Skill Gap</span>
+                            <Link href={'Relatorio'}><span>Relatório de Skill Gap</span></Link>
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
@@ -33,7 +34,7 @@ export default function DashboardAdmin() {
                     <div className="d-flex justify-content-between align-items-center mb-4">
 
                         <div>
-                            <h2 className="h4 mb-1 titulo">Gerenciar Treinamentos</h2>
+                            <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Treinamentos</h2>
                             <p className="descricao text-muted mb-0">
                                 Administre todos os treinamentos da plataforma
                             </p>

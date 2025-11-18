@@ -2,6 +2,8 @@ import Card from "@/components/Card";
 import Filtros from "@/components/Filtro";
 import "./catalogo.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import Link from "next/link";
+import DashboardAdmin from "../dashboardAdmin/page";
 
 export default function Page() {
   return (
@@ -11,7 +13,7 @@ export default function Page() {
           <ul className="list-unstyled menu">
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-house-door"></i>
-              <span>Dashboard</span>
+              <Link href={'paginaUsuario'}><span>Dashboard</span></Link>
             </li>
             <li className="ativo mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-book"></i>
@@ -19,11 +21,11 @@ export default function Page() {
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-award"></i>
-              <span>Meus Treinamentos</span>
+              <Link href={'meuTreinamento'}><span>Meus Treinamentos</span></Link>
             </li>
             <li className="d-flex align-items-center gap-2">
               <i className="bi bi-person"></i>
-              <span>Meu Perfil</span>
+              <Link href={'paginaPerfil'}><span>Meu Perfil</span></Link>
             </li>
           </ul>
         </aside>

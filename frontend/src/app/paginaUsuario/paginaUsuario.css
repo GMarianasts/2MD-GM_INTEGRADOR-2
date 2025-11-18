@@ -5,6 +5,15 @@ html, body {
   overflow-y: auto; /* garante rolagem geral da página */
 }
 
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+  color: white;
+}
+
 .pagina-usuario {
   display: flex;
   min-height: 100%;
@@ -19,7 +28,7 @@ html, body {
   padding: 20px 15px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start; 
 }
 
 .pagina-usuario main {
@@ -234,11 +243,18 @@ html, body {
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-weight: 600;
   width: 100%;
   transition: 0.3s;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
 }
+
 
 .btn-continuar:hover {
   background-color: #09235a;

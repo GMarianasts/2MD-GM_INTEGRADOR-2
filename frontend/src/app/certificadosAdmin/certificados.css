@@ -1,0 +1,248 @@
+/* ===== CONTAINER PRINCIPAL ===== */
+.pagina-usuario main {
+  background-color: #f5f7fb !important;
+  min-height: 100vh;
+}
+
+/* Caixa branca igual ao print */
+.card-treinamento,
+.container-certificados {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 25px;
+  margin-top: 15px;
+  border: 1px solid #e6e6e6;
+}
+
+/* ===== TÍTULO E BOTÃO ===== */
+.titulo-certificado {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.subtitulo {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Botão azul igual ao print */
+.btn-emitir {
+  background: #052b61;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.btn-emitir:hover {
+  background: #001c46;
+}
+
+/* ===== BARRA DE BUSCA ===== */
+.search-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  border: 1px solid #e6e6e6;
+  margin-top: 25px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+}
+
+.search-icon {
+  color: #808080;
+  font-size: 18px;
+}
+
+/* ===== TABELA ===== */
+.tabela-wrapper {
+  background: #fff;
+  border-radius: 14px;
+  padding: 0;
+  margin-top: 25px;
+  border: 1px solid #e6e6e6;
+}
+
+/* Remover padding interno da tabela */
+.table {
+  margin-bottom: 0 !important;
+}
+
+.table thead tr th {
+  background: #f5f7fb;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.table tbody tr td {
+  padding: 16px;
+}
+
+/* Coluna ações */
+.acoes {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
+a:hover {
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  height: 130vh;
+  background-color: #fff;
+  border-right: 1px solid #e6e6e6;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bi {
+  display: flex;
+}
+
+/* Menu */
+.menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.menu li:hover {
+  background-color: #e9efff;
+  color: #0a2b6b;
+}
+
+.menu li.ativo {
+  background-color: #0a2b6b;
+  color: #fff;
+  font-weight: 500;
+}
+
+
+
+
+.introducao {
+  margin-right: 40px;
+}
+
+.trocaPagina {
+  width: 100%;
+  background-color: #f1f1f5;
+  border-radius: 20px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.trocaPagina .nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.trocaPagina .nav-item {
+  flex: 1 1 0;
+  text-align: center;
+}
+
+.nav-pills .nav-link {
+  color: #000 !important;
+  background: transparent !important;
+  border-radius: 15px !important;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-radius: 15px;
+  font-weight: 600;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.06) inset;
+}
+
+.nav-pills .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Buscar */
+
+/* Wrapper para fazer ocupar a largura total */
+.search-wrapper {
+    width: 100%;
+    padding: 0 20px; /* mesmo espaçamento lateral dos menus */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* Barra de busca com largura igual à barra de navegação */
+.search-container {
+    width: 100%;
+    max-width: 1400px; /* mesmo limite visual do seu layout */
+    height: 48px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e4e7ec;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 45px;
+    margin-left: 90px;
+}
+
+/* Ícone */
+.search-container .search-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 18px;
+    color: #7d8da0;
+}
+
+/* Input */
+.search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+}

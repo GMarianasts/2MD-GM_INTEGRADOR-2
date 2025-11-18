@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./historicoAdmin.css";
 import Link from "next/link";
+import GerenciarHistorico from "@/components/gerenciamentoHistorico/cardGerenciaHistorico";
 
 export default function DashboardHistorico() {
     return (
@@ -57,7 +58,7 @@ export default function DashboardHistorico() {
                     <div className="container-fluid my-2">
                         <div className="row g-3">
                             <div className="col-12">
-                                
+                                <GerenciarHistorico/>
                             </div>
                         </div>
                     </div>

@@ -324,3 +324,46 @@ h5{
     table-layout: fixed;
     /* evita encolher */
 }
+
+
+
+/* Modal */
+.modal-content {
+  border-radius: 14px;
+  padding: 10px;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-title {
+  color: #0a2b6b;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.modal-body label {
+  color: #0a2b6b;
+  font-size: 14px;
+}
+
+.btn-primary.salvar-colaborador {
+  background-color: #0a2b6b;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 10px;
+}
+
+.cadastrar-colaborador-btn {
+  background-color: #052c65;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}

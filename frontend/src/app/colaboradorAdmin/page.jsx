@@ -35,11 +35,11 @@ export default function PaginaColaboradores() {
 
                 <main className="col-12 col-md-9 px-4 py-4">
                     <div>
-                            <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Colaboradores</h2>
-                            <p className="descricao text-muted mb-0">
-                                Administre os colaboradores e suas permissões
-                            </p>
-                        </div>
+                        <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Colaboradores</h2>
+                        <p className="descricao text-muted mb-0">
+                            Administre os colaboradores e suas permissões
+                        </p>
+                    </div>
 
 
                     <div className="row g-3 cards-wrapper">
@@ -112,7 +112,97 @@ export default function PaginaColaboradores() {
                         </div>
 
                     </div>
+                    <div
+                        className="modal fade"
+                        id="modalCadastrarColaborador"
+                        tabIndex="-1"
+                        aria-labelledby="modalCadastrarColaboradorLabel"
+                        aria-hidden="true"
+                    >
+                        <div className="modal-dialog modal-lg modal-dialog-centered">
+                            <div className="modal-content">
 
+                                <div className="modal-header">
+                                    <h5 className="modal-title fw-bold" id="modalCadastrarColaboradorLabel">
+                                        Cadastrar Colaborador
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+
+                                <div className="modal-body">
+
+                                    <form className="row g-3">
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Nome</label>
+                                            <input type="text" className="form-control" placeholder="Digite o nome" />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">E-mail</label>
+                                            <input type="email" className="form-control" placeholder="Digite o e-mail" />
+                                        </div>
+
+                                        <div className="col-md-4">
+                                            <label className="form-label fw-semibold">ID</label>
+                                            <input type="text" className="form-control" placeholder="Ex: GM-2023-000123" />
+                                        </div>
+
+                                        <div className="col-md-4">
+                                            <label className="form-label fw-semibold">Departamento</label>
+                                            <select className="form-select">
+                                                <option>Engenharia</option>
+                                                <option>Produção</option>
+                                                <option>RH</option>
+                                                <option>TI</option>
+                                                <option>Qualidade</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-4">
+                                            <label className="form-label fw-semibold">Cargo</label>
+                                            <input type="text" className="form-control" placeholder="Digite o cargo" />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Unidade</label>
+                                            <select className="form-select">
+                                                <option>São Caetano do Sul</option>
+                                                <option>Gravatá</option>
+                                                <option>São José dos Campos</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Status</label>
+                                            <select className="form-select">
+                                                <option value="ativo">Ativo</option>
+                                                <option value="inativo">Inativo</option>
+                                            </select>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+
+                                    <button type="button" className="btn btn-primary salvar-colaborador">
+                                        Salvar
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
 
                     {/* Tabela */}

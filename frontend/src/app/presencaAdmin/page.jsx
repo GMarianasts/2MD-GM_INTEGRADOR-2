@@ -46,7 +46,7 @@ export default function DashboardPresenca() {
                                     <Link className="nav-link active" href={"/presencaAdmin"} aria-disabled="true">Presença</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" href={"#"} aria-disabled="true">Certificados</Link>
+                                    <Link className="nav-link" href={"/certificadosAdmin"} aria-disabled="true">Certificados</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" href={"/historicoAdmin"} aria-disabled="true">Histórico</Link>

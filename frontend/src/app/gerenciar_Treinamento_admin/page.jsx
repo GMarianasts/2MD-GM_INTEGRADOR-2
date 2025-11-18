@@ -5,7 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./gerenciar.css";
 import Link from "next/link";
 
-export default function DashboardAdmin() {
+export default function gerecinadorTreinamento() {
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row flex-nowrap">
@@ -34,7 +34,7 @@ export default function DashboardAdmin() {
                     <div className="d-flex justify-content-between align-items-center mb-4">
 
                         <div>
-                            <h2 className="h4 mb-1 titulo">Gerenciar Treinamentos</h2>
+                            <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Treinamentos</h2>
                             <p className="descricao text-muted mb-0">
                                 Administre todos os treinamentos da plataforma
                             </p>

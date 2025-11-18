@@ -115,7 +115,6 @@ export default function RelatorioSkillGap() {
   return (
     <div className="container-fluid pagina-usuario">
       <div className="row flex-nowrap">
-        {/* === SIDEBAR (Mantendo a estrutura padrão) === */}
         <aside
           className="d-none d-md-block col-md-3 col-lg-2 sidebar p-3 border-end bg-white"
           style={{ minHeight: "100vh" }}

@@ -1,4 +1,3 @@
-
 html, body {
   height: 100%;
   margin: 0;
@@ -39,11 +38,11 @@ a:hover {
 
 .menu li:hover {
     background-color: #e9efff;
-    color: #0a2b6b;
+    color: #0a2b6b; 
 }
 
 .menu li.ativo {
-    background-color: #0a2b6b;
+    background-color: #0a2b6b; 
     color: #fff;
     font-weight: 500;
 }
@@ -79,7 +78,7 @@ a:hover {
   background: none;
   border: none;
   font-weight: 600;
-  color: #e0e0e0;
+  color:  #005DAA;
   padding: 0.6rem 1rem;
   border-bottom: 3px solid transparent;
   cursor: pointer;
@@ -87,24 +86,56 @@ a:hover {
 }
 
 .tab-button:hover {
-  color: #e0e0e0;
+  color: #e0e0e0; 
 }
 
 .tab-button.active {
-  color: var(--azul-escuro);
-  border-bottom: 3px solid #005DAA;
+  color: #005DAA; 
+  border-bottom: 3px solid #005DAA; 
 }
 
+.btn-primary {
+    background-color: #0A2B6B !important; 
+    border-color: #0A2B6B !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #005DAA !important; 
+    border-color: #005DAA !important;
+}
+.btn-outline-secondary, 
+.btn-outline-primary {
+    color: #005DAA; 
+    border-color: #005DAA; 
+}
+.btn-outline-secondary:hover, 
+.btn-outline-primary:hover {
+    background-color: #005DAA;
+    color: white; 
+    border-color: #005DAA;
+}
+
+.progress-bar {
+    background-color: #005DAA !important; 
+}
+
+.text-primary {
+    color: #005DAA !important; 
+}
 
 @media (max-width: 768px) {
-  .sidebar {
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid #e0e0e0;
-  }
+.sidebar {
+height: auto;
+ border-right: none;
+border-bottom: 1px solid #e0e0e0;
+ }
 
-  .conteudo-treinamentos {
-    padding: 1rem;
-  }
+ .conteudo-treinamentos {
+ padding: 1rem;
+ }
 }
+
+
+
 

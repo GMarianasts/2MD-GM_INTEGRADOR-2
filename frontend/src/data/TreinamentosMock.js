@@ -2,7 +2,7 @@ export const resumo = [
   { titulo: 'Em Andamento', valor: 3 },
   { titulo: 'Concluídos', valor: 5 },
   { titulo: 'Agendados', valor: 2 },
-  { titulo: 'Total de Horas', valor: '82' },
+  { titulo: 'Taxa de conclusão', valor: '82%' },
 ];
 
 export const concluidos = [
@@ -22,6 +22,7 @@ export const concluidos = [
     dataConclusao: '05/08/2025',
     modulos: 5,
     horas: '8',
+    nota: 100
   },
   {
     id: 6,
@@ -30,6 +31,7 @@ export const concluidos = [
     dataConclusao: '22/07/2025',
     modulos: 2,
     horas: '2',
+    nota: 85
   },
 ];
 

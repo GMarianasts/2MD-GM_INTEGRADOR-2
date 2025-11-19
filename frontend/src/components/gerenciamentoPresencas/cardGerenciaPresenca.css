@@ -1,3 +1,25 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  background-color: #f6f8ff;
+  /* garante rolagem geral da página */
+}
+
+.pagina-full-width {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 24px;
+}
+
+.card-full-width {
+    width: 100%;
+    max-width: none !important;
+}
+
+
 /* CONTAINER PRINCIPAL */
 .presenca-list-container {
     padding: 0 0 20px 0; /* Ajuste o padding conforme a necessidade da página */
@@ -6,8 +28,21 @@
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 24px;
+    background-color: white;
+    width: 100% !important;
+    max-width: none !important;
+
 }
 
+
+.presenca-cards-wrapper {
+    width: 100%;
+}
+
+.presenca-card {
+    width: 100%;
+    max-width: none !important;
+}
 /* HEADER */
 .presenca-header {
     display: flex;

@@ -34,6 +34,7 @@ export default function CertificadosAdmin() {
         </aside>
 
         <main className="col-12 col-md-9 px-4 py-4">
+          <div className="corPagina">
           <section className="introducao mb-4">
             <div className="trocaPagina">
               <ul className="nav nav-pills nav-fill">
@@ -88,7 +89,7 @@ export default function CertificadosAdmin() {
           </div>
           </div>
 
-
+          </div>
         </main>
       </div>
     </div>

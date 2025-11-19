@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-y: auto;
+    background-color: #f6f8ff;
     /* garante rolagem geral da página */
 }
 
@@ -262,8 +263,15 @@ a:hover {
 /* Tabela */
 .tabela-colaboradores {
     margin-top: 10px;
+    background-color: white !important;
+    width: 100%;
+    min-width: 100%;
+    table-layout: fixed;
 }
 
+.thead{
+    background-color:#f6f8ff;
+}
 .tabela-colaboradores th {
     background: transparent;
     color: #555;
@@ -315,14 +323,6 @@ h5{
     margin-top: 20px;
     border-radius: 12px;
     border: 1px solid #e6e6e6;
-}
-
-/* Tabela */
-.tabela-colaboradores {
-    width: 100%;
-    min-width: 100%;
-    table-layout: fixed;
-    /* evita encolher */
 }
 
 

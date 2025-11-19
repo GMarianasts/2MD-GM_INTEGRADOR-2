@@ -8,10 +8,11 @@ import GerenciarHistorico from "@/components/gerenciamentoHistorico/cardGerencia
 
 export default function DashboardHistorico() {
     return (
-        <div className="container-fluid pagina-dashboardInscricoes">
+        <div className="container-fluid pagina-usuario">
             <div className="row g-0">
 
-                <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+                {/* ===== SIDEBAR ===== */}
+                <aside className="col-12 col-md-3 col-lg-2 sidebar">
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
@@ -27,20 +28,49 @@ export default function DashboardHistorico() {
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
-                            <Link href={'colaboradorAdmin'}><span>Gerenciar Colaboradores</span></Link>
+                            <Link href={'colaboradorAdmin'}></Link><span>Gerenciar Colaboradores</span>
                         </li>
                     </ul>
                 </aside>
 
-                <main className="col-12 col-md-9 px-4 py-4">
-                    
+                {/* ===== CONTEÚDO PRINCIPAL ===== */}
+                <main className="col-12 col-md-9 col-lg-10 px-4 py-4 w-100">
 
-                    <div className="container-fluid my-2">
-                        <div className="row g-3">
-                            <div className="col-12">
-                                <GerenciarHistorico />
+                    <div className="corPagina">
+
+                        <section className="introducao mb-4" style={{ marginRight: 0 }}>
+
+                            <div className="trocaPagina">
+                                <ul className="nav nav-pills nav-fill">
+                                    <li className="nav-item">
+                                        <Link className="nav-link" href={'dashboardAdmin'}>Dashboard</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href={'inscricoesAdmin'} className="nav-link">Inscrições</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href={'presencaAdmin'} className="nav-link">Presença</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href={'certificadosAdmin'} className="nav-link">Certificados</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href={'historicoAdmin'} className="nav-link active">Histórico</Link>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </section>
+
+                        {/* CONTEÚDO */}
+                        <div className="container-fluid my-2">
+                            <div className="row g-3">
+                                <div className="col-12">
+                                    <GerenciarHistorico />
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </main>
             </div>

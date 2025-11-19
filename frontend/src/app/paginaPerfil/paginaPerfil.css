@@ -5,6 +5,11 @@ body {
     margin: 0;
     padding: 0;
     overflow-y: auto;
+    background-color: #f6f8ff;
+}
+
+main {
+    padding-left: 260px;
 }
 
 a {
@@ -36,6 +41,10 @@ p {
 /* LAYOUT GERAL */
 .pagina-perfil {
     display: flex;
+}
+
+.corPagina{
+    background-color:#f6f8ff  ;
 }
 
 /* SIDEBAR */

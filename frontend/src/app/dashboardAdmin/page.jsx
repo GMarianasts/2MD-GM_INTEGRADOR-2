@@ -48,7 +48,7 @@ export default function DashboardAdmin() {
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
-                            <Link href={'colaboradorAdmin'}></Link><span>Gerenciar Colaboradores</span>
+                            <Link href={'colaboradorAdmin'}><span>Gerenciar Colaboradores</span></Link>
                         </li>
                     </ul>
                 </aside>

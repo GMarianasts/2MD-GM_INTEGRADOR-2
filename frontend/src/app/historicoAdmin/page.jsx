@@ -27,7 +27,7 @@ export default function DashboardHistorico() {
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
-                            <Link href={'colaboradorAdmin'}><span>Gerencial Colaboradores</span></Link>
+                            <Link href={'colaboradorAdmin'}><span>Gerenciar Colaboradores</span></Link>
                         </li>
                     </ul>
                 </aside>

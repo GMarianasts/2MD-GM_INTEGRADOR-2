@@ -4,10 +4,62 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./gerenciar.css";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import ModalNovoTreinamento from "@/components/modalNovoTreinamento/modalNovoTreinamento";
 
 export default function gerecinadorTreinamento() {
+
+    // Estado para guardar os treinamentos vindos do banco
+    const [treinamentos, setTreinamentos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false); // <--- Estado para controlar o Pop-up
+
+    // Função para buscar dados
+    async function fetchTreinamentos() {
+        setLoading(true);
+        try {
+            const res = await fetch('http://localhost:3001/api/treinamentos');
+            const data = await res.json();
+            if (data.sucesso) {
+                setTreinamentos(data.dados);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar treinamentos:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Busca os dados assim que a tela carrega
+    useEffect(() => {
+        fetchTreinamentos();
+    }, []);
+
+    // Função auxiliar para formatar a data
+    const formatarData = (dataISO) => {
+        if (!dataISO) return '-';
+        // Corrige o fuso horário para exibir a data correta
+        const data = new Date(dataISO);
+        return data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+    };
+
+    // Função para definir a cor do badge baseada no status
+    const getStatusBadge = (status) => {
+        if (status === 'Ativo') return 'bg-success-subtle text-success border-success-subtle';
+        if (status === 'Rascunho') return 'bg-secondary-subtle text-secondary border-secondary-subtle';
+        return 'bg-light text-dark border';
+    };
+
     return (
         <div className="container-fluid pagina-usuario">
+
+            {showModal && (
+                <ModalNovoTreinamento
+                    onClose={() => setShowModal(false)}
+                    onSalvar={fetchTreinamentos} // Passa a função de recarregar a lista
+                />
+            )}
+
             <div className="row flex-nowrap">
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: '100vh' }}>
                     <ul className="list-unstyled menu">
@@ -41,8 +93,9 @@ export default function gerecinadorTreinamento() {
                         </div>
 
                         <button
-                            className="btn text-white d-flex align-items-center gap-2 px-4 py-2 rounded-3 fw-semibold shadow-sm"
-                            style={{ backgroundColor: "#0a2b6b", borderColor: "#0a2b6b" }}
+                            className="btn text-white ..."
+                            style={{ backgroundColor: "#0a2b6b" }}
+                            onClick={() => setShowModal(true)}
                         >
                             <i className="bi bi-plus-lg fs-5"></i>
                             <span>Novo Treinamento</span>
@@ -115,14 +168,11 @@ export default function gerecinadorTreinamento() {
 
                             {/* Card Branco */}
                             <div className="card1 border rounded-4 bg-white shadow-sm p-3">
+                                <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100">
 
-                                {/* Container Flex: w-100 garante que o container ocupe a largura total do card */}
-                                <div className="d-flex flex-column flex-md-row align-items-center gap-3 w-100">
-
-                                    {/* === BARRA DE PESQUISA === */}
-                                    {/* flex-grow-1: Força a barra a crescer o máximo possível */}
+                                    {/* BARRA DE BUSCA — ocupa tudo */}
                                     <div
-                                        className="d-flex align-items-center px-3 py-2 rounded-3 flex-grow-1 w-100"
+                                        className="d-flex align-items-center px-3 py-2 rounded-3 flex-grow-1"
                                         style={{ backgroundColor: "#f8f9fa" }}
                                     >
                                         <i className="bi bi-search text-muted me-2"></i>
@@ -130,23 +180,19 @@ export default function gerecinadorTreinamento() {
                                             type="text"
                                             className="form-control border-0 bg-transparent shadow-none p-0 text-dark"
                                             placeholder="Buscar por título, instrutor ou competência..."
-                                            style={{ fontSize: "0.95rem", outline: "none" }}
+                                            style={{ fontSize: "0.95rem" }}
                                         />
                                     </div>
 
-                                    {/* === BOTÕES === */}
-                                    <div className="d-flex gap-2 w-100 w-md-auto">
-
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap justify-content-center">
-                                            <i className="bi bi-funnel"></i>
-                                            Filtros
+                                    {/* BOTÕES À DIREITA */}
+                                    <div className="d-flex gap-2">
+                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
+                                            <i className="bi bi-funnel"></i> Filtros
                                         </button>
 
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap justify-content-center">
-                                            <i className="bi bi-download"></i>
-                                            Exportar
+                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
+                                            <i className="bi bi-download"></i> Exportar
                                         </button>
-
                                     </div>
 
                                 </div>
@@ -154,7 +200,7 @@ export default function gerecinadorTreinamento() {
                         </div>
                     </div>
 
-                    <div className="row g-3">
+                    <div className="row g-3 mt-3">
                         <div className="col-12">
                             <div className="card1 border rounded-4 bg-white shadow-sm">
                                 <div className="card-body p-4">
@@ -162,7 +208,7 @@ export default function gerecinadorTreinamento() {
                                     <div className="mb-4">
                                         <h5 className="fw-bold mb-1">Todos os Treinamentos</h5>
                                         <p className="text-muted small mb-0">
-                                            6 treinamentos cadastrados
+                                            {treinamentos.length} treinamentos cadastrados
                                         </p>
                                     </div>
 
@@ -181,81 +227,42 @@ export default function gerecinadorTreinamento() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                                {/* =================================================================
-                    ÁREA DINÂMICA (COMENTADA PARA NÃO DAR ERRO AGORA)
-                    Quando quiser usar o JSON, remova os comentários {/* e * /} abaixo
-                    =================================================================
-                  */}
-
-                                                {/* {dadosJSON.map((item) => (
-                    <tr key={item.id}>
-                      <td className="ps-3 py-3">
-                        <span className="fw-medium" style={{color: '#0a2b6b'}}>{item.titulo}</span>
-                      </td>
-                      <td className="text-muted">{item.modalidade}</td>
-                      <td>
-                        <span className={`badge rounded-pill border px-3 ${getStatusClass(item.status)}`}>
-                          {item.status}
-                        </span>
-                      </td>
-                      <td className="text-muted">{item.instrutor}</td>
-                      <td>
-                        <div className="d-flex gap-1 flex-wrap">
-                          {item.competencias.map((tag, i) => (
-                             <span key={i} className="badge bg-light text-dark border fw-normal">{tag}</span>
-                          ))}
-                        </div>
-                      </td>
-                      <td className="text-muted">
-                        <div className="d-flex align-items-center gap-2">
-                            <i className="bi bi-people text-secondary"></i>
-                            {item.inscritos}/{item.totalVagas}
-                        </div>
-                      </td>
-                      <td className="text-muted">{item.inicio}</td>
-                      <td className="text-end pe-3">
-                        <button className="btn btn-light btn-sm rounded-circle">
-                            <i className="bi bi-three-dots-vertical text-muted"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                  */}
-                                                <tr>
-                                                    <td className="ps-3 py-3">
-                                                        <span className="fw-medium" style={{ color: '#0a2b6b' }}>Metodologias Ágeis na Prática</span>
-                                                    </td>
-                                                    <td className="text-muted">Online</td>
-                                                    <td><span className="badge rounded-pill border bg-success-subtle text-success border-success-subtle px-3">Ativo</span></td>
-                                                    <td className="text-muted">Maria Santos</td>
-                                                    <td>
-                                                        <div className="d-flex gap-1">
-                                                            <span className="badge bg-light text-dark border fw-normal">Agilidade</span>
-                                                            <span className="badge bg-light text-dark border fw-normal">Gestão</span>
-                                                        </div>
-                                                    </td>
-                                                    <td className="text-muted"><i className="bi bi-people text-secondary me-1"></i> 45/60</td>
-                                                    <td className="text-muted">01/12/2025</td>
-                                                    <td className="text-end pe-3"><i className="bi bi-three-dots-vertical text-muted"></i></td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td className="ps-3 py-3">
-                                                        <span className="fw-medium" style={{ color: '#0a2b6b' }}>Segurança da Informação</span>
-                                                    </td>
-                                                    <td className="text-muted">Online</td>
-                                                    <td><span className="badge rounded-pill border bg-secondary-subtle text-secondary border-secondary-subtle px-3">Rascunho</span></td>
-                                                    <td className="text-muted">Fernanda Lima</td>
-                                                    <td>
-                                                        <div className="d-flex gap-1">
-                                                            <span className="badge bg-light text-dark border fw-normal">Tecnologia</span>
-                                                        </div>
-                                                    </td>
-                                                    <td className="text-muted"><i className="bi bi-people text-secondary me-1"></i> 0/50</td>
-                                                    <td className="text-muted">20/12/2025</td>
-                                                    <td className="text-end pe-3"><i className="bi bi-three-dots-vertical text-muted"></i></td>
-                                                </tr>
+                                                
+                                                {loading ? (
+                                                    <tr><td colSpan="8" className="text-center py-4">Carregando...</td></tr>
+                                                ) : (
+                                                    treinamentos.map((item) => (
+                                                        <tr key={item.id}>
+                                                            <td className="ps-3 py-3">
+                                                                <span className="fw-medium" style={{ color: '#0a2b6b' }}>{item.titulo}</span>
+                                                            </td>
+                                                            <td className="text-muted">{item.modalidade}</td>
+                                                            <td>
+                                                                <span className={`badge rounded-pill border px-3 ${getStatusBadge(item.status)}`}>
+                                                                    {item.status}
+                                                                </span>
+                                                            </td>
+                                                            {/* ATENÇÃO: instrutor_nome em vez de instrutor */}
+                                                            <td className="text-muted">{item.instrutor_nome}</td>
+                                                            <td>
+                                                                <div className="d-flex gap-1 flex-wrap">
+                                                                    {item.competencias.map((comp, idx) => (
+                                                                        <span key={idx} className="badge bg-light text-dark border fw-normal">{comp}</span>
+                                                                    ))}
+                                                                </div>
+                                                            </td>
+                                                            <td className="text-muted">
+                                                                <i className="bi bi-people text-secondary me-1"></i> 
+                                                                {/* ATENÇÃO: inscritos_atuais e capacidade */}
+                                                                {item.inscritos_atuais}/{item.capacidade}
+                                                            </td>
+                                                            <td className="text-muted">{formatarData(item.data_inicio)}</td>
+                                                            <td className="text-end pe-3">
+                                                                <i className="bi bi-three-dots-vertical text-muted" style={{cursor: 'pointer'}}></i>
+                                                            </td>
+                                                        </tr>
+                                                    ))
+                                                )}
 
                                             </tbody>
                                         </table>
@@ -266,7 +273,6 @@ export default function gerecinadorTreinamento() {
                         </div>
                     </div>
                 </main>
-
             </div>
         </div>
     );

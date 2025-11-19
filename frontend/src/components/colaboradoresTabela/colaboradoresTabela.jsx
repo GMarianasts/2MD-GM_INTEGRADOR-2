@@ -78,9 +78,14 @@ export default function TabelaColaboradores() {
           className="form-control"
           placeholder="Buscar colaboradores por nome, e-mail ou ID..."
         />
-        <button className="btn btn-primary cadastrar-btn">
+        <button
+          className="btn btn-primary cadastrar-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#modalCadastrarColaborador"
+        >
           <i className="bi bi-plus-lg me-2"></i> Cadastrar Colaborador
         </button>
+
       </div>
 
       <table className="table tabela-colaboradores">

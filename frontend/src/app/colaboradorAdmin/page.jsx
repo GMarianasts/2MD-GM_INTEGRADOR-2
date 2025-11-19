@@ -119,12 +119,12 @@ export default function PaginaColaboradores() {
                         aria-labelledby="modalCadastrarColaboradorLabel"
                         aria-hidden="true"
                     >
-                        <div className="modal-dialog modal-lg modal-dialog-centered">
+                        <div className="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                             <div className="modal-content">
 
                                 <div className="modal-header">
                                     <h5 className="modal-title fw-bold" id="modalCadastrarColaboradorLabel">
-                                        Cadastrar Colaborador
+                                        Cadastrar Novo Colaborador
                                     </h5>
                                     <button
                                         type="button"
@@ -136,26 +136,73 @@ export default function PaginaColaboradores() {
 
                                 <div className="modal-body">
 
+                                    {/* FORM COMPLETO */}
                                     <form className="row g-3">
 
-                                        <div className="col-md-6">
-                                            <label className="form-label fw-semibold">Nome</label>
-                                            <input type="text" className="form-control" placeholder="Digite o nome" />
-                                        </div>
+                                        {/* === INFORMAÇÕES PESSOAIS === */}
+                                        <h6 className="fw-bold mt-2">🧍 Informações Pessoais</h6>
+                                        <hr />
 
                                         <div className="col-md-6">
-                                            <label className="form-label fw-semibold">E-mail</label>
-                                            <input type="email" className="form-control" placeholder="Digite o e-mail" />
+                                            <label className="form-label fw-semibold">Nome Completo *</label>
+                                            <input type="text" className="form-control" placeholder="Ex: João Silva" />
                                         </div>
 
-                                        <div className="col-md-4">
-                                            <label className="form-label fw-semibold">ID</label>
-                                            <input type="text" className="form-control" placeholder="Ex: GM-2023-000123" />
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">CPF *</label>
+                                            <input type="text" className="form-control" placeholder="000.000.000-00" />
                                         </div>
 
-                                        <div className="col-md-4">
-                                            <label className="form-label fw-semibold">Departamento</label>
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">RG</label>
+                                            <input type="text" className="form-control" placeholder="00.000.000-0" />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Data de Nascimento *</label>
+                                            <input type="date" className="form-control" />
+                                        </div>
+
+
+                                        {/* === INFORMAÇÕES DE CONTATO === */}
+                                        <h6 className="fw-bold mt-3">📧 Informações de Contato</h6>
+                                        <hr />
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">E-mail Corporativo *</label>
+                                            <input type="email" className="form-control" placeholder="nome.sobrenome@gm.com" />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Telefone *</label>
+                                            <input type="text" className="form-control" placeholder="+55 11 98765-4321" />
+                                        </div>
+
+                                        <div className="col-12">
+                                            <label className="form-label fw-semibold">Endereço</label>
+                                            <input type="text" className="form-control" placeholder="Rua, Número, Bairro, Cidade - Estado" />
+                                        </div>
+
+
+                                        {/* === INFORMAÇÕES PROFISSIONAIS === */}
+                                        <h6 className="fw-bold mt-3">🏢 Informações Profissionais</h6>
+                                        <hr />
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">ID do Colaborador *</label>
+                                            <input type="text" className="form-control" placeholder="GM-2025-XXXXX" disabled />
+                                            <small className="text-muted">Gerado automaticamente</small>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Data de Admissão *</label>
+                                            <input type="date" className="form-control" />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Departamento *</label>
                                             <select className="form-select">
+                                                <option>Selecione...</option>
                                                 <option>Engenharia</option>
                                                 <option>Produção</option>
                                                 <option>RH</option>
@@ -164,14 +211,15 @@ export default function PaginaColaboradores() {
                                             </select>
                                         </div>
 
-                                        <div className="col-md-4">
-                                            <label className="form-label fw-semibold">Cargo</label>
-                                            <input type="text" className="form-control" placeholder="Digite o cargo" />
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Cargo *</label>
+                                            <input type="text" className="form-control" placeholder="Ex: Engenheiro Sênior" />
                                         </div>
 
                                         <div className="col-md-6">
-                                            <label className="form-label fw-semibold">Unidade</label>
+                                            <label className="form-label fw-semibold">Unidade *</label>
                                             <select className="form-select">
+                                                <option>Selecione...</option>
                                                 <option>São Caetano do Sul</option>
                                                 <option>Gravatá</option>
                                                 <option>São José dos Campos</option>
@@ -179,30 +227,44 @@ export default function PaginaColaboradores() {
                                         </div>
 
                                         <div className="col-md-6">
-                                            <label className="form-label fw-semibold">Status</label>
+                                            <label className="form-label fw-semibold">Gestor Direto</label>
+                                            <input type="text" className="form-control" placeholder="Nome do gestor" />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Nível Hierárquico *</label>
                                             <select className="form-select">
-                                                <option value="ativo">Ativo</option>
-                                                <option value="inativo">Inativo</option>
+                                                <option>Selecione...</option>
+                                                <option>Operacional</option>
+                                                <option>Técnico</option>
+                                                <option>Supervisor</option>
+                                                <option>Gerente</option>
+                                                <option>Diretor</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-semibold">Perfil de Acesso *</label>
+                                            <select className="form-select">
+                                                <option>Selecione...</option>
+                                                <option>Administrador</option>
+                                                <option>Gestor</option>
+                                                <option>Colaborador</option>
                                             </select>
                                         </div>
 
                                     </form>
-
                                 </div>
 
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                        Cancelar
-                                    </button>
-
-                                    <button type="button" className="btn btn-primary salvar-colaborador">
-                                        Salvar
-                                    </button>
+                                    <button className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button className="btn btn-primary">Cadastrar Colaborador</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+
 
 
                     {/* Tabela */}

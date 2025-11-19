@@ -19,9 +19,9 @@ export default function PaginaPerfil() {
                 {/* Sidebar */}
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
                     <ul className="list-unstyled menu">
-                        <li className="ativo mb-3 d-flex align-items-center gap-2">
+                        <li className=" mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
-                            <span>Dashboard</span>
+                            <Link href={'paginaUsuario'}><span>Dashboard</span></Link>
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-book"></i>
@@ -31,14 +31,16 @@ export default function PaginaPerfil() {
                             <i className="bi bi-award"></i>
                             <Link href={'meuTreinamento'}><span>Meus Treinamentos</span></Link>
                         </li>
-                        <li className="d-flex align-items-center gap-2">
+                        <li className=" ativo d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
                             <Link href={'paginaPerfil'}><span>Meu Perfil</span></Link>
                         </li>
                     </ul>
                 </aside>
 
+
                 <main className="col-12 col-md-9 px-4 py-4">
+                    <div className="corPagina">
                     <div className="container-fluid my-2">
                         <div className="row g-3">
                             <div className="col-12">
@@ -272,6 +274,7 @@ export default function PaginaPerfil() {
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </main>
             </div >

@@ -1,22 +1,27 @@
-/*CONFIGURAÇÃO GERAL DA TELA*/
+/* ================================
+   CONFIGURAÇÕES GERAIS
+================================ */
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow-y: auto;
+  background-color: #f6f8ff;
 }
 
 a {
-    text-decoration: none;
-    color: inherit; 
+  text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
   color: white;
 }
 
-/* SIDEBAR */
+/* ================================
+   SIDEBAR
+================================ */
 .sidebar {
   width: 260px;
   background-color: #fff;
@@ -29,7 +34,6 @@ a:hover {
   top: 0;
 }
 
-/* Menu do Sidebar*/
 .menu li {
   display: flex;
   align-items: center;
@@ -51,10 +55,9 @@ a:hover {
   font-weight: 500;
 }
 
-.introducao {
-  margin-right: 40px;
-}
-
+/* ================================
+   NAVEGAÇÃO SUPERIOR (TROCA PÁGINA)
+================================ */
 .trocaPagina {
   width: 100%;
   background-color: #f1f1f5;
@@ -85,15 +88,12 @@ a:hover {
   font-size: 14px;
   padding: 8px 12px;
   transition: all 0.2s ease;
-  display: inline-block;
   width: 100%;
-  box-sizing: border-box;
 }
 
 .nav-pills .nav-link.active {
   background-color: #fff !important;
   color: #000 !important;
-  border-radius: 15px;
   font-weight: 600;
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.06) inset;
 }
@@ -102,43 +102,50 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.6) !important;
 }
 
-/* CAMPO DE BUSCA */
-.introducao form {
-  background-color: #fff;
-  border: 1px solid #e6e6e6;
+/* ================================
+   ÁREA SUPERIOR (INTRODUÇÃO)
+================================ */
+.introducao {
+  margin-right: 0 !important;
+  width: 100%;
+}
+
+/* ================================
+   BARRA DE BUSCA — FULL WIDTH
+================================ */
+.search-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 48px;
+  background: #fff;
   border-radius: 12px;
-  padding: 10px 15px;
+  border: 1px solid #e4e7ec;
   display: flex;
   align-items: center;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  position: relative;
+  padding-left: 45px;
+  margin-left: 0 !important;
 }
 
-.introducao form input.form-control {
+.search-container .search-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 18px;
+  color: #7d8da0;
+}
+
+.search-input {
+  width: 100%;
   border: none;
   outline: none;
-  box-shadow: none;
-  background-color: #f9f9fb;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 14px;
-  color: #555;
+  font-size: 15px;
+  background: transparent;
 }
 
-.introducao form input.form-control::placeholder {
-  color: #999;
+/* ================================
+   CONTEÚDO PRINCIPAL
+================================ */
+main.col-12.col-md-9.col-lg-10 {
+  width: 100% !important;
+  max-width: 100% !important;
 }
-
-.introducao form button {
-  display: none;
-}
-
-.introducao form::before {
-  content: "\f52a";
-  font-family: "bootstrap-icons";
-  position: relative;
-  left: 10px;
-  color: #999;
-  font-size: 16px;
-  margin-right: 6px;
-}
-

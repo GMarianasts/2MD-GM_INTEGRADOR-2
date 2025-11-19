@@ -40,13 +40,7 @@ export default function gerecinadorTreinamento() {
                             </p>
                         </div>
 
-                        <button
-                            className="btn text-white d-flex align-items-center gap-2 px-4 py-2 rounded-3 fw-semibold shadow-sm"
-                            style={{ backgroundColor: "#0a2b6b", borderColor: "#0a2b6b" }}
-                        >
-                            <i className="bi bi-plus-lg fs-5"></i>
-                            <span>Novo Treinamento</span>
-                        </button>
+
 
                     </div>
 
@@ -115,14 +109,11 @@ export default function gerecinadorTreinamento() {
 
                             {/* Card Branco */}
                             <div className="card1 border rounded-4 bg-white shadow-sm p-3">
+                                <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100">
 
-                                {/* Container Flex: w-100 garante que o container ocupe a largura total do card */}
-                                <div className="d-flex flex-column flex-md-row align-items-center gap-3 w-100">
-
-                                    {/* === BARRA DE PESQUISA === */}
-                                    {/* flex-grow-1: Força a barra a crescer o máximo possível */}
+                                    {/* BARRA DE BUSCA — ocupa tudo */}
                                     <div
-                                        className="d-flex align-items-center px-3 py-2 rounded-3 flex-grow-1 w-100"
+                                        className="d-flex align-items-center px-3 py-2 rounded-3 flex-grow-1"
                                         style={{ backgroundColor: "#f8f9fa" }}
                                     >
                                         <i className="bi bi-search text-muted me-2"></i>
@@ -130,23 +121,19 @@ export default function gerecinadorTreinamento() {
                                             type="text"
                                             className="form-control border-0 bg-transparent shadow-none p-0 text-dark"
                                             placeholder="Buscar por título, instrutor ou competência..."
-                                            style={{ fontSize: "0.95rem", outline: "none" }}
+                                            style={{ fontSize: "0.95rem" }}
                                         />
                                     </div>
 
-                                    {/* === BOTÕES === */}
-                                    <div className="d-flex gap-2 w-100 w-md-auto">
-
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap justify-content-center">
-                                            <i className="bi bi-funnel"></i>
-                                            Filtros
+                                    {/* BOTÕES À DIREITA */}
+                                    <div className="d-flex gap-2">
+                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
+                                            <i className="bi bi-funnel"></i> Filtros
                                         </button>
 
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap justify-content-center">
-                                            <i className="bi bi-download"></i>
-                                            Exportar
+                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
+                                            <i className="bi bi-download"></i> Exportar
                                         </button>
-
                                     </div>
 
                                 </div>
@@ -159,11 +146,19 @@ export default function gerecinadorTreinamento() {
                             <div className="card1 border rounded-4 bg-white shadow-sm">
                                 <div className="card-body p-4">
 
-                                    <div className="mb-4">
-                                        <h5 className="fw-bold mb-1">Todos os Treinamentos</h5>
-                                        <p className="text-muted small mb-0">
-                                            6 treinamentos cadastrados
-                                        </p>
+                                    <div className="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <h5 className="fw-bold mb-1">Todos os Treinamentos</h5>
+                                            <p className="text-muted small mb-0">6 treinamentos cadastrados</p>
+                                        </div>
+
+                                        <button
+                                            className="btn btn-primary d-flex align-items-center gap-2 px-4 py-2 rounded-3 fw-semibold shadow-sm"
+                                            style={{ backgroundColor: "#0a2b6b", borderColor: "#0a2b6b" }}
+                                        >
+                                            <i className="bi bi-plus-lg fs-5"></i>
+                                            <span>Novo Treinamento</span>
+                                        </button>
                                     </div>
 
                                     <div className="table-responsive">

@@ -1,6 +1,6 @@
 import { getConnection } from '../config/database.js';
 
-// 1. LISTAR (GET) - Atualizado com os novos campos
+// GET
 export const listarTreinamentos = async (req, res) => {
     try {
         const conn = await getConnection();
@@ -27,7 +27,7 @@ export const listarTreinamentos = async (req, res) => {
     }
 };
 
-// 2. CRIAR (POST) - Novo método para receber o formulário
+// POST
 export const criarTreinamento = async (req, res) => {
     const conn = await getConnection();
     try {
@@ -53,7 +53,7 @@ export const criarTreinamento = async (req, res) => {
         const [result] = await conn.query(sql, values);
         const novoId = result.insertId;
 
-        // Lógica simples para salvar competências (se enviadas como string separada por vírgula)
+        // Salvar competências (separadas por vírgula)
         if (dados.competenciasTexto) {
             const tags = dados.competenciasTexto.split(',').map(t => t.trim());
             

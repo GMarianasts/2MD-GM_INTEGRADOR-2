@@ -38,7 +38,6 @@ export default function gerecinadorTreinamento() {
     // Função auxiliar para formatar a data
     const formatarData = (dataISO) => {
         if (!dataISO) return '-';
-        // Corrige o fuso horário para exibir a data correta
         const data = new Date(dataISO);
         return data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
     };
@@ -242,7 +241,6 @@ export default function gerecinadorTreinamento() {
                                                                     {item.status}
                                                                 </span>
                                                             </td>
-                                                            {/* ATENÇÃO: instrutor_nome em vez de instrutor */}
                                                             <td className="text-muted">{item.instrutor_nome}</td>
                                                             <td>
                                                                 <div className="d-flex gap-1 flex-wrap">
@@ -253,7 +251,6 @@ export default function gerecinadorTreinamento() {
                                                             </td>
                                                             <td className="text-muted">
                                                                 <i className="bi bi-people text-secondary me-1"></i> 
-                                                                {/* ATENÇÃO: inscritos_atuais e capacidade */}
                                                                 {item.inscritos_atuais}/{item.capacidade}
                                                             </td>
                                                             <td className="text-muted">{formatarData(item.data_inicio)}</td>
@@ -267,7 +264,6 @@ export default function gerecinadorTreinamento() {
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

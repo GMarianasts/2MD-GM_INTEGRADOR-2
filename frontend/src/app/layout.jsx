@@ -2,8 +2,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Open_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/blocks/Navbar";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "@/components/blocks/Footer";
+
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,15 +18,15 @@ const geistMono = Geist_Mono({
 });
 
 const openSans = Open_Sans({
-    weight: ['400', '500', '600', '700'], // Inclua o 500
-    subsets: ['latin'],
-    variable: '--font-open-sans', // Defina uma variável CSS
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-open-sans',
 });
 
 const montserrat = Montserrat({
-    weight: ['400', '500', '600', '700'], // Inclua o 500
-    subsets: ['latin'],
-    variable: '--font-montserrat', // Defina uma variável CSS
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-montserrat',
 });
 
 export const metadata = {
@@ -36,12 +38,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${montserrat.variable}`}>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossOrigin="anonymous"></script>
-        <Navbar />
 
-        {children}
+        <AuthProvider>
+          
+          <script 
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
+            crossOrigin="anonymous"
+          ></script>
+          
+          <Navbar />
 
-        <Footer />
+          {children}
+
+          <Footer />
+
+        </AuthProvider>
+
       </body>
     </html>
   );

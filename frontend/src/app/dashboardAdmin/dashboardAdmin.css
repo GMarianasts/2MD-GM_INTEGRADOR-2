@@ -111,6 +111,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white !important;
 }
 
 .icon {
@@ -155,6 +156,7 @@ a:hover {
   color: #555;
   font-size: 0.95rem;
   margin: 0;
+  margin-right: 50px;
 }
 
 .valor {

@@ -8,6 +8,7 @@ import {
     PieChart, Pie, Cell
 } from "recharts";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function DashboardAdmin() {
 
@@ -28,6 +29,29 @@ export default function DashboardAdmin() {
         { name: "Qualidade", value: 11, color: "#E74C3C" },
     ];
 
+    const [qtdAtivos, setQtdAtivos] = useState(0);
+
+    useEffect(() => {
+        async function carregarAtivos() {
+            try {
+                const res = await fetch("http://localhost:3001/api/treinamentos/ativos/quantidade");
+                const data = await res.json();
+                setQtdAtivos(data.totalAtivos);
+            } catch (error) {
+                console.log("Erro ao carregar ativos", error);
+            }
+        }
+
+        carregarAtivos();
+    }, []);
+
+    const cardsDashboard = [
+        {
+            titulo: "Treinamentos Ativos",
+            valor: qtdAtivos,   // valor vindo do backend
+            icone: "bi bi-lightning-charge",
+        },
+    ];
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row g-0">
@@ -96,7 +120,7 @@ export default function DashboardAdmin() {
                             <div className="card-info azul">
                                 <div>
                                     <p className="titulo">Treinamentos Ativos</p>
-                                    <p className="valor">24</p>
+                                    <p className="valor">{qtdAtivos}</p>
                                 </div>
                                 <div className="icon"><i className="bi bi-bar-chart"></i></div>
                             </div>

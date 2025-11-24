@@ -1,150 +1,128 @@
 "use client";
 
-export default function TabelaColaboradores() {
-  const colaboradores = [
-    {
-      nome: "João Silva",
-      email: "joao.silva@gm.com",
-      id: "GM-2023-001234",
-      departamento: "Engenharia",
-      cargo: "Engenheiro Sênior",
-      unidade: "São Caetano do Sul",
-      treinos: 12,
-      conclusao: "87%",
-      status: "Ativo",
-    },
-    {
-      nome: "Maria Santos",
-      email: "maria.santos@gm.com",
-      id: "GM-2023-001456",
-      departamento: "Recursos Humanos",
-      cargo: "Analista de RH",
-      unidade: "São Caetano do Sul",
-      treinos: 8,
-      conclusao: "92%",
-      status: "Ativo",
-    },
-    {
-      nome: "Pedro Costa",
-      email: "pedro.costa@gm.com",
-      id: "GM-2023-001789",
-      departamento: "Produção",
-      cargo: "Supervisor",
-      unidade: "Gravatá",
-      treinos: 15,
-      conclusao: "78%",
-      status: "Ativo",
-    },
-    {
-      nome: "Ana Paula",
-      email: "ana.paula@gm.com",
-      id: "GM-2023-002012",
-      departamento: "Qualidade",
-      cargo: "Engenheira de Qualidade",
-      unidade: "São José dos Campos",
-      treinos: 10,
-      conclusao: "95%",
-      status: "Ativo",
-    },
-    {
-      nome: "Carlos Mendes",
-      email: "carlos.mendes@gm.com",
-      id: "GM-2023-002345",
-      departamento: "TI",
-      cargo: "Desenvolvedor",
-      unidade: "São Caetano do Sul",
-      treinos: 6,
-      conclusao: "65%",
-      status: "Inativo",
-    },
-  ];
+import { useEffect, useState } from "react";
+
+export default function colaboradorestabela({ onNovoColaborador }) {
+  const [colaboradores, setColaboradores] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const carregarDados = async () => {
+    try {
+
+      const response = await fetch("http://localhost:3001/api/usuarios");
+      const data = await response.json();
+
+      if (response.ok) {
+
+        setColaboradores(data.dados || data || []); 
+      } else {
+        console.error("Erro ao buscar:", data.mensagem);
+      }
+    } catch (error) {
+      console.error("Erro de conexão:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    carregarDados();
+  }, []);
 
   return (
-    <div className="tabela-container shadow-sm">
-      <div className="header-lista">
-        <h5 className="fw-semibold">
-          <i className="bi bi-people me-2"></i> Lista de Colaboradores
+    <div className="tabela-container shadow-sm bg-white rounded-3 border mt-4">
+      <div className="header-lista p-4 border-bottom">
+        <h5 className="fw-semibold mb-1">
+          <i className="bi bi-people me-2" style={{color: '#0a2b6b'}}></i> Lista de Colaboradores
         </h5>
-        <p className="text-muted">
+        <p className="text-muted small mb-0">
           Gerencie cadastros, permissões e histórico de colaboradores
         </p>
       </div>
 
-      {/* Barra de busca */}
-      <div className="search-box">
-        <i className="bi bi-search"></i>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Buscar colaboradores por nome, e-mail ou ID..."
-        />
-        <button
-          className="btn btn-primary cadastrar-btn"
-          data-bs-toggle="modal"
-          data-bs-target="#modalCadastrarColaborador"
-        >
-          <i className="bi bi-plus-lg me-2"></i> Cadastrar Colaborador
-        </button>
+      <div className="search-box p-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <div className="input-group" style={{ maxWidth: '400px' }}>
+           <span className="input-group-text bg-light border-end-0"><i className="bi bi-search"></i></span>
+           <input type="text" className="form-control border-start-0 bg-light" placeholder="Buscar colaboradores..." />
+        </div>
 
+        <button
+          className="btn text-white d-flex align-items-center gap-2 fw-semibold"
+          style={{ backgroundColor: "#0a2b6b" }}
+          onClick={onNovoColaborador}
+        >
+          <i className="bi bi-plus-lg"></i> Cadastrar Colaborador
+        </button>
       </div>
 
-      <table className="table tabela-colaboradores">
-        <thead>
-          <tr>
-            <th>Colaborador</th>
-            <th>ID</th>
-            <th>Departamento</th>
-            <th>Cargo</th>
-            <th>Unidade</th>
-            <th>Treinamentos</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {colaboradores.map((c, i) => (
-            <tr key={i}>
-              <td>
-                <div className="d-flex align-items-center">
-                  <div className="avatar">
-                    {c.nome
-                      .split(" ")
-                      .map((x) => x[0])
-                      .join("")
-                      .slice(0, 2)
-                      .toUpperCase()}
-                  </div>
-                  <div className="ms-2">
-                    <strong>{c.nome}</strong>
-                    <br />
-                    <span className="text-muted small">{c.email}</span>
-                  </div>
-                </div>
-              </td>
-              <td>{c.id}</td>
-              <td>{c.departamento}</td>
-              <td>{c.cargo}</td>
-              <td>{c.unidade}</td>
-              <td>
-                {c.treinos}
-                <br />
-                <span className="text-muted small">{c.conclusao} concluído</span>
-              </td>
-              <td>
-                <span className={`status ${c.status === "Ativo" ? "ativo" : "inativo"}`}>
-                  {c.status}
-                </span>
-              </td>
-              <td className="acoes">
-                <i className="bi bi-eye"></i>
-                <i className="bi bi-pencil-square"></i>
-                <i className="bi bi-trash text-danger"></i>
-              </td>
+      <div className="table-responsive">
+        <table className="table tabela-colaboradores table-hover align-middle mb-0">
+          <thead className="table-light">
+            <tr>
+              <th className="ps-4">Colaborador</th>
+              <th>ID</th>
+              <th>Departamento</th>
+              <th>Cargo</th>
+              <th>Unidade</th>
+              <th>Acesso</th>
+              <th className="text-end pe-4">Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {loading ? (
+              <tr>
+                <td colSpan="7" className="text-center py-5">Carregando colaboradores...</td>
+              </tr>
+            ) : colaboradores.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="text-center py-5 text-muted">Nenhum colaborador encontrado.</td>
+              </tr>
+            ) : (
+
+              colaboradores.map((c) => (
+                <tr key={c.id}>
+                  <td className="ps-4">
+                    <div className="d-flex align-items-center">
+
+                      <div 
+                        className="rounded-circle d-flex justify-content-center align-items-center text-white fw-bold"
+                        style={{ width: '40px', height: '40px', backgroundColor: '#0a2b6b', fontSize: '0.9rem' }}
+                      >
+                        {c.nome ? c.nome.substring(0, 2).toUpperCase() : "U"}
+                      </div>
+                      <div className="ms-3">
+                        <strong className="text-dark d-block">{c.nome}</strong>
+                        <span className="text-muted small">{c.email}</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td className="text-muted">#{c.id}</td>
+                  <td>{c.departamento || "-"}</td>
+                  <td>{c.cargo || "-"}</td>
+                  <td>{c.unidade || "-"}</td>
+                  
+                  <td>
+                    <span className={`badge rounded-pill border px-3 ${
+                        c.nivel_acesso === 'Administrador' ? 'bg-danger-subtle text-danger border-danger-subtle' : 
+                        c.nivel_acesso === 'Gestor' ? 'bg-warning-subtle text-warning border-warning-subtle' : 
+                        'bg-success-subtle text-success border-success-subtle'
+                    }`}>
+                      {c.nivel_acesso || 'Colaborador'}
+                    </span>
+                  </td>
+
+                  <td className="text-end pe-4">
+                    <button className="btn btn-sm btn-light rounded-circle text-muted"><i className="bi bi-pencil-square"></i></button>
+                    <button className="btn btn-sm btn-light rounded-circle text-danger ms-1"><i className="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

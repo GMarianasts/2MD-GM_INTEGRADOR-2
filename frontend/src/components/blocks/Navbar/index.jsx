@@ -3,12 +3,21 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
-  const { user, login, logout } = useAuth();
+  const { user, logout } = useAuth();
+
+  const getIniciais = (nomeCompleto) => {
+    if (!nomeCompleto) return "U";
+    const nomes = nomeCompleto.trim().split(" ");
+    if (nomes.length === 1) {
+      return nomes[0].substring(0, 2).toUpperCase();
+    }
+    return (nomes[0][0] + nomes[nomes.length - 1][0]).toUpperCase();
+  };
 
   return (
     <>
-      <nav className="navbar bg-white border-bottom px-3 py-2 d-flex justify-content-between align-items-center">
-        
+      <nav className="navbar bg-white border-bottom px-3 py-2 d-flex justify-content-between align-items-center sticky-top">
+
         <div className="d-flex align-items-center">
           <img
             src="/General_Motors_(2021).svg.png" 
@@ -22,6 +31,7 @@ export default function Navbar() {
             GM | Ignite
           </span>
         </div>
+
         <div className="d-flex align-items-center">
           
           {user ? (
@@ -44,13 +54,14 @@ export default function Navbar() {
                     style={{
                       width: 35,
                       height: 35,
-                      backgroundColor: user.avatarColor || "#0d3b66",
+                      backgroundColor: "#0d3b66",
                       color: "white",
                       fontSize: "0.9rem"
                     }}
                   >
-                    {user.iniciais || "U"}
+                    {getIniciais(user.nome)}
                   </div>
+
                   <span className="fw-medium text-dark d-none d-sm-block">
                     {user.nome}
                   </span>
@@ -86,12 +97,9 @@ export default function Navbar() {
               </div>
             </>
           ) : (
-            <button 
-              className="btn btn-primary btn-sm px-4 rounded-pill fw-semibold"
-              onClick={() => login("admin@gm.com", "123")}
-            >
-              Simular Login
-            </button>
+            <Link href="/" className="btn btn-primary btn-sm px-4 rounded-pill fw-semibold">
+              Fazer Login
+            </Link>
           )}
 
         </div>

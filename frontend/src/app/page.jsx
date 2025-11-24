@@ -66,9 +66,9 @@ export default function Home() {
       localStorage.setItem("usuario", JSON.stringify(json.dados.usuario));
 
       if (json.dados.usuario.tipo === "admin") {
-        router.push("/dashboardAdmin");
+        window.location.href = "/dashboardAdmin"; // <--- ISSO FORÇA O RECARREGAMENTO
       } else {
-        router.push("/paginaUsuario");
+        window.location.href = "/paginaUsuario";
       }
 
     } catch (erro) {

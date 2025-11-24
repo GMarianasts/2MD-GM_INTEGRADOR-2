@@ -13,19 +13,28 @@ export default function gerecinadorTreinamento() {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
+    const [busca, setBusca] = useState('');
     const [menuAberto, setMenuAberto] = useState(null);
     const [cursoParaEditar, setCursoParaEditar] = useState(null);
 
+    const treinamentosFiltrados = treinamentos.filter((item) => {
+        const termo = busca.toLowerCase();
+        const tituloMatch = item.titulo?.toLowerCase().includes(termo);
+        const instrutorMatch = item.instrutor_nome?.toLowerCase().includes(termo);
+        const competenciaMatch = item.competencias?.some(comp => comp.toLowerCase().includes(termo));
+
+        return tituloMatch || instrutorMatch || competenciaMatch;
+    });
+
     const handleNovoTreinamento = () => {
-        setCursoParaEditar(null); // Garante que está vazio
+        setCursoParaEditar(null); 
         setShowModal(true);
     };
 
-    // Função para abrir o modal de EDIÇÃO
     const handleEditar = (curso) => {
-        setCursoParaEditar(curso); // Preenche com os dados do curso clicado
-        setShowModal(true); // Abre o modal
-        setMenuAberto(null); // Fecha o menu dropdown
+        setCursoParaEditar(curso); 
+        setShowModal(true); 
+        setMenuAberto(null); 
     };
 
     const [estatisticas, setEstatisticas] = useState({
@@ -264,6 +273,8 @@ export default function gerecinadorTreinamento() {
                                             className="form-control border-0 bg-transparent shadow-none p-0 text-dark"
                                             placeholder="Buscar por título, instrutor ou competência..."
                                             style={{ fontSize: "0.95rem" }}
+                                            value={busca} // VALOR DO ESTADO
+                                            onChange={(e) => setBusca(e.target.value)} // ATUALIZA O ESTADO
                                         />
                                     </div>
 
@@ -291,7 +302,7 @@ export default function gerecinadorTreinamento() {
                                     <div className="mb-4">
                                         <h5 className="fw-bold mb-1">Todos os Treinamentos</h5>
                                         <p className="text-muted small mb-0">
-                                            {treinamentos.length} treinamentos cadastrados
+                                            {treinamentosFiltrados.length} treinamentos cadastrados
                                         </p>
                                     </div>
 
@@ -314,7 +325,7 @@ export default function gerecinadorTreinamento() {
                                                 {loading ? (
                                                     <tr><td colSpan="8" className="text-center py-4">Carregando...</td></tr>
                                                 ) : (
-                                                    treinamentos.map((item) => (
+                                                    treinamentosFiltrados.map((item) => (
                                                         <tr key={item.id}>
                                                             <td className="ps-3 py-3">
                                                                 <span className="fw-medium" style={{ color: '#0a2b6b' }}>{item.titulo}</span>

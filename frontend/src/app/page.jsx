@@ -65,8 +65,8 @@ export default function Home() {
       localStorage.setItem("token", json.dados.token);
       localStorage.setItem("usuario", JSON.stringify(json.dados.usuario));
 
-      if (json.dados.usuario.tipo === "admin") {
-        window.location.href = "/dashboardAdmin"; // <--- ISSO FORÇA O RECARREGAMENTO
+      if (json.dados.usuario.nivel_acesso === "Admin") {
+        window.location.href = "/dashboardAdmin";
       } else {
         window.location.href = "/paginaUsuario";
       }

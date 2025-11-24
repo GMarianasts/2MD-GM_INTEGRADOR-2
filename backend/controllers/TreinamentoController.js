@@ -33,7 +33,6 @@ export const criarTreinamento = async (req, res) => {
     try {
         const dados = req.body;
 
-        // Query de Inserção
         const sql = `
             INSERT INTO treinamentos 
             (titulo, categoria, descricao, nivel, duracao_horas, capacidade, 
@@ -47,29 +46,26 @@ export const criarTreinamento = async (req, res) => {
             dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
             dados.instrutorNome, dados.instrutorEmail, dados.modalidade, dados.local,
             dados.dataInicio, dados.dataFim, dados.inscricaoInicio, dados.inscricaoFim,
-            dados.preRequisitos, dados.observacoes, 'Ativo'
+            dados.preRequisitos, dados.observacoes, dados.status
         ];
 
         const [result] = await conn.query(sql, values);
         const novoId = result.insertId;
 
-        // Salvar competências (separadas por vírgula)
         if (dados.competenciasTexto) {
             const tags = dados.competenciasTexto.split(',').map(t => t.trim());
-            
+
             for (const tag of tags) {
-                // Tenta achar a competencia, se nao existir, cria
                 let [rows] = await conn.query('SELECT id FROM competencias WHERE nome = ?', [tag]);
                 let tagId;
-                
+
                 if (rows.length > 0) {
                     tagId = rows[0].id;
                 } else {
                     const [resTag] = await conn.query('INSERT INTO competencias (nome) VALUES (?)', [tag]);
                     tagId = resTag.insertId;
                 }
-                
-                // Linka na tabela de junção
+
                 await conn.query('INSERT INTO treinamento_competencia VALUES (?, ?)', [novoId, tagId]);
             }
         }
@@ -81,5 +77,77 @@ export const criarTreinamento = async (req, res) => {
         conn.release();
         console.error(error);
         res.status(500).json({ erro: 'Erro ao criar treinamento' });
+    }
+};
+
+// DELETE
+export const excluirTreinamento = async (req, res) => {
+    const conn = await getConnection();
+    try {
+        const { id } = req.params;
+        const sql = 'DELETE FROM treinamentos WHERE id = ?';
+
+        await conn.query(sql, [id]);
+
+        conn.release();
+        return res.status(200).json({ sucesso: true, mensagem: 'Treinamento excluído com sucesso' });
+
+    } catch (error) {
+        conn.release();
+        console.error('Erro ao excluir:', error);
+        return res.status(500).json({ sucesso: false, erro: 'Erro ao excluir treinamento' });
+    }
+};
+
+// PUT
+export const atualizarTreinamento = async (req, res) => {
+    const conn = await getConnection();
+    try {
+        const { id } = req.params;
+        const dados = req.body;
+
+        const sql = `
+            UPDATE treinamentos SET
+            titulo=?, categoria=?, descricao=?, nivel=?, duracao_horas=?, capacidade=?, 
+            instrutor_nome=?, instrutor_email=?, modalidade=?, local_plataforma=?, 
+            data_inicio=?, data_fim=?, inscricao_inicio=?, inscricao_fim=?, 
+            pre_requisitos=?, observacoes=?, status=?
+            WHERE id=?
+        `;
+
+        const values = [
+            dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
+            dados.instrutorNome, dados.instrutorEmail, dados.modalidade, dados.local,
+            dados.dataInicio, dados.dataFim, dados.inscricaoInicio, dados.inscricaoFim,
+            dados.preRequisitos, dados.observacoes, dados.status,
+            id
+        ];
+
+        await conn.query(sql, values);
+
+        if (dados.competenciasTexto) {
+            await conn.query('DELETE FROM treinamento_competencia WHERE treinamento_id = ?', [id]);
+
+            const tags = dados.competenciasTexto.split(',').map(t => t.trim());
+            for (const tag of tags) {
+                let [rows] = await conn.query('SELECT id FROM competencias WHERE nome = ?', [tag]);
+                let tagId;
+                if (rows.length > 0) {
+                    tagId = rows[0].id;
+                } else {
+                    const [resTag] = await conn.query('INSERT INTO competencias (nome) VALUES (?)', [tag]);
+                    tagId = resTag.insertId;
+                }
+                await conn.query('INSERT INTO treinamento_competencia VALUES (?, ?)', [id, tagId]);
+            }
+        }
+
+        conn.release();
+        res.json({ sucesso: true, mensagem: 'Treinamento atualizado!' });
+
+    } catch (error) {
+        conn.release();
+        console.error(error);
+        res.status(500).json({ erro: 'Erro ao atualizar' });
     }
 };

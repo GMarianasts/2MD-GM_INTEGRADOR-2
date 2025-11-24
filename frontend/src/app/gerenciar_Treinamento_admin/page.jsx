@@ -9,19 +9,75 @@ import ModalNovoTreinamento from "@/components/modalNovoTreinamento/modalNovoTre
 
 export default function gerecinadorTreinamento() {
 
-    // Estado para guardar os treinamentos vindos do banco
     const [treinamentos, setTreinamentos] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(false); // <--- Estado para controlar o Pop-up
+    const [showModal, setShowModal] = useState(false);
 
-    // Função para buscar dados
+    const [menuAberto, setMenuAberto] = useState(null);
+    const [cursoParaEditar, setCursoParaEditar] = useState(null);
+
+    const handleNovoTreinamento = () => {
+        setCursoParaEditar(null); // Garante que está vazio
+        setShowModal(true);
+    };
+
+    // Função para abrir o modal de EDIÇÃO
+    const handleEditar = (curso) => {
+        setCursoParaEditar(curso); // Preenche com os dados do curso clicado
+        setShowModal(true); // Abre o modal
+        setMenuAberto(null); // Fecha o menu dropdown
+    };
+
+    const [estatisticas, setEstatisticas] = useState({
+        total: 0,
+        ativos: 0,
+        inscritos: 0,
+        taxaOcupacao: 0,
+        porcentagemAtivos: 0
+    });
+
+    const toggleMenu = (id) => {
+        if (menuAberto === id) {
+            setMenuAberto(null);
+        } else {
+            setMenuAberto(id);
+        }
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.target.closest('.dropdown-acao')) {
+                setMenuAberto(null);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+
     async function fetchTreinamentos() {
         setLoading(true);
         try {
             const res = await fetch('http://localhost:3001/api/treinamentos');
             const data = await res.json();
+
             if (data.sucesso) {
-                setTreinamentos(data.dados);
+                const listaTreinos = data.dados;
+                setTreinamentos(listaTreinos);
+
+                const total = listaTreinos.length;
+                const ativos = listaTreinos.filter(t => t.status === 'Ativo').length;
+                const totalInscritos = listaTreinos.reduce((acc, curr) => acc + (curr.inscritos_atuais || 0), 0);
+                const capacidadeTotal = listaTreinos.reduce((acc, curr) => acc + (curr.capacidade || 0), 0);
+                const taxa = capacidadeTotal > 0 ? Math.round((totalInscritos / capacidadeTotal) * 100) : 0;
+                const porcAtivos = total > 0 ? Math.round((ativos / total) * 100) : 0;
+
+                setEstatisticas({
+                    total: total,
+                    ativos: ativos,
+                    inscritos: totalInscritos,
+                    taxaOcupacao: taxa,
+                    porcentagemAtivos: porcAtivos
+                });
             }
         } catch (error) {
             console.error("Erro ao buscar treinamentos:", error);
@@ -30,19 +86,38 @@ export default function gerecinadorTreinamento() {
         }
     }
 
-    // Busca os dados assim que a tela carrega
+    const handleExcluir = async (id) => {
+        if (window.confirm("Tem certeza que deseja excluir este treinamento?")) {
+            try {
+                const res = await fetch(`http://localhost:3001/api/treinamentos/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await res.json();
+
+                if (data.sucesso) {
+                    fetchTreinamentos();
+                    setMenuAberto(null);
+                } else {
+                    alert('Erro ao excluir: ' + data.erro);
+                }
+            } catch (error) {
+                console.error("Erro na exclusão:", error);
+                alert("Erro ao conectar com o servidor.");
+            }
+        }
+    };
+
     useEffect(() => {
         fetchTreinamentos();
     }, []);
 
-    // Função auxiliar para formatar a data
     const formatarData = (dataISO) => {
         if (!dataISO) return '-';
         const data = new Date(dataISO);
         return data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
     };
 
-    // Função para definir a cor do badge baseada no status
     const getStatusBadge = (status) => {
         if (status === 'Ativo') return 'bg-success-subtle text-success border-success-subtle';
         if (status === 'Rascunho') return 'bg-secondary-subtle text-secondary border-secondary-subtle';
@@ -55,7 +130,8 @@ export default function gerecinadorTreinamento() {
             {showModal && (
                 <ModalNovoTreinamento
                     onClose={() => setShowModal(false)}
-                    onSalvar={fetchTreinamentos} // Passa a função de recarregar a lista
+                    onSalvar={fetchTreinamentos}
+                    dadosEditar={cursoParaEditar}
                 />
             )}
 
@@ -93,8 +169,8 @@ export default function gerecinadorTreinamento() {
 
                         <button
                             className="btn text-white ..."
+                            onClick={handleNovoTreinamento}
                             style={{ backgroundColor: "#0a2b6b" }}
-                            onClick={() => setShowModal(true)}
                         >
                             <i className="bi bi-plus-lg fs-5"></i>
                             <span>Novo Treinamento</span>
@@ -102,62 +178,70 @@ export default function gerecinadorTreinamento() {
 
                     </div>
 
+                    {/* 3. CARDS ATUALIZADOS COM VARIÁVEIS */}
                     <div className="row g-3">
                         <div className="col-12">
                             <div className="row justify-content-start g-3">
+
+                                {/* Card Total */}
                                 <div className="col-12 col-md-6 col-lg-3">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
                                         <div className="card-body p-4 d-flex flex-column justify-content-center">
                                             <span className="text-muted mb-2">Total de Treinamentos</span>
                                             <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                24
+                                                {estatisticas.total}
                                             </h2>
                                             <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                +3 este mês
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Treinamentos Ativos</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                18
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                75% do total
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Total de Inscritos</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                456
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                +12% vs mês anterior
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Taxa de Ocupação</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                82%
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                Acima da meta
+                                                Cursos cadastrados
                                             </small>
                                         </div>
                                     </div>
                                 </div>
 
+                                {/* Card Ativos */}
+                                <div className="col-12 col-md-6 col-lg-3">
+                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
+                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
+                                            <span className="text-muted mb-2">Treinamentos Ativos</span>
+                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
+                                                {estatisticas.ativos}
+                                            </h2>
+                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
+                                                {estatisticas.porcentagemAtivos}% do total
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Card Inscritos */}
+                                <div className="col-12 col-md-6 col-lg-3">
+                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
+                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
+                                            <span className="text-muted mb-2">Total de Inscritos</span>
+                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
+                                                {estatisticas.inscritos}
+                                            </h2>
+                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
+                                                Alunos matriculados
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Card Taxa de Ocupação */}
+                                <div className="col-12 col-md-6 col-lg-3">
+                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
+                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
+                                            <span className="text-muted mb-2">Taxa de Ocupação</span>
+                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
+                                                {estatisticas.taxaOcupacao}%
+                                            </h2>
+                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
+                                                Média geral
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -226,7 +310,7 @@ export default function gerecinadorTreinamento() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                
+
                                                 {loading ? (
                                                     <tr><td colSpan="8" className="text-center py-4">Carregando...</td></tr>
                                                 ) : (
@@ -250,17 +334,64 @@ export default function gerecinadorTreinamento() {
                                                                 </div>
                                                             </td>
                                                             <td className="text-muted">
-                                                                <i className="bi bi-people text-secondary me-1"></i> 
+                                                                <i className="bi bi-people text-secondary me-1"></i>
                                                                 {item.inscritos_atuais}/{item.capacidade}
                                                             </td>
                                                             <td className="text-muted">{formatarData(item.data_inicio)}</td>
-                                                            <td className="text-end pe-3">
-                                                                <i className="bi bi-three-dots-vertical text-muted" style={{cursor: 'pointer'}}></i>
+
+                                                            <td className="text-end pe-3 position-relative dropdown-acao">
+                                                                <i
+                                                                    className="bi bi-three-dots-vertical text-muted p-2"
+                                                                    style={{ cursor: 'pointer' }}
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        toggleMenu(item.id);
+                                                                    }}
+                                                                ></i>
+
+                                                                {menuAberto === item.id && (
+                                                                    <div className="dropdown-menu show shadow border-0"
+                                                                        style={{
+                                                                            position: 'absolute',
+                                                                            right: '100%',
+                                                                            top: '10px',
+                                                                            zIndex: 1050,
+                                                                            minWidth: '180px'
+                                                                        }}>
+                                                                        <div className="px-3 py-2 border-bottom">
+                                                                            <span className="small text-muted fw-bold">Ações</span>
+                                                                        </div>
+                                                                        <button className="dropdown-item py-2 d-flex align-items-center gap-2">
+                                                                            <i className="bi bi-eye"></i> Visualizar
+                                                                        </button>
+                                                                        <button
+                                                                            className="dropdown-item py-2 d-flex align-items-center gap-2"
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                handleEditar(item);
+                                                                            }}
+                                                                        >
+                                                                            <i className="bi bi-pencil"></i> Editar
+                                                                        </button>
+                                                                        <button className="dropdown-item py-2 d-flex align-items-center gap-2">
+                                                                            <i className="bi bi-people"></i> Ver Inscrições
+                                                                        </button>
+                                                                        <div className="dropdown-divider my-1"></div>
+                                                                        <button
+                                                                            className="dropdown-item py-2 d-flex align-items-center gap-2 text-danger"
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                handleExcluir(item.id);
+                                                                            }}
+                                                                        >
+                                                                            <i className="bi bi-trash"></i> Excluir
+                                                                        </button>
+                                                                    </div>
+                                                                )}
                                                             </td>
                                                         </tr>
                                                     ))
                                                 )}
-
                                             </tbody>
                                         </table>
                                     </div>

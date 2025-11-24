@@ -4,7 +4,6 @@ import { JWT_CONFIG } from '../config/jwt.js';
 // Middleware de autenticação JWT
 const authMiddleware = (req, res, next) => {
     try {
-        // Verificar se o header Authorization existe
         const authHeader = req.headers.authorization;
         
         if (!authHeader) {
@@ -14,7 +13,7 @@ const authMiddleware = (req, res, next) => {
             });
         }
 
-        // Extrair o token do header (formato: "Bearer TOKEN")
+        // Extrair token
         const token = authHeader.split(' ')[1];
         
         if (!token) {
@@ -24,14 +23,14 @@ const authMiddleware = (req, res, next) => {
             });
         }
 
-        // Verificar e decodificar o token
+        // Verificar e decodificar token
         const decoded = jwt.verify(token, JWT_CONFIG.secret);
-        
-        // Adicionar informações do usuário ao request
+
+        // Adiciona dados ao req.usuario
         req.usuario = {
             id: decoded.id,
-            tipo: decoded.tipo,
-            email: decoded.email
+            email: decoded.email,
+            nivel_acesso: decoded.nivel_acesso   // 🔥 CORRIGIDO
         };
 
         next();
@@ -60,14 +59,16 @@ const authMiddleware = (req, res, next) => {
 
 // Middleware para verificar se o usuário é administrador
 const adminMiddleware = (req, res, next) => {
-    if (req.usuario.tipo !== 'admin') {
+
+    // 🔥 VERIFICAÇÃO CORRIGIDA
+    if (req.usuario.nivel_acesso !== 'Admin') {
         return res.status(403).json({ 
             erro: 'Acesso negado',
             mensagem: 'Apenas administradores podem acessar este recurso'
         });
     }
+
     next();
 };
 
 export { authMiddleware, adminMiddleware };
-

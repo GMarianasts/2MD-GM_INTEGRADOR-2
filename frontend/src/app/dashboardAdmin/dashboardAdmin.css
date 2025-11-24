@@ -4,33 +4,69 @@ body {
   margin: 0;
   padding: 0;
   overflow-y: auto;
-  /* garante rolagem geral da página */
 }
 
 a {
-    text-decoration: none;
-    color: inherit; 
+  text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
   color: white;
 }
 
+/* ====== CORREÇÃO FUNDAMENTAL ====== */
+.pagina-usuario,
+.pagina-usuario main,
+.sidebar,
+.row,
+.card-info,
+.Cards,
+.card-treinamento {
+  min-width: 0 !important; /* evita sumir conteúdo */
+  box-sizing: border-box;
+}
+
+/* Permitir quebra de linha sempre */
+.row {
+  flex-wrap: wrap !important;
+}
+
+/* ================================== */
+
 .pagina-usuario {
   display: flex;
   min-height: 100%;
 }
 
+/* Layout mobile */
+@media (max-width: 768px) {
+  .pagina-usuario {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    min-height: auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .pagina-usuario main {
+    width: 100%;
+    padding: 16px;
+  }
+}
+
 /* Sidebar */
 .sidebar {
   width: 260px;
-  height: 130vh;
+  min-height: 100vh;
   background-color: #fff;
   border-right: 1px solid #e6e6e6;
   padding: 20px 15px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .bi {
@@ -38,12 +74,10 @@ a:hover {
 }
 
 .pagina-usuario main {
-  margin-left: 30px;
+  flex: 1;
+  width: 100%;
+  padding: 20px;
 }
-  .pagina-usuario main {
-    margin-left: 0 !important;
-  }
-
 
 /* Menu */
 .menu li {
@@ -67,11 +101,7 @@ a:hover {
   font-weight: 500;
 }
 
-
-
-/* CONTEUDO DA PÁGINA */
-
-/* Cards iniciais*/
+/* Cards iniciais */
 .card-info {
   border: 1px solid #dbd9d9;
   border-radius: 16px;
@@ -83,11 +113,9 @@ a:hover {
   justify-content: center;
 }
 
-/* Ícones */
 .icon {
   font-size: 1.8rem;
-  margin: 0px;
-  padding: 0;
+  margin: 0;
 }
 
 .progresso {
@@ -123,12 +151,10 @@ a:hover {
   color: #8b3ef7;
 }
 
-/* Textos */
 .titulo {
   color: #555;
   font-size: 0.95rem;
   margin: 0;
-  white-space: nowrap;
 }
 
 .valor {
@@ -144,16 +170,7 @@ a:hover {
   width: 100%;
 }
 
-/* ajuste dos cards na esquerda*/
-.pagina-usuario main {
-  width: 100%;
-  flex: 1;
-}
-
-
-
-/* Troca de Página*/
-
+/* Troca de Página */
 .introducao {
   margin-right: 40px;
 }
@@ -188,9 +205,7 @@ a:hover {
   font-size: 14px;
   padding: 8px 12px;
   transition: all 0.2s ease;
-  display: inline-block;
   width: 100%;
-  box-sizing: border-box;
 }
 
 .nav-pills .nav-link.active {
@@ -206,70 +221,58 @@ a:hover {
 }
 
 /* Buscar */
-
-/* Wrapper para fazer ocupar a largura total */
 .search-wrapper {
-    width: 100%;
-    padding: 0 20px; /* mesmo espaçamento lateral dos menus */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
 }
 
-/* Barra de busca com largura igual à barra de navegação */
 .search-container {
-    width: 100%;
-    max-width: 1400px; /* mesmo limite visual do seu layout */
-    height: 48px;
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid #e4e7ec;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-left: 45px;
-    margin-left: 40px;
+  width: 100%;
+  max-width: 1400px;
+  height: 48px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e4e7ec;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 45px;
+  min-width: 0; /* importante */
 }
 
-/* Ícone */
 .search-container .search-icon {
-    position: absolute;
-    left: 16px;
-    font-size: 18px;
-    color: #7d8da0;
+  position: absolute;
+  left: 16px;
+  font-size: 18px;
+  color: #7d8da0;
 }
 
-/* Input */
 .search-input {
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 15px;
-    background: transparent;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
 }
 
-
-
-/*graficos*/
+/*gráficos*/
 .recharts-responsive-container {
   width: 100% !important;
-  height: 250px !important;
+  height: auto !important;
+  min-height: 220px;
 }
 
-
-/*Treinamentos*/
-
+/* Treinamentos */
 .Cards {
   width: 100%;
-  max-width: 100% !important;
-  margin: 0 !important;
+  margin: 0;
   padding: 20px;
   border: 1px solid #dbd9d9;
   border-radius: 16px;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-
 }
 
 .titulo-principal {
@@ -300,7 +303,6 @@ a:hover {
   margin-top: 12px;
 }
 
-
 .curso-item {
   display: flex;
   justify-content: space-between;
@@ -310,7 +312,6 @@ a:hover {
   background: #fff;
   padding: 14px 18px;
 }
-
 
 .icon-curso-quadro {
   width: 45px;
@@ -326,7 +327,6 @@ a:hover {
   color: #fff;
   font-size: 20px;
 }
-
 
 .curso-esquerda {
   display: flex;
@@ -367,7 +367,6 @@ a:hover {
   color: #000;
   margin: 0 0 5px 0;
 }
-
 
 .status-quase {
   background-color: #000;

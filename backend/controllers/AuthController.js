@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import UsuarioModel from '../models/UsuarioModel.js';
-import { JWT_CONFIG } from '../config/jwt.js'; 
+import { JWT_CONFIG } from '../config/jwt.js';
 
 class AuthController {
 
@@ -23,12 +23,12 @@ class AuthController {
                 });
             }
 
-            const tipoUsuario = usuario.nivel_acesso || usuario.tipo || 'Colaborador';
+            const tipoUsuario = usuario.nivel_acesso || 'Colaborador';
 
             const token = jwt.sign(
-                { 
-                    id: usuario.id, 
-                    email: usuario.email, 
+                {
+                    id: usuario.id,
+                    email: usuario.email,
                     tipo: tipoUsuario
                 },
                 JWT_CONFIG.secret,
@@ -44,7 +44,7 @@ class AuthController {
                         id: usuario.id,
                         nome: usuario.nome,
                         email: usuario.email,
-                        tipo: tipoUsuario === 'Administrador' ? 'admin' : 'usuario',
+                        nivel_acesso: tipoUsuario,
                         cargo: usuario.cargo,
                         iniciais: usuario.nome.substring(0, 2).toUpperCase()
                     }
@@ -67,14 +67,13 @@ class AuthController {
 
             const emailNormalizado = email.trim().toLowerCase();
             const usuarioExistente = await UsuarioModel.buscarPorEmail(emailNormalizado);
-            
+
             if (usuarioExistente) {
                 return res.status(409).json({ sucesso: false, mensagem: 'Este email já está cadastrado' });
             }
 
-            let nivelBanco = 'Colaborador';
-            if (tipo === 'admin' || tipo === 'Administrador') nivelBanco = 'Administrador';
-            if (tipo === 'gestor' || tipo === 'Gestor') nivelBanco = 'Gestor';
+            let nivelBanco = 'Colaborador'
+            if (tipo === 'Administrador') nivelBanco = 'Administrador';
 
             const dadosUsuario = {
                 nome: nome.trim(),
@@ -104,7 +103,7 @@ class AuthController {
 
     static async obterPerfil(req, res) {
 
-         try {
+        try {
             const usuario = await UsuarioModel.buscarPorId(req.usuario.id);
             if (!usuario) return res.status(404).json({ sucesso: false, mensagem: 'Usuário não encontrado' });
 

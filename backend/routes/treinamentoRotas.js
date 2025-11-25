@@ -9,10 +9,8 @@ import {
 
 const router = express.Router();
 
-// 1️⃣ Rotas específicas primeiro
-router.get('/ativos/count', contarTreinamentosAtivos);
 
-// 2️⃣ Depois rotas CRUD normais
+
 router.get('/', listarTreinamentos);
 router.post('/', criarTreinamento);
 router.delete('/:id', excluirTreinamento);

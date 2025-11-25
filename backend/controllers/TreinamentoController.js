@@ -148,29 +148,37 @@ export const atualizarTreinamento = async (req, res) => {
     }
 };
 
-// contagem de treinamentos ativo para a pagina -> Dashboard admin
-export const contarTreinamentosAtivos = async (req, res) => {
+// BUSCAR POR ID 
+export const buscarTreinamentoPorId = async (req, res) => {
     const conn = await getConnection();
     try {
+        const { id } = req.params;
+        
         const sql = `
-            SELECT COUNT(*) AS total
-            FROM treinamentos
-            WHERE status = 'ativo'
+            SELECT t.*, GROUP_CONCAT(c.nome) as competencias_lista
+            FROM treinamentos t
+            LEFT JOIN treinamento_competencia tc ON t.id = tc.treinamento_id
+            LEFT JOIN competencias c ON tc.competencia_id = c.id
+            WHERE t.id = ?
+            GROUP BY t.id
         `;
-
-        const [rows] = await conn.query(sql);
+        
+        const [rows] = await conn.query(sql, [id]);
         conn.release();
 
-        res.json({
-            sucesso: true,
-            totalAtivos: rows[0].total
-        });
+        if (rows.length === 0) {
+            return res.status(404).json({ sucesso: false, erro: 'Treinamento não encontrado' });
+        }
+
+        const treino = rows[0];
+        treino.competencias = treino.competencias_lista ? treino.competencias_lista.split(',') : [];
+
+        res.json({ sucesso: true, dados: treino });
 
     } catch (error) {
         conn.release();
-        res.status(500).json({
-            sucesso: false,
-            erro: error.message
-        });
+        console.error(error);
+        res.status(500).json({ erro: 'Erro ao buscar treinamento' });
+>>>>>>> affbd7187e71cc84bae7b1c538bf2e8efd1a6b94
     }
 };

@@ -37,16 +37,14 @@ export const criarTreinamento = async (req, res) => {
             INSERT INTO treinamentos 
             (titulo, categoria, descricao, nivel, duracao_horas, capacidade, 
             instrutor_nome, instrutor_email, modalidade, local_plataforma, 
-            data_inicio, data_fim, inscricao_inicio, inscricao_fim, 
-            pre_requisitos, observacoes, status, sobre, objetivos)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            data_inicio, data_fim, pre_requisitos, status, sobre, objetivos)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         const values = [
             dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
             dados.instrutorNome, dados.instrutorEmail, dados.modalidade, dados.local,
-            dados.dataInicio, dados.dataFim, dados.inscricaoInicio, dados.inscricaoFim,
-            dados.preRequisitos, dados.observacoes, dados.status, dados.sobre, dados.objetivos
+            dados.dataInicio, dados.dataFim, dados.preRequisitos, dados.status, dados.sobre, dados.objetivos
         ];
 
         const [result] = await conn.query(sql, values);
@@ -110,16 +108,14 @@ export const atualizarTreinamento = async (req, res) => {
             UPDATE treinamentos SET
             titulo=?, categoria=?, descricao=?, nivel=?, duracao_horas=?, capacidade=?, 
             instrutor_nome=?, instrutor_email=?, modalidade=?, local_plataforma=?, 
-            data_inicio=?, data_fim=?, inscricao_inicio=?, inscricao_fim=?, 
-            pre_requisitos=?, observacoes=?, status=?, sobre=?, objetivos=?
+            data_inicio=?, data_fim=?, pre_requisitos=?, status=?, sobre=?, objetivos=?
             WHERE id=?
         `;
 
         const values = [
             dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
             dados.instrutorNome, dados.instrutorEmail, dados.modalidade, dados.local,
-            dados.dataInicio, dados.dataFim, dados.inscricaoInicio, dados.inscricaoFim,
-            dados.preRequisitos, dados.observacoes, dados.status, dados.sobre, dados.objetivos,
+            dados.dataInicio, dados.dataFim, dados.preRequisitos, dados.status, dados.sobre, dados.objetivos,
             id
         ];
 

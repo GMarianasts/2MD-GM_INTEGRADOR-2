@@ -1,54 +1,68 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-export default function Card() {
-  return (
-    <div className="card shadow-sm rounded-3 h-100">
-      <div className="card-body d-flex flex-column">
+// Recebe a prop "data" contendo as informações do curso
+export default function Card({ data }) {
+  
+  // Função para limitar o tamanho da descrição no card
+  const resumoDescricao = (texto) => {
+    if (!texto) return '';
+    return texto.length > 80 ? texto.substring(0, 80) + '...' : texto;
+  };
 
-        <span
-          className="badge bg-light-subtle text-emphasis-secondary mb-2 align-self-start"
-        >
-          Agilidade {/*categoria*/}
+  return (
+    <div className="card shadow-sm rounded-3 h-100 border-0">
+      <div className="card-body d-flex flex-column p-4">
+
+        {/* Categoria */}
+        <span className="badge bg-light text-secondary border mb-3 align-self-start rounded-pill fw-normal px-3">
+          {data.categoria}
         </span>
 
-        <div className="d-flex justify-content-between align-items-start">
-          <h5 className="card-title fw-semibold">
-            Metodologias Ágeis {/*titulo*/}
+        {/* Título e Avaliação */}
+        <div className="d-flex justify-content-between align-items-start mb-2">
+          <h5 className="card-title fw-bold text-dark" style={{ minHeight: '48px' }}>
+            {data.titulo}
           </h5>
-          <div className="d-flex align-items-center gap-1">
-            <i className="bi bi-star-fill text-warning"></i>
-            <span>4.8 {/*avaliacao*/}</span>
+          <div className="d-flex align-items-center gap-1 bg-light px-2 py-1 rounded ms-2">
+            <i className="bi bi-star-fill text-warning" style={{ fontSize: '0.8rem' }}></i>
+            <span className="fw-bold small">4.8</span> {/* Nota fixa por enquanto */}
           </div>
         </div>
 
-        <p className="card-text text-muted" style={{ fontSize: "0.9rem" }}>
-          Aprenda a aplicar Scrum, Kanban e outras... {/*descricao*/}
+        {/* Descrição */}
+        <p className="card-text text-muted mb-4" style={{ fontSize: "0.9rem", minHeight: '40px' }}>
+          {resumoDescricao(data.descricao)}
         </p>
 
-        <div className="d-flex gap-3 text-muted" style={{ fontSize: "0.85rem" }}>
-          <span><i className="bi bi-clock me-1"></i> 12h {/*duracao*/}</span>
-          <span><i className="bi bi-laptop me-1"></i> Online {/*formato*/}</span>
-          <span><i className="bi bi-people me-1"></i> 45 {/*alunos*/}</span>
+        {/* Detalhes (Ícones) */}
+        <div className="d-flex gap-3 text-secondary mb-4" style={{ fontSize: "0.85rem" }}>
+          <span title="Duração"><i className="bi bi-clock me-1"></i> {data.duracao_horas}h</span>
+          <span title="Modalidade"><i className="bi bi-laptop me-1"></i> {data.modalidade}</span>
+          <span title="Inscritos"><i className="bi bi-people me-1"></i> {data.inscritos_atuais}</span>
         </div>
 
-        <hr />
+        <hr className="text-muted opacity-25 my-0 mb-3" />
 
+        {/* Instrutor e Nível */}
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <div>
-            <small className="text-muted">Instrutor</small><br />
-            <span className="fw-semibold">Maria Santos {/*instrutor*/}</span>
+          <div className="d-flex align-items-center gap-2">
+            <div className="bg-secondary-subtle rounded-circle d-flex align-items-center justify-content-center text-secondary fw-bold" style={{width: '32px', height: '32px', fontSize: '0.8rem'}}>
+                {data.instrutor_nome.charAt(0)}
+            </div>
+            <div className='d-flex flex-column'>
+                <small className="text-muted" style={{fontSize: '0.7rem'}}>Instrutor</small>
+                <span className="fw-semibold small text-dark">{data.instrutor_nome}</span>
+            </div>
           </div>
-          <span className="badge bg-light-subtle text-emphasis-secondary">
-            Intermediário {/*nivel*/}
+          <span className="badge bg-light text-dark border fw-normal">
+            {data.nivel}
           </span>
         </div>
 
+        {/* Botão */}
         <button
-          className="btn text-white mt-auto w-100 rounded-3 fw-semibold"
-          style={{
-            backgroundColor: '#0a2b6b',
-            border: 'none'
-          }}
+          className="btn text-white mt-auto w-100 rounded-3 fw-medium py-2"
+          style={{ backgroundColor: '#0a2b6b' }}
         >
           Ver Detalhes
         </button>

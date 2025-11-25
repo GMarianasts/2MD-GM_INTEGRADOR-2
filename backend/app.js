@@ -9,7 +9,13 @@ import { fileURLToPath } from 'url';
 import produtoRotas from './routes/produtoRotas.js';
 import authRotas from './routes/authRotas.js';
 import criptografiaRotas from './routes/criptografiaRotas.js';
+import colaboradoresCountRotas from "./routes/colaboradoresCountRotas.js";
+
+
+
 import usuarioRotas from './routes/usuarioRotas.js';
+import treinamentoCountRotas from './routes/treinamentoCountRotas.js';
+
 import treinamentoRotas from './routes/treinamentoRotas.js';
 
 // Importar middlewares
@@ -25,6 +31,19 @@ const __dirname = path.dirname(__filename);
 
 // Configurações do servidor
 const PORT = process.env.PORT || 3001;
+
+// no topo do server.js (junto com outros imports)
+import { contarTreinamentosAtivos } from './controllers/TreinamentoController.js';
+
+// logo antes de registrar os routers da API (temporário)
+app.get('/api/treinamentos/ativos/count-test', async (req, res) => {
+  try {
+    await contarTreinamentosAtivos(req, res); // reaproveita a função existente
+  } catch (e) {
+    console.error('erro rota test direta:', e);
+    res.status(500).json({ sucesso: false, erro: e.message });
+  }
+});
 
 // Middlewares globais
 app.use(helmet()); // Segurança HTTP headers
@@ -48,11 +67,13 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(logMiddleware);
 
 // Rotas da API
+app.use("/api/colaboradores/count", colaboradoresCountRotas);
+app.use("/api/usuarios", usuarioRotas);
 app.use('/api/auth', authRotas);
 app.use('/api/produtos', produtoRotas);
-app.use('/api/criptografia', criptografiaRotas);
-app.use('/api/usuarios', usuarioRotas);
+app.use('/api/treinamentos', treinamentoCountRotas);
 app.use('/api/treinamentos', treinamentoRotas);
+
 
 // Rota raiz
 app.get('/', (req, res) => {
@@ -89,8 +110,28 @@ app.use('*', (req, res) => {
     });
 });
 
+
 // Middleware global de tratamento de erros (deve ser o último)
 app.use(errorMiddleware);
+
+// debug: listar rotas registradas
+function listRoutes() {
+  console.log('--- Rotas registradas (app._router.stack) ---');
+  app._router.stack.forEach((middleware) => {
+    if (middleware.route) {
+      // rota direta
+      console.log(middleware.route.path, Object.keys(middleware.route.methods).join(','));
+    } else if (middleware.name === 'router') {
+      middleware.handle.stack.forEach((handler) => {
+        if (handler.route) {
+          console.log('(router) ' + handler.route.path, Object.keys(handler.route.methods).join(','));
+        }
+      });
+    }
+  });
+  console.log('--- fim rotas ---');
+}
+listRoutes();
 
 // Iniciar servidor
 app.listen(PORT, () => {

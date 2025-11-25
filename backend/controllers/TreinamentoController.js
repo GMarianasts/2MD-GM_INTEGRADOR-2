@@ -151,3 +151,30 @@ export const atualizarTreinamento = async (req, res) => {
         res.status(500).json({ erro: 'Erro ao atualizar' });
     }
 };
+
+// contagem de treinamentos ativo para a pagina -> Dashboard admin
+export const contarTreinamentosAtivos = async (req, res) => {
+    const conn = await getConnection();
+    try {
+        const sql = `
+            SELECT COUNT(*) AS total
+            FROM treinamentos
+            WHERE status = 'ativo'
+        `;
+
+        const [rows] = await conn.query(sql);
+        conn.release();
+
+        res.json({
+            sucesso: true,
+            totalAtivos: rows[0].total
+        });
+
+    } catch (error) {
+        conn.release();
+        res.status(500).json({
+            sucesso: false,
+            erro: error.message
+        });
+    }
+};

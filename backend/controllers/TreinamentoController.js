@@ -179,6 +179,5 @@ export const buscarTreinamentoPorId = async (req, res) => {
         conn.release();
         console.error(error);
         res.status(500).json({ erro: 'Erro ao buscar treinamento' });
->>>>>>> affbd7187e71cc84bae7b1c538bf2e8efd1a6b94
     }
 };

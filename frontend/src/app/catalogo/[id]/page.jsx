@@ -32,7 +32,7 @@ export default function DetalhesCurso() {
     const renderizarLista = (texto) => {
         if (!texto) return <li>Informação não disponível.</li>;
         return texto.split('\n').map((item, index) => {
-            const itemLimpo = item.replace(/^-\s*/, '').trim(); 
+            const itemLimpo = item.replace(/^-\s*/, '').trim();
             if (!itemLimpo) return null;
             return (
                 <li key={index} className="d-flex align-items-start gap-2">
@@ -54,30 +54,30 @@ export default function DetalhesCurso() {
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row flex-nowrap">
-                <aside className="d-none d-md-block col-md-3 col-lg-2 sidebar p-3 border-end bg-white" style={{ minHeight: "100vh" }}>
-                    <ul className="list-unstyled menu sticky-top pt-3">
+                <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+                    <ul className="list-unstyled menu">
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
-                            <span>Dashboard</span>
+                            <Link href={'/paginaUsuario'}><span>Dashboard</span></Link>
                         </li>
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-book"></i>
-                            <span>Catálogo de Treinamentos</span>
+                            <Link href={'/catalogo'}><span>Catálogo de Treinamentos</span></Link>
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-award"></i>
-                            <span>Meus Treinamentos</span>
+                            <Link href={'/meuTreinamento'}><span>Meus Treinamentos</span></Link>
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
-                            <span>Meu Perfil</span>
+                            <Link href={'/paginaPerfil'}><span>Meu Perfil</span></Link>
                         </li>
                     </ul>
                 </aside>
                 <main className="col-12 col-md-9 col-lg-10 bg-light p-0 d-flex flex-column min-vh-100">
                     <div className="p-4 w-100 flex-grow-1">
                         <div className="mb-4">
-                            <Link href="/" className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-2">
+                            <Link href={'/catalogo'} className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-2">
                                 <i className="bi bi-arrow-left"></i>
                                 Voltar ao Catálogo
                             </Link>

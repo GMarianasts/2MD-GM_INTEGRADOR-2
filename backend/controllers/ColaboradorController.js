@@ -1,6 +1,6 @@
 import { getConnection } from "../config/database.js";
 
-async function contarColaboradores(req, res) {
+export async function contarColaboradores(req, res) {
     try {
         const conn = await getConnection();
 
@@ -19,5 +19,3 @@ async function contarColaboradores(req, res) {
         return res.status(500).json({ erro: "Erro ao contar colaboradores" });
     }
 }
-
-export default { contarColaboradores };

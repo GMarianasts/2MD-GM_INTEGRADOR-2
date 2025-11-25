@@ -1,5 +1,4 @@
 import express from 'express';
-
 import {
   listarTreinamentos,
   criarTreinamento,
@@ -11,13 +10,14 @@ import {
 
 const router = express.Router();
 
+
+router.get('/ativos/count', contarTreinamentosAtivos);
+
+// OUTRAS ROTAS
 router.get('/', listarTreinamentos);
 router.post('/', criarTreinamento);
 router.delete('/:id', excluirTreinamento);
 router.put('/:id', atualizarTreinamento);
 router.get('/:id', buscarTreinamentoPorId);
-
-// contagem de treinamentos ativos
-router.get('/ativos/count', contarTreinamentosAtivos);
 
 export default router;

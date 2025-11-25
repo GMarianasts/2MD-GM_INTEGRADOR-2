@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 import produtoRotas from './routes/produtoRotas.js';
 import authRotas from './routes/authRotas.js';
 import criptografiaRotas from './routes/criptografiaRotas.js';
-import colaboradoresCountRotas from "./routes/colaboradoresCountRotas.js";
+import colaboradoresRotas from './routes/colaboradoresRotas.js';
 
 
 
@@ -67,7 +67,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(logMiddleware);
 
 // Rotas da API
-app.use("/api/colaboradores/count", colaboradoresCountRotas);
+app.use('/api/colaboradores', colaboradoresRotas);
 app.use("/api/usuarios", usuarioRotas);
 app.use('/api/auth', authRotas);
 app.use('/api/produtos', produtoRotas);

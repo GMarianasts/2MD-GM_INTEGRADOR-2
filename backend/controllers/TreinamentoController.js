@@ -147,3 +147,37 @@ export const atualizarTreinamento = async (req, res) => {
         res.status(500).json({ erro: 'Erro ao atualizar' });
     }
 };
+
+// BUSCAR POR ID 
+export const buscarTreinamentoPorId = async (req, res) => {
+    const conn = await getConnection();
+    try {
+        const { id } = req.params;
+        
+        const sql = `
+            SELECT t.*, GROUP_CONCAT(c.nome) as competencias_lista
+            FROM treinamentos t
+            LEFT JOIN treinamento_competencia tc ON t.id = tc.treinamento_id
+            LEFT JOIN competencias c ON tc.competencia_id = c.id
+            WHERE t.id = ?
+            GROUP BY t.id
+        `;
+        
+        const [rows] = await conn.query(sql, [id]);
+        conn.release();
+
+        if (rows.length === 0) {
+            return res.status(404).json({ sucesso: false, erro: 'Treinamento não encontrado' });
+        }
+
+        const treino = rows[0];
+        treino.competencias = treino.competencias_lista ? treino.competencias_lista.split(',') : [];
+
+        res.json({ sucesso: true, dados: treino });
+
+    } catch (error) {
+        conn.release();
+        console.error(error);
+        res.status(500).json({ erro: 'Erro ao buscar treinamento' });
+    }
+};

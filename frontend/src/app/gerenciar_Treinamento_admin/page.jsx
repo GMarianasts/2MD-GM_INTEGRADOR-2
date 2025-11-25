@@ -12,10 +12,17 @@ export default function gerecinadorTreinamento() {
     const [treinamentos, setTreinamentos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
-
     const [busca, setBusca] = useState('');
     const [menuAberto, setMenuAberto] = useState(null);
     const [cursoParaEditar, setCursoParaEditar] = useState(null);
+
+    const [estatisticas, setEstatisticas] = useState({
+        total: 0,
+        ativos: 0,
+        inscritos: 0,
+        taxaOcupacao: 0,
+        porcentagemAtivos: 0
+    });
 
     const treinamentosFiltrados = treinamentos.filter((item) => {
         const termo = busca.toLowerCase();
@@ -36,14 +43,6 @@ export default function gerecinadorTreinamento() {
         setShowModal(true); 
         setMenuAberto(null); 
     };
-
-    const [estatisticas, setEstatisticas] = useState({
-        total: 0,
-        ativos: 0,
-        inscritos: 0,
-        taxaOcupacao: 0,
-        porcentagemAtivos: 0
-    });
 
     const toggleMenu = (id) => {
         if (menuAberto === id) {
@@ -187,7 +186,6 @@ export default function gerecinadorTreinamento() {
 
                     </div>
 
-                    {/* 3. CARDS ATUALIZADOS COM VARIÁVEIS */}
                     <div className="row g-3">
                         <div className="col-12">
                             <div className="row justify-content-start g-3">
@@ -258,11 +256,10 @@ export default function gerecinadorTreinamento() {
                     <div className="row g-3 mb-4 mt-4">
                         <div className="col-12">
 
-                            {/* Card Branco */}
                             <div className="card1 border rounded-4 bg-white shadow-sm p-3">
                                 <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100">
 
-                                    {/* BARRA DE BUSCA — ocupa tudo */}
+                                    {/* BARRA DE BUSCA */}
                                     <div
                                         className="d-flex align-items-center px-3 py-2 rounded-3 flex-grow-1"
                                         style={{ backgroundColor: "#f8f9fa" }}
@@ -273,12 +270,11 @@ export default function gerecinadorTreinamento() {
                                             className="form-control border-0 bg-transparent shadow-none p-0 text-dark"
                                             placeholder="Buscar por título, instrutor ou competência..."
                                             style={{ fontSize: "0.95rem" }}
-                                            value={busca} // VALOR DO ESTADO
-                                            onChange={(e) => setBusca(e.target.value)} // ATUALIZA O ESTADO
+                                            value={busca}
+                                            onChange={(e) => setBusca(e.target.value)}
                                         />
                                     </div>
 
-                                    {/* BOTÕES À DIREITA */}
                                     <div className="d-flex gap-2">
                                         <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
                                             <i className="bi bi-funnel"></i> Filtros

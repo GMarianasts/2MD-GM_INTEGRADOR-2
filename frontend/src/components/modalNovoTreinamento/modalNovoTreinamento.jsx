@@ -14,7 +14,7 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
         capacidade: '',
         instrutorNome: '', 
         instrutorEmail: '', 
-        modalidade: '', 
+        modalidade: 'Online', 
         local: '',
         dataInicio: '', 
         dataFim: '', 

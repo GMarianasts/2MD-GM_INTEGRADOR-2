@@ -31,7 +31,7 @@ class UsuarioController {
 
     static async criarUsuario(req, res) {
         try {
-            const { nome, email, senha, cargo, departamento, unidade, nivel_acesso, nivelAcesso } = req.body;
+            const { nome, email, senha, cargo, departamento, unidade, nivel_acesso, nivelAcesso, telefone, sobre } = req.body;
 
             if (!nome || !email || !senha) {
                 return res.status(400).json({ sucesso: false, mensagem: "Campos obrigatórios faltando." });
@@ -49,6 +49,8 @@ class UsuarioController {
                 cargo: cargo || null,
                 departamento: departamento || null,
                 unidade: unidade || null,
+                telefone: telefone || null,
+                sobre: sobre || null,
                 nivel_acesso: nivel_acesso || nivelAcesso || 'Colaborador' 
             };
 
@@ -69,7 +71,7 @@ class UsuarioController {
     static async atualizarUsuario(req, res) {
         try {
             const { id } = req.params;
-            const { nome, email, senha, cargo, departamento, unidade, nivelAcesso } = req.body;
+            const { nome, email, senha, cargo, departamento, unidade, nivelAcesso, telefone, sobre } = req.body;
 
             const usuario = await UsuarioModel.buscarPorId(id);
             if (!usuario) {
@@ -82,6 +84,8 @@ class UsuarioController {
                 cargo,
                 departamento,
                 unidade,
+                telefone,
+                sobre,
                 nivel_acesso: nivelAcesso
             };
 

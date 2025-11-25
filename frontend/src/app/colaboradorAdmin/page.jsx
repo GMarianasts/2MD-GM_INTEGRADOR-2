@@ -91,6 +91,8 @@ export default function PaginaColaboradores() {
     }
   };
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <>
       <style>{`

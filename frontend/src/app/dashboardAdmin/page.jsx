@@ -29,29 +29,40 @@ export default function DashboardAdmin() {
         { name: "Qualidade", value: 11, color: "#E74C3C" },
     ];
 
-    const [qtdAtivos, setQtdAtivos] = useState(0);
+    const [ativos, setAtivos] = useState(0);
 
     useEffect(() => {
-        async function carregarAtivos() {
-            try {
-                const res = await fetch("http://localhost:3001/api/treinamentos/ativos/quantidade");
-                const data = await res.json();
-                setQtdAtivos(data.totalAtivos);
-            } catch (error) {
-                console.log("Erro ao carregar ativos", error);
-            }
+    async function carregarAtivos() {
+        try {
+            const response = await fetch("http://localhost:3001/api/treinamentos/ativos/count");
+            const data = await response.json();
+            setAtivos(data.totalAtivos);
+        } catch (error) {
+            console.log("Erro ao carregar ativos:", error);
         }
+    }
 
-        carregarAtivos();
-    }, []);
+    carregarAtivos();
+}, []);
 
-    const cardsDashboard = [
-        {
-            titulo: "Treinamentos Ativos",
-            valor: qtdAtivos,   // valor vindo do backend
-            icone: "bi bi-lightning-charge",
-        },
-    ];
+const [totalColaboradores, setTotalColaboradores] = useState(0);
+
+useEffect(() => {
+  async function carregarTotal() {
+    try {
+      const resposta = await fetch("http://localhost:3001/api/usuarios/count");
+      const dados = await resposta.json();
+      setTotalColaboradores(dados.total);
+    } catch (error) {
+      console.error("Erro ao carregar total de colaboradores:", error);
+    }
+  }
+
+  carregarTotal();
+}, []);
+
+
+
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row g-0">
@@ -120,7 +131,7 @@ export default function DashboardAdmin() {
                             <div className="card-info azul">
                                 <div>
                                     <p className="titulo">Treinamentos Ativos</p>
-                                    <p className="valor">{qtdAtivos}</p>
+                                    <p className="valor">{ativos}</p>
                                 </div>
                                 <div className="icon"><i className="bi bi-bar-chart"></i></div>
                             </div>
@@ -130,7 +141,8 @@ export default function DashboardAdmin() {
                             <div className="card-info laranja">
                                 <div>
                                     <p className="titulo">Colaboradores Inscritos</p>
-                                    <p className="valor">1.247</p>
+                                    <p className="valor">{totalColaboradores}</p>
+
                                 </div>
                                 <div className="icon"><i className="bi bi-people"></i></div>
                             </div>

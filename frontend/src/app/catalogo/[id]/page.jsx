@@ -32,7 +32,7 @@ export default function DetalhesCurso() {
     const renderizarLista = (texto) => {
         if (!texto) return <li>Informação não disponível.</li>;
         return texto.split('\n').map((item, index) => {
-            const itemLimpo = item.replace(/^-\s*/, '').trim(); 
+            const itemLimpo = item.replace(/^-\s*/, '').trim();
             if (!itemLimpo) return null;
             return (
                 <li key={index} className="d-flex align-items-start gap-2">
@@ -54,30 +54,30 @@ export default function DetalhesCurso() {
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row flex-nowrap">
-                <aside className="d-none d-md-block col-md-3 col-lg-2 sidebar p-3 border-end bg-white" style={{ minHeight: "100vh" }}>
-                    <ul className="list-unstyled menu sticky-top pt-3">
+                <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+                    <ul className="list-unstyled menu">
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
-                            <span>Dashboard</span>
+                            <Link href={'/paginaUsuario'}><span>Dashboard</span></Link>
                         </li>
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-book"></i>
-                            <span>Catálogo de Treinamentos</span>
+                            <Link href={'/catalogo'}><span>Catálogo de Treinamentos</span></Link>
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-award"></i>
-                            <span>Meus Treinamentos</span>
+                            <Link href={'/meuTreinamento'}><span>Meus Treinamentos</span></Link>
                         </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
-                            <span>Meu Perfil</span>
+                            <Link href={'/paginaPerfil'}><span>Meu Perfil</span></Link>
                         </li>
                     </ul>
                 </aside>
                 <main className="col-12 col-md-9 col-lg-10 bg-light p-0 d-flex flex-column min-vh-100">
                     <div className="p-4 w-100 flex-grow-1">
                         <div className="mb-4">
-                            <Link href="/" className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-2">
+                            <Link href={'/catalogo'} className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-2">
                                 <i className="bi bi-arrow-left"></i>
                                 Voltar ao Catálogo
                             </Link>
@@ -115,7 +115,7 @@ export default function DetalhesCurso() {
                                     </button>
                                     <button className="btn btn-outline-light px-4 py-2 rounded-3 d-flex align-items-center gap-2 w-100 justify-content-center">
                                         <i className="bi bi-download"></i>
-                                        Material do Curso {curso.pessoas_atuais}
+                                        Material do Curso
                                     </button>
                                 </div>
                             </div>
@@ -147,18 +147,16 @@ export default function DetalhesCurso() {
                         </div>
                         <div className="row g-4 mb-4">
                             <div className="col-lg-8">
-                                <div className="card border-0 shadow-sm rounded-4 p-4 mb-4 h-50">
+                                <div className="card border-0 shadow-sm rounded-4 p-4 mb-4">
                                     <h5 className="fw-bold mb-3">Sobre o Curso</h5>
-                                    <p className="text-muted mb-0" style={{ lineHeight: "1.6" }}>
-                                        Este curso foi desenvolvido para profissionais que desejam dominar as principais metodologias ágeis utilizadas em grandes projetos. Você aprenderá desde os conceitos fundamentais até a aplicação prática em cenários reais da General Motors, incluindo cases de sucesso e desafios comuns encontrados na transformação ágil.
+                                    <p className="text-muted mb-0" style={{ lineHeight: "1.6", whiteSpace: "pre-wrap" }}>
+                                        {curso.sobre || "Descrição detalhada não informada."}
                                     </p>
                                 </div>
                                 <div className="card border-0 shadow-sm rounded-4 p-4">
                                     <h5 className="fw-bold mb-3">Objetivos de Aprendizagem</h5>
                                     <ul className="list-unstyled d-flex flex-column gap-3 mb-0 text-muted">
-                                        <li className="d-flex align-items-start gap-2"><i className="bi bi-check-circle text-success mt-1"></i>Compreender os princípios e valores do Manifesto Ágil</li>
-                                        <li className="d-flex align-items-start gap-2"><i className="bi bi-check-circle text-success mt-1"></i>Aplicar Scrum em projetos de desenvolvimento</li>
-                                        <li className="d-flex align-items-start gap-2"><i className="bi bi-check-circle text-success mt-1"></i>Utilizar Kanban para gestão de fluxo de trabalho</li>
+                                        {renderizarLista(curso.objetivos)}
                                     </ul>
                                 </div>
                             </div>
@@ -166,10 +164,13 @@ export default function DetalhesCurso() {
                             <div className="col-lg-4">
                                 <div className="card border-0 shadow-sm rounded-4 p-4 mb-4">
                                     <h5 className="fw-bold mb-3">Pré-requisitos</h5>
-                                    <ul className="text-muted ps-3 mb-0" style={{ lineHeight: "1.8" }}>
-                                        <li>Conhecimento básico de gestão de projetos</li>
-                                        <li>Experiência em trabalho em equipe</li>
-                                        <li>Familiaridade com conceitos de desenvolvimento de produtos</li>
+                                    <ul className="text-muted ps-3 mb-0 list-unstyled d-flex flex-column gap-2" style={{ lineHeight: "1.5" }}>
+                                        {curso.pre_requisitos ? curso.pre_requisitos.split('\n').map((req, i) => (
+                                            <li key={i} className="d-flex gap-2">
+                                                <i className="bi bi-dot fs-4 lh-1"></i>
+                                                {req.replace(/^-\s*/, '')}
+                                            </li>
+                                        )) : "Nenhum pré-requisito."}
                                     </ul>
                                 </div>
 

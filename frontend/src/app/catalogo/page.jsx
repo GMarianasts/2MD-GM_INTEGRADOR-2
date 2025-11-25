@@ -53,7 +53,7 @@ export default function Page() {
             </li>
             <li className="ativo mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-book"></i>
-              <span>Catálogo de Treinamentos</span>
+              <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-award"></i>

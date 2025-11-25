@@ -1,8 +1,56 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../catalogo.css";
 
 export default function DetalhesCurso() {
+
+    const { id } = useParams();
+    const [curso, setCurso] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchDetalhes() {
+            try {
+                const res = await fetch(`http://localhost:3001/api/treinamentos/${id}`);
+                const data = await res.json();
+                if (data.sucesso) {
+                    setCurso(data.dados);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar detalhes:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        if (id) fetchDetalhes();
+    }, [id]);
+
+    const renderizarLista = (texto) => {
+        if (!texto) return <li>Informação não disponível.</li>;
+        return texto.split('\n').map((item, index) => {
+            const itemLimpo = item.replace(/^-\s*/, '').trim(); 
+            if (!itemLimpo) return null;
+            return (
+                <li key={index} className="d-flex align-items-start gap-2">
+                    <i className="bi bi-check-circle text-success mt-1"></i>
+                    {itemLimpo}
+                </li>
+            );
+        });
+    };
+
+    const formatarData = (dataISO) => {
+        if (!dataISO) return '-';
+        return new Date(dataISO).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+    };
+
+    if (loading) return <div className="text-center py-5"><div className="spinner-border text-primary"></div></div>;
+    if (!curso) return <div className="text-center py-5">Curso não encontrado.</div>;
+
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row flex-nowrap">
@@ -34,6 +82,7 @@ export default function DetalhesCurso() {
                                 Voltar ao Catálogo
                             </Link>
                         </div>
+
                         <div
                             className="rounded-4 p-4 p-lg-5 text-white mb-5 position-relative overflow-hidden shadow"
                             style={{ backgroundColor: "#0a2b6b" }}
@@ -41,21 +90,21 @@ export default function DetalhesCurso() {
                             <div className="row">
                                 <div className="col-lg-8">
                                     <div className="d-flex gap-2 mb-3">
-                                        <span className="badge bg-warning text-dark rounded-pill">Agilidade</span>
-                                        <span className="badge bg-light text-dark rounded-pill">Intermediário</span>
-                                        <span className="badge border border-light rounded-pill">Online</span>
+                                        <span className="badge bg-warning text-dark rounded-pill">{curso.categoria}</span>
+                                        <span className="badge bg-light text-dark rounded-pill">{curso.nivel}</span>
+                                        <span className="badge border border-light rounded-pill">{curso.modalidade}</span>
                                     </div>
 
-                                    <h1 className="fw-bold mb-3">Metodologias Ágeis na Prática</h1>
+                                    <h1 className="fw-bold mb-3">{curso.titulo}</h1>
                                     <p className="mb-4 text-light opacity-75">
-                                        Aprenda a aplicar Scrum, Kanban e outras metodologias ágeis em projetos reais da indústria automotiva.
+                                        {curso.descricao}
                                     </p>
 
                                     <div className="d-flex flex-wrap gap-4 text-light opacity-75 mb-4 text-sm">
-                                        <span><i className="bi bi-clock me-2"></i>12h</span>
-                                        <span><i className="bi bi-people me-2"></i>45 inscritos</span>
+                                        <span><i className="bi bi-clock me-2"></i>{curso.duracao_horas}</span>
+                                        <span><i className="bi bi-people me-2"></i>{curso.inscritos_atuais} inscritos</span>
                                         <span><i className="bi bi-star-fill text-warning me-2"></i>4.8 (32 avaliações)</span>
-                                        <span><i className="bi bi-calendar-event me-2"></i>Início: 01/12/2025</span>
+                                        <span><i className="bi bi-calendar-event me-2"></i>Início: {formatarData(curso.data_inicio)}</span>
                                     </div>
                                 </div>
 
@@ -66,7 +115,7 @@ export default function DetalhesCurso() {
                                     </button>
                                     <button className="btn btn-outline-light px-4 py-2 rounded-3 d-flex align-items-center gap-2 w-100 justify-content-center">
                                         <i className="bi bi-download"></i>
-                                        Material do Curso
+                                        Material do Curso {curso.pessoas_atuais}
                                     </button>
                                 </div>
                             </div>

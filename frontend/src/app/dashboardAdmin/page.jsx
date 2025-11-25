@@ -47,20 +47,19 @@ export default function DashboardAdmin() {
 
 const [totalColaboradores, setTotalColaboradores] = useState(0);
 
-useEffect(() => {
-  async function carregarTotal() {
-    try {
-      const resposta = await fetch("http://localhost:3001/api/usuarios/count");
-      const dados = await resposta.json();
-      setTotalColaboradores(dados.total);
-    } catch (error) {
-      console.error("Erro ao carregar total de colaboradores:", error);
-    }
-  }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await fetch("http://localhost:3001/api/colaboradores/count");
+                const data = await res.json();
+                setTotalColaboradores(data.total);
+            } catch (error) {
+                console.log("Erro ao buscar total de colaboradores:", error);
+            }
+        }
 
-  carregarTotal();
-}, []);
-
+        fetchData();
+    }, []);
 
 
     return (

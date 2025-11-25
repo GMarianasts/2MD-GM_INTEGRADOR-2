@@ -11,16 +11,14 @@ export default function Page() {
 
   const [cursos, setCursos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [busca, setBusca] = useState(""); // Estado para a barra de busca
+  const [busca, setBusca] = useState("");
 
-  // 1. Busca os dados do Backend ao carregar a página
   useEffect(() => {
     async function fetchCursos() {
       try {
         const res = await fetch("http://localhost:3001/api/treinamentos");
         const data = await res.json();
         if (data.sucesso) {
-          // Filtramos para mostrar apenas cursos ATIVOS ou com INSCRIÇÕES ABERTAS no catálogo
           const cursosDisponiveis = data.dados.filter(
             (c) => c.status === "Ativo" || c.status === "Inscrições Abertas"
           );
@@ -35,7 +33,6 @@ export default function Page() {
     fetchCursos();
   }, []);
 
-  // 2. Lógica simples de filtro pela barra de busca (Client-side)
   const cursosFiltrados = cursos.filter((curso) => {
     const termo = busca.toLowerCase();
     return (
@@ -109,7 +106,6 @@ export default function Page() {
                   {cursosFiltrados.length > 0 ? (
                     cursosFiltrados.map((curso) => (
                       <div className="col" key={curso.id}>
-                        {/* Passamos o objeto inteiro do curso para o Card */}
                         <Card data={curso} />
                       </div>
                     ))

@@ -61,16 +61,19 @@ export default function Home() {
         alert(json.mensagem);
         return;
       }
-
+      
       localStorage.setItem("token", json.dados.token);
       localStorage.setItem("usuario", JSON.stringify(json.dados.usuario));
-
-      if (json.dados.usuario.nivel_acesso === "Admin") {
+      
+      // 🔥 Normaliza para minúsculo, independentemente de como vem do backend
+      const nivel = json.dados.usuario.nivel_acesso?.toLowerCase();
+      
+      // 🔥 Redireciona corretamente
+      if (nivel === "admin") {
         window.location.href = "/dashboardAdmin";
       } else {
         window.location.href = "/paginaUsuario";
       }
-
     } catch (erro) {
       console.error("Erro no login:", erro);
       alert("Erro ao conectar ao servidor.");

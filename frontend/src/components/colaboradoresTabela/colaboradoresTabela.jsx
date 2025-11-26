@@ -11,13 +11,15 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
     try {
       const response = await fetch("http://localhost:3001/api/usuarios");
       const data = await response.json();
-      if (response.ok) setColaboradores(data.dados || data || []);
+  
+      if (response.ok) setColaboradores(data.usuarios || []);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     carregarDados();

@@ -62,8 +62,8 @@ export default function PaginaColaboradores() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    
-    const url = editingId 
+
+    const url = editingId
       ? `http://localhost:3001/api/usuarios/${editingId}`
       : "http://localhost:3001/api/usuarios";
 
@@ -105,7 +105,7 @@ export default function PaginaColaboradores() {
       <div className="container-fluid pagina-usuario">
         <div className="row g-0">
 
-          <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{minHeight: '100vh'}}>
+          <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: '100vh' }}>
             <ul className="list-unstyled menu sticky-top">
               <li className="mb-3 d-flex align-items-center gap-2"><i className="bi bi-house-door"></i><Link href={'dashboardAdmin'}><span>Dashboard</span></Link></li>
               <li className="mb-3 d-flex align-items-center gap-2"><i className="bi bi-grid"></i><Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link></li>
@@ -116,24 +116,24 @@ export default function PaginaColaboradores() {
 
           <main className="col-12 col-md-9 px-4 py-4 bg-light">
             <div className="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Colaboradores</h2>
-                    <p className="descricao text-muted mb-0">Administre os colaboradores e suas permissões</p>
-                </div>
-                <button className="btn text-white d-flex align-items-center gap-2 px-4 py-2 fw-semibold shadow-sm" 
-                        style={{ backgroundColor: "#0a2b6b" }}
-                        onClick={handleOpenModal}>
-                    <i className="bi bi-person-plus fs-5"></i> Novo Colaborador
-                </button>
+              <div>
+                <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Colaboradores</h2>
+                <p className="descricao text-muted mb-0">Administre os colaboradores e suas permissões</p>
+              </div>
+              <button className="btn text-white d-flex align-items-center gap-2 px-4 py-2 fw-semibold shadow-sm"
+                style={{ backgroundColor: "#0a2b6b" }}
+                onClick={handleOpenModal}>
+                <i className="bi bi-person-plus fs-5"></i> Novo Colaborador
+              </button>
             </div>
 
             <div className="row g-3 cards-wrapper mb-4">
             </div>
 
-            <TabelaColaboradores 
-                onNovoColaborador={handleOpenModal} 
-                onEdit={handleEdit}
-                onDelete={handleDelete}
+            <TabelaColaboradores
+              onNovoColaborador={handleOpenModal}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
 
           </main>
@@ -154,12 +154,12 @@ export default function PaginaColaboradores() {
               <form className="row g-3">
                 <h6 className="fw-bold mt-2">🧍 Informações Pessoais</h6> <hr />
                 <div className="col-md-12"><label className="form-label fw-semibold">Nome Completo *</label><input type="text" name="nome" value={formData.nome} onChange={handleChange} className="form-control" /></div>
-                
+
                 <h6 className="fw-bold mt-3">📧 Acesso</h6> <hr />
                 <div className="col-md-6"><label className="form-label fw-semibold">E-mail *</label><input type="email" name="email" value={formData.email} onChange={handleChange} className="form-control" /></div>
                 <div className="col-md-6">
-                    <label className="form-label fw-semibold">{editingId ? "Nova Senha (Opcional)" : "Senha Inicial *"}</label>
-                    <input type="text" name="senha" value={formData.senha} onChange={handleChange} className="form-control" placeholder={editingId ? "Deixe em branco para não mudar" : ""} />
+                  <label className="form-label fw-semibold">{editingId ? "Nova Senha (Opcional)" : "Senha Inicial *"}</label>
+                  <input type="text" name="senha" value={formData.senha} onChange={handleChange} className="form-control" placeholder={editingId ? "Deixe em branco para não mudar" : ""} />
                 </div>
 
                 <h6 className="fw-bold mt-3">🏢 Profissional</h6> <hr />
@@ -178,7 +178,9 @@ export default function PaginaColaboradores() {
                 </div>
                 <div className="col-md-6"><label className="form-label fw-semibold">Perfil</label>
                   <select name="nivelAcesso" value={formData.nivelAcesso} onChange={handleChange} className="form-select">
-                    <option value="Colaborador">Colaborador</option><option value="Gestor">Gestor</option><option value="Administrador">Administrador</option>
+                    <option value="Colaborador">Colaborador</option>
+                    <option value="Admin">Administrador</option>
+
                   </select>
                 </div>
               </form>
@@ -186,7 +188,7 @@ export default function PaginaColaboradores() {
 
             <div className="modal-footer bg-light p-3 rounded-bottom">
               <button className="btn btn-secondary px-4" onClick={handleCloseModal}>Cancelar</button>
-              <button className="btn btn-primary px-4" onClick={handleSave} style={{backgroundColor: '#0a2b6b', borderColor: '#0a2b6b'}}>Salvar</button>
+              <button className="btn btn-primary px-4" onClick={handleSave} style={{ backgroundColor: '#0a2b6b', borderColor: '#0a2b6b' }}>Salvar</button>
             </div>
           </div>
         </div>

@@ -26,7 +26,19 @@ const StatusBadge = ({ status }) => {
     return <span className={className}>{status}</span>;
 };
 
+const [inscricoes, setInscricoes] = useState([]);
+
+async function remover(id) {
+    await fetch(`http://localhost:3001/inscricoes/${id}`, {
+        method: "DELETE"
+    });
+
+    carregarInscricoes();
+}
+
 export default function GerenciarInscricoes() {
+
+
     return (
         <div className="inscricoes-card-container">
             <header className="inscricoes-header">
@@ -56,7 +68,7 @@ export default function GerenciarInscricoes() {
                     <span>Ações</span>
                 </div>
 
-                {inscricoesData.map((item, index) => (
+                {inscricoes.map((item, index) => (
                     <div className="table-row" key={index}>
                         <span className="colaborador-nome">{item.colaborador}</span>
                         <span>{item.curso}</span>
@@ -69,8 +81,10 @@ export default function GerenciarInscricoes() {
                             <StatusBadge status={item.status} />
                         </span>
                         <span className="acoes-cell">
-                            <button className="btn-acao-visualizar"><i className="bi bi-eye"></i></button>
-                            <button className="btn-acao-remover"><i className="bi bi-x-circle-fill"></i></button>
+                            <button className="btn-acao-remover" onClick={() => remover(item.id)}>
+                                <i className="bi bi-x-circle-fill"></i>
+                            </button>
+
                         </span>
                     </div>
                 ))}

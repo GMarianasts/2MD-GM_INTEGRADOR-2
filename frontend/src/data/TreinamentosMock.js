@@ -1,7 +1,6 @@
 export const resumo = [
   { titulo: 'Em Andamento', valor: 3 },
   { titulo: 'Concluídos', valor: 5 },
-  { titulo: 'Agendados', valor: 2 },
   { titulo: 'Taxa de conclusão', valor: '82%' },
 ];
 

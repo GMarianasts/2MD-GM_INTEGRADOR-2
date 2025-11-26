@@ -61,6 +61,23 @@ class InscricaoController {
             return res.status(500).json({ sucesso: false, mensagem: "Erro interno" });
         }
     }
+
+    static async listar(req, res) {
+        try {
+            const inscricoes = await InscricaoModel.listarTodas();
+    
+            return res.status(200).json({
+                sucesso: true,
+                dados: inscricoes
+            });
+    
+        } catch (erro) {
+            console.error("Erro ao listar inscrições:", erro);
+            return res.status(500).json({ sucesso: false, mensagem: "Erro interno ao listar" });
+        }
+    }
+    
 }
+
 
 export default InscricaoController;

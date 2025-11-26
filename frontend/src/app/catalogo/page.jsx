@@ -13,6 +13,12 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [busca, setBusca] = useState("");
 
+  const [filtros, setFiltros] = useState({
+    categoria: "",
+    modalidade: [],
+    nivel: []
+  });
+
   useEffect(() => {
     async function fetchCursos() {
       try {
@@ -35,12 +41,22 @@ export default function Page() {
 
   const cursosFiltrados = cursos.filter((curso) => {
     const termo = busca.toLowerCase();
-    return (
+    const matchTexto =
       curso.titulo.toLowerCase().includes(termo) ||
-      curso.instrutor_nome.toLowerCase().includes(termo) ||
-      curso.categoria.toLowerCase().includes(termo)
-    );
+      curso.instrutor_nome.toLowerCase().includes(termo);
+
+    if (!matchTexto) return false;
+    if (filtros.categoria && curso.categoria !== filtros.categoria) return false;
+    if (filtros.modalidade.length > 0 && !filtros.modalidade.includes(curso.modalidade)) return false;
+    if (filtros.nivel.length > 0 && !filtros.nivel.includes(curso.nivel)) return false;
+
+    return true;
   });
+
+  const limparFiltros = () => {
+    setFiltros({ categoria: "", modalidade: [], nivel: [] });
+    setBusca("");
+  };
 
   return (
     <div className="container-fluid pagina-usuario">
@@ -86,7 +102,11 @@ export default function Page() {
 
           <div className="row g-4">
             <div className="col-lg-3">
-              <Filtros />
+              <Filtros
+                filtros={filtros}
+                setFiltros={setFiltros}
+                limparFiltros={limparFiltros}
+              />
             </div>
 
             <div className="col-lg-9">

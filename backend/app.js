@@ -15,6 +15,7 @@ import inscricoesRoutes from "./routes/inscricoesRotas.js";
 
 
 
+
 import usuarioRotas from './routes/usuarioRotas.js';
 import treinamentoCountRotas from './routes/treinamentoCountRotas.js';
 
@@ -75,7 +76,7 @@ app.use('/api/auth', authRotas);
 app.use('/api/produtos', produtoRotas);
 app.use('/api/treinamentos', treinamentoCountRotas);
 app.use('/api/treinamentos', treinamentoRotas);
-app.use("/api/inscricoes", inscricoesRotas);
+app.use("/inscricoes", inscricoesRotas);
 
 
 // Rota raiz

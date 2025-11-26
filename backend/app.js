@@ -10,6 +10,8 @@ import produtoRotas from './routes/produtoRotas.js';
 import authRotas from './routes/authRotas.js';
 import criptografiaRotas from './routes/criptografiaRotas.js';
 import colaboradoresRotas from './routes/colaboradoresRotas.js';
+import inscricoesRoutes from "./routes/inscricoesRotas.js";
+
 
 
 
@@ -73,6 +75,7 @@ app.use('/api/auth', authRotas);
 app.use('/api/produtos', produtoRotas);
 app.use('/api/treinamentos', treinamentoCountRotas);
 app.use('/api/treinamentos', treinamentoRotas);
+app.use("/api/inscricoes", inscricoesRotas);
 
 
 // Rota raiz

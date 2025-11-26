@@ -42,8 +42,15 @@ class UsuarioController {
     static async listarUsuarios(req, res) {
         try {
             const { pagina = 1, limite = 10 } = req.query;
-            const resultado = await UsuarioModel.listarTodos(Number(pagina), Number(limite));
-            return res.status(200).json(resultado);
+    
+            const resultado = await UsuarioModel.listarTodos(
+                Number(pagina),
+                Number(limite)
+            );
+    
+            // Envia somente o array para evitar erro no frontend
+            return res.status(200).json(resultado.usuarios);
+    
         } catch (error) {
             console.error('Erro ao listar usuários:', error);
             return res.status(500).json({ erro: 'Erro ao listar usuários' });

@@ -8,19 +8,31 @@ class AuthController {
         try {
             const { email, senha } = req.body;
 
+            console.log('LOGIN REQUEST BODY:', { email, senhaProvided: !!senha });
+
             if (!email || email.trim() === '') return res.status(400).json({ sucesso: false, mensagem: 'O email é obrigatório' });
             if (!senha || senha.trim() === '') return res.status(400).json({ sucesso: false, mensagem: 'A senha é obrigatória' });
 
-            const usuario = await UsuarioModel.verificarCredenciais(
-                email.trim().toLowerCase(),
-                senha
-            );
+            const emailNormalizado = email.trim().toLowerCase();
+            console.log('EMAIL NORMALIZADO:', emailNormalizado);
 
+            // busca o usuário (raw, com senha) para debug
+            const usuarioDb = await UsuarioModel.buscarPorEmail(emailNormalizado);
+            console.log('USUARIO DO DB (raw):', usuarioDb ? { id: usuarioDb.id, email: usuarioDb.email, nivel_acesso: usuarioDb.nivel_acesso, senha_hash_presente: !!usuarioDb.senha } : null);
+
+            if (!usuarioDb) {
+                // não expõe detalhes sensíveis, mas loga no servidor
+                console.warn(`Tentativa de login com email não cadastrado: ${emailNormalizado}`);
+                return res.status(401).json({ sucesso: false, mensagem: 'Email ou senha incorretos' });
+            }
+
+            // usa o método já existente que compara (lembre-se: ele retorna o usuário sem senha)
+            const usuario = await UsuarioModel.verificarCredenciais(emailNormalizado, senha);
+
+            // caso verificarCredenciais retorne null, a senha está incorreta
             if (!usuario) {
-                return res.status(401).json({
-                    sucesso: false,
-                    mensagem: 'Email ou senha incorretos'
-                });
+                console.warn(`Senha inválida para usuario id=${usuarioDb.id} email=${emailNormalizado}`);
+                return res.status(401).json({ sucesso: false, mensagem: 'Email ou senha incorretos' });
             }
 
             const tipoUsuario = usuario.nivel_acesso || 'Colaborador';
@@ -35,7 +47,7 @@ class AuthController {
                 { expiresIn: JWT_CONFIG.expiresIn }
             );
 
-            res.status(200).json({
+            return res.status(200).json({
                 sucesso: true,
                 mensagem: 'Login realizado com sucesso',
                 dados: {
@@ -46,14 +58,14 @@ class AuthController {
                         email: usuario.email,
                         nivel_acesso: tipoUsuario,
                         cargo: usuario.cargo,
-                        iniciais: usuario.nome.substring(0, 2).toUpperCase()
+                        iniciais: usuario.nome ? usuario.nome.substring(0, 2).toUpperCase() : ''
                     }
                 }
             });
 
         } catch (error) {
             console.error('Erro ao fazer login:', error);
-            res.status(500).json({ sucesso: false, mensagem: 'Erro interno no servidor' });
+            return res.status(500).json({ sucesso: false, mensagem: 'Erro interno no servidor' });
         }
     }
 

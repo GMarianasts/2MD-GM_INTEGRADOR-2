@@ -1,105 +1,87 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-export default function Filtros() {
+export default function Filtros({ filtros, setFiltros, limparFiltros }) {
+
+  const handleCheckbox = (categoria, valor) => {
+    setFiltros(prev => {
+      const listaAtual = prev[categoria] || [];
+      if (listaAtual.includes(valor)) {
+        return { ...prev, [categoria]: listaAtual.filter(item => item !== valor) };
+      } else {
+        return { ...prev, [categoria]: [...listaAtual, valor] };
+      }
+    });
+  };
+
+  const handleSelect = (e) => {
+    setFiltros(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   return (
-    <aside className="border p-3 rounded-3 bg-white shadow-sm">
+    <aside className="border p-3 rounded-3 bg-white shadow-sm sticky-top" style={{ top: '20px', zIndex: 1 }}>
 
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h5 className="mb-0">
-          <i className="bi bi-filter me-2"></i>
-          Filtros
-        </h5>
-        <button className="btn btn-link text-decoration-none p-0">
-          Ocultar
+        <h5 className="mb-0"><i className="bi bi-filter me-2"></i>Filtros</h5>
+        <button className="btn btn-link text-decoration-none p-0" onClick={limparFiltros}>
+          Limpar
         </button>
       </div>
 
+      {/* 1. Competência (Select) */}
       <div className="mb-3">
-        <label htmlFor="competenciaSelect" className="form-label fw-bold">
-          Competência
-        </label>
-        <select className="form-select" id="competenciaSelect">
-          <option defaultValue>Todas</option>
-          <option value="1">Agilidade</option>
-          <option value="2">Análise de Dados</option>
-          <option value="3">Inovação</option>
-          <option value="4">Liderança</option>
+        <label className="form-label fw-bold small text-secondary">Categoria</label>
+        <select 
+          className="form-select form-select-sm bg-light border-0" 
+          name="categoria" 
+          value={filtros.categoria} 
+          onChange={handleSelect}
+        >
+          <option value="">Todas</option>
+          <option value="Gestão">Gestão</option>
+          <option value="Tecnologia">Tecnologia</option>
+          <option value="Manufatura">Manufatura</option>
+          <option value="Segurança e EHS">Segurança e EHS</option>
+          <option value="Inovação">Inovação</option>
+          <option value="Logística">Logística</option>
+          <option value="Processos">Processos</option>
         </select>
       </div>
 
+      {/* 2. Modalidade (Checkboxes) */}
       <div className="mb-3">
-        <label className="form-label fw-bold">Modalidade</label>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkModalTodas" />
-          <label className="form-check-label" htmlFor="checkModalTodas">
-            Todas
-          </label>
-        </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkModalOnline" />
-          <label className="form-check-label" htmlFor="checkModalOnline">
-            Online
-          </label>
-        </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkModalPresencial" />
-          <label className="form-check-label" htmlFor="checkModalPresencial">
-            Presencial
-          </label>
-        </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkModalHibrido" />
-          <label className="form-check-label" htmlFor="checkModalHibrido">
-            Híbrido
-          </label>
-        </div>
+        <label className="form-label fw-bold small text-secondary">Modalidade</label>
+        {['Online', 'Presencial', 'Híbrido'].map(opcao => (
+          <div className="form-check" key={opcao}>
+            <input 
+              className="form-check-input" 
+              type="checkbox" 
+              id={`checkModal${opcao}`} 
+              checked={filtros.modalidade.includes(opcao)}
+              onChange={() => handleCheckbox('modalidade', opcao)}
+            />
+            <label className="form-check-label small" htmlFor={`checkModal${opcao}`}>{opcao}</label>
+          </div>
+        ))}
       </div>
 
+      {/* 3. Nível (Checkboxes) */}
       <div className="mb-3">
-        <label className="form-label fw-bold">Nível</label>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkNivelTodos" />
-          <label className="form-check-label" htmlFor="checkNivelTodos">
-            Todos
-          </label>
-        </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkNivelBasico" />
-          <label className="form-check-label" htmlFor="checkNivelBasico">
-            Básico
-          </label>
-        </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkNivelIntermediario" />
-          <label className="form-check-label" htmlFor="checkNivelIntermediario">
-            Intermediário
-          </label>
-        </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkNivelAvancado" />
-          <label className="form-check-label" htmlFor="checkNivelAvancado">
-            Avançado
-          </label>
-        </div>
+        <label className="form-label fw-bold small text-secondary">Nível</label>
+        {['Iniciante', 'Intermediário', 'Avançado'].map(opcao => (
+          <div className="form-check" key={opcao}>
+            <input 
+              className="form-check-input" 
+              type="checkbox" 
+              id={`checkNivel${opcao}`}
+              checked={filtros.nivel.includes(opcao)}
+              onChange={() => handleCheckbox('nivel', opcao)}
+            />
+            <label className="form-check-label small" htmlFor={`checkNivel${opcao}`}>{opcao}</label>
+          </div>
+        ))}
       </div>
 
-      <div className="mb-3">
-        <label className="form-label fw-bold">Status</label>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkStatusAbertas" />
-          <label className="form-check-label" htmlFor="checkStatusAbertas">
-            Inscrições Abertas
-          </label>
-        </div>
-        <div className="form-check">
-          <input className="form-check-input" type="checkbox" value="" id="checkStatusAndamento" />
-          <label className="form-check-label" htmlFor="checkStatusAndamento">
-            Em Andamento
-          </label>
-        </div>
-      </div>
-
-      <button className="btn btn-outline-secondary w-100 mt-2">
+      <button className="btn btn-outline-secondary w-100 mt-2 btn-sm" onClick={limparFiltros}>
         Limpar Filtros
       </button>
 

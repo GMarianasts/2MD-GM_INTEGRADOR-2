@@ -8,6 +8,7 @@ import {
     PieChart, Pie, Cell
 } from "recharts";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function DashboardAdmin() {
 
@@ -28,10 +29,44 @@ export default function DashboardAdmin() {
         { name: "Qualidade", value: 11, color: "#E74C3C" },
     ];
 
+    const [ativos, setAtivos] = useState(0);
+
+    useEffect(() => {
+    async function carregarAtivos() {
+        try {
+            const response = await fetch("http://localhost:3001/api/treinamentos/ativos/count");
+            const data = await response.json();
+            setAtivos(data.totalAtivos);
+        } catch (error) {
+            console.log("Erro ao carregar ativos:", error);
+        }
+    }
+
+    carregarAtivos();
+}, []);
+
+const [totalColaboradores, setTotalColaboradores] = useState(0);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await fetch("http://localhost:3001/api/colaboradores/count");
+                const data = await res.json();
+                setTotalColaboradores(data.total);
+            } catch (error) {
+                console.log("Erro ao buscar total de colaboradores:", error);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+
     return (
         <div className="container-fluid pagina-usuario">
             <div className="row g-0">
 
+                {/* SIDEBAR RESPONSIVA */}
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
@@ -53,27 +88,31 @@ export default function DashboardAdmin() {
                     </ul>
                 </aside>
 
-                <main className="col-12 col-md-9 px-4 py-4">
+                {/* CONTEÚDO PRINCIPAL */}
+                <main className="col-12 col-md-9 col-lg-10 px-4 py-4">
+
+                    {/* BARRA SUPERIOR */}
                     <section className="introducao mb-4">
                         <div className="trocaPagina">
                             <ul className="nav nav-pills nav-fill">
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" href={'dashboardAdmin'}>Dashboard</Link>
+                                    <Link className="nav-link active" href={'dashboardAdmin'}>Dashboard</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link href={'inscricoesAdmin'} className="nav-link" aria-disabled="true">Inscrições</Link>
+                                    <Link href={'inscricoesAdmin'} className="nav-link">Inscrições</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link href={'presencaAdmin'} className="nav-link " aria-disabled="true">Presença</Link>
+                                    <Link href={'presencaAdmin'} className="nav-link ">Presença</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link href={'certificadosAdmin'} className="nav-link " aria-disabled="true">Certificados</Link>
+                                    <Link href={'certificadosAdmin'} className="nav-link ">Certificados</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link href={'historicoAdmin'} className="nav-link " aria-disabled="true">Histórico</Link>
+                                    <Link href={'historicoAdmin'} className="nav-link ">Histórico</Link>
                                 </li>
                             </ul>
                         </div>
+
                         <div className="search-container">
                             <i className="bi bi-search search-icon"></i>
                             <input
@@ -84,78 +123,55 @@ export default function DashboardAdmin() {
                         </div>
                     </section>
 
-                    <div className="row g-3 cards-wrapper">
-                        <div className="col-12">
-                            <div className="row g-3">
-                                <div className="col-6 col-sm-6 col-md-3 px-2">
-                                    <div className="card card-info azul">
-                                        <div className="card-body d-flex align-items-center">
-                                            <div className="progresso">
-                                                <p className="titulo mb-1">Treinamentos Ativos</p>
-                                                <p className="valor mb-0">24</p>
-                                            </div>
-                                            <div className="posicaoIcon">
-                                                <div className="icon me-0">
-                                                    <i className="bi bi-bar-chart"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    {/* CARDS INICIAIS RESPONSIVOS */}
+                    <div className="row g-3 row-cards mt-3">
 
-                                <div className="col-6 col-sm-6 col-md-3 px-2">
-                                    <div className="card card-info laranja">
-                                        <div className="card-body d-flex align-items-center">
-                                            <div className="progresso">
-                                                <p className="titulo mb-1">Colaboradores Inscritos</p>
-                                                <p className="valor mb-0">1.247</p>
-                                            </div>
-                                            <div className="posicaoIcon">
-                                                <div className="icon me-0">
-                                                    <i className="bi bi-people"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div className="card-info azul">
+                                <div>
+                                    <p className="titulo">Treinamentos Ativos</p>
+                                    <p className="valor">{ativos}</p>
                                 </div>
-
-                                <div className="col-6 col-sm-6 col-md-3 px-2">
-                                    <div className="card card-info verde">
-                                        <div className="card-body d-flex align-items-center">
-                                            <div className="progresso">
-                                                <p className="titulo mb-1">Certificados Emitidos</p>
-                                                <p className="valor mb-0">892</p>
-                                            </div>
-                                            <div className="posicaoIcon">
-                                                <div className="icon me-0">
-                                                    <i className="bi bi-award"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-6 col-sm-6 col-md-3 px-2">
-                                    <div className="card card-info roxo">
-                                        <div className="card-body d-flex align-items-center">
-                                            <div className="progresso">
-                                                <p className="titulo mb-1">Taxa de Conclusão</p>
-                                                <p className="valor mb-0">87%</p>
-                                            </div>
-                                            <div className="posicaoIcon">
-                                                <div className="icon mb-0">
-                                                    <i className="bi bi-graph-up-arrow"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div className="icon"><i className="bi bi-bar-chart"></i></div>
                             </div>
                         </div>
+
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div className="card-info laranja">
+                                <div>
+                                    <p className="titulo">Colaboradores Inscritos</p>
+                                    <p className="valor">{totalColaboradores}</p>
+
+                                </div>
+                                <div className="icon"><i className="bi bi-people"></i></div>
+                            </div>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div className="card-info verde">
+                                <div>
+                                    <p className="titulo">Certificados Emitidos</p>
+                                    <p className="valor">892</p>
+                                </div>
+                                <div className="icon"><i className="bi bi-award"></i></div>
+                            </div>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div className="card-info roxo">
+                                <div>
+                                    <p className="titulo">Taxa de Conclusão</p>
+                                    <p className="valor">87%</p>
+                                </div>
+                                <div className="icon"><i className="bi bi-graph-up-arrow"></i></div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div className="d-flex flex-wrap justify-content-between align-items-start gap-3 mt-3 align-section">
-                        <div className="card-treinamento shadow-sm p-3 flex-grow-1" style={{ flexBasis: "60%", minWidth: "400px" }}>
+                    {/* GRÁFICOS RESPONSIVOS */}
+                    <div className="row g-3 mt-3">
+                        <div className="col-12 col-lg-7 card-treinamento shadow-sm p-3">
                             <div className="d-flex align-items-center mb-2">
                                 <div className="icon bg-primary text-white rounded-3 p-2 me-2">
                                     <i className="bi bi-graph-up"></i>
@@ -167,20 +183,19 @@ export default function DashboardAdmin() {
                             </div>
 
                             <ResponsiveContainer width="100%" height={220}>
-                                <LineChart data={dadosTendencia} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                                <LineChart data={dadosTendencia}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                     <XAxis dataKey="mes" />
                                     <YAxis />
                                     <Tooltip />
                                     <Legend />
-                                    <Line type="monotone" dataKey="inscricoes" stroke="#1E56A0" strokeWidth={2} dot={{ r: 5 }} />
-                                    <Line type="monotone" dataKey="conclusoes" stroke="#00B894" strokeWidth={2} dot={{ r: 5 }} />
+                                    <Line type="monotone" dataKey="inscricoes" stroke="#1E56A0" strokeWidth={2} />
+                                    <Line type="monotone" dataKey="conclusoes" stroke="#00B894" strokeWidth={2} />
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
 
-                        {/* Gráfico de Treinamentos por Categoria */}
-                        <div className="card-treinamento shadow-sm p-3 flex-grow-1" style={{ flexBasis: "38%", minWidth: "300px" }}>
+                        <div className="col-12 col-lg-5 card-treinamento shadow-sm p-3">
                             <div className="d-flex align-items-center mb-2">
                                 <div className="icon bg-primary text-white rounded-3 p-2 me-2">
                                     <i className="bi bi-pie-chart"></i>
@@ -211,21 +226,19 @@ export default function DashboardAdmin() {
                                     />
                                 </PieChart>
                             </ResponsiveContainer>
+
                         </div>
                     </div>
 
-                    <div className="card-treinamento">
+                    {/* LISTA DE CURSOS RESPONSIVA */}
+                    <div className="card-treinamento mt-4">
                         <div className="Cards">
-                            <div className="Cards-estrutura">
-                                <div>
-                                    <p className="titulo-principal">Próximos Treinamentos</p>
-                                    <p className="subtitulo-trilha">Agendados para as próximas semanas</p>
-                                </div>
-                            </div>
+                            <p className="titulo-principal">Próximos Treinamentos</p>
+                            <p className="subtitulo-trilha">Agendados para as próximas semanas</p>
 
-                            <div className="lista-cursos">
+                            <div className="row lista-cursos g-3">
 
-                                <div className="curso-item">
+                                <div className="curso-item col-12">
                                     <div className="curso-esquerda">
                                         <div className="icon-curso-quadro">
                                             <i className="bi bi-calendar-event"></i>
@@ -246,7 +259,7 @@ export default function DashboardAdmin() {
                                     </div>
                                 </div>
 
-                                <div className="curso-item">
+                                <div className="curso-item col-12">
                                     <div className="curso-esquerda">
                                         <div className="icon-curso-quadro">
                                             <i className="bi bi-calendar-event"></i>
@@ -267,7 +280,7 @@ export default function DashboardAdmin() {
                                     </div>
                                 </div>
 
-                                <div className="curso-item">
+                                <div className="curso-item col-12">
                                     <div className="curso-esquerda">
                                         <div className="icon-curso-quadro">
                                             <i className="bi bi-calendar-event"></i>
@@ -288,7 +301,7 @@ export default function DashboardAdmin() {
                                     </div>
                                 </div>
 
-                                <div className="curso-item">
+                                <div className="curso-item col-12">
                                     <div className="curso-esquerda">
                                         <div className="icon-curso-quadro">
                                             <i className="bi bi-calendar-event"></i>
@@ -308,10 +321,12 @@ export default function DashboardAdmin() {
                                         <button className="status-disponivel">Vagas Disponíveis</button>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                </main>
+
+                </main >
             </div >
         </div >
     );

@@ -25,8 +25,6 @@ export default function MeuTreinamentosPage() {
     switch (activeTab) {
       case 'Concluídos':
         return concluidos.map((t) => <CardConcluido key={t.id} t={t} />);
-      case 'Agendados':
-        return agendados.map((t) => <CardAgendado key={t.id} t={t} />);
       default:
         return emAndamento.map((t) => <CardEmAndamento key={t.id} t={t} />);
     }

@@ -1,5 +1,5 @@
 export default function TabsTreinamento({ activeTab, setActiveTab }) {
-    const tabs = ['Em Andamento', 'Concluídos', 'Agendados'];
+    const tabs = ['Em Andamento', 'Concluídos'];
     <i class="bi bi-check-square"></i>
   
     return (

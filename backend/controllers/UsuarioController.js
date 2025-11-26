@@ -2,146 +2,123 @@ import UsuarioModel from "../models/UsuarioModel.js";
 
 class UsuarioController {
 
-    // GET /api/usuarios (Listar todos os colaboradores para a tabela)
-    static async listarUsuarios(req, res) {
-        try {
-            const pagina = parseInt(req.query.pagina) || 1;
-            const limite = parseInt(req.query.limite) || 10;
-
-            const resultado = await UsuarioModel.listarTodos(pagina, limite);
-
-            // Removemos a senha da resposta por segurança
-            const usuariosSeguros = resultado.usuarios.map(user => {
-                const { senha, ...resto } = user;
-                return resto;
-            });
-
-            return res.status(200).json({
-                sucesso: true,
-                dados: usuariosSeguros,
-                total: resultado.total,
-                paginas: resultado.totalPaginas
-            });
-        } catch (error) {
-            console.error("Erro ao listar usuários:", error);
-            return res.status(500).json({
-                sucesso: false,
-                mensagem: "Erro ao buscar lista de colaboradores."
-            });
-        }
-    }
-
-    // POST /api/usuarios (Criar novo colaborador vindo do Modal)
     static async criarUsuario(req, res) {
         try {
-            // 1. Pegamos TODOS os campos do formulário
-            const { nome, email, senha, cargo, departamento, unidade, nivel_acesso } = req.body;
-
-            // 2. Validação básica
-            if (!nome || !email || !senha) {
-                return res.status(400).json({
-                    sucesso: false,
-                    mensagem: "Os campos Nome, Email e Senha são obrigatórios."
-                });
-            }
-
-            // 3. Verifica se email já existe
-            const existente = await UsuarioModel.buscarPorEmail(email);
-            if (existente) {
-                return res.status(409).json({
-                    sucesso: false,
-                    mensagem: "Este e-mail já está cadastrado no sistema."
-                });
-            }
-
-            // 4. Cria o objeto para salvar
-            const novoUsuarioDados = {
+            const {
                 nome,
                 email,
-                senha, // O Model vai fazer o hash disso
-                cargo: cargo || null,
-                departamento: departamento || null,
-                unidade: unidade || null,
-                nivel_acesso: nivel_acesso || 'Colaborador' // Padrão se não vier nada
+                senha,
+                cargo,
+                departamento,
+                unidade,
+                nivelAcesso
+            } = req.body;
+
+            // 👇 Converte para o nome da coluna correta do banco
+            const dados = {
+                nome,
+                email,
+                senha,
+                cargo,
+                departamento,
+                unidade,
+                nivel_acesso: nivelAcesso || 'Colaborador'
             };
 
-            // 5. Salva no banco
-            const resultado = await UsuarioModel.criar(novoUsuarioDados);
+            const novoUsuario = await UsuarioModel.criar(dados);
 
             return res.status(201).json({
-                sucesso: true,
-                mensagem: "Colaborador cadastrado com sucesso!",
-                id: resultado.insertId
+                mensagem: 'Usuário cadastrado com sucesso!',
+                usuario: novoUsuario
             });
 
         } catch (error) {
-            console.error("Erro ao criar usuário:", error);
-            return res.status(500).json({
-                sucesso: false,
-                mensagem: "Erro interno ao cadastrar colaborador."
-            });
+            console.error('Erro ao criar usuário:', error);
+            return res.status(500).json({ erro: 'Erro ao criar usuário' });
         }
     }
 
-    // PUT /api/usuarios/:id (Atualizar dados)
+    // Listar todos
+    static async listarUsuarios(req, res) {
+        try {
+            const { pagina = 1, limite = 10 } = req.query;
+    
+            const resultado = await UsuarioModel.listarTodos(
+                Number(pagina),
+                Number(limite)
+            );
+    
+            // Envia somente o array para evitar erro no frontend
+            return res.status(200).json(resultado.usuarios);
+    
+        } catch (error) {
+            console.error('Erro ao listar usuários:', error);
+            return res.status(500).json({ erro: 'Erro ao listar usuários' });
+        }
+    }
+
+    // Buscar por ID
+    static async buscarPorId(req, res) {
+        try {
+            const usuario = await UsuarioModel.buscarPorId(req.params.id);
+
+            if (!usuario) return res.status(404).json({ erro: 'Usuário não encontrado' });
+
+            return res.status(200).json(usuario);
+
+        } catch (error) {
+            console.error('Erro ao buscar usuário por ID:', error);
+            return res.status(500).json({ erro: 'Erro ao buscar usuário' });
+        }
+    }
+
+    // Atualizar
     static async atualizarUsuario(req, res) {
         try {
-            const { id } = req.params;
-            const dados = req.body; // Pega tudo que foi enviado para atualizar
+            const {
+                nome,
+                email,
+                senha,
+                cargo,
+                departamento,
+                unidade,
+                nivelAcesso
+            } = req.body;
 
-            const usuario = await UsuarioModel.buscarPorId(id);
-            if (!usuario) {
-                return res.status(404).json({
-                    sucesso: false,
-                    mensagem: "Usuário não encontrado."
-                });
-            }
+            const dadosAtualizados = {
+                nome,
+                email,
+                senha,
+                cargo,
+                departamento,
+                unidade,
+                nivel_acesso: nivelAcesso
+            };
 
-            // Atualiza apenas o que foi enviado
-            await UsuarioModel.atualizar(id, dados);
+            const resultado = await UsuarioModel.atualizar(req.params.id, dadosAtualizados);
 
             return res.status(200).json({
-                sucesso: true,
-                mensagem: "Dados do colaborador atualizados."
+                mensagem: "Usuário atualizado com sucesso!",
+                resultado
             });
 
         } catch (error) {
-            console.error("Erro ao atualizar usuário:", error);
-            return res.status(500).json({
-                sucesso: false,
-                mensagem: "Erro ao atualizar colaborador."
-            });
+            console.error('Erro ao atualizar usuário:', error);
+            return res.status(500).json({ erro: 'Erro ao atualizar usuário' });
         }
     }
 
-    // DELETE /api/usuarios/:id (Excluir)
+    // Excluir
     static async excluirUsuario(req, res) {
         try {
-            const { id } = req.params;
-
-            const usuario = await UsuarioModel.buscarPorId(id);
-            if (!usuario) {
-                return res.status(404).json({
-                    sucesso: false,
-                    mensagem: "Usuário não encontrado."
-                });
-            }
-
-            await UsuarioModel.excluir(id);
-
-            return res.status(200).json({
-                sucesso: true,
-                mensagem: "Colaborador removido com sucesso."
-            });
-
+            await UsuarioModel.excluir(req.params.id);
+            return res.status(200).json({ mensagem: "Usuário excluído com sucesso!" });
         } catch (error) {
-            console.error("Erro ao excluir usuário:", error);
-            return res.status(500).json({
-                sucesso: false,
-                mensagem: "Erro ao excluir colaborador."
-            });
+            console.error('Erro ao excluir usuário:', error);
+            return res.status(500).json({ erro: 'Erro ao excluir usuário' });
         }
     }
 }
+
 
 export default UsuarioController;

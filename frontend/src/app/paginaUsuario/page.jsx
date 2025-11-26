@@ -4,8 +4,38 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./paginaUsuario.css";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function PaginaUsuario() {
+
+  const [cursosRecomendados, setCursosRecomendados] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCursos() {
+      try {
+        const res = await fetch("http://localhost:3001/api/treinamentos");
+        const data = await res.json();
+
+        if (data.sucesso) {
+          // 1. Filtra apenas os cursos ATIVOS
+          const ativos = data.dados.filter(c => c.status === 'Ativo');
+
+          // 2. Pega apenas os 3 primeiros (ou os 3 mais recentes se o banco ordenar por data)
+          const tresUltimos = ativos.slice(0, 3);
+
+          setCursosRecomendados(tresUltimos);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar cursos:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCursos();
+  }, []);
+
   return (
     <div className="container-fluid pagina-usuario">
       <div className="row g-0">
@@ -18,7 +48,7 @@ export default function PaginaUsuario() {
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-book"></i>
-             <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
+              <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-award"></i>
@@ -113,7 +143,7 @@ export default function PaginaUsuario() {
           </div>
 
           <div className="row g-4 mt-2">
-      
+
             <div className="col-12 col-lg-8 coluna-esquerda">
               {/* Minha Trilha */}
               <div className="Cards">
@@ -164,51 +194,36 @@ export default function PaginaUsuario() {
                 </div>
 
                 <div className="lista-cursos">
-                  <div className="curso-item">
-                    <div className="curso-info">
-                      <p className="nome-curso">Metodologias Ágeis na Prática</p>
-                      <div className="detalhes-curso">
-                        <i className="bi bi-clock"></i>
-                        <span className="duracao">12h</span>
-                        <span className="categoria">Agilidade</span>
-                        <span className="nivel">Intermediário</span>
+                  {loading ? (
+                    <div className="text-center py-3 text-muted">Carregando recomendações...</div>
+                  ) : (
+                    cursosRecomendados.map((curso) => (
+                      <div className="curso-item" key={curso.id}>
+                        <div className="curso-info">
+                          <p className="nome-curso">{curso.titulo}</p>
+                          <div className="detalhes-curso">
+                            <span><i className="bi bi-clock"></i> {curso.duracao_horas}h</span>
+                            <span className="categoria">{curso.categoria}</span>
+                            <span className="nivel">{curso.nivel}</span>
+                          </div>
+                        </div>
+                        <Link href={`/catalogo/${curso.id}`}>
+                          <button className="btn-verDetalhes">Ver Detalhes</button>
+                        </Link>
                       </div>
-                    </div>
-                    <button className="btn-verDetalhes">Ver Detalhes</button>
-                  </div>
+                    ))
+                  )}
 
-                  <div className="curso-item">
-                    <div className="curso-info">
-                      <p className="nome-curso">Análise de Dados com Power BI</p>
-                      <div className="detalhes-curso">
-                        <i className="bi bi-clock"></i>
-                        <span className="duracao">16h</span>
-                        <span className="categoria">Análise de Dados</span>
-                        <span className="nivel">Básico</span>
-                      </div>
-                    </div>
-                    <button className="btn-verDetalhes">Ver Detalhes</button>
-                  </div>
-
-                  <div className="curso-item">
-                    <div className="curso-info">
-                      <p className="nome-curso">Inovação e Design Thinking</p>
-                      <div className="detalhes-curso">
-                        <i className="bi bi-clock"></i>
-                        <span className="duracao">8h</span>
-                        <span className="categoria">Inovação</span>
-                        <span className="nivel">Intermediário</span>
-                      </div>
-                    </div>
-                    <button className="btn-verDetalhes">Ver Detalhes</button>
-                  </div>
+                  {!loading && cursosRecomendados.length === 0 && (
+                    <p className="text-center text-muted small py-3">Nenhuma recomendação no momento.</p>
+                  )}
                 </div>
 
-                <button className="btn-todos-cursos">Ver Todos os Cursos</button>
+                <Link href={'catalogo'}><button className="btn-todos-cursos">Ver Todos os Cursos</button></Link>
               </div>
             </div>
 
-        
+
             <aside className="col-12 col-lg-4 coluna-direita">
               <div className="Cards">
                 <p className="titulo-principal mb-3">
@@ -256,7 +271,7 @@ export default function PaginaUsuario() {
                   <span>Meta Alcançada</span>
                 </div>
 
-                <button className="btn-todas-conquistas mt-3">Ver Todas</button>
+                <button className="btn-todas-conquistas mt-3">Ver todas</button>
               </div>
             </aside>
           </div>

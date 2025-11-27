@@ -102,12 +102,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                                     <Link href={'inscricoesAdmin'} className="nav-link">Inscrições</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link href={'presencaAdmin'} className="nav-link ">Presença</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link href={'certificadosAdmin'} className="nav-link ">Certificados</Link>
-                                </li>
-                                <li className="nav-item">
                                     <Link href={'historicoAdmin'} className="nav-link ">Histórico</Link>
                                 </li>
                             </ul>

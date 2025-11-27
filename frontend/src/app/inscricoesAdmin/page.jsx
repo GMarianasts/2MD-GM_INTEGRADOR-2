@@ -43,12 +43,6 @@ export default function DashboardInscricoes() {
                                     <Link className="nav-link active" href={"/inscricoesAdmin"}>Inscrições</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" href={"/presencaAdmin"} aria-disabled="true">Presença</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href={"/certificadosAdmin"} aria-disabled="true">Certificados</Link>
-                                </li>
-                                <li className="nav-item">
                                     <Link className="nav-link" href={"/historicoAdmin"} aria-disabled="true">Histórico</Link>
                                 </li>
                             </ul>

@@ -2,29 +2,45 @@
 import { useState, useEffect } from 'react';
 
 export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar }) {
-    
+
     // Estado inicial limpo
     const formInicial = {
-        titulo: '', 
-        categoria: '', 
-        status: 'Ativo', 
-        descricao: '', 
-        nivel: '', 
-        duracao: '', 
-        capacidade: '',
-        instrutorNome: '', 
-        instrutorEmail: '', 
-        modalidade: 'Online', 
+        titulo: '',
+        categoria: '',
+        status: 'Ativo',
+        descricao: '',
+        nivel: '',
+        duracao: '',
+        instrutorId: '',
+        instrutorNome: '',
+        instrutorEmail: '',
+        modalidade: 'Online',
         local: '',
-        dataInicio: '', 
-        dataFim: '', 
+        dataInicio: '',
+        dataFim: '',
         competenciasTexto: '',
-        sobre: '', 
-        objetivos: '', 
+        sobre: '',
+        objetivos: '',
         preRequisitos: ''
     };
 
     const [form, setForm] = useState(formInicial);
+
+    const [listaInstrutores, setListaInstrutores] = useState([]);
+
+    // 1. Busca lista de instrutores ao abrir o modal
+    useEffect(() => {
+        async function fetchInstrutores() {
+            try {
+                const res = await fetch('http://localhost:3001/api/treinamentos/instrutores');
+                const data = await res.json();
+                if (data.sucesso) setListaInstrutores(data.dados);
+            } catch (error) {
+                console.error("Erro ao buscar instrutores", error);
+            }
+        }
+        fetchInstrutores();
+    }, []);
 
     // EFEITO: Preenche o formulário se vier dados para editar
     useEffect(() => {
@@ -35,19 +51,18 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
                 status: dadosEditar.status,
                 descricao: dadosEditar.descricao,
                 nivel: dadosEditar.nivel,
-                
+
                 // Mapeando nomes do Banco (snake_case) para o Form (camelCase)
-                duracao: dadosEditar.duracao_horas, 
+                duracao: dadosEditar.duracao_horas,
                 capacidade: dadosEditar.capacidade,
-                instrutorNome: dadosEditar.instrutor_nome, 
-                instrutorEmail: dadosEditar.instrutor_email,
+                instrutorId: dadosEditar.instrutor_id,
                 modalidade: dadosEditar.modalidade,
-                local: dadosEditar.local_plataforma, 
-                
+                local: dadosEditar.local_plataforma,
+
                 // Formatando datas (remove a parte da hora T00:00:00)
                 dataInicio: dadosEditar.data_inicio ? dadosEditar.data_inicio.split('T')[0] : '',
                 dataFim: dadosEditar.data_fim ? dadosEditar.data_fim.split('T')[0] : '',
-                
+
                 // Transformando Array de competencias em String para o input
                 competenciasTexto: dadosEditar.competencias ? dadosEditar.competencias.join(', ') : '',
                 sobre: dadosEditar.sobre || '',
@@ -63,12 +78,12 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Se tem dadosEditar, usa a URL com ID e método PUT. Se não, POST normal.
-        const url = dadosEditar 
-            ? `http://localhost:3001/api/treinamentos/${dadosEditar.id}` 
+        const url = dadosEditar
+            ? `http://localhost:3001/api/treinamentos/${dadosEditar.id}`
             : 'http://localhost:3001/api/treinamentos';
-            
+
         const method = dadosEditar ? 'PUT' : 'POST';
 
         try {
@@ -172,14 +187,24 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
                             {/* 3. Instrutor e Logística */}
                             <h6 className="fw-bold text-secondary mb-3"><i className="bi bi-person-badge me-2"></i>Instrutor e Logística</h6>
                             <div className="row g-3 mb-4">
-                                <div className="col-md-6">
-                                    <label className="form-label fw-semibold small">Nome Instrutor</label>
-                                    <input type="text" name="instrutorNome" className="form-control bg-light border-0" value={form.instrutorNome} onChange={handleChange} />
+                                <div className="col-md-12">
+                                    <label className="form-label fw-semibold small">Selecione o Instrutor *</label>
+                                    <select
+                                        name="instrutorId"
+                                        className="form-select bg-light border-0"
+                                        required
+                                        value={form.instrutorId}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Selecione...</option>
+                                        {listaInstrutores.map(inst => (
+                                            <option key={inst.id} value={inst.id}>
+                                                {inst.nome} ({inst.email})
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
-                                <div className="col-md-6">
-                                    <label className="form-label fw-semibold small">Email</label>
-                                    <input type="email" name="instrutorEmail" className="form-control bg-light border-0" value={form.instrutorEmail} onChange={handleChange} />
-                                </div>
+
                                 <div className="col-md-6">
                                     <label className="form-label fw-semibold small">Modalidade</label>
                                     <select name="modalidade" className="form-select bg-light border-0" value={form.modalidade} onChange={handleChange}>

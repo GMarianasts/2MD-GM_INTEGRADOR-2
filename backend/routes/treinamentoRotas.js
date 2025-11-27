@@ -5,6 +5,7 @@ import {
   excluirTreinamento,
   atualizarTreinamento,
   buscarTreinamentoPorId,
+  listarInstrutores,
   contarTreinamentosAtivos
 } from '../controllers/TreinamentoController.js';
 
@@ -15,6 +16,7 @@ router.get('/ativos/count', contarTreinamentosAtivos);
 
 // OUTRAS ROTAS
 router.get('/', listarTreinamentos);
+router.get('/instrutores', listarInstrutores);
 router.post('/', criarTreinamento);
 router.delete('/:id', excluirTreinamento);
 router.put('/:id', atualizarTreinamento);

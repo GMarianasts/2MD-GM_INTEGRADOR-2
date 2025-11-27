@@ -183,6 +183,7 @@ export const buscarTreinamentoPorId = async (req, res) => {
                 i.email AS instrutor_email,
                 i.cargo AS instrutor_cargo,
                 i.bio AS instrutor_bio,
+                i.experiencia AS instrutor_experiencia,
                 GROUP_CONCAT(c.nome) as competencias_lista
             FROM treinamentos t
             LEFT JOIN instrutores i ON t.instrutor_id = i.id

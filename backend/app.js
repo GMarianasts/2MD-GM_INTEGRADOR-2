@@ -9,7 +9,7 @@ import produtoRotas from './routes/produtoRotas.js';
 import authRotas from './routes/authRotas.js';
 import criptografiaRotas from './routes/criptografiaRotas.js';
 import colaboradoresRotas from './routes/colaboradoresRotas.js';
-import inscricoesRoutes from "./routes/inscricoesRotas.js";
+import inscricoesRotas from "./routes/inscricoesRotas.js";
 
 
 
@@ -108,25 +108,6 @@ app.use('*', (req, res) => {
 
 
 app.use(errorMiddleware);
-
-// debug: listar rotas registradas
-function listRoutes() {
-  console.log('--- Rotas registradas (app._router.stack) ---');
-  app._router.stack.forEach((middleware) => {
-    if (middleware.route) {
-      // rota direta
-      console.log(middleware.route.path, Object.keys(middleware.route.methods).join(','));
-    } else if (middleware.name === 'router') {
-      middleware.handle.stack.forEach((handler) => {
-        if (handler.route) {
-          console.log('(router) ' + handler.route.path, Object.keys(handler.route.methods).join(','));
-        }
-      });
-    }
-  });
-  console.log('--- fim rotas ---');
-}
-listRoutes();
 
 // debug: listar rotas registradas
 function listRoutes() {

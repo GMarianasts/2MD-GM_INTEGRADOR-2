@@ -1,23 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import "./cardGerenciarInscricoes.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import Swal from "sweetalert2"; 
 
-const inscricoesData = [
-    { colaborador: "João Silva", curso: "Metodologias Ágeis", data: "01/11/2025", progresso: 65, status: "Ativo" },
-    { colaborador: "Maria Santos", curso: "Liderança Transformacional", data: "03/11/2025", progresso: 35, status: "Ativo" },
-    { colaborador: "Pedro Costa", curso: "Excel Avançado", data: "05/11/2025", progresso: 100, status: "Concluído" },
-    { colaborador: "Ana Paula", curso: "Segurança da Informação", data: "02/11/2025", progresso: 0, status: "Cancelado" },
-    { colaborador: "Carlos Mendes", curso: "Design Thinking", data: "04/11/2025", progresso: 80, status: "Ativo" },
-];
-
-// Barra de progresso
 const ProgressBar = ({ progresso }) => (
     <div className="progress-bar-container">
         <div className="progress-bar-fill" style={{ width: `${progresso}%` }}></div>
     </div>
 );
 
-// Badge de status
 const StatusBadge = ({ status }) => {
     let className = "status-badge";
     if (status === "Ativo") className += " status-ativo";
@@ -26,18 +19,51 @@ const StatusBadge = ({ status }) => {
     return <span className={className}>{status}</span>;
 };
 
-const [inscricoes, setInscricoes] = useState([]);
+export default function GerenciarInscricoes() {
+    const [inscricoes, setInscricoes] = useState([]);
 
-async function remover(id) {
+    // Carregar do backend
+    async function carregarInscricoes() {
+        const response = await fetch("http://localhost:3001/inscricoes");
+        const data = await response.json();
+        console.log("INSCRIÇÕES:", data);
+        setInscricoes(data);
+    }
+
+    async function remover(id) {
+    const resultado = await Swal.fire({
+        title: "Tem certeza?",
+        text: "Você está prestes a excluir esta inscrição.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar"
+    });
+
+    if (!resultado.isConfirmed) {
+        return; // cancelou → não remove
+    }
+
     await fetch(`http://localhost:3001/inscricoes/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+    });
+
+    Swal.fire({
+        title: "Removido!",
+        text: "A inscrição foi excluída com sucesso.",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false
     });
 
     carregarInscricoes();
 }
 
-export default function GerenciarInscricoes() {
-
+    useEffect(() => {
+        carregarInscricoes();
+    }, []);
 
     return (
         <div className="inscricoes-card-container">
@@ -63,28 +89,27 @@ export default function GerenciarInscricoes() {
                     <span>Colaborador</span>
                     <span>Curso</span>
                     <span>Data de Inscrição</span>
-                    <span>Progresso</span>
                     <span>Status</span>
                     <span>Ações</span>
                 </div>
 
-                {inscricoes.map((item, index) => (
-                    <div className="table-row" key={index}>
-                        <span className="colaborador-nome">{item.colaborador}</span>
-                        <span>{item.curso}</span>
-                        <span>{item.data}</span>
-                        <span className="progresso-cell">
-                            <ProgressBar progresso={item.progresso} />
-                            {item.progresso}%
-                        </span>
+                {inscricoes.map((item) => (
+                    <div className="table-row" key={item.id}>
+                        <span className="colaborador-nome">{item.usuario}</span>
+                        <span>{item.treinamento}</span>
                         <span>
-                            <StatusBadge status={item.status} />
+                            {new Date(item.data_inscricao).toLocaleDateString("pt-BR")}
                         </span>
+
+
+                        <span>
+                            <StatusBadge status={item.status ?? "Ativo"} />
+                        </span>
+
                         <span className="acoes-cell">
                             <button className="btn-acao-remover" onClick={() => remover(item.id)}>
                                 <i className="bi bi-x-circle-fill"></i>
                             </button>
-
                         </span>
                     </div>
                 ))}

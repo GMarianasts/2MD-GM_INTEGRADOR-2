@@ -2,82 +2,61 @@ import InscricaoModel from "../models/InscricaoModel.js";
 
 class InscricaoController {
 
-    static async visualizar(req, res) {
+    // Criar inscrição
+    static async criar(req, res) {
         try {
-            const { id } = req.params;
+            const { usuario_id, treinamento_id } = req.body;
 
-            const inscricao = await InscricaoModel.buscarPorId(id);
-
-            if (!inscricao) {
-                return res.status(404).json({
-                    sucesso: false,
-                    mensagem: "Inscrição não encontrada"
-                });
-            }
-
-            return res.status(200).json({
-                sucesso: true,
-                dados: inscricao
+            const novaInscricao = await InscricaoModel.criar({
+                usuario_id,
+                treinamento_id
             });
 
-        } catch (erro) {
-            console.error("Erro ao visualizar inscrição:", erro);
-            return res.status(500).json({ sucesso: false, mensagem: "Erro interno" });
+            return res.status(201).json({
+                mensagem: "Inscrição criada com sucesso!",
+                inscricao: novaInscricao
+            });
+
+        } catch (error) {
+            console.error("Erro ao criar inscrição:", error);
+            return res.status(500).json({ erro: "Erro ao criar inscrição" });
+        }
+
+        const user = await UsuarioModel.buscarPorId(usuario_id);
+
+        if (user.nivel_acesso !== "Colaborador") {
+            return res.status(403).json({
+                erro: "Administradores não podem se inscrever em cursos."
+            });
         }
     }
 
-    static async editar(req, res) {
-        try {
-            const { id } = req.params;
-            const { status, observacao } = req.body;
-
-            const result = await InscricaoModel.editar(id, { status, observacao });
-
-            return res.status(200).json({
-                sucesso: true,
-                mensagem: "Inscrição atualizada com sucesso",
-                result
-            });
-
-        } catch (erro) {
-            console.error("Erro ao editar inscrição:", erro);
-            return res.status(500).json({ sucesso: false, mensagem: "Erro interno" });
-        }
-    }
-
-    static async remover(req, res) {
-        try {
-            const { id } = req.params;
-
-            await InscricaoModel.remover(id);
-
-            return res.status(200).json({
-                sucesso: true,
-                mensagem: "Inscrição removida com sucesso"
-            });
-
-        } catch (erro) {
-            console.error("Erro ao remover inscrição:", erro);
-            return res.status(500).json({ sucesso: false, mensagem: "Erro interno" });
-        }
-    }
-
+    // Listar inscrições
     static async listar(req, res) {
         try {
-            const inscricoes = await InscricaoModel.listarTodas();
-    
-            return res.status(200).json({
-                sucesso: true,
-                dados: inscricoes
-            });
-    
-        } catch (erro) {
-            console.error("Erro ao listar inscrições:", erro);
-            return res.status(500).json({ sucesso: false, mensagem: "Erro interno ao listar" });
+            const inscricoes = await InscricaoModel.listar();
+            return res.status(200).json(inscricoes);
+
+        } catch (error) {
+            console.error("Erro ao listar inscrições:", error);
+            return res.status(500).json({ erro: "Erro ao listar inscrições" });
         }
     }
-    
-}
 
+    // Excluir inscrição
+    static async excluir(req, res) {
+        try {
+            const { id } = req.params;
+
+            await InscricaoModel.excluir(id);
+
+            return res.status(200).json({ mensagem: "Inscrição excluída com sucesso!" });
+
+        } catch (error) {
+            console.error("Erro ao excluir inscrição:", error);
+            return res.status(500).json({ erro: "Erro ao excluir inscrição" });
+        }
+    }
+}
 
 export default InscricaoController;

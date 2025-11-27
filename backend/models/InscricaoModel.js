@@ -2,60 +2,58 @@ import { getConnection } from "../config/database.js";
 
 class InscricaoModel {
 
-    // Buscar inscrição pelo ID
-    static async buscarPorId(id) {
-        const conn = await getConnection();
-
-        const sql = `
-            SELECT i.*, 
-                u.nome AS colaborador_nome,
-                u.email AS colaborador_email,
-                u.cargo,
-                u.departamento,
-                u.unidade,
-                t.titulo AS treinamento_titulo,
-                t.descricao AS treinamento_descricao,
-                t.categoria,
-                t.carga_horaria
-            FROM inscricoes i
-            JOIN usuarios u ON u.id = i.colaborador_id
-            JOIN treinamentos t ON t.id = i.treinamento_id
-            WHERE i.id = ?;
-        `;
-
-        const [rows] = await conn.query(sql, [id]);
-        conn.release();
-
-        return rows[0] || null;
+    // Criar inscrição
+    static async criar({ usuario_id, treinamento_id }) {
+        const connection = await getConnection();
+        try {
+            const sql = `
+                INSERT INTO inscricoes (usuario_id, treinamento_id, data_inscricao)
+                VALUES (?, ?, NOW())
+            `;
+            const [result] = await connection.query(sql, [usuario_id, treinamento_id]);
+            return { id: result.insertId, usuario_id, treinamento_id };
+        } finally {
+            connection.release();
+        }
     }
 
-    // Editar inscrição
-    static async editar(id, dados) {
-        const conn = await getConnection();
+    // Listar com JOIN para trazer nomes
+    static async listar() {
+        const connection = await getConnection();
+        try {
+            const sql = `
+        SELECT 
+        i.id,
+        u.nome AS usuario,
+        t.titulo AS treinamento,
+        i.data_inscricao
+        FROM inscricoes i
+        JOIN usuarios u ON i.usuario_id = u.id
+        JOIN treinamentos t ON i.treinamento_id = t.id
+        WHERE u.nivel_acesso = 'Colaborador'
+        ORDER BY i.id DESC
+`;
 
-        const sql = `
-            UPDATE inscricoes SET 
-                status = ?, 
-                observacao = ?
-            WHERE id = ?
-        `;
 
-        const [result] = await conn.query(sql, [
-            dados.status,
-            dados.observacao,
-            id
-        ]);
+            const [rows] = await connection.query(sql);
+            return rows;
 
-        conn.release();
-        return result;
+        } finally {
+            connection.release();
+        }
     }
 
-    // Remover inscrição
-    static async remover(id) {
-        const conn = await getConnection();
-        const [result] = await conn.query("DELETE FROM inscricoes WHERE id = ?", [id]);
-        conn.release();
-        return result;
+    // Excluir inscrição
+    static async excluir(id) {
+        const connection = await getConnection();
+        try {
+            const sql = `DELETE FROM inscricoes WHERE id = ?`;
+            await connection.query(sql, [id]);
+            return true;
+
+        } finally {
+            connection.release();
+        }
     }
 }
 

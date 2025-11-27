@@ -14,7 +14,6 @@ class UsuarioController {
                 nivelAcesso
             } = req.body;
 
-            // 👇 Converte para o nome da coluna correta do banco
             const dados = {
                 nome,
                 email,
@@ -22,8 +21,13 @@ class UsuarioController {
                 cargo,
                 departamento,
                 unidade,
-                nivel_acesso: nivelAcesso || 'Colaborador'
+                nivel_acesso: nivelAcesso || "Colaborador"
             };
+
+            // REMOVE campo errado que veio do frontend
+            delete dados.nivelAcesso;
+
+
 
             const novoUsuario = await UsuarioModel.criar(dados);
 
@@ -39,23 +43,30 @@ class UsuarioController {
     }
 
     // Listar todos
-    static async listarUsuarios(req, res) {
-        try {
-            const { pagina = 1, limite = 10 } = req.query;
-    
-            const resultado = await UsuarioModel.listarTodos(
-                Number(pagina),
-                Number(limite)
-            );
-    
-            // Envia somente o array para evitar erro no frontend
-            return res.status(200).json(resultado.usuarios);
-    
-        } catch (error) {
-            console.error('Erro ao listar usuários:', error);
-            return res.status(500).json({ erro: 'Erro ao listar usuários' });
-        }
+   // Listar todos
+static async listarUsuarios(req, res) {
+    try {
+        const { pagina = 1, limite = 10 } = req.query;
+
+        const resultado = await UsuarioModel.listarTodos(
+            Number(pagina),
+            Number(limite)
+        );
+
+        // Agora retorna no formato correto para o frontend
+        return res.status(200).json({
+            usuarios: resultado.usuarios,
+            total: resultado.total,
+            pagina: resultado.pagina,
+            limite: resultado.limite,
+            totalPaginas: resultado.totalPaginas
+        });
+
+    } catch (error) {
+        console.error('Erro ao listar usuários:', error);
+        return res.status(500).json({ erro: 'Erro ao listar usuários' });
     }
+}
 
     // Buscar por ID
     static async buscarPorId(req, res) {

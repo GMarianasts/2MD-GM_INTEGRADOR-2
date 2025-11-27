@@ -113,3 +113,5 @@ export {
     hashPassword,
     getConnection
 };
+
+export default pool;

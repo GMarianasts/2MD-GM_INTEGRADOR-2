@@ -3,12 +3,11 @@ import { create } from '../config/database.js';
 // Middleware para registrar logs de acesso
 export const logMiddleware = async (req, res, next) => {
     const startTime = Date.now();
-    
-    // Capturar dados da requisição (sem usuario_id ainda, será capturado na resposta)
+
     const logData = {
         rota: req.originalUrl,
         metodo: req.method,
-        ip_address: req.ip || req.connection.remoteAddress || req.socket.remoteAddress,
+        ip_address: req.ip || req.connection?.remoteAddress || null,
         user_agent: req.get('User-Agent'),
         dados_requisicao: JSON.stringify({
             headers: {
@@ -17,109 +16,79 @@ export const logMiddleware = async (req, res, next) => {
                 'user-agent': req.get('User-Agent')
             },
             body: req.method !== 'GET' ? sanitizeRequestBody(req.body) : null,
-            query: Object.keys(req.query).length > 0 ? req.query : null
+            query: Object.keys(req.query).length ? req.query : null
         })
     };
 
-    // Interceptar a resposta para capturar status code, tempo e usuário (após authMiddleware executar)
-    const originalSend = res.send;
     const originalJson = res.json;
-    
-    res.send = function(data) {
-        // Capturar dados atualizados no momento da resposta (após todos os middlewares executarem)
-        const finalLogData = {
-            ...logData,
-            status_code: res.statusCode,
-            tempo_resposta_ms: Date.now() - startTime
-        };
-        
-        // Capturar usuário se autenticado (após authMiddleware ter executado)
-        if (req.usuario && req.usuario.id) {
-            finalLogData.usuario_id = req.usuario.id;
-        }
-        
-        // Capturar dados da resposta (limitado para evitar logs muito grandes)
-        if (res.statusCode >= 400) {
-            finalLogData.dados_resposta = JSON.stringify({
-                error: true,
-                status: res.statusCode,
-                message: typeof data === 'string' ? data.substring(0, 500) : data
-            });
-        }
-        
-        // Salvar log de forma assíncrona (não bloquear a resposta)
-        saveLog(finalLogData).catch(error => {
-            console.error('Erro ao salvar log:', error);
-        });
-        
-        return originalSend.call(this, data);
-    };
-    
-    res.json = function(data) {
-        // Capturar dados atualizados no momento da resposta (após todos os middlewares executarem)
-        const finalLogData = {
-            ...logData,
-            status_code: res.statusCode,
-            tempo_resposta_ms: Date.now() - startTime
-        };
-        
-        // Capturar usuário se autenticado (após authMiddleware ter executado)
-        if (req.usuario && req.usuario.id) {
-            finalLogData.usuario_id = req.usuario.id;
-        }
-        
-        // Capturar dados da resposta (limitado para evitar logs muito grandes)
-        if (res.statusCode >= 400) {
-            finalLogData.dados_resposta = {
-                error: true,
-                status: res.statusCode,
-                message: typeof data === 'object' ? JSON.stringify(data).substring(0, 500) : data
-            };
-        }
-        
-        // Salvar log de forma assíncrona (não bloquear a resposta)
-        saveLog(finalLogData).catch(error => {
-            console.error('Erro ao salvar log:', error);
-        });
-        
+    const originalSend = res.send;
+
+    res.json = function (data) {
+        registrarResposta(data);
         return originalJson.call(this, data);
     };
+
+    res.send = function (data) {
+        registrarResposta(data);
+        return originalSend.call(this, data);
+    };
+
+    function registrarResposta(data) {
+        const finalLog = {
+            ...logData,
+            status_code: res.statusCode,
+            tempo_resposta_ms: Date.now() - startTime
+        };
+
+        if (req.usuario && req.usuario.id) {
+            finalLog.usuario_id = req.usuario.id;
+        }
+
+        if (res.statusCode >= 400) {
+            finalLog.dados_resposta = JSON.stringify({
+                error: true,
+                status: res.statusCode,
+                message:
+                    typeof data === 'string'
+                        ? data.substring(0, 500)
+                        : JSON.stringify(data).substring(0, 500)
+            });
+        }
+
+        saveLog(finalLog);
+    }
 
     next();
 };
 
-// Função para sanitizar dados sensíveis do body
+// Remove informações sensíveis do body
 function sanitizeRequestBody(body) {
     if (!body || typeof body !== 'object') return body;
-    
-    const sanitized = { ...body };
-    
-    // Remover campos sensíveis
-    const sensitiveFields = ['senha', 'password', 'token', 'authorization'];
-    sensitiveFields.forEach(field => {
-        if (sanitized[field]) {
-            sanitized[field] = '[REDACTED]';
-        }
+
+    const clone = { ...body };
+    const sensitive = ['senha', 'password', 'token', 'authorization'];
+
+    sensitive.forEach(field => {
+        if (clone[field]) clone[field] = '[REDACTED]';
     });
-    
-    return sanitized;
+
+    return clone;
 }
 
-// Função para salvar o log no banco de dados
-async function saveLog(logData) {
+// Salva log no banco
+async function saveLog(data) {
     try {
-        await create('logs', logData);
-    } catch (error) {
-        console.error('Erro ao inserir log no banco:', error);
+        await create('logs', data);
+    } catch (err) {
+        console.error('Erro ao salvar log:', err);
     }
 }
 
-// Middleware para logs simples (apenas console)
+// Versão simples do log (console)
 export const simpleLogMiddleware = (req, res, next) => {
-    const timestamp = new Date().toISOString();
-    const usuario = req.usuario ? `[${req.usuario.email}]` : '[Anônimo]';
-    
-    console.log(`${timestamp} - ${req.method} ${req.originalUrl} ${usuario} - IP: ${req.ip || 'N/A'}`);
-    
+    const ts = new Date().toISOString();
+    const user = req.usuario ? `[${req.usuario.email}]` : '[Anônimo]';
+
+    console.log(`${ts} - ${req.method} ${req.originalUrl} ${user}`);
     next();
 };

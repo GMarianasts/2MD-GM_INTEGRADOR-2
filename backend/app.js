@@ -9,8 +9,7 @@ import produtoRotas from './routes/produtoRotas.js';
 import authRotas from './routes/authRotas.js';
 import criptografiaRotas from './routes/criptografiaRotas.js';
 import colaboradoresRotas from './routes/colaboradoresRotas.js';
-import inscricoesRotas from "./routes/inscricoesRotas.js";
-
+import inscricaoRoutes from "./routes/inscricaoRoutes.js";
 
 
 
@@ -70,7 +69,8 @@ app.use('/api/auth', authRotas);
 app.use('/api/produtos', produtoRotas);
 app.use('/api/treinamentos', treinamentoCountRotas);
 app.use('/api/treinamentos', treinamentoRotas);
-app.use("/inscricoes", inscricoesRotas);
+app.use("/inscricoes", inscricaoRoutes);
+
 
 
 app.get('/', (req, res) => {
@@ -134,6 +134,7 @@ app.listen(PORT, () => {
     console.log(`API de Produtos - Sistema de Gestão`);
     console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
 });
+
 
 export default app;
 

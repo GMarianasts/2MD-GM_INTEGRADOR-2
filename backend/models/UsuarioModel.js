@@ -54,23 +54,27 @@ class UsuarioModel {
 
     // Criar usuário
     static async criar(dadosUsuario) {
-        try {
-            const senhaHash = await hashPassword(dadosUsuario.senha);
+    try {
+        const senhaHash = await hashPassword(dadosUsuario.senha);
 
-            const dadosComHash = {
-                ...dadosUsuario,
-                email: dadosUsuario.email.toLowerCase(),
-                senha: senhaHash
-            };
-
-            return await create('usuarios', dadosComHash);
-
-        } catch (error) {
-            console.error('Erro ao criar usuário:', error);
-            throw error;
+        // remove o campo errado vindo do front
+        if ("nivelAcesso" in dadosUsuario) {
+            delete dadosUsuario.nivelAcesso;
         }
-    }
 
+        const dadosComHash = {
+            ...dadosUsuario,
+            email: dadosUsuario.email.toLowerCase(),
+            senha: senhaHash
+        };
+
+        return await create('usuarios', dadosComHash);
+
+    } catch (error) {
+        console.error('Erro ao criar usuário:', error);
+        throw error;
+    }
+}
     // Atualizar usuário
     static async atualizar(id, dadosUsuario) {
         try {

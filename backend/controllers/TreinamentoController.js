@@ -1,12 +1,20 @@
 import { getConnection } from '../config/database.js';
 
-// GET
+// Função auxiliar para tratamento de dados
+const tratarData = (data) => data && data !== '' ? data : null;
+
+// GET - LISTAR (Corrigido para trazer o nome do instrutor)
 export const listarTreinamentos = async (req, res) => {
     try {
         const conn = await getConnection();
         const sql = `
-            SELECT t.*, GROUP_CONCAT(c.nome) as competencias_lista
+            SELECT 
+                t.*, 
+                i.nome AS instrutor_nome,  -- <--- O PULO DO GATO ESTÁ AQUI
+                i.email AS instrutor_email,
+                GROUP_CONCAT(c.nome) as competencias_lista
             FROM treinamentos t
+            LEFT JOIN instrutores i ON t.instrutor_id = i.id
             LEFT JOIN treinamento_competencia tc ON t.id = tc.treinamento_id
             LEFT JOIN competencias c ON tc.competencia_id = c.id
             GROUP BY t.id
@@ -27,7 +35,20 @@ export const listarTreinamentos = async (req, res) => {
     }
 };
 
-// POST
+// LISTAR INSTRUTORES (Para o Select do Modal)
+export const listarInstrutores = async (req, res) => {
+    const conn = await getConnection();
+    try {
+        const [rows] = await conn.query('SELECT id, nome, email FROM instrutores ORDER BY nome');
+        conn.release();
+        res.json({ sucesso: true, dados: rows });
+    } catch (error) {
+        conn.release();
+        res.status(500).json({ erro: 'Erro ao buscar instrutores' });
+    }
+};
+
+// POST - CRIAR (Corrigido contagem de ? e colunas)
 export const criarTreinamento = async (req, res) => {
     const conn = await getConnection();
     try {
@@ -36,15 +57,18 @@ export const criarTreinamento = async (req, res) => {
         const sql = `
             INSERT INTO treinamentos 
             (titulo, categoria, descricao, nivel, duracao_horas, capacidade, 
-            instrutor_nome, instrutor_email, modalidade, local_plataforma, 
-            data_inicio, data_fim, pre_requisitos, status, sobre, objetivos)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            instrutor_id, modalidade, local_plataforma, 
+            data_inicio, data_fim, pre_requisitos, status, sobre, objetivos,
+            inscricao_inicio, inscricao_fim, observacoes)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         const values = [
             dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
-            dados.instrutorNome, dados.instrutorEmail, dados.modalidade, dados.local,
-            dados.dataInicio, dados.dataFim, dados.preRequisitos, dados.status, dados.sobre, dados.objetivos
+            dados.instrutorId, dados.modalidade, dados.local,
+            tratarData(dados.dataInicio), tratarData(dados.dataFim), 
+            dados.preRequisitos, dados.status, dados.sobre, dados.objetivos,
+            tratarData(dados.inscricaoInicio), tratarData(dados.inscricaoFim), dados.observacoes
         ];
 
         const [result] = await conn.query(sql, values);
@@ -52,18 +76,15 @@ export const criarTreinamento = async (req, res) => {
 
         if (dados.competenciasTexto) {
             const tags = dados.competenciasTexto.split(',').map(t => t.trim());
-
             for (const tag of tags) {
+                if(!tag) continue;
                 let [rows] = await conn.query('SELECT id FROM competencias WHERE nome = ?', [tag]);
                 let tagId;
-
-                if (rows.length > 0) {
-                    tagId = rows[0].id;
-                } else {
+                if (rows.length > 0) tagId = rows[0].id;
+                else {
                     const [resTag] = await conn.query('INSERT INTO competencias (nome) VALUES (?)', [tag]);
                     tagId = resTag.insertId;
                 }
-
                 await conn.query('INSERT INTO treinamento_competencia VALUES (?, ?)', [novoId, tagId]);
             }
         }
@@ -84,12 +105,9 @@ export const excluirTreinamento = async (req, res) => {
     try {
         const { id } = req.params;
         const sql = 'DELETE FROM treinamentos WHERE id = ?';
-
         await conn.query(sql, [id]);
-
         conn.release();
         return res.status(200).json({ sucesso: true, mensagem: 'Treinamento excluído com sucesso' });
-
     } catch (error) {
         conn.release();
         console.error('Erro ao excluir:', error);
@@ -97,7 +115,7 @@ export const excluirTreinamento = async (req, res) => {
     }
 };
 
-// PUT
+// PUT - ATUALIZAR (Corrigido o erro de digitação iinstrutor_id)
 export const atualizarTreinamento = async (req, res) => {
     const conn = await getConnection();
     try {
@@ -107,34 +125,38 @@ export const atualizarTreinamento = async (req, res) => {
         const sql = `
             UPDATE treinamentos SET
             titulo=?, categoria=?, descricao=?, nivel=?, duracao_horas=?, capacidade=?, 
-            instrutor_nome=?, instrutor_email=?, modalidade=?, local_plataforma=?, 
-            data_inicio=?, data_fim=?, pre_requisitos=?, status=?, sobre=?, objetivos=?
+            instrutor_id=?, modalidade=?, local_plataforma=?, 
+            data_inicio=?, data_fim=?, pre_requisitos=?, status=?, sobre=?, objetivos=?,
+            inscricao_inicio=?, inscricao_fim=?, observacoes=?
             WHERE id=?
         `;
 
         const values = [
             dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
-            dados.instrutorNome, dados.instrutorEmail, dados.modalidade, dados.local,
-            dados.dataInicio, dados.dataFim, dados.preRequisitos, dados.status, dados.sobre, dados.objetivos,
+            dados.instrutorId, dados.modalidade, dados.local,
+            tratarData(dados.dataInicio), tratarData(dados.dataFim), 
+            dados.preRequisitos, dados.status, dados.sobre, dados.objetivos,
+            tratarData(dados.inscricaoInicio), tratarData(dados.inscricaoFim), dados.observacoes,
             id
         ];
 
         await conn.query(sql, values);
 
-        if (dados.competenciasTexto) {
+        if (typeof dados.competenciasTexto !== 'undefined') {
             await conn.query('DELETE FROM treinamento_competencia WHERE treinamento_id = ?', [id]);
-
-            const tags = dados.competenciasTexto.split(',').map(t => t.trim());
-            for (const tag of tags) {
-                let [rows] = await conn.query('SELECT id FROM competencias WHERE nome = ?', [tag]);
-                let tagId;
-                if (rows.length > 0) {
-                    tagId = rows[0].id;
-                } else {
-                    const [resTag] = await conn.query('INSERT INTO competencias (nome) VALUES (?)', [tag]);
-                    tagId = resTag.insertId;
+            if(dados.competenciasTexto.trim() !== '') {
+                const tags = dados.competenciasTexto.split(',').map(t => t.trim());
+                for (const tag of tags) {
+                    if(!tag) continue;
+                    let [rows] = await conn.query('SELECT id FROM competencias WHERE nome = ?', [tag]);
+                    let tagId;
+                    if (rows.length > 0) tagId = rows[0].id;
+                    else {
+                        const [resTag] = await conn.query('INSERT INTO competencias (nome) VALUES (?)', [tag]);
+                        tagId = resTag.insertId;
+                    }
+                    await conn.query('INSERT INTO treinamento_competencia VALUES (?, ?)', [id, tagId]);
                 }
-                await conn.query('INSERT INTO treinamento_competencia VALUES (?, ?)', [id, tagId]);
             }
         }
 
@@ -148,15 +170,22 @@ export const atualizarTreinamento = async (req, res) => {
     }
 };
 
-// BUSCAR POR ID 
+// BUSCAR POR ID (Corrigido para trazer nome do instrutor)
 export const buscarTreinamentoPorId = async (req, res) => {
     const conn = await getConnection();
     try {
         const { id } = req.params;
         
         const sql = `
-            SELECT t.*, GROUP_CONCAT(c.nome) as competencias_lista
+            SELECT 
+                t.*, 
+                i.nome AS instrutor_nome, 
+                i.email AS instrutor_email,
+                i.cargo AS instrutor_cargo,
+                i.bio AS instrutor_bio,
+                GROUP_CONCAT(c.nome) as competencias_lista
             FROM treinamentos t
+            LEFT JOIN instrutores i ON t.instrutor_id = i.id
             LEFT JOIN treinamento_competencia tc ON t.id = tc.treinamento_id
             LEFT JOIN competencias c ON tc.competencia_id = c.id
             WHERE t.id = ?
@@ -182,29 +211,16 @@ export const buscarTreinamentoPorId = async (req, res) => {
     }
 };
 
-// contagem de treinamentos ativo para a pagina -> Dashboard admin
+// Contagem Dashboard
 export const contarTreinamentosAtivos = async (req, res) => {
     const conn = await getConnection();
     try {
-        const sql = `
-            SELECT COUNT(*) AS total
-            FROM treinamentos
-            WHERE status = 'ativo'
-        `;
-
+        const sql = "SELECT COUNT(*) AS total FROM treinamentos WHERE status = 'ativo'";
         const [rows] = await conn.query(sql);
         conn.release();
-
-        res.json({
-            sucesso: true,
-            totalAtivos: rows[0].total
-        });
-
+        res.json({ sucesso: true, totalAtivos: rows[0].total });
     } catch (error) {
         conn.release();
-        res.status(500).json({
-            sucesso: false,
-            erro: error.message
-        });
+        res.status(500).json({ sucesso: false, erro: error.message });
     }
 }

@@ -69,7 +69,7 @@ export default function DetalhesCurso() {
                     <div className="p-4 w-100 flex-grow-1">
 
                         <div className="mb-4">
-                            <Link href="/" className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-2">
+                            <Link href="/catalogo" className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-2">
                                 <i className="bi bi-arrow-left"></i> Voltar ao Catálogo
                             </Link>
                         </div>

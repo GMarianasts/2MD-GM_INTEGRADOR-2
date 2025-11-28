@@ -82,7 +82,7 @@ export default function Page() {
           </ul>
         </aside>
         <main className="col-12 col-md-9 col-lg-10 p-4 conteudo">
-          <h2 className="h4 mb-3 titulo">Catálogo de Treinamentos</h2>
+            <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Catálogo de Treinamento</h2>
           <p className="descricao">
             Explore nosso catálogo completo e encontre o treinamento ideal
           </p>

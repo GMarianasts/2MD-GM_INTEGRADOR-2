@@ -366,3 +366,22 @@ h5{
   gap: 6px;
   margin-bottom: 20px;
 }
+
+@media (max-width: 768px) {
+    .pagina-usuario {
+        flex-direction: column;
+    }
+    
+    .pagina-usuario main {
+        width: 100%;
+        padding: 15px;
+        margin-left: 0 !important;
+    }
+    .tabela-container {
+        padding: 15px;
+        overflow-x: auto; 
+    }
+    .sidebar {
+        display: none !important;
+    }
+}

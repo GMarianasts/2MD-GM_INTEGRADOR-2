@@ -130,11 +130,14 @@ export default function PaginaColaboradores() {
             <div className="row g-3 cards-wrapper mb-4">
             </div>
 
-            <TabelaColaboradores
-              onNovoColaborador={handleOpenModal}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
+            <div className="table-responsive">
+              <TabelaColaboradores
+                onNovoColaborador={handleOpenModal}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            </div>
+
 
           </main>
         </div>

@@ -104,10 +104,9 @@ export default function PaginaPerfil() {
                     </ul>
                 </aside>
 
-                {/* Main: Ajustado para col-lg-10 para fechar a conta (2+10=12) e ocupar a tela toda na direita */}
                 <main className="col-12 col-md-9 col-lg-10 px-4 py-4 bg-light">
                     <div className="corPagina">
-                        <div className="container-fluid my-2 px-0"> {/* px-0 para alinhar com a borda */}
+                        <div className="container-fluid my-2 px-0"> 
                             
                             <div className="row g-3 mb-4">
                                 <div className="col-12">
@@ -116,9 +115,8 @@ export default function PaginaPerfil() {
                                 </div>
                             </div>
 
-                            <div className="row g-4"> {/* g-4 para dar um espacinho bom entre as colunas */}
+                            <div className="row g-4"> 
                                 
-                                {/* Coluna da Esquerda (Formulário) */}
                                 <div className="col-lg-8">
                                     <div className="perfil-container bg-white p-4 rounded-4 shadow-sm border">
                                         <header className="perfil-header d-flex justify-content-between align-items-center mb-3">
@@ -213,7 +211,6 @@ export default function PaginaPerfil() {
                                                     </div>
                                                     <div className="progress" style={{height: 8}}>
                                                         <div className="progress-bar" role="progressbar" style={{width: `${item.atual}%`, backgroundColor: '#fd7e14'}}></div>
-                                                        {/* Meta marker simulation via border-right if needed, or simple progress */}
                                                     </div>
                                                 </div>
                                             ))}
@@ -239,7 +236,7 @@ export default function PaginaPerfil() {
                                                 <div><h6 className="mb-0 fw-bold">Líder Inspirador</h6><small className="text-muted">5 estrelas • 08/2025</small></div>
                                             </div>
                                         </div>
-                                        <button className="btn btn-outline-primary w-100 mt-4 btn-sm">Ver Todas</button>
+                                        <button className="btn-ver-todas btn btn-outline-primary w-100 mt-4 btn-sm">Ver Todas</button>
                                     </div>
 
                                     <div className="estatistica-container bg-white p-4 rounded-4 shadow-sm border mb-4">
@@ -263,12 +260,6 @@ export default function PaginaPerfil() {
                                     </div>
 
                                     <div className="preferencias-container d-flex flex-column gap-2">
-                                        <button className="btn btn-white border shadow-sm text-start p-3 d-flex align-items-center gap-2">
-                                            <i className="bi bi-envelope"></i> Notificações
-                                        </button>
-                                        <button className="btn btn-white border shadow-sm text-start p-3 d-flex align-items-center gap-2">
-                                            <i className="bi bi-person"></i> Privacidade
-                                        </button>
                                         <button className="btn btn-white border shadow-sm text-start p-3 d-flex align-items-center gap-2 text-danger">
                                             <i className="bi bi-key"></i> Alterar senha
                                         </button>

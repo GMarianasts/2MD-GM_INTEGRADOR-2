@@ -169,7 +169,6 @@ a:hover {
 .search-container {
     width: 100%;
     max-width: 1400px;
-    /* mesmo limite visual do seu layout */
     height: 48px;
     background: #fff;
     border-radius: 12px;

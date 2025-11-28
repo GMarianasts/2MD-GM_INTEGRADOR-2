@@ -67,7 +67,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
             <div className="row g-0">
 
                 {/* SIDEBAR RESPONSIVA */}
-                <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+               <aside className="d-none d-md-block col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
@@ -107,14 +107,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                             </ul>
                         </div>
 
-                        <div className="search-container">
-                            <i className="bi bi-search search-icon"></i>
-                            <input
-                                type="text"
-                                className="search-input"
-                                placeholder="Buscar treinamentos, colaboradores..."
-                            />
-                        </div>
                     </section>
 
                     {/* CARDS INICIAIS RESPONSIVOS */}

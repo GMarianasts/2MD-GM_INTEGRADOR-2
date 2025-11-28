@@ -387,3 +387,79 @@ a:hover {
   border-radius: 8px;
   font-size: 12px;
 }
+@media (max-width: 768px) {
+  
+  /* Sidebar vira um cabeçalho no topo ou empilha */
+  .sidebar {
+    width: 100% !important; /* Força largura total */
+    min-height: auto; /* Remove altura forçada */
+    border-right: none;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 15px;
+  }
+  
+  /* Ajuste do menu para não quebrar se tiver muitos itens */
+  .menu {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar linha se necessário */
+    gap: 10px;
+  }
+  
+  .menu li {
+    margin-bottom: 0 !important;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  /* Barra de introdução (Tabs e Busca) empilha */
+  .introducao {
+    flex-direction: column;
+    align-items: stretch !important; /* Estica os itens */
+    gap: 15px;
+    margin-right: 0 !important;
+  }
+  
+  .trocaPagina, 
+  .search-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .trocaPagina .nav-item {
+      font-size: 0.8rem;
+  }
+}
+
+/* 📱 CELULARES PEQUENOS (Abaixo de 576px) */
+@media (max-width: 576px) {
+    /* Lista de Cursos: Ícone em cima, texto no meio, botão embaixo */
+    .curso-item {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 15px;
+    }
+
+    .curso-esquerda {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .curso-direita {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 10px;
+    }
+    
+    .curso-direita .vagas {
+        margin-bottom: 0;
+    }
+
+    /* Ajuste de fontes dos Cards de Topo */
+    .titulo { font-size: 0.8rem; margin-right: 0; }
+    .valor { font-size: 1.4rem; }
+    .card-info { padding: 0 10px; height: 120px; }
+    .icon { font-size: 1.4rem; }
+}

@@ -450,21 +450,6 @@ a:hover {
   color: #28a745;
 }
 
-.btn-todas-conquistas {
-  width: 100%;
-  border: 1px solid #dbd9d9;
-  border-radius: 10px;
-  padding: 10px;
-  background: #fff;
-  color: #0a2b6b;
-  font-weight: 500;
-  transition: 0.2s;
-}
-
-.btn-todas-conquistas:hover {
-  background-color: #f5f5f5;
-}
-
 
 .pagina-usuario {
   display: flex;

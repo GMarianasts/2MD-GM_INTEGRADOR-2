@@ -267,7 +267,6 @@ export default function PaginaUsuario() {
                   <span>Meta Alcançada</span>
                 </div>
 
-                <button className="btn-todas-conquistas mt-3">Ver todas</button>
               </div>
             </aside>
           </div>

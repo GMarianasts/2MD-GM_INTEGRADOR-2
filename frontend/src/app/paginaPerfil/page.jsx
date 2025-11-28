@@ -196,26 +196,6 @@ export default function PaginaPerfil() {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="competencias-container mt-4 bg-white p-4 rounded-4 shadow-sm border">
-                                        <header className="mb-3">
-                                            <h2 className="h5 fw-bold mb-1">Mapa de Competências</h2>
-                                            <p className="text-muted small mb-0">Acompanhe seu desenvolvimento</p>
-                                        </header>
-                                        <div className="competencias-list d-flex flex-column gap-4">
-                                            {dadosCompetencias.map((item) => (
-                                                <div key={item.nome}>
-                                                    <div className="d-flex justify-content-between mb-1 small">
-                                                        <span className="fw-semibold">{item.nome}</span>
-                                                        <span className="text-muted">Meta: {item.meta}%</span>
-                                                    </div>
-                                                    <div className="progress" style={{height: 8}}>
-                                                        <div className="progress-bar" role="progressbar" style={{width: `${item.atual}%`, backgroundColor: '#fd7e14'}}></div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
                                 </div>
 
                                 {/* Coluna da Direita */}

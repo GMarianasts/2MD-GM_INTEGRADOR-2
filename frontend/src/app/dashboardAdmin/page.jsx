@@ -154,7 +154,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
 
                     </div>
 
-                    {/* GRÁFICOS RESPONSIVOS */}giy
+                    {/* GRÁFICOS RESPONSIVOS */}
                     <div className="row g-3 mt-3">
                         <div className="col-12 col-lg-7 card-treinamento shadow-sm p-3">
                             <div className="d-flex align-items-center mb-2">

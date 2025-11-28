@@ -69,18 +69,24 @@ a:hover {
 /* === CARDS === */
 .card-info {
   border: 1px solid #dbd9d9;
-  border-radius: 16px;
+  border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  height: 100px;
+  height: 90px; /* Diminui a altura do card */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 15px; /* Menor espaçamento entre os cards */
 }
 
 .card-info:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card-info .progresso {
+  margin-right: 15px;
+  padding: 10px;
 }
 
 /* Ícones */
@@ -205,12 +211,11 @@ a:hover {
 }
 
 .progress {
-  height: 10px;
+  height: 8px;
   background-color: #e9ecef;
   border-radius: 10px;
   border: 1px solid #dbd9d9;
 }
-
 .progress-bar.azul-escuro {
   background-color: #0a2b6b !important;
 }
@@ -463,18 +468,17 @@ a:hover {
   margin-left: 0;
 }
 
-/* Faz o conteúdo da esquerda crescer automaticamente */
 .coluna-esquerda {
   flex: 1;
-  max-width: 100%;
+  max-width: 65%; /* Ajustando para que ocupe menos espaço */
 }
 
-/* Coluna da direita (Treinamentos + Conquistas) fixa na lateral */
+/* Coluna da direita (Próximos Treinamentos + Conquistas) */
 .coluna-direita {
-  width: 380px; /* pode ajustar conforme o tamanho desejado */
   flex-shrink: 0;
-  margin-left: 20px;
+  width: 33%; /* Menor largura para otimizar o layout */
 }
+
 
 /* Ajusta espaçamento geral entre colunas */
 .pagina-usuario .row {

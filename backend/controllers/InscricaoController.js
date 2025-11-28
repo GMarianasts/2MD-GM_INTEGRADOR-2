@@ -1,62 +1,126 @@
-import InscricaoModel from "../models/InscricaoModel.js";
+'use client';
 
-class InscricaoController {
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Importante para redirecionar
+import ResumoCard from '@/components/componentsMeusTreinamentos/ResumoCard';
+import TabsTreinamento from '@/components/componentsMeusTreinamentos/TabsTreinamento';
+import CardEmAndamento from '@/components/componentsMeusTreinamentos/CardemAndamento';
+import CardConcluido from '@/components/componentsMeusTreinamentos/CardConcluido';
+import Link from 'next/link';
+import './meutreinamento.css';
 
-    // Criar inscrição
-    static async criar(req, res) {
-        try {
-            const { usuario_id, treinamento_id } = req.body;
+export default function MeuTreinamentosPage() {
+  const router = useRouter(); // Hook para navegação
+  const [activeTab, setActiveTab] = useState('Em Andamento');
+  const [meusCursos, setMeusCursos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-            const novaInscricao = await InscricaoModel.criar({
-                usuario_id,
-                treinamento_id
-            });
-
-            return res.status(201).json({
-                mensagem: "Inscrição criada com sucesso!",
-                inscricao: novaInscricao
-            });
-
-        } catch (error) {
-            console.error("Erro ao criar inscrição:", error);
-            return res.status(500).json({ erro: "Erro ao criar inscrição" });
+  useEffect(() => {
+    async function fetchMeusTreinamentos() {
+      try {
+        // 1. Tenta pegar o usuário salvo no navegador
+        const dadosStorage = localStorage.getItem('usuario');
+        
+        // 2. Se NÃO tiver usuário salvo, manda pro login (segurança)
+        if (!dadosStorage) {
+            console.warn("Nenhum usuário logado. Redirecionando...");
+            router.push('/'); // Ou '/login' dependendo da sua rota inicial
+            return;
         }
 
-        const user = await UsuarioModel.buscarPorId(usuario_id);
+        // 3. Se tiver, converte para objeto e usa o ID real
+        const usuarioLogado = JSON.parse(dadosStorage);
+        console.log("Buscando cursos para:", usuarioLogado.nome, "(ID:", usuarioLogado.id, ")");
 
-        if (user.nivel_acesso !== "Colaborador") {
-            return res.status(403).json({
-                erro: "Administradores não podem se inscrever em cursos."
-            });
+        const res = await fetch(`http://localhost:3001/inscricoes/usuario/${usuarioLogado.id}`);
+        const data = await res.json();
+
+        if (data.sucesso) {
+          setMeusCursos(data.dados);
+        } else {
+          console.log("Nenhum curso encontrado ou erro na API");
         }
+
+      } catch (error) {
+        console.error("Erro ao buscar meus treinamentos:", error);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    // Listar inscrições
-    static async listar(req, res) {
-        try {
-            const inscricoes = await InscricaoModel.listar();
-            return res.status(200).json(inscricoes);
+    fetchMeusTreinamentos();
+  }, [router]);
 
-        } catch (error) {
-            console.error("Erro ao listar inscrições:", error);
-            return res.status(500).json({ erro: "Erro ao listar inscrições" });
-        }
+  // Filtros (Seguros para evitar erro se vier null)
+  const cursosEmAndamento = meusCursos.filter(c => 
+      c.status_inscricao === 'Inscrito' || c.status === 'Inscrito'
+  );
+
+  const cursosConcluidos = meusCursos.filter(c => 
+      c.status_inscricao === 'Concluído' || c.status === 'Concluído'
+  );
+
+  const renderContent = () => {
+    if (loading) return <div className="text-center py-5">Carregando...</div>;
+
+    switch (activeTab) {
+      case 'Concluídos':
+        return cursosConcluidos.length > 0 
+          ? cursosConcluidos.map((t, idx) => <CardConcluido key={idx} t={t} />)
+          : <p className="text-muted mt-3">Nenhum curso concluído ainda.</p>;
+      
+      default: 
+        return cursosEmAndamento.length > 0
+          ? cursosEmAndamento.map((t, idx) => <CardEmAndamento key={idx} t={t} />)
+          : <p className="text-muted mt-3">Você não está inscrito em nenhum curso no momento.</p>;
     }
+  };
 
-    // Excluir inscrição
-    static async excluir(req, res) {
-        try {
-            const { id } = req.params;
+  const resumo = [
+    { title: 'Em Andamento', value: cursosEmAndamento.length, icon: 'bi-play-circle', color: 'blue' },
+    { title: 'Concluídos', value: cursosConcluidos.length, icon: 'bi-check-circle', color: 'green' },
+    { title: 'Taxa de conclusão', value: `${meusCursos.length > 0 ? Math.round((cursosConcluidos.length / meusCursos.length) * 100) : 0}%`, icon: 'bi-graph-up', color: 'purple' },
+  ];
 
-            await InscricaoModel.excluir(id);
+  return (
+    <div className="container-fluid pagina-treinamentos">
+      <div className="row flex-nowrap">
+        <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+          <ul className="list-unstyled menu">
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-house-door"></i>
+              <Link href={'paginaUsuario'}><span>Dashboard</span></Link>
+            </li>
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-book"></i>
+              <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
+            </li>
+            <li className="ativo mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-award"></i>
+              <Link href={'meuTreinamento'}><span>Meus Treinamentos</span></Link>
+            </li>
+            <li className="d-flex align-items-center gap-2">
+              <i className="bi bi-person"></i>
+              <Link href={'paginaPerfil'}><span>Meu Perfil</span></Link>
+            </li>
+          </ul>
+        </aside>
 
-            return res.status(200).json({ mensagem: "Inscrição excluída com sucesso!" });
+        <main className="col px-4 py-4 conteudo-treinamentos">
+          <h2 className="titulo-azul">Meus Treinamentos</h2>
+          <p className="text-secondary">Acompanhe seu progresso e histórico de aprendizado.</p>
 
-        } catch (error) {
-            console.error("Erro ao excluir inscrição:", error);
-            return res.status(500).json({ erro: "Erro ao excluir inscrição" });
-        }
-    }
+          <div className="row row-cols-2 row-cols-lg-4 g-3 mb-4">
+            {resumo.map((item, index) => (
+              <ResumoCard key={index} {...item} />
+            ))}
+          </div>
+          
+          <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
+
+          <div className="mt-4">{renderContent()}</div>
+        </main>
+      </div>
+    </div>
+  );
 }
-
-export default InscricaoController;

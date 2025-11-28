@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import "./cardGerenciarInscricoes.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Swal from "sweetalert2"; 
+ 
 
 const ProgressBar = ({ progresso }) => (
     <div className="progress-bar-container">

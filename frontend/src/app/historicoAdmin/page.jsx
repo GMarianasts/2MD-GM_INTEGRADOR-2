@@ -16,7 +16,7 @@ export default function DashboardHistorico() {
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
-                            <Link href={'dashboardAdmin'}><span>Dashboard</span></Link>
+                            <Link href="/dashboardAdmin"><span>Dashboard</span></Link>
                         </li>
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-grid"></i>

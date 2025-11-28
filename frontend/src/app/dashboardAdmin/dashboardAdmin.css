@@ -15,37 +15,33 @@ a:hover {
   color: white;
 }
 
-/* ====== CORREÇÃO FUNDAMENTAL ====== */
+
 .pagina-usuario,
 .pagina-usuario main,
-.sidebar,
+.menu-lateral,
 .row,
 .card-info,
 .Cards,
 .card-treinamento {
-  min-width: 0 !important; /* evita sumir conteúdo */
+  min-width: 0 !important; 
   box-sizing: border-box;
 }
 
-/* Permitir quebra de linha sempre */
 .row {
   flex-wrap: wrap !important;
 }
-
-/* ================================== */
 
 .pagina-usuario {
   display: flex;
   min-height: 100%;
 }
 
-/* Layout mobile */
 @media (max-width: 768px) {
   .pagina-usuario {
     flex-direction: column;
   }
 
-  .sidebar {
+  .menu-lateral {
     min-height: auto;
     width: 100%;
     border-right: none;
@@ -58,8 +54,7 @@ a:hover {
   }
 }
 
-/* Sidebar */
-.sidebar {
+.menu-lateral {
   width: 260px;
   min-height: 100vh;
   background-color: #fff;
@@ -79,7 +74,6 @@ a:hover {
   padding: 20px;
 }
 
-/* Menu */
 .menu li {
   display: flex;
   align-items: center;
@@ -386,4 +380,79 @@ a:hover {
   padding: 5px 12px;
   border-radius: 8px;
   font-size: 12px;
+}
+@media (max-width: 768px) {
+  
+
+  .menu-lateral {
+    width: 100% !important; 
+    min-height: auto; 
+    border-right: none;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 15px;
+  }
+  
+  .menu {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px;
+  }
+  
+  .menu li {
+    margin-bottom: 0 !important;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+
+  .introducao {
+    flex-direction: column;
+    align-items: stretch !important; 
+    gap: 15px;
+    margin-right: 0 !important;
+  }
+  
+  .trocaPagina, 
+  .search-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .trocaPagina .nav-item {
+      font-size: 0.8rem;
+  }
+}
+
+/* 📱 CELULARES PEQUENOS (Abaixo de 576px) */
+@media (max-width: 576px) {
+    /* Lista de Cursos: Ícone em cima, texto no meio, botão embaixo */
+    .curso-item {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 15px;
+    }
+
+    .curso-esquerda {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .curso-direita {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 10px;
+    }
+    
+    .curso-direita .vagas {
+        margin-bottom: 0;
+    }
+
+    /* Ajuste de fontes dos Cards de Topo */
+    .titulo { font-size: 0.8rem; margin-right: 0; }
+    .valor { font-size: 1.4rem; }
+    .card-info { padding: 0 10px; height: 120px; }
+    .icon { font-size: 1.4rem; }
 }

@@ -455,6 +455,17 @@ p {
     color: #333;
 }
 
+.btn-ver-todas{
+    background-color: #0a2b6b;
+    color: white;
+    border: #0a2b6b;
+}
+
+.btn-ver-todas:hover{
+    background-color: #0a2b6b;
+    color: white;
+}
+
 .valor-meta {
     font-weight: 400;
     color: #666;

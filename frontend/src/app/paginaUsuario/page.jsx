@@ -18,12 +18,8 @@ export default function PaginaUsuario() {
         const data = await res.json();
 
         if (data.sucesso) {
-          // 1. Filtra apenas os cursos ATIVOS
           const ativos = data.dados.filter(c => c.status === 'Ativo');
-
-          // 2. Pega apenas os 3 primeiros (ou os 3 mais recentes se o banco ordenar por data)
           const tresUltimos = ativos.slice(0, 3);
-
           setCursosRecomendados(tresUltimos);
         }
       } catch (error) {
@@ -271,7 +267,6 @@ export default function PaginaUsuario() {
                   <span>Meta Alcançada</span>
                 </div>
 
-                <button className="btn-todas-conquistas mt-3">Ver todas</button>
               </div>
             </aside>
           </div>

@@ -58,17 +58,16 @@ export const criarTreinamento = async (req, res) => {
             INSERT INTO treinamentos 
             (titulo, categoria, descricao, nivel, duracao_horas, capacidade, 
             instrutor_id, modalidade, local_plataforma, 
-            data_inicio, data_fim, pre_requisitos, status, sobre, objetivos,
-            inscricao_inicio, inscricao_fim, observacoes)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            data_inicio, data_fim, pre_requisitos, status, sobre, objetivos)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         const values = [
-            dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
-            dados.instrutorId, dados.modalidade, dados.local,
-            tratarData(dados.dataInicio), tratarData(dados.dataFim), 
-            dados.preRequisitos, dados.status, dados.sobre, dados.objetivos,
-            tratarData(dados.inscricaoInicio), tratarData(dados.inscricaoFim), dados.observacoes
+            dados.titulo, dados.categoria, dados.descricao, dados.nivel, Number(dados.duracao) || 0,
+            Number(dados.capacidade) || 0,
+            Number(dados.instrutorId) || null, dados.modalidade, dados.local,
+            tratarData(dados.dataInicio), tratarData(dados.dataFim),
+            dados.preRequisitos, dados.status, dados.sobre, dados.objetivos
         ];
 
         const [result] = await conn.query(sql, values);
@@ -77,7 +76,7 @@ export const criarTreinamento = async (req, res) => {
         if (dados.competenciasTexto) {
             const tags = dados.competenciasTexto.split(',').map(t => t.trim());
             for (const tag of tags) {
-                if(!tag) continue;
+                if (!tag) continue;
                 let [rows] = await conn.query('SELECT id FROM competencias WHERE nome = ?', [tag]);
                 let tagId;
                 if (rows.length > 0) tagId = rows[0].id;
@@ -126,17 +125,15 @@ export const atualizarTreinamento = async (req, res) => {
             UPDATE treinamentos SET
             titulo=?, categoria=?, descricao=?, nivel=?, duracao_horas=?, capacidade=?, 
             instrutor_id=?, modalidade=?, local_plataforma=?, 
-            data_inicio=?, data_fim=?, pre_requisitos=?, status=?, sobre=?, objetivos=?,
-            inscricao_inicio=?, inscricao_fim=?, observacoes=?
+            data_inicio=?, data_fim=?, pre_requisitos=?, status=?, sobre=?, objetivos=?
             WHERE id=?
         `;
 
         const values = [
             dados.titulo, dados.categoria, dados.descricao, dados.nivel, dados.duracao, dados.capacidade,
             dados.instrutorId, dados.modalidade, dados.local,
-            tratarData(dados.dataInicio), tratarData(dados.dataFim), 
+            tratarData(dados.dataInicio), tratarData(dados.dataFim),
             dados.preRequisitos, dados.status, dados.sobre, dados.objetivos,
-            tratarData(dados.inscricaoInicio), tratarData(dados.inscricaoFim), dados.observacoes,
             id
         ];
 
@@ -144,10 +141,10 @@ export const atualizarTreinamento = async (req, res) => {
 
         if (typeof dados.competenciasTexto !== 'undefined') {
             await conn.query('DELETE FROM treinamento_competencia WHERE treinamento_id = ?', [id]);
-            if(dados.competenciasTexto.trim() !== '') {
+            if (dados.competenciasTexto.trim() !== '') {
                 const tags = dados.competenciasTexto.split(',').map(t => t.trim());
                 for (const tag of tags) {
-                    if(!tag) continue;
+                    if (!tag) continue;
                     let [rows] = await conn.query('SELECT id FROM competencias WHERE nome = ?', [tag]);
                     let tagId;
                     if (rows.length > 0) tagId = rows[0].id;
@@ -175,7 +172,7 @@ export const buscarTreinamentoPorId = async (req, res) => {
     const conn = await getConnection();
     try {
         const { id } = req.params;
-        
+
         const sql = `
             SELECT 
                 t.*, 
@@ -192,7 +189,7 @@ export const buscarTreinamentoPorId = async (req, res) => {
             WHERE t.id = ?
             GROUP BY t.id
         `;
-        
+
         const [rows] = await conn.query(sql, [id]);
         conn.release();
 

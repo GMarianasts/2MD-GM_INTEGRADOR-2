@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import "../../app/colaboradorAdmin/colaborador.css";
 
 export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelete }) {
   const [colaboradores, setColaboradores] = useState([]);
@@ -11,7 +12,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
     try {
       const response = await fetch("http://localhost:3001/api/usuarios");
       const data = await response.json();
-  
+
       if (response.ok) setColaboradores(data.usuarios || []);
     } catch (error) {
       console.error(error);
@@ -19,7 +20,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
       setLoading(false);
     }
   };
-  
+
 
   useEffect(() => {
     carregarDados();
@@ -40,7 +41,6 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
   return (
     <div className="tabela-container shadow-sm bg-white rounded-3 border mt-4">
 
-      {/* 🧩 CABEÇALHO + BARRA DE BUSCA */}
       <div className="header-lista p-4 border-bottom d-flex justify-content-between align-items-center">
         <div>
           <h5 className="fw-semibold mb-1" style={{ color: "#0a2b6b" }}>
@@ -60,13 +60,11 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
         </div>
       </div>
 
-      {/* 🧩 TABELA */}
       <div className="table-responsive">
         <table className="table tabela-colaboradores table-hover align-middle mb-0">
           <thead className="table-light">
             <tr>
               <th className="ps-4">Colaborador</th>
-              <th>ID</th>
               <th>Departamento</th>
               <th>Cargo</th>
               <th>Unidade</th>
@@ -74,17 +72,16 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
               <th className="text-end pe-4">Ações</th>
             </tr>
           </thead>
-
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="7" className="text-center py-5">
+                <td colSpan="6" className="text-center py-5">
                   Carregando...
                 </td>
               </tr>
             ) : colaboradoresFiltrados.length === 0 ? (
               <tr>
-                <td colSpan="7" className="text-center py-5">
+                <td colSpan="6" className="text-center py-5">
                   Nenhum registro encontrado.
                 </td>
               </tr>
@@ -104,20 +101,23 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                       >
                         {c.nome ? c.nome.substring(0, 2).toUpperCase() : "U"}
                       </div>
+
                       <div className="ms-3">
-                        <strong className="text-dark d-block">{c.nome}</strong>
+                        <strong className="text-dark d-block mb-0">{c.nome}</strong>
                         <span className="text-muted small">{c.email}</span>
                       </div>
                     </div>
                   </td>
 
-                  <td className="text-muted">#{c.id}</td>
-                  <td>{c.departamento || "-"}</td>
-                  <td>{c.cargo || "-"}</td>
-                  <td>{c.unidade || "-"}</td>
+                  <td>
+                    <span className="badge bg-light text-dark border">{c.departamento}</span>
+                  </td>
+
+                  <td>{c.cargo}</td>
+                  <td>{c.unidade}</td>
 
                   <td>
-                    <span className="badge bg-light text-dark border">{c.nivel_acesso}</span>
+                    <span className={`badge bg-light text-dark border`}>{c.nivel_acesso}</span>
                   </td>
 
                   <td className="text-end pe-4">
@@ -141,6 +141,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
           </tbody>
         </table>
       </div>
+
 
     </div>
   );

@@ -100,14 +100,14 @@ export default function GerenciarInscricoes() {
                         <span>
                             {new Date(item.data_inscricao).toLocaleDateString("pt-BR")}
                         </span>
-
-
                         <span>
                             <StatusBadge status={item.status ?? "Ativo"} />
                         </span>
-
                         <span className="acoes-cell">
-                            <button className="btn-acao-remover" onClick={() => remover(item.id)}>
+                            <button
+                                className="btn-acao-remover"
+                                onClick={() => remover(item.id)}
+                            >
                                 <i className="bi bi-x-circle-fill"></i>
                             </button>
                         </span>

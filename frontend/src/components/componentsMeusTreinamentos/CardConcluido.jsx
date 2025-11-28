@@ -17,9 +17,6 @@ export default function CardConcluido({ t }) {
         </div>
 
         <div className="mt-auto">
-           <div className="progress mb-3" style={{height: 8}}>
-             <div className="progress-bar bg-success" style={{width: '100%'}}></div>
-          </div>
           <button className="btn w-100 fw-semibold btn-outline-success rounded-3">
             Ver Certificado
           </button>

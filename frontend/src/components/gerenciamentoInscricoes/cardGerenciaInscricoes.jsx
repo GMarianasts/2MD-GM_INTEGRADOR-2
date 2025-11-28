@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./cardGerenciarInscricoes.css";
+import Swal from 'sweetalert2';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 
@@ -24,10 +25,16 @@ export default function GerenciarInscricoes() {
 
     // Carregar do backend
     async function carregarInscricoes() {
-        const response = await fetch("http://localhost:3001/inscricoes");
+        const response = await fetch("http://localhost:3001/api/inscricoes");
         const data = await response.json();
         console.log("INSCRIÇÕES:", data);
-        setInscricoes(data.dados || []);  // ✅ agora é sempre array
+
+        // CORREÇÃO: Verifica se 'data' é um array direto OU se está dentro de 'dados'
+        if (Array.isArray(data)) {
+            setInscricoes(data);
+        } else {
+            setInscricoes(data.dados || []);
+        } // ✅ agora é sempre array
     }
 
     async function remover(id) {

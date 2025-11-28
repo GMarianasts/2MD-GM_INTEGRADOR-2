@@ -69,7 +69,7 @@ app.use('/api/auth', authRotas);
 app.use('/api/produtos', produtoRotas);
 app.use('/api/treinamentos', treinamentoCountRotas);
 app.use('/api/treinamentos', treinamentoRotas);
-app.use("/inscricoes", inscricaoRoutes);
+app.use("/api/inscricoes", inscricaoRoutes);
 
 
 

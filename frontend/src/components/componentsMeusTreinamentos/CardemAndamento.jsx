@@ -17,14 +17,6 @@ export default function CardEmAndamento({ t }) {
         </div>
 
         <div className="mt-auto">
-          <div className="d-flex justify-content-between small mb-1 text-muted">
-             <span>Progresso</span>
-             <strong>{t.progresso || 0}%</strong>
-          </div>
-          <div className="progress mb-3" style={{height: 8}}>
-             <div className="progress-bar bg-primary" style={{width: `${t.progresso || 0}%`}}></div>
-          </div>
-
           <Link href={`/catalogo/${t.curso_id}`} className="btn w-100 fw-semibold btn-outline-primary rounded-3">
             Continuar Estudando
           </Link>

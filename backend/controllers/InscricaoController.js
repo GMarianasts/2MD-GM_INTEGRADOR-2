@@ -31,6 +31,28 @@ class InscricaoController {
         }
     }
 
+    static async listarPorUsuario(req, res) {
+        try {
+            const { id } = req.params;
+
+            // Chama o método do Model que criamos acima
+            const inscricoes = await InscricaoModel.listarPorUsuario(id);
+            
+            // Retorna no formato que o frontend espera
+            return res.status(200).json({
+                sucesso: true,
+                dados: inscricoes
+            });
+
+        } catch (error) {
+            console.error("Erro ao listar inscrições do usuário:", error);
+            return res.status(500).json({ 
+                sucesso: false, 
+                erro: "Erro ao buscar treinamentos do usuário." 
+            });
+        }
+    }
+
     // Listar inscrições
     static async listar(req, res) {
         try {

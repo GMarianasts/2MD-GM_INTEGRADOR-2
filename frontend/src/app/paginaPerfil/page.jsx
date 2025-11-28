@@ -263,12 +263,6 @@ export default function PaginaPerfil() {
                                     </div>
 
                                     <div className="preferencias-container d-flex flex-column gap-2">
-                                        <button className="btn btn-white border shadow-sm text-start p-3 d-flex align-items-center gap-2">
-                                            <i className="bi bi-envelope"></i> Notificações
-                                        </button>
-                                        <button className="btn btn-white border shadow-sm text-start p-3 d-flex align-items-center gap-2">
-                                            <i className="bi bi-person"></i> Privacidade
-                                        </button>
                                         <button className="btn btn-white border shadow-sm text-start p-3 d-flex align-items-center gap-2 text-danger">
                                             <i className="bi bi-key"></i> Alterar senha
                                         </button>

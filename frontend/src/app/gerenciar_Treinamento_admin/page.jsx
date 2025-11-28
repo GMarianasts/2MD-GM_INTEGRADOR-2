@@ -7,14 +7,17 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import ModalNovoTreinamento from "@/components/modalNovoTreinamento/modalNovoTreinamento";
 
-export default function gerecinadorTreinamento() {
-
+export default function GerenciadorTreinamento() {
     const [treinamentos, setTreinamentos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [busca, setBusca] = useState('');
     const [menuAberto, setMenuAberto] = useState(null);
     const [cursoParaEditar, setCursoParaEditar] = useState(null);
+
+    const [filtroStatus, setFiltroStatus] = useState('');
+    const [filtroModalidade, setFiltroModalidade] = useState('');
+    const [mostrarFiltros, setMostrarFiltros] = useState(false); // Para controlar o dropdown de filtros
 
     const [estatisticas, setEstatisticas] = useState({
         total: 0,
@@ -30,18 +33,22 @@ export default function gerecinadorTreinamento() {
         const instrutorMatch = item.instrutor_nome?.toLowerCase().includes(termo);
         const competenciaMatch = item.competencias?.some(comp => comp.toLowerCase().includes(termo));
 
-        return tituloMatch || instrutorMatch || competenciaMatch;
+        // Filtros adicionais
+        const statusMatch = filtroStatus ? item.status.toLowerCase() === filtroStatus.toLowerCase() : true;
+        const modalidadeMatch = filtroModalidade ? item.modalidade.toLowerCase() === filtroModalidade.toLowerCase() : true;
+
+        return (tituloMatch || instrutorMatch || competenciaMatch) && statusMatch && modalidadeMatch;
     });
 
     const handleNovoTreinamento = () => {
-        setCursoParaEditar(null); 
+        setCursoParaEditar(null);
         setShowModal(true);
     };
 
     const handleEditar = (curso) => {
-        setCursoParaEditar(curso); 
-        setShowModal(true); 
-        setMenuAberto(null); 
+        setCursoParaEditar(curso);
+        setShowModal(true);
+        setMenuAberto(null);
     };
 
     const toggleMenu = (id) => {
@@ -164,10 +171,9 @@ export default function gerecinadorTreinamento() {
                         </li>
                     </ul>
                 </aside>
+
                 <main className="col-12 col-md-9 col-lg-10 p-4 bg-light">
-
                     <div className="d-flex justify-content-between align-items-center mb-4">
-
                         <div>
                             <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Treinamentos</h2>
                             <p className="descricao text-muted mb-0">
@@ -183,118 +189,55 @@ export default function gerecinadorTreinamento() {
                             <i className="bi bi-plus-lg fs-5"></i>
                             <span>Novo Treinamento</span>
                         </button>
-
                     </div>
 
-                    <div className="row g-3">
-                        <div className="col-12">
-                            <div className="row justify-content-start g-3">
+                    {/* Barra de Pesquisa */}
+                    <div className="pesquisa">
+                        <input
+                            type="text"
+                            placeholder="Buscar por título, instrutor ou competência..."
+                            value={busca}
+                            onChange={(e) => setBusca(e.target.value)}
+                        />
+                        {/* Botão de Filtros */}
+                        <button
+                            className="btn-filtros"
+                            onClick={() => setMostrarFiltros(!mostrarFiltros)}
+                        >
+                            <i className="bi bi-funnel"></i> Filtros
+                        </button>
+                    </div>
 
-                                {/* Card Total */}
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Total de Treinamentos</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                {estatisticas.total}
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                Cursos cadastrados
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
+                    {/* Filtros Dropdown */}
+                    {mostrarFiltros && (
+                        <div className="filtro-dropdown">
+                            <select
+                                className="form-select"
+                                value={filtroStatus}
+                                onChange={(e) => setFiltroStatus(e.target.value)}
+                            >
+                                <option value="">Filtrar por Status</option>
+                                <option value="Ativo">Ativo</option>
+                                <option value="Rascunho">Rascunho</option>
+                            </select>
 
-                                {/* Card Ativos */}
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Treinamentos Ativos</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                {estatisticas.ativos}
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                {estatisticas.porcentagemAtivos}% do total
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Card Inscritos */}
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Total de Inscritos</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                {estatisticas.inscritos}
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                Alunos matriculados
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Card Taxa de Ocupação */}
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Taxa de Ocupação</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                {estatisticas.taxaOcupacao}%
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                Média geral
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <select
+                                className="form-select"
+                                value={filtroModalidade}
+                                onChange={(e) => setFiltroModalidade(e.target.value)}
+                            >
+                                <option value="">Filtrar por Modalidade</option>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Online">Online</option>
+                            </select>
                         </div>
-                    </div>
+                    )}
 
-                    <div className="row g-3 mb-4 mt-4">
-                        <div className="col-12">
-
-                            <div className="card1 border rounded-4 bg-white shadow-sm p-3">
-                                <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100">
-
-                                    {/* BARRA DE BUSCA */}
-                                    <div
-                                        className="d-flex align-items-center px-3 py-2 rounded-3 flex-grow-1"
-                                        style={{ backgroundColor: "#f8f9fa" }}
-                                    >
-                                        <i className="bi bi-search text-muted me-2"></i>
-                                        <input
-                                            type="text"
-                                            className="form-control border-0 bg-transparent shadow-none p-0 text-dark"
-                                            placeholder="Buscar por título, instrutor ou competência..."
-                                            style={{ fontSize: "0.95rem" }}
-                                            value={busca}
-                                            onChange={(e) => setBusca(e.target.value)}
-                                        />
-                                    </div>
-
-                                    <div className="d-flex gap-2">
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
-                                            <i className="bi bi-funnel"></i> Filtros
-                                        </button>
-
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
-                                            <i className="bi bi-download"></i> Exportar
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    {/* Restante do conteúdo, como a tabela */}
                     <div className="row g-3 mt-3">
                         <div className="col-12">
                             <div className="card1 border rounded-4 bg-white shadow-sm">
                                 <div className="card-body p-4">
-
                                     <div className="mb-4">
                                         <h5 className="fw-bold mb-1">Todos os Treinamentos</h5>
                                         <p className="text-muted small mb-0">
@@ -317,7 +260,6 @@ export default function gerecinadorTreinamento() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 {loading ? (
                                                     <tr><td colSpan="8" className="text-center py-4">Carregando...</td></tr>
                                                 ) : (

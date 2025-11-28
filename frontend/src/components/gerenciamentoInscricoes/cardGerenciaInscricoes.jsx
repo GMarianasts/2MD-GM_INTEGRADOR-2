@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import "./cardGerenciarInscricoes.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
- 
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 const ProgressBar = ({ progresso }) => (
     <div className="progress-bar-container">
@@ -24,42 +25,60 @@ export default function GerenciarInscricoes() {
 
     // Carregar do backend
     async function carregarInscricoes() {
-        const response = await fetch("http://localhost:3001/inscricoes");
-        const data = await response.json();
-        console.log("INSCRIÇÕES:", data);
-        setInscricoes(data);
+        try {
+            const response = await fetch("http://localhost:3001/inscricoes");
+            const data = await response.json();
+            console.log("INSCRIÇÕES:", data);
+            setInscricoes(data);
+        } catch (error) {
+            console.error("Erro ao carregar inscrições:", error);
+            Swal.fire({
+                icon: "error",
+                title: "Erro",
+                text: "Não foi possível carregar as inscrições.",
+            });
+        }
     }
 
     async function remover(id) {
-    const resultado = await Swal.fire({
-        title: "Tem certeza?",
-        text: "Você está prestes a excluir esta inscrição.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Sim, excluir",
-        cancelButtonText: "Cancelar"
-    });
+        try {
+            const resultado = await Swal.fire({
+                title: "Tem certeza?",
+                text: "Você está prestes a excluir esta inscrição.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Sim, excluir",
+                cancelButtonText: "Cancelar",
+            });
 
-    if (!resultado.isConfirmed) {
-        return; // cancelou → não remove
+            if (!resultado.isConfirmed) return; // cancelou → não remove
+
+            const response = await fetch(`http://localhost:3001/inscricoes/${id}`, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) throw new Error("Falha ao remover inscrição");
+
+            Swal.fire({
+                title: "Removido!",
+                text: "A inscrição foi excluída com sucesso.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false,
+            });
+
+            carregarInscricoes();
+        } catch (error) {
+            console.error("Erro ao remover inscrição:", error);
+            Swal.fire({
+                icon: "error",
+                title: "Erro",
+                text: "Não foi possível remover a inscrição.",
+            });
+        }
     }
-
-    await fetch(`http://localhost:3001/inscricoes/${id}`, {
-        method: "DELETE",
-    });
-
-    Swal.fire({
-        title: "Removido!",
-        text: "A inscrição foi excluída com sucesso.",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false
-    });
-
-    carregarInscricoes();
-}
 
     useEffect(() => {
         carregarInscricoes();
@@ -100,14 +119,14 @@ export default function GerenciarInscricoes() {
                         <span>
                             {new Date(item.data_inscricao).toLocaleDateString("pt-BR")}
                         </span>
-
-
                         <span>
                             <StatusBadge status={item.status ?? "Ativo"} />
                         </span>
-
                         <span className="acoes-cell">
-                            <button className="btn-acao-remover" onClick={() => remover(item.id)}>
+                            <button
+                                className="btn-acao-remover"
+                                onClick={() => remover(item.id)}
+                            >
                                 <i className="bi bi-x-circle-fill"></i>
                             </button>
                         </span>

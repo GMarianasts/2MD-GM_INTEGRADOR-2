@@ -11,6 +11,7 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
         descricao: '',
         nivel: '',
         duracao: '',
+        capacidade: '',
         instrutorId: '',
         instrutorNome: '',
         instrutorEmail: '',
@@ -77,32 +78,49 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        // Se tem dadosEditar, usa a URL com ID e método PUT. Se não, POST normal.
-        const url = dadosEditar
-            ? `http://localhost:3001/api/treinamentos/${dadosEditar.id}`
-            : 'http://localhost:3001/api/treinamentos';
+    // Se tem dadosEditar, usa a URL com ID e método PUT. Se não, POST normal.
+    const url = dadosEditar
+        ? `http://localhost:3001/api/treinamentos/${dadosEditar.id}`
+        : 'http://localhost:3001/api/treinamentos';
 
-        const method = dadosEditar ? 'PUT' : 'POST';
+    const method = dadosEditar ? 'PUT' : 'POST';
 
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form)
-            });
-
-            if (response.ok) {
-                onSalvar(); // Atualiza a tabela
-                onClose();  // Fecha o modal
-            } else {
-                alert('Erro ao salvar');
-            }
-        } catch (error) {
-            console.error(error);
-        }
+    // 1. Cria o objeto de dados (Payload) DENTRO da função
+    const payload = {
+        ...form,
+        duracao: form.duracao === '' ? 0 : Number(form.duracao), // Garante 0 se vazio
+        capacidade: form.capacidade === '' ? 0 : Number(form.capacidade), // Garante 0 se vazio
+        instrutorId: form.instrutorId ? Number(form.instrutorId) : null // Garante null se vazio
     };
+
+    try {
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) // <--- O PULO DO GATO: Enviando o JSON aqui
+        });
+
+        if (response.ok) {
+            onSalvar(); // Atualiza a tabela
+            onClose();  // Fecha o modal
+        } else {
+            alert('Erro ao salvar');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+    const payload = {
+        ...form,
+        duracao: form.duracao === '' ? null : Number(form.duracao),
+        capacidade: form.capacidade === '' ? null : Number(form.capacidade),
+        instrutorId: Number(form.instrutorId)
+    };
+
+    body: JSON.stringify(payload)
 
     return (
         <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} tabIndex="-1">
@@ -162,7 +180,7 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
                                 </div>
                                 <div className="col-md-4">
                                     <label className="form-label fw-semibold small">Capacidade</label>
-                                    <input type="number" name="capacidade" className="form-control bg-light border-0" value={form.capacidade} onChange={handleChange} />
+                                    <input type="number" name="capacidade"  required min="0" className="form-control bg-light border-0" value={form.capacidade} onChange={handleChange} />
                                 </div>
                             </div>
 
@@ -219,11 +237,11 @@ export default function ModalNovoTreinamento({ onClose, onSalvar, dadosEditar })
                                 </div>
                                 <div className="col-6">
                                     <label className="form-label fw-semibold small">Início</label>
-                                    <input type="date" name="dataInicio" className="form-control bg-light border-0" value={form.dataInicio} onChange={handleChange} />
+                                    <input type="date" name="dataInicio" required className="form-control bg-light border-0" value={form.dataInicio} onChange={handleChange} />
                                 </div>
                                 <div className="col-6">
                                     <label className="form-label fw-semibold small">Término</label>
-                                    <input type="date" name="dataFim" className="form-control bg-light border-0" value={form.dataFim} onChange={handleChange} />
+                                    <input type="date" name="dataFim" required className="form-control bg-light border-0" value={form.dataFim} onChange={handleChange} />
                                 </div>
                                 <div className="col-12">
                                     <label className="form-label fw-semibold small">Competências (Tags)</label>

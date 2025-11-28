@@ -15,37 +15,33 @@ a:hover {
   color: white;
 }
 
-/* ====== CORREÇÃO FUNDAMENTAL ====== */
+
 .pagina-usuario,
 .pagina-usuario main,
-.sidebar,
+.menu-lateral,
 .row,
 .card-info,
 .Cards,
 .card-treinamento {
-  min-width: 0 !important; /* evita sumir conteúdo */
+  min-width: 0 !important; 
   box-sizing: border-box;
 }
 
-/* Permitir quebra de linha sempre */
 .row {
   flex-wrap: wrap !important;
 }
-
-/* ================================== */
 
 .pagina-usuario {
   display: flex;
   min-height: 100%;
 }
 
-/* Layout mobile */
 @media (max-width: 768px) {
   .pagina-usuario {
     flex-direction: column;
   }
 
-  .sidebar {
+  .menu-lateral {
     min-height: auto;
     width: 100%;
     border-right: none;
@@ -58,8 +54,7 @@ a:hover {
   }
 }
 
-/* Sidebar */
-.sidebar {
+.menu-lateral {
   width: 260px;
   min-height: 100vh;
   background-color: #fff;
@@ -79,7 +74,6 @@ a:hover {
   padding: 20px;
 }
 
-/* Menu */
 .menu li {
   display: flex;
   align-items: center;
@@ -389,19 +383,18 @@ a:hover {
 }
 @media (max-width: 768px) {
   
-  /* Sidebar vira um cabeçalho no topo ou empilha */
-  .sidebar {
-    width: 100% !important; /* Força largura total */
-    min-height: auto; /* Remove altura forçada */
+
+  .menu-lateral {
+    width: 100% !important; 
+    min-height: auto; 
     border-right: none;
     border-bottom: 1px solid #e6e6e6;
     padding: 15px;
   }
   
-  /* Ajuste do menu para não quebrar se tiver muitos itens */
   .menu {
     display: flex;
-    flex-wrap: wrap; /* Permite quebrar linha se necessário */
+    flex-wrap: wrap; 
     gap: 10px;
   }
   
@@ -411,10 +404,10 @@ a:hover {
     font-size: 0.9rem;
   }
 
-  /* Barra de introdução (Tabs e Busca) empilha */
+
   .introducao {
     flex-direction: column;
-    align-items: stretch !important; /* Estica os itens */
+    align-items: stretch !important; 
     gap: 15px;
     margin-right: 0 !important;
   }

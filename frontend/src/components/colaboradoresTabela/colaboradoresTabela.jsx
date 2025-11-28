@@ -11,7 +11,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
     try {
       const response = await fetch("http://localhost:3001/api/usuarios");
       const data = await response.json();
-  
+
       if (response.ok) setColaboradores(data.usuarios || []);
     } catch (error) {
       console.error(error);
@@ -19,7 +19,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
       setLoading(false);
     }
   };
-  
+
 
   useEffect(() => {
     carregarDados();
@@ -93,25 +93,30 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                 <tr key={c.id}>
                   <td className="ps-4">
                     <div className="d-flex align-items-center">
+
                       <div
                         className="rounded-circle d-flex justify-content-center align-items-center text-white fw-bold"
                         style={{
                           width: "40px",
                           height: "40px",
+                          minWidth: "40px",   
+                          minHeight: "40px",  
+                          flexShrink: 0,      
                           backgroundColor: "#0a2b6b",
                           fontSize: "0.9rem",
                         }}
                       >
                         {c.nome ? c.nome.substring(0, 2).toUpperCase() : "U"}
                       </div>
+
                       <div className="ms-3">
-                        <strong className="text-dark d-block">{c.nome}</strong>
+                        <strong className="text-dark d-block mb-0">{c.nome}</strong>
                         <span className="text-muted small">{c.email}</span>
                       </div>
                     </div>
                   </td>
 
-                  <td className="text-muted">#{c.id}</td>
+                  <td className="text-muted">{c.id}</td>
                   <td>{c.departamento || "-"}</td>
                   <td>{c.cargo || "-"}</td>
                   <td>{c.unidade || "-"}</td>

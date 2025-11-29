@@ -5,8 +5,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./paginaUsuario.css";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function PaginaUsuario() {
+
+  const { user } = useAuth();
 
   const [cursosRecomendados, setCursosRecomendados] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,6 +34,11 @@ export default function PaginaUsuario() {
 
     fetchCursos();
   }, []);
+
+  const getPrimeiroNome = (nomeCompleto) => {
+    if (!nomeCompleto) return "Colaborador";
+    return nomeCompleto.split(' ')[0];
+  };
 
   return (
     <div className="container-fluid pagina-usuario">
@@ -60,7 +68,8 @@ export default function PaginaUsuario() {
         <main className="col-12 col-md-9 px-4 py-4">
           <section className="bemVindo mb-4">
             <p className="fs-5 fw-semibold">
-              Bem-vindo, <strong>(Nome)</strong>
+              {/* 3. AQUI ESTÁ A MUDANÇA: Exibe o nome ou 'Carregando...' */}
+              Bem-vindo, <strong>{user ? getPrimeiroNome(user.nome) : "..."}</strong>
               <br />
               <span className="text-muted">Continue seu desenvolvimento profissional.</span>
             </p>
@@ -107,7 +116,7 @@ export default function PaginaUsuario() {
                       <div className="card-body d-flex align-items-center">
                         <div className="progresso">
                           <p className="titulo mb-1">Badges Conquistados</p>
-                          <p className="valor mb-0">18</p>
+                          <p className="valor mb-0">6</p>
                         </div>
                         <div className="posicaoIcon">
                           <div className="icon me-0">
@@ -142,43 +151,7 @@ export default function PaginaUsuario() {
 
             <div className="col-12 col-lg-8 coluna-esquerda">
               {/* Minha Trilha */}
-              <div className="Cards">
-                <div className="Cards-estrutura">
-                  <div className="icone-trilha">
-                    <i className="bi bi-graph-up"></i>
-                  </div>
-                  <div>
-                    <p className="titulo-principal">Minha Trilha de Desenvolvimento</p>
-                    <p className="subtitulo-trilha">Liderança e Gestão de Pessoas</p>
-                  </div>
-                </div>
-
-                <div className="progresso-container">
-                  <div className="d-flex justify-content-between align-items-center mb-1">
-                    <p className="m-0">Progresso</p>
-                    <p className="m-0 porcentagemCurso">65%</p>
-                  </div>
-
-                  <div className="progress" role="progressbar" aria-label="Progresso" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
-                    <div className="progress-bar azul-escuro" style={{ width: "65%" }}></div>
-                  </div>
-                </div>
-
-                <div className="dados-trilha d-flex justify-content-between mt-3">
-                  <div>
-                    <p className="label">Cursos Concluídos</p>
-                    <p className="valor-trilha">13/20</p>
-                  </div>
-                  <div>
-                    <p className="label">Próximo Curso</p>
-                    <p className="proximo-curso">Comunicação Assertiva para Líderes</p>
-                  </div>
-                </div>
-
-                <button className="btn-continuar mt-4">
-                  Continuar Trilha <i className="bi bi-arrow-right"></i>
-                </button>
-              </div>
+              
 
               {/* Cursos Recomendados */}
               <div className="Cards">

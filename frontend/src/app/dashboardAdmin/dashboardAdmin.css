@@ -456,3 +456,15 @@ a:hover {
     .card-info { padding: 0 10px; height: 120px; }
     .icon { font-size: 1.4rem; }
 }
+
+
+
+.grafico-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,27 +1,41 @@
-import React from 'react';
-import Link from 'next/link';
+// Recebemos a prop 'onConcluir'
+export default function CardemAndamento({ t, onConcluir }) {
 
-export default function CardEmAndamento({ t }) {
+  console.log("Dados do card:", t);
+
+  const formatarData = (dataISO) => {
+    if (!dataISO) return 'Sem prazo';
+    return new Date(dataISO).toLocaleDateString('pt-BR');
+  };
+
   return (
-    <div className="card border-0 shadow-sm rounded-4 h-100 hover-effect">
-      <div className="card-body d-flex flex-column p-4">
-        
-        <div className="d-flex justify-content-between align-items-start mb-3">
-          <span className="badge bg-light text-dark border fw-normal">{t.categoria || 'Geral'}</span>
-          <span className="badge bg-primary-subtle text-primary border border-primary-subtle">Em Andamento</span>
+    <div className="card card-em-andamento border-0 shadow-sm rounded-4 p-4 mb-3">
+      <div className="d-flex justify-content-between align-items-center mb-2">
+        <div className="d-flex align-items-center gap-2">
+          <i className="bi bi-play-circle-fill text-primary fs-4"></i>
+          <h5 className="fw-bold text-dark mb-0">{t.titulo}</h5>
         </div>
+        <span className="badge bg-light text-primary">{t.categoria}</span>
+      </div>
 
-        <h5 className="fw-bold mb-2 text-dark">{t.titulo}</h5>
-        <div className="text-muted small mb-4">
-           <i className="bi bi-clock me-1"></i> {t.duracao_horas}h • {t.modalidade}
-        </div>
+      <small className="text-secondary">
+        {t.duracao_horas}h • Prazo: {formatarData(t.data_fim)}
+      </small>
 
-        <div className="mt-auto">
-          <Link href={`/catalogo/${t.curso_id}`} className="btn w-100 fw-semibold btn-outline-primary rounded-3">
-            Continuar Estudando
-          </Link>
-        </div>
+      <div className="mt-4 d-flex gap-2 flex-wrap">
+        {/* Botão Existente */}
+        <button className="btn btn-outline-primary rounded-3 px-4">
+          Continuar Estudando
+        </button>
 
+        {/* === NOVO BOTÃO: CONCLUIR === */}
+        <button
+          className="btn btn-success text-white rounded-3 px-3 d-flex align-items-center gap-2"
+          // O ERRO ESTAVA AQUI: use t.inscricao_id (exatamente como aparece no seu console)
+          onClick={() => onConcluir(t.inscricao_id)}
+        >
+          <i className="bi bi-check-circle"></i> Concluir
+        </button>
       </div>
     </div>
   );

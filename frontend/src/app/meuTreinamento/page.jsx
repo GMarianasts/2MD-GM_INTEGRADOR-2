@@ -36,6 +36,25 @@ export default function MeuTreinamentosPage() {
     fetchMeusTreinamentos();
   }, [user]);
 
+  const handleConcluir = async (inscricaoId) => {
+    if (window.confirm("Deseja marcar este curso como concluído?")) {
+      try {
+        const res = await fetch(`http://localhost:3001/api/inscricoes/${inscricaoId}/concluir`, {
+          method: 'PUT'
+        });
+        
+        if (res.ok) {
+          alert("Curso concluído!");
+          window.location.reload(); // Atualiza a página para mostrar na aba certa
+        } else {
+          alert("Erro ao concluir.");
+        }
+      } catch (error) {
+        console.error("Erro:", error);
+      }
+    }
+  };
+
   // Filtros
   const statusAtivos = ['Ativo', 'Inscrito', 'ativo', 'inscrito'];
   const statusConcluidos = ['Concluído', 'Concluido', 'concluido'];
@@ -76,8 +95,18 @@ export default function MeuTreinamentosPage() {
 
     // Padrão: Em Andamento
     return cursosEmAndamento.length > 0
-          ? <div className="row g-3">{cursosEmAndamento.map((t) => <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4"><CardEmAndamento t={t} /></div>)}</div>
-          : <div className="text-center py-4 text-muted">Nenhum curso em andamento. <Link href="/catalogo" className="text-primary">Ver catálogo</Link></div>;
+  ? <div className="row g-3">
+      {cursosEmAndamento.map((t) => (
+        <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4">
+          
+          {/* --- ALTERE APENAS ESTA LINHA AQUI EMBAIXO --- */}
+          <CardEmAndamento t={t} onConcluir={handleConcluir} /> 
+          {/* --------------------------------------------- */}
+
+        </div>
+      ))}
+    </div>
+  : <div className="text-center py-4 text-muted">Nenhum curso em andamento.</div>;
   };
 
   if (!user) return <div className="p-5 text-center">Faça login para ver seus cursos.</div>;

@@ -12,7 +12,7 @@ export default function DetalhesCurso() {
   const { user } = useAuth();
 
   const [abaAtiva, setAbaAtiva] = useState("visao-geral");
-  
+
   const [curso, setCurso] = useState(null);
   const [loading, setLoading] = useState(true);
   const [estaInscrito, setEstaInscrito] = useState(false);
@@ -32,7 +32,7 @@ export default function DetalhesCurso() {
         if (user) {
           const resInsc = await fetch(`http://localhost:3001/api/inscricoes/checar?usuario_id=${user.id}&treinamento_id=${id}`);
           const dataInsc = await resInsc.json();
-          
+
           if (dataInsc.inscrito) {
             setEstaInscrito(true);
             setProgresso(dataInsc.progresso || 0);
@@ -77,19 +77,31 @@ export default function DetalhesCurso() {
   return (
     <div className="container-fluid pagina-usuario">
       <div className="row flex-nowrap">
-        
-        <aside className="d-none d-md-block col-md-3 col-lg-2 sidebar p-3 border-end bg-white" style={{ minHeight: "100vh" }}>
+
+        <aside className="d-none d-md-block col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: "100vh" }}>
           <ul className="list-unstyled menu sticky-top pt-3">
-            <li className="mb-3 d-flex align-items-center gap-2"><i className="bi bi-house-door"></i><span>Dashboard</span></li>
-            <li className="ativo mb-3 d-flex align-items-center gap-2"><i className="bi bi-book"></i><span>Catálogo de Treinamentos</span></li>
-            <li className="mb-3 d-flex align-items-center gap-2"><i className="bi bi-award"></i><span>Meus Treinamentos</span></li>
-            <li className="d-flex align-items-center gap-2"><i className="bi bi-person"></i><span>Meu Perfil</span></li>
+            <li className=" mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-house-door"></i>
+              <Link href={'../paginaUsuario'}><span>Dashboard</span></Link>
+            </li>
+            <li className=" ativo mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-book"></i>
+              <Link href={'../catalogo'}><span>Catálogo de Treinamentos</span></Link>
+            </li>
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-award"></i>
+              <Link href={'../meuTreinamento'}><span>Meus Treinamentos</span></Link>
+            </li>
+            <li className=" d-flex align-items-center gap-2">
+              <i className="bi bi-person"></i>
+              <Link href={'../paginaPerfil'}><span>Meu Perfil</span></Link>
+            </li>
           </ul>
         </aside>
 
         <main className="col-12 col-md-9 col-lg-10 bg-light p-0 d-flex flex-column min-vh-100">
           <div className="p-4 w-100 flex-grow-1">
-            
+
             <div className="mb-4">
               <Link href="/catalogo" className="text-decoration-none text-dark fw-semibold d-flex align-items-center gap-2">
                 <i className="bi bi-arrow-left"></i> Voltar ao Catálogo
@@ -113,16 +125,16 @@ export default function DetalhesCurso() {
                     <span><i className="bi bi-calendar-event me-2"></i>Início: {new Date(curso.data_inicio).toLocaleDateString('pt-BR')}</span>
                   </div>
                 </div>
-                
+
                 {/* ÁREA DOS BOTÕES */}
                 <div className="col-lg-3 d-flex flex-column align-items-lg-end justify-content-center gap-3">
-                  
+
                   {/* SÓ MOSTRA O BOTÃO DE INSCREVER SE A PESSOA NÃO ESTIVER INSCRITA */}
                   {!estaInscrito && (
-                    <button 
-                        className="btn btn-primary fw-bold px-4 py-2 rounded-3 w-100" 
-                        style={{ backgroundColor: "#0d6efd" }}
-                        onClick={handleInscrever} 
+                    <button
+                      className="btn btn-primary fw-bold px-4 py-2 rounded-3 w-100"
+                      style={{ backgroundColor: "#0d6efd" }}
+                      onClick={handleInscrever}
                     >
                       <i className="bi bi-plus-circle fs-5 me-2"></i> Inscrever-se
                     </button>
@@ -133,7 +145,7 @@ export default function DetalhesCurso() {
                   </button>
                 </div>
               </div>
-              
+
               {estaInscrito && (
                 <div className="mt-4">
                   <div className="d-flex justify-content-between mb-1"><small>Seu Progresso</small><small>{progresso}%</small></div>
@@ -155,7 +167,7 @@ export default function DetalhesCurso() {
             {/* GRID DINÂMICO */}
             <div className="row g-4 mb-4">
               <div className={abaAtiva === 'visao-geral' ? "col-lg-8" : "col-12"}>
-                
+
                 {abaAtiva === 'visao-geral' && (
                   <>
                     <div className="card border-0 shadow-sm rounded-4 p-4 mb-4">
@@ -174,7 +186,7 @@ export default function DetalhesCurso() {
                 {abaAtiva === 'instrutor' && (
                   <div className="card border-0 shadow-sm rounded-4 p-4 w-100">
                     <div className="d-flex align-items-center gap-3 mb-3">
-                      <div className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style={{width: 60, height: 60}}>
+                      <div className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style={{ width: 60, height: 60 }}>
                         {curso.instrutor_nome ? curso.instrutor_nome.substring(0, 2).toUpperCase() : "I"}
                       </div>
                       <div>

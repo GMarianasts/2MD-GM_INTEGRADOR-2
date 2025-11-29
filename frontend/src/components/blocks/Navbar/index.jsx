@@ -14,35 +14,74 @@ export default function Navbar() {
     return (nomes[0][0] + nomes[nomes.length - 1][0]).toUpperCase();
   };
 
+  // ===============================
+  //     MENU ADMIN (corrigido)
+  // ===============================
   const LinksAdmin = () => (
-    <ul className="list-unstyled">
-      <li className="mb-3"><Link href="/dashboardAdmin" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-house-door"></i> Dashboard</Link></li>
-      <li className="mb-3"><Link href="/gerenciar_Treinamento_admin" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-grid"></i> Gerenciar Treinamentos</Link></li>
-      <li className="mb-3"><Link href="/Relatorio" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-bar-chart"></i> Relatório Skill Gap</Link></li>
-      <li className="mb-3"><Link href="/gerenciarColaboradores" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-person"></i> Gerenciar Colaboradores</Link></li>
+    <ul className="list-unstyled menu">
+      <li className="mb-3 d-flex align-items-center gap-2">
+        <i className="bi bi-house-door"></i>
+        <Link href="/dashboardAdmin"><span>Dashboard</span></Link>
+      </li>
+
+      <li className="mb-3 d-flex align-items-center gap-2">
+        <i className="bi bi-grid"></i>
+        <Link href="/gerenciar_Treinamento_admin"><span>Gerenciar Treinamentos</span></Link>
+      </li>
+
+      <li className="mb-3 d-flex align-items-center gap-2">
+        <i className="bi bi-bar-chart"></i>
+        <Link href="/Relatorio"><span>Relatório de Skill Gap</span></Link>
+      </li>
+
+      <li className="d-flex align-items-center gap-2">
+        <i className="bi bi-person"></i>
+        <Link href="/colaboradorAdmin"><span>Gerenciar Colaboradores</span></Link>
+      </li>
     </ul>
   );
 
+  // ===============================
+  //     MENU USUÁRIO NORMAL
+  // ===============================
   const LinksUsuario = () => (
     <ul className="list-unstyled">
-      <li className="mb-3"><Link href="/paginaUsuario" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-house-door"></i> Dashboard</Link></li>
-      <li className="mb-3"><Link href="/catalogo" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-book"></i> Catálogo</Link></li>
-      <li className="mb-3"><Link href="/meuTreinamento" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-award"></i> Meus Treinamentos</Link></li>
-      <li className="mb-3"><Link href="/paginaPerfil" className="text-decoration-none text-dark d-flex align-items-center gap-2"><i className="bi bi-person"></i> Meu Perfil</Link></li>
+      <li className="mb-3 d-flex align-items-center gap-2">
+        <i className="bi bi-house-door"></i>
+        <Link href="/paginaUsuario">Dashboard</Link>
+      </li>
+
+      <li className="mb-3 d-flex align-items-center gap-2">
+        <i className="bi bi-book"></i>
+        <Link href="/catalogo">Catálogo</Link>
+      </li>
+
+      <li className="mb-3 d-flex align-items-center gap-2">
+        <i className="bi bi-award"></i>
+        <Link href="/meuTreinamento">Meus Treinamentos</Link>
+      </li>
+
+      <li className="d-flex align-items-center gap-2">
+        <i className="bi bi-person"></i>
+        <Link href="/paginaPerfil">Meu Perfil</Link>
+      </li>
     </ul>
   );
 
   return (
     <>
-      <nav className="navbar bg-white border-bottom px-3 py-2 d-flex justify-content-between align-items-center sticky-top" style={{zIndex: 1040}}>
+      {/* ============================================ */}
+      {/* NAVBAR SUPERIOR */}
+      {/* ============================================ */}
+
+      <nav className="navbar bg-white border-bottom px-3 py-2 d-flex justify-content-between align-items-center sticky-top" style={{ zIndex: 1040 }}>
 
         <div className="d-flex align-items-center">
-          
           {user && (
-            <button 
-              className="btn d-md-none me-2 border-0 p-1" 
-              type="button" 
-              data-bs-toggle="offcanvas" 
+            <button
+              className="btn d-md-none me-2 border-0 p-1"
+              type="button"
+              data-bs-toggle="offcanvas"
               data-bs-target="#menuMobile"
             >
               <i className="bi bi-list fs-1 text-dark"></i>
@@ -50,9 +89,9 @@ export default function Navbar() {
           )}
 
           <img
-            src="/General_Motors_(2021).svg.png" 
+            src="/General_Motors_(2021).svg.png"
             alt="Logo"
-            style={{ height: 35, width: 'auto' }}
+            style={{ height: 35, width: "auto" }}
           />
           <span
             className="ms-2 fw-semibold"
@@ -62,8 +101,8 @@ export default function Navbar() {
           </span>
         </div>
 
+        {/* Perfil + Notificações */}
         <div className="d-flex align-items-center">
-          
           {user ? (
             <>
               <button className="btn position-relative me-3 border-0">
@@ -102,23 +141,25 @@ export default function Navbar() {
                       {user.email}
                     </h6>
                   </li>
+
                   <li><hr className="dropdown-divider" /></li>
+
                   <li>
                     <Link className="dropdown-item" href="/paginaPerfil">
                       <i className="bi bi-person me-2"></i> Perfil
                     </Link>
                   </li>
+
                   <li>
                     <a className="dropdown-item" href="#">
                       <i className="bi bi-gear me-2"></i> Configurações
                     </a>
                   </li>
+
                   <li><hr className="dropdown-divider" /></li>
+
                   <li>
-                    <button 
-                      className="dropdown-item text-danger" 
-                      onClick={logout}
-                    >
+                    <button className="dropdown-item text-danger" onClick={logout}>
                       <i className="bi bi-box-arrow-right me-2"></i> Sair
                     </button>
                   </li>
@@ -130,21 +171,29 @@ export default function Navbar() {
               Fazer Login
             </Link>
           )}
-
         </div>
       </nav>
+
+      {/* ============================================ */}
+      {/* MENU MOBILE (OFFCANVAS) */}
+      {/* ============================================ */}
 
       <div className="offcanvas offcanvas-start" tabIndex="-1" id="menuMobile" aria-labelledby="menuMobileLabel">
         <div className="offcanvas-header border-bottom">
           <h5 className="offcanvas-title fw-bold" id="menuMobileLabel" style={{ color: "#0d3b66" }}>GM | Ignite</h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+
         <div className="offcanvas-body">
+
           {user && (
-             (user.tipo === 'admin' || user.tipo === 'Administrador') ? <LinksAdmin /> : <LinksUsuario />
+            user.tipo === "admin" || user.tipo === "Administrador"
+              ? <LinksAdmin />
+              : <LinksUsuario />
           )}
-          
-          <hr className="my-4"/>
+
+          <hr className="my-4" />
+
           <button className="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2" onClick={logout}>
             <i className="bi bi-box-arrow-right"></i> Sair
           </button>

@@ -1,4 +1,5 @@
 import InscricaoModel from "../models/InscricaoModel.js";
+import { getConnection } from "../config/database.js";
 
 class InscricaoController {
 
@@ -50,6 +51,46 @@ class InscricaoController {
                 sucesso: false, 
                 erro: "Erro ao buscar treinamentos do usuário." 
             });
+        }
+    }
+
+    // Marcar inscrição como Concluída
+    static async concluir(req, res) {
+        let conn;
+        try {
+            const { id } = req.params; // O ID que vem da URL
+
+            // Validação simples
+            if (!id || id === 'undefined') {
+                return res.status(400).json({ erro: "ID da inscrição inválido." });
+            }
+
+            conn = await getConnection();
+
+            // Atualiza status e data
+            const sql = `
+                UPDATE inscricoes 
+                SET status = 'Concluído', data_conclusao = NOW() 
+                WHERE id = ?
+            `;
+            
+            const [result] = await conn.query(sql, [id]);
+            
+            // Verifica se alguma linha foi afetada
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ erro: "Inscrição não encontrada ou já concluída." });
+            }
+
+            return res.status(200).json({ 
+                sucesso: true, 
+                mensagem: "Parabéns! Curso concluído." 
+            });
+
+        } catch (error) {
+            console.error("Erro ao concluir:", error);
+            return res.status(500).json({ erro: "Erro ao concluir curso" });
+        } finally {
+            if (conn) conn.release();
         }
     }
 

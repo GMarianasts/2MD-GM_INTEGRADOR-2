@@ -12,48 +12,50 @@ export default function DashboardHistorico() {
             <div className="row g-0">
 
                 {/* ===== SIDEBAR ===== */}
-                <aside className="col-12 col-md-3 col-lg-2 sidebar">
+                <aside className="sidebar col-12 col-md-3 col-lg-2 p-3">
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
                             <Link href="/dashboardAdmin"><span>Dashboard</span></Link>
                         </li>
+
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-grid"></i>
-                            <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
+                            <Link href="/gerenciar_Treinamento_admin"><span>Gerenciar Treinamentos</span></Link>
                         </li>
+
                         <li className="mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-bar-chart"></i>
-                            <Link href={'Relatorio'}><span>Relatório de Skill Gap</span></Link>
+                            <Link href="/Relatorio"><span>Relatório de Skill Gap</span></Link>
                         </li>
+
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
-                            <Link href={'colaboradorAdmin'}></Link><span>Gerenciar Colaboradores</span>
+                            <Link href="/colaboradorAdmin"><span>Gerenciar Colaboradores</span></Link>
                         </li>
                     </ul>
                 </aside>
 
                 {/* ===== CONTEÚDO PRINCIPAL ===== */}
-                <main className="col-12 col-md-9 col-lg-10 px-4 py-4 w-100">
+                <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
 
                     <div className="corPagina">
 
-                        <section className="introducao mb-4" style={{ marginRight: 0 }}>
-
+                        {/* NAV DE TROCA DE PÁGINA */}
+                        <section className="introducao mb-4">
                             <div className="trocaPagina">
-                                <ul className="nav nav-pills nav-fill">
+                                <ul className="nav nav-pills nav-fill flex-column flex-sm-row">
                                     <li className="nav-item">
-                                        <Link className="nav-link" href={'dashboardAdmin'}>Dashboard</Link>
+                                        <Link className="nav-link" href="/dashboardAdmin">Dashboard</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link href={'inscricoesAdmin'} className="nav-link">Inscrições</Link>
+                                        <Link className="nav-link" href="/inscricoesAdmin">Inscrições</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link href={'historicoAdmin'} className="nav-link active">Histórico</Link>
+                                        <Link className="nav-link active" href="/historicoAdmin">Histórico</Link>
                                     </li>
                                 </ul>
                             </div>
-
                         </section>
 
                         {/* CONTEÚDO */}
@@ -67,6 +69,7 @@ export default function DashboardHistorico() {
 
                     </div>
                 </main>
+
             </div>
         </div>
     );

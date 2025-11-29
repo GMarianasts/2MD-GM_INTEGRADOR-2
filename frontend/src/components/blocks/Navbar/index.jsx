@@ -105,13 +105,6 @@ export default function Navbar() {
         <div className="d-flex align-items-center">
           {user ? (
             <>
-              <button className="btn position-relative me-3 border-0">
-                <i className="bi bi-bell fs-5 text-secondary"></i>
-                <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                  <span className="visually-hidden">Novas notificações</span>
-                </span>
-              </button>
-
               <div className="dropdown">
                 <button
                   className="btn d-flex align-items-center dropdown-toggle border-0"

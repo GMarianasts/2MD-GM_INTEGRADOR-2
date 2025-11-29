@@ -97,7 +97,8 @@ export default function DetalhesCurso() {
               <Link href={'../paginaPerfil'}><span>Meu Perfil</span></Link>
             </li>
           </ul>
-        </aside>
+        </aside> 
+        
 
         <main className="col-12 col-md-9 col-lg-10 bg-light p-0 d-flex flex-column min-vh-100">
           <div className="p-4 w-100 flex-grow-1">

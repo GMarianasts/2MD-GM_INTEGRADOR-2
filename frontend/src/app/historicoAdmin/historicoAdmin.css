@@ -1,151 +1,75 @@
-/* ================================
-   CONFIGURAÇÕES GERAIS
-================================ */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  background-color: #f6f8ff;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:hover {
-  color: white;
-}
-
-/* ================================
-   SIDEBAR
-================================ */
+/* Sidebar geral */
 .sidebar {
-  width: 260px;
-  background-color: #fff;
-  border-right: 1px solid #e6e6e6;
-  padding: 20px 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: sticky;
-  top: 0;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    border-right: 1px solid #ddd;
+    padding-top: 20px;
 }
 
+/* MENU */
 .menu li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.menu li:hover {
-  background-color: #e9efff;
-  color: #0a2b6b;
+.menu li a {
+    text-decoration: none;
+    color: #333;
 }
 
-.menu li.ativo {
-  background-color: #0a2b6b;
-  color: #fff;
-  font-weight: 500;
+.menu li.ativo a {
+    font-weight: bold;
+    color: #ffffff;
 }
 
-/* ================================
-   NAVEGAÇÃO SUPERIOR (TROCA PÁGINA)
-================================ */
-.trocaPagina {
-  width: 100%;
-  background-color: #f1f1f5;
-  border-radius: 20px;
-  padding: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+/* Ajuste para o conteúdo */
+.conteudo {
+    background-color: #ffffff;
+    min-height: 100vh;
 }
 
-.trocaPagina .nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
+/* =====================
+      RESPONSIVIDADE
+===================== */
+
+/* MOBILE — Sidebar vira barra horizontal */
+@media (max-width: 767px) {
+
+    .sidebar {
+        min-height: auto !important;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+    }
+
+    .menu {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu li {
+        margin-bottom: 0 !important;
+    }
+
+    .menu li span {
+        display: none; /* mostra só ícones no mobile */
+    }
 }
 
-.trocaPagina .nav-item {
-  flex: 1 1 0;
-  text-align: center;
+/* Tablets: mostra texto e layout lateral */
+@media (min-width: 768px) and (max-width: 991px) {
+    .sidebar {
+        min-height: 100vh;
+    }
 }
 
-.nav-pills .nav-link {
-  color: #000 !important;
-  background: transparent !important;
-  border-radius: 15px !important;
-  font-weight: 500;
-  font-size: 14px;
-  padding: 8px 12px;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-.nav-pills .nav-link.active {
-  background-color: #fff !important;
-  color: #000 !important;
-  font-weight: 600;
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.06) inset;
-}
-
-.nav-pills .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.6) !important;
-}
-
-/* ================================
-   ÁREA SUPERIOR (INTRODUÇÃO)
-================================ */
-.introducao {
-  margin-right: 0 !important;
-  width: 100%;
-}
-
-/* ================================
-   BARRA DE BUSCA — FULL WIDTH
-================================ */
-.search-container {
-  width: 100% !important;
-  max-width: 100% !important;
-  height: 48px;
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid #e4e7ec;
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding-left: 45px;
-  margin-left: 0 !important;
-}
-
-.search-container .search-icon {
-  position: absolute;
-  left: 16px;
-  font-size: 18px;
-  color: #7d8da0;
-}
-
-.search-input {
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  background: transparent;
-}
-
-/* ================================
-   CONTEÚDO PRINCIPAL
-================================ */
-main.col-12.col-md-9.col-lg-10 {
-  width: 100% !important;
-  max-width: 100% !important;
+/* Nav Pills se empilham no mobile */
+@media (max-width: 576px) {
+    .nav-pills .nav-link {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

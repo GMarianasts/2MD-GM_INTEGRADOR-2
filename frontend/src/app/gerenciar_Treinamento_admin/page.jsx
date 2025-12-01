@@ -17,7 +17,7 @@ export default function GerenciadorTreinamento() {
 
     const [filtroStatus, setFiltroStatus] = useState('');
     const [filtroModalidade, setFiltroModalidade] = useState('');
-    const [mostrarFiltros, setMostrarFiltros] = useState(false); // Para controlar o dropdown de filtros
+    const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
     const [estatisticas, setEstatisticas] = useState({
         total: 0,
@@ -33,7 +33,7 @@ export default function GerenciadorTreinamento() {
         const instrutorMatch = item.instrutor_nome?.toLowerCase().includes(termo);
         const competenciaMatch = item.competencias?.some(comp => comp.toLowerCase().includes(termo));
 
-        // Filtros adicionais
+        
         const statusMatch = filtroStatus ? item.status.toLowerCase() === filtroStatus.toLowerCase() : true;
         const modalidadeMatch = filtroModalidade ? item.modalidade.toLowerCase() === filtroModalidade.toLowerCase() : true;
 
@@ -191,7 +191,7 @@ export default function GerenciadorTreinamento() {
                         </button>
                     </div>
 
-                    {/* Barra de Pesquisa */}
+                   
                     <div className="pesquisa">
                         <input
                             type="text"
@@ -199,7 +199,7 @@ export default function GerenciadorTreinamento() {
                             value={busca}
                             onChange={(e) => setBusca(e.target.value)}
                         />
-                        {/* Botão de Filtros */}
+               
                         <button
                             className="btn-filtros"
                             onClick={() => setMostrarFiltros(!mostrarFiltros)}
@@ -208,7 +208,7 @@ export default function GerenciadorTreinamento() {
                         </button>
                     </div>
 
-                    {/* Filtros Dropdown */}
+                    
                     {mostrarFiltros && (
                         <div className="filtro-dropdown">
                             <select
@@ -233,7 +233,7 @@ export default function GerenciadorTreinamento() {
                         </div>
                     )}
 
-                    {/* Restante do conteúdo, como a tabela */}
+                    
                     <div className="row g-3 mt-3">
                         <div className="col-12">
                             <div className="card1 border rounded-4 bg-white shadow-sm">

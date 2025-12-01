@@ -5,7 +5,6 @@ body {
     padding: 0;
     overflow-y: auto;
     background-color: #f6f8ff;
-    /* garante rolagem geral da página */
 }
 
 a {
@@ -140,13 +139,11 @@ a:hover {
     margin: auto;
 }
 
-/* Ajuste da coluna esquerda e direita */
 .pagina-usuario .row {
     margin: 0;
     width: 100%;
 }
 
-/* ajuste dos cards na esquerda*/
 .pagina-usuario main {
     width: 100%;
     flex: 1;
@@ -154,11 +151,10 @@ a:hover {
 
 /* Buscar */
 
-/* Wrapper para fazer ocupar a largura total */
+
 .search-wrapper {
     width: 100%;
     padding: 0 20px;
-    /* mesmo espaçamento lateral dos menus */
     display: flex;
     justify-content: center;
     align-items: center;

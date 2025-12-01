@@ -1,25 +1,23 @@
-/* evita que todos os links virem branco no hover */
+
 a:hover { color: inherit; }
 
-/* para páginas que usam .pagina-dashboardInscricoes (se preferir, mude o JSX para usar .pagina-usuario) */
-.pagina-dashboardInscricoes,
+
 .pagina-usuario {
   display: flex;
-  min-height: 100vh;    /* ocupa altura total da viewport */
+  min-height: 100vh;   
   width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* garante que a estrutura da row não quebre quando usar bootstrap */
 .pagina-dashboardInscricoes .row,
 .pagina-usuario .row {
   width: 100%;
   margin: 0;
-  flex-wrap: nowrap; /* sidebar + main lado a lado */
+  flex-wrap: nowrap; 
 }
 
-/* SIDEBAR: ocupa toda a altura e fica fixa (sticky) */
+
 .pagina-dashboardInscricoes .sidebar,
 .pagina-usuario .sidebar {
   width: 260px;
@@ -31,7 +29,7 @@ a:hover { color: inherit; }
   z-index: 5;
 }
 
-/* MAIN: ocupa o restante do espaço e tem fundo igual ao dashboard */
+
 .pagina-dashboardInscricoes main,
 .pagina-usuario main {
   flex: 1 1 auto;
@@ -45,7 +43,7 @@ a:hover { color: inherit; }
   overflow: visible;
 }
 
-/* quando usar container-fluid dentro da pagina, garanta largura total do conteúdo */
+
 .pagina-dashboardInscricoes .container-fluid,
 .pagina-usuario .container-fluid {
   width: 100%;
@@ -53,21 +51,19 @@ a:hover { color: inherit; }
   padding-right: 0;
 }
 
-/* Alinha corretamente a área de nav/pills (troca de página) */
 .pagina-dashboardInscricoes .introducao,
 .pagina-usuario .introducao {
   width: 100%;
   padding-right: 0;
 }
 
-/* fixa largura máxima dos cards/busca como no dashboard */
+
 .pagina-dashboardInscricoes .search-container,
 .pagina-usuario .search-container {
   max-width: 1400px;
   margin-left: 0;
 }
 
-/* garante responsividade dos cards (mesmo comportamento do dashboard) */
 .pagina-dashboardInscricoes .cards-wrapper .card-info,
 .pagina-usuario .cards-wrapper .card-info {
   height: 150px;

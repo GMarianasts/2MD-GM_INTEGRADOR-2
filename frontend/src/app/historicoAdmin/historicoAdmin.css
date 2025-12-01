@@ -22,17 +22,13 @@
     color: #ffffff;
 }
 
-/* Ajuste para o conteúdo */
+
 .conteudo {
     background-color: #ffffff;
     min-height: 100vh;
 }
 
-/* =====================
-      RESPONSIVIDADE
-===================== */
 
-/* MOBILE — Sidebar vira barra horizontal */
 @media (max-width: 767px) {
 
     .sidebar {
@@ -55,18 +51,17 @@
     }
 
     .menu li span {
-        display: none; /* mostra só ícones no mobile */
+        display: none; 
     }
 }
 
-/* Tablets: mostra texto e layout lateral */
 @media (min-width: 768px) and (max-width: 991px) {
     .sidebar {
         min-height: 100vh;
     }
 }
 
-/* Nav Pills se empilham no mobile */
+
 @media (max-width: 576px) {
     .nav-pills .nav-link {
         width: 100%;

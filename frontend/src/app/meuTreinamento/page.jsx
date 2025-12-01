@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAuth } from "@/context/AuthContext";
 import ResumoCard from '@/components/componentsMeusTreinamentos/ResumoCard';
 import TabsTreinamento from '@/components/componentsMeusTreinamentos/TabsTreinamento';
-import CardEmAndamento from '@/components/componentsMeusTreinamentos/CardemAndamento'; // Atenção ao nome do arquivo na sua imagem
+import CardEmAndamento from '@/components/componentsMeusTreinamentos/CardemAndamento';
 import CardConcluido from '@/components/componentsMeusTreinamentos/CardConcluido';
 import './meutreinamento.css';
 
@@ -45,7 +45,7 @@ export default function MeuTreinamentosPage() {
         
         if (res.ok) {
           alert("Curso concluído!");
-          window.location.reload(); // Atualiza a página para mostrar na aba certa
+          window.location.reload(); 
         } else {
           alert("Erro ao concluir.");
         }
@@ -62,7 +62,7 @@ export default function MeuTreinamentosPage() {
   const cursosEmAndamento = meusCursos.filter(c => statusAtivos.includes(c.status));
   const cursosConcluidos = meusCursos.filter(c => statusConcluidos.includes(c.status));
 
-  // Dados para os Cards de Resumo
+
   const totalCursos = meusCursos.length;
   const taxa = totalCursos > 0 ? Math.round((cursosConcluidos.length / totalCursos) * 100) : 0;
 
@@ -84,24 +84,24 @@ export default function MeuTreinamentosPage() {
         );
     }
 
-// ... trecho do renderContent ...
+
     if (activeTab === 'Concluídos') {
         return cursosConcluidos.length > 0 
-          // A chave (key) vai na div da coluna, o dado (t) vai no Card
+        
           ? <div className="row g-3">{cursosConcluidos.map((t) => <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4"><CardConcluido t={t} /></div>)}</div>
           : <div className="text-center py-4 text-muted">Nenhum curso concluído ainda.</div>;
     }
 
 
-    // Padrão: Em Andamento
+
     return cursosEmAndamento.length > 0
   ? <div className="row g-3">
       {cursosEmAndamento.map((t) => (
         <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4">
           
-          {/* --- ALTERE APENAS ESTA LINHA AQUI EMBAIXO --- */}
+       
           <CardEmAndamento t={t} onConcluir={handleConcluir} /> 
-          {/* --------------------------------------------- */}
+      
 
         </div>
       ))}
@@ -130,7 +130,7 @@ export default function MeuTreinamentosPage() {
           <h2 className="h4 fw-bold mb-2" style={{ color: "#0a2b6b" }}>Meus Treinamentos</h2>
           <p className="text-secondary mb-4">Acompanhe seu progresso e histórico de aprendizado.</p>
 
-          {/* Cards de Resumo (Componente) */}
+        
           <div className="row row-cols-1 row-cols-md-3 g-3 mb-4">
             {resumoData.map((item, index) => (
               <div key={index} className="col">
@@ -139,7 +139,7 @@ export default function MeuTreinamentosPage() {
             ))}
           </div>
           
-          {/* Abas (Componente) */}
+        
           <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
 
           <div className="mt-4">

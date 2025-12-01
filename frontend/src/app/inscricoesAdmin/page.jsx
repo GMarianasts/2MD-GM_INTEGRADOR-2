@@ -34,20 +34,20 @@ export default function DashboardInscricoes() {
 
                 <main className="col-12 col-md-9 px-4 py-4">
                     <section className="introducao mb-4">
-                        <div className="trocaPagina">
-                            <ul className="nav nav-pills nav-fill">
-                                <li className="nav-item">
-                                    <Link className="nav-link" aria-current="page" href="/dashboardAdmin">Dashboard</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link active" href="/inscricoesAdmin">Inscrições</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" href="/historicoAdmin" aria-disabled="true">Histórico</Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
+                                                <div className="trocaPagina">
+                                                    <ul className="nav nav-pills nav-fill flex-column flex-sm-row">
+                                                        <li className="nav-item">
+                                                            <Link className="nav-link" href="/dashboardAdmin">Dashboard</Link>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <Link className="nav-link active" href="/inscricoesAdmin">Inscrições</Link>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <Link className="nav-link" href="/historicoAdmin">Histórico</Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </section>
 
                     <div className="container-fluid my-2">
                         <div className="row g-3">

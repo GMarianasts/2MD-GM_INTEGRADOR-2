@@ -113,7 +113,7 @@ useEffect(() => {
           <ul className="list-unstyled menu">
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-house-door"></i>
-              <span>Dashboard</span>
+              <Link href={'paginaUsuario'}><span>Dashboard</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-book"></i>

@@ -99,7 +99,7 @@ export default function MeuTreinamentosPage() {
           </div>
         ))}
       </div>
-      : <div className="text-center py-4 text-muted">Nenhum curso em andamento.</div>;
+      : <div className="text-center py-4 text-muted">Nenhum curso em andamento</div>;
   };
 
   if (!user) return <div className="p-5 text-center">Faça login para ver seus cursos.</div>;

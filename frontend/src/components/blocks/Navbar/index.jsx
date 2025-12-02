@@ -171,13 +171,7 @@ export default function Navbar() {
                       <i className="bi bi-person me-2"></i> Perfil
                     </Link>
                   </li>
-
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="bi bi-gear me-2"></i> Configurações
-                    </a>
-                  </li>
-
+                  
                   <li>
                     <hr className="dropdown-divider" />
                   </li>

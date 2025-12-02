@@ -223,11 +223,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="curso-direita">
-                                        <p className="vagas">28/30</p>
-                                        <button className="status-quase">Quase Lotado</button>
-                                    </div>
                                 </div>
 
                                 <div className="curso-item col-12">
@@ -243,11 +238,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                                                 <span className="nivel">• Instrutor: Ana Paula</span>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div className="curso-direita">
-                                        <p className="vagas">45/50</p>
-                                        <button className="status-quase">Quase Lotado</button>
                                     </div>
                                 </div>
 
@@ -265,11 +255,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="curso-direita">
-                                        <p className="vagas">32/40</p>
-                                        <button className="status-disponivel">Vagas Disponíveis</button>
-                                    </div>
                                 </div>
 
                                 <div className="curso-item col-12">
@@ -285,11 +270,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                                                 <span className="nivel">• Instrutor: Maria Santos</span>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div className="curso-direita">
-                                        <p className="vagas">18/25</p>
-                                        <button className="status-disponivel">Vagas Disponíveis</button>
                                     </div>
                                 </div>
 

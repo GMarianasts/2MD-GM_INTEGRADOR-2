@@ -272,7 +272,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-y: auto;
+  background-color: #f6f8ff;
 }
 
 a {
@@ -133,7 +134,7 @@ a:hover {
 }
 
 .card-info.verde .icon {
-  padding: 15px;
+  padding: 30px;
   border-radius: 10px;
   background-color: #eafaf1;
   color: #1ea672;

@@ -422,6 +422,46 @@ a:hover {
   }
 }
 
+.pagina-usuario .row.cards-iniciais {
+  justify-content: center !important;
+}
+
+/* Centralizar os cards iniciais */
+.row-cards {
+    display: flex;
+    justify-content: center !important;
+    gap: 20px;
+}
+
+/* Garantir que cada card sempre tenha tamanho uniforme */
+.row-cards .col-12,
+.row-cards .col-sm-6,
+.row-cards .col-md-4,
+.row-cards .col-lg-3 {
+    max-width: 330px;
+}
+
+/* Linha dos cards ocupando 100% da largura */
+.row-cards {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Cada card expande igualmente */
+.row-cards .col-12,
+.row-cards .col-md-4 {
+    flex: 1;               /* ocupa todo espaço disponível */
+    max-width: none !important;
+}
+
+/* Ajuste para o conteúdo interno do card preencher */
+.card-info {
+    height: 150px;
+    width: 100%;
+}
+
 /* 📱 CELULARES PEQUENOS (Abaixo de 576px) */
 @media (max-width: 576px) {
     /* Lista de Cursos: Ícone em cima, texto no meio, botão embaixo */

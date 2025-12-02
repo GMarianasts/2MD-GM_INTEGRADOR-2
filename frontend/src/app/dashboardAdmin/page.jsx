@@ -111,7 +111,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                     {/* CARDS INICIAIS RESPONSIVOS */}
                     <div className="row g-3 row-cards mt-3">
 
-                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                          <div className="col-12 col-md-4">
                             <div className="card-info azul">
                                 <div>
                                     <p className="titulo">Treinamentos Ativos</p>
@@ -121,7 +121,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                             </div>
                         </div>
 
-                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                          <div className="col-12 col-md-4">
                             <div className="card-info laranja">
                                 <div>
                                     <p className="titulo">Colaboradores Inscritos</p>
@@ -132,7 +132,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                             </div>
                         </div>
 
-                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                          <div className="col-12 col-md-4">
                             <div className="card-info roxo">
                                 <div>
                                     <p className="titulo">Taxa de Conclusão</p>

@@ -1,4 +1,3 @@
-
 html,
 body {
     height: 100%;
@@ -15,11 +14,6 @@ a {
 
 a:hover {
     color: white;
-}
-
-.pagina-usuario {
-    display: flex;
-    min-height: 100%;
 }
 
 /* Sidebar */

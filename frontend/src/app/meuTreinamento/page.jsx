@@ -42,10 +42,10 @@ export default function MeuTreinamentosPage() {
         const res = await fetch(`http://localhost:3001/api/inscricoes/${inscricaoId}/concluir`, {
           method: 'PUT'
         });
-        
+
         if (res.ok) {
           alert("Curso concluído!");
-          window.location.reload(); 
+          window.location.reload();
         } else {
           alert("Erro ao concluir.");
         }
@@ -76,37 +76,30 @@ export default function MeuTreinamentosPage() {
     if (loading) return <div className="text-center py-5">Carregando...</div>;
 
     if (meusCursos.length === 0) {
-        return (
-            <div className="text-center py-5">
-                <p className="text-muted">Você ainda não se inscreveu em nenhum curso.</p>
-                <Link href="/catalogo" className="btn btn-primary" style={{backgroundColor: '#0a2b6b'}}>Ir para o Catálogo</Link>
-            </div>
-        );
+      return (
+        <div className="text-center py-5">
+          <p className="text-muted">Você ainda não se inscreveu em nenhum curso.</p>
+          <Link href="/catalogo" className="btn btn-primary" style={{ backgroundColor: '#0a2b6b' }}>Ir para o Catálogo</Link>
+        </div>
+      );
     }
-
 
     if (activeTab === 'Concluídos') {
-        return cursosConcluidos.length > 0 
-        
-          ? <div className="row g-3">{cursosConcluidos.map((t) => <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4"><CardConcluido t={t} /></div>)}</div>
-          : <div className="text-center py-4 text-muted">Nenhum curso concluído ainda.</div>;
+      return cursosConcluidos.length > 0
+
+        ? <div className="row g-3">{cursosConcluidos.map((t) => <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4"><CardConcluido t={t} /></div>)}</div>
+        : <div className="text-center py-4 text-muted">Nenhum curso concluído ainda.</div>;
     }
 
-
-
     return cursosEmAndamento.length > 0
-  ? <div className="row g-3">
-      {cursosEmAndamento.map((t) => (
-        <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4">
-          
-       
-          <CardEmAndamento t={t} onConcluir={handleConcluir} /> 
-      
-
-        </div>
-      ))}
-    </div>
-  : <div className="text-center py-4 text-muted">Nenhum curso em andamento.</div>;
+      ? <div className="row g-3">
+        {cursosEmAndamento.map((t) => (
+          <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4">
+            <CardEmAndamento t={t} onConcluir={handleConcluir} />
+          </div>
+        ))}
+      </div>
+      : <div className="text-center py-4 text-muted">Nenhum curso em andamento.</div>;
   };
 
   if (!user) return <div className="p-5 text-center">Faça login para ver seus cursos.</div>;
@@ -114,32 +107,42 @@ export default function MeuTreinamentosPage() {
   return (
     <div className="container-fluid pagina-treinamentos bg-light min-vh-100">
       <div className="row flex-nowrap">
-        
+
         {/* Sidebar */}
-        <aside className="d-none d-md-block col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: "100vh" }}>
-            <div className="mb-4 px-2"><span className="h5 fw-bold mb-0" style={{ color: "#0a2b6b" }}>GM | Ignite</span></div>
-            <ul className="list-unstyled menu sticky-top pt-3">
-              <li className="mb-3 d-flex align-items-center gap-2"><i className="bi bi-house-door"></i><Link href="/paginaUsuario" className="text-decoration-none text-dark"><span>Dashboard</span></Link></li>
-              <li className="mb-3 d-flex align-items-center gap-2"><i className="bi bi-book"></i><Link href="/catalogo" className="text-decoration-none text-dark"><span>Catálogo</span></Link></li>
-              <li className="ativo mb-3 d-flex align-items-center gap-2" style={{color: '#0a2b6b', fontWeight: 'bold'}}><i className="bi bi-award"></i><span>Meus Treinamentos</span></li>
-              <li className="d-flex align-items-center gap-2"><i className="bi bi-person"></i><Link href="/paginaPerfil" className="text-decoration-none text-dark"><span>Meu Perfil</span></Link></li>
-            </ul>
+        <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+          <ul className="list-unstyled menu">
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-house-door"></i>
+              <span>Dashboard</span>
+            </li>
+            <li className="mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-book"></i>
+              <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
+            </li>
+            <li className="ativo mb-3 d-flex align-items-center gap-2">
+              <i className="bi bi-award"></i>
+              <Link href={'meuTreinamento'}><span>Meus Treinamentos</span></Link>
+            </li>
+            <li className="d-flex align-items-center gap-2">
+              <i className="bi bi-person"></i>
+              <Link href={'paginaPerfil'}><span>Meu Perfil</span></Link>
+            </li>
+          </ul>
         </aside>
 
         <main className="col-12 col-md-9 col-lg-10 px-4 py-4">
           <h2 className="h4 fw-bold mb-2" style={{ color: "#0a2b6b" }}>Meus Treinamentos</h2>
           <p className="text-secondary mb-4">Acompanhe seu progresso e histórico de aprendizado.</p>
 
-        
+
           <div className="row row-cols-1 row-cols-md-3 g-3 mb-4">
             {resumoData.map((item, index) => (
               <div key={index} className="col">
-                  <ResumoCard title={item.title} value={item.value} icon={item.icon} color={item.color} bg={item.bg} />
+                <ResumoCard title={item.title} value={item.value} icon={item.icon} color={item.color} bg={item.bg} />
               </div>
             ))}
           </div>
-          
-        
+
           <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
 
           <div className="mt-4">

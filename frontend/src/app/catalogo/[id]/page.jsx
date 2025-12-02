@@ -51,6 +51,11 @@ export default function DetalhesCurso() {
   const handleInscrever = async () => {
     if (!user) return alert("Faça login para se inscrever.");
 
+    if (estaInscrito) {
+      alert("Você já está participando deste curso.");
+      return;
+    }
+
     try {
       const res = await fetch("http://localhost:3001/api/inscricoes", {
         method: "POST",
@@ -63,11 +68,17 @@ export default function DetalhesCurso() {
         setEstaInscrito(true);
         setProgresso(0);
       } else {
-        const erro = await res.json();
-        alert("Erro: " + erro.mensagem);
+        const erro = await res.json().catch(() => ({}));
+        if (res.status === 409 || res.status === 400 || (erro.mensagem && erro.mensagem.includes('inscrito'))) {
+          alert("Aviso: Você já está inscrito neste curso!");
+          setEstaInscrito(true);
+        } else {
+          alert("Erro: " + (erro.mensagem || "Não foi possível realizar a inscrição. Tente novamente."));
+        }
       }
     } catch (error) {
-      alert("Erro de conexão.");
+      console.error(error);
+      alert("Erro de conexão. Verifique se o servidor está rodando.");
     }
   };
 
@@ -97,8 +108,8 @@ export default function DetalhesCurso() {
               <Link href={'../paginaPerfil'}><span>Meu Perfil</span></Link>
             </li>
           </ul>
-        </aside> 
-        
+        </aside>
+
 
         <main className="col-12 col-md-9 col-lg-10 bg-light p-0 d-flex flex-column min-vh-100">
           <div className="p-4 w-100 flex-grow-1">

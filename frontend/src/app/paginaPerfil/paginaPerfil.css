@@ -466,6 +466,16 @@ p {
     color: white;
 }
 
+.info-detalhes {
+  display: flex;
+  gap: 20px;
+}
+
+.info-detalhes > div {
+  flex: 1;
+}
+
+
 .valor-meta {
     font-weight: 400;
     color: #666;

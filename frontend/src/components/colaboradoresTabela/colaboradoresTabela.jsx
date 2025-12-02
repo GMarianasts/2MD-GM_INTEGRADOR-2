@@ -8,6 +8,17 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const getIniciais = (nome) => {
+    if (!nome) return "U";
+    const partes = nome.trim().split(" ");
+
+    if (partes.length === 1) {
+      return partes[0].substring(0, 2).toUpperCase();
+    }
+
+    return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+  };
+
   const carregarDados = async () => {
     try {
       const response = await fetch("http://localhost:3001/api/usuarios");
@@ -26,7 +37,6 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
     carregarDados();
   }, []);
 
-  // 🔍 filtro
   const colaboradoresFiltrados = colaboradores.filter((c) => {
     const termo = searchTerm.toLowerCase();
     return (
@@ -65,7 +75,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
           <thead className="table-light">
             <tr>
               <th className="ps-4">Colaborador</th>
-              <th>Departamento</th>
+             <th className="ps-5">Departamento</th>
               <th>Cargo</th>
               <th>Unidade</th>
               <th>Acesso</th>
@@ -91,7 +101,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                   <td className="ps-4">
                     <div className="d-flex align-items-center">
                       <div
-                        className="rounded-circle d-flex justify-content-center align-items-center text-white fw-bold"
+                        className="rounded-circle d-flex justify-content-center align-items-center text-white fw-bold flex-shrink-0"
                         style={{
                           width: "40px",
                           height: "40px",
@@ -99,7 +109,8 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                           fontSize: "0.9rem",
                         }}
                       >
-                        {c.nome ? c.nome.substring(0, 2).toUpperCase() : "U"}
+                        {getIniciais(c.nome)}
+
                       </div>
 
                       <div className="ms-3">
@@ -109,7 +120,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                     </div>
                   </td>
 
-                  <td>
+                 <td className="ps-5">
                     <span className="badge bg-light text-dark border">{c.departamento}</span>
                   </td>
 

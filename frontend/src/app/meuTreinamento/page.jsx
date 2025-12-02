@@ -129,7 +129,7 @@ export default function MeuTreinamentosPage() {
           </ul>
         </aside>
 
-        <main className="col-12 col-md-9 col-lg-10 px-4 py-4">
+        <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
           <h2 className="h4 fw-bold mb-2" style={{ color: "#0a2b6b" }}>Meus Treinamentos</h2>
           <p className="text-secondary mb-4">Acompanhe seu progresso e histórico de aprendizado.</p>
 

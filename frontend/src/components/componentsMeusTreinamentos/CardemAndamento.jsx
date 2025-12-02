@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // Recebemos a prop 'onConcluir'
 export default function CardemAndamento({ t, onConcluir }) {
 
@@ -7,6 +9,8 @@ export default function CardemAndamento({ t, onConcluir }) {
     if (!dataISO) return 'Sem prazo';
     return new Date(dataISO).toLocaleDateString('pt-BR');
   };
+
+  const cursoId = t.curso_id;
 
   return (
     <div className="card card-em-andamento border-0 shadow-sm rounded-4 p-4 mb-3">
@@ -24,9 +28,13 @@ export default function CardemAndamento({ t, onConcluir }) {
 
       <div className="mt-4 d-flex gap-2 flex-wrap">
         {/* Botão Existente */}
-        <button className="btn btn-outline-primary rounded-3 px-4">
-          Continuar Estudando
-        </button>
+        <Link 
+            href={`/catalogo/${cursoId}`} 
+            className="btn btn-primary text-white flex-grow-1 fw-medium"
+            style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}
+          >
+            Continuar Estudando
+          </Link>
 
         {/* === NOVO BOTÃO: CONCLUIR === */}
         <button

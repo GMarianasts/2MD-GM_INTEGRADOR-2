@@ -15,11 +15,13 @@ export default function MeuTreinamentosPage() {
   const [meusCursos, setMeusCursos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchMeusTreinamentos() {
-      if (!user || !user.id) return;
+useEffect(() => {
 
+    if (!user || !user.id) return;
+
+    async function fetchMeusTreinamentos() {
       try {
+        setLoading(true); 
         const res = await fetch(`http://localhost:3001/api/inscricoes/usuario/${user.id}?t=${new Date().getTime()}`);
         const data = await res.json();
 
@@ -32,7 +34,6 @@ export default function MeuTreinamentosPage() {
         setLoading(false);
       }
     }
-
     fetchMeusTreinamentos();
   }, [user]);
 

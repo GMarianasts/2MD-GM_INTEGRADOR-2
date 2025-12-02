@@ -10,6 +10,7 @@ import authRotas from './routes/authRotas.js';
 import criptografiaRotas from './routes/criptografiaRotas.js';
 import colaboradoresRotas from './routes/colaboradoresRotas.js';
 import inscricaoRoutes from "./routes/inscricaoRoutes.js";
+import historicoRoutes from "./routes/historicoRotas.js";
 
 
 
@@ -68,6 +69,7 @@ app.use('/api/produtos', produtoRotas);
 app.use('/api/treinamentos', treinamentoCountRotas);
 app.use('/api/treinamentos', treinamentoRotas);
 app.use("/api/inscricoes", inscricaoRoutes);
+app.use("/historico", historicoRoutes);
 
 
 

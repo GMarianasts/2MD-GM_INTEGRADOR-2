@@ -33,7 +33,7 @@ export default function GerenciadorTreinamento() {
         const instrutorMatch = item.instrutor_nome?.toLowerCase().includes(termo);
         const competenciaMatch = item.competencias?.some(comp => comp.toLowerCase().includes(termo));
 
-        
+
         const statusMatch = filtroStatus ? item.status.toLowerCase() === filtroStatus.toLowerCase() : true;
         const modalidadeMatch = filtroModalidade ? item.modalidade.toLowerCase() === filtroModalidade.toLowerCase() : true;
 
@@ -161,10 +161,6 @@ export default function GerenciadorTreinamento() {
                             <i className="bi bi-grid"></i>
                             <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
                         </li>
-                        <li className="mb-3 d-flex align-items-center gap-2">
-                            <i className="bi bi-bar-chart"></i>
-                            <Link href={'Relatorio'}><span>Relatório de Skill Gap</span></Link>
-                        </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
                             <Link href={'colaboradorAdmin'}><span>Gerenciar Colaboradores</span></Link>
@@ -191,7 +187,7 @@ export default function GerenciadorTreinamento() {
                         </button>
                     </div>
 
-                   
+
                     <div className="pesquisa">
                         <input
                             type="text"
@@ -199,7 +195,7 @@ export default function GerenciadorTreinamento() {
                             value={busca}
                             onChange={(e) => setBusca(e.target.value)}
                         />
-               
+
                         <button
                             className="btn-filtros"
                             onClick={() => setMostrarFiltros(!mostrarFiltros)}
@@ -208,7 +204,7 @@ export default function GerenciadorTreinamento() {
                         </button>
                     </div>
 
-                    
+
                     {mostrarFiltros && (
                         <div className="filtro-dropdown">
                             <select
@@ -233,7 +229,7 @@ export default function GerenciadorTreinamento() {
                         </div>
                     )}
 
-                    
+
                     <div className="row g-3 mt-3">
                         <div className="col-12">
                             <div className="card1 border rounded-4 bg-white shadow-sm">
@@ -310,9 +306,6 @@ export default function GerenciadorTreinamento() {
                                                                         <div className="px-3 py-2 border-bottom">
                                                                             <span className="small text-muted fw-bold">Ações</span>
                                                                         </div>
-                                                                        <button className="dropdown-item py-2 d-flex align-items-center gap-2">
-                                                                            <i className="bi bi-eye"></i> Visualizar
-                                                                        </button>
                                                                         <button
                                                                             className="dropdown-item py-2 d-flex align-items-center gap-2"
                                                                             onClick={(e) => {
@@ -321,9 +314,6 @@ export default function GerenciadorTreinamento() {
                                                                             }}
                                                                         >
                                                                             <i className="bi bi-pencil"></i> Editar
-                                                                        </button>
-                                                                        <button className="dropdown-item py-2 d-flex align-items-center gap-2">
-                                                                            <i className="bi bi-people"></i> Ver Inscrições
                                                                         </button>
                                                                         <div className="dropdown-divider my-1"></div>
                                                                         <button

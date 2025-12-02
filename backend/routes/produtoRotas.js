@@ -15,7 +15,7 @@ router.post('/upload', authMiddleware, uploadImagens.single('imagem'), handleUpl
 router.put('/:id', authMiddleware, uploadImagens.single('imagem'), handleUploadError, ProdutoController.atualizar);
 router.delete('/:id', authMiddleware, ProdutoController.excluir);
 
-// Rotas OPTIONS para CORS (preflight requests)
+// Rotas OPTIONS para CORS
 router.options('/', (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');

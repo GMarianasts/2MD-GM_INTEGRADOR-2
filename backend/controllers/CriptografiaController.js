@@ -1,23 +1,10 @@
 import bcrypt from 'bcryptjs';
 import UsuarioModel from '../models/UsuarioModel.js';
 
-/**
- * Controller Educativo para Demonstração de Criptografia de Senhas
- * 
- * Este controller demonstra como implementar criptografia de senhas
- * de forma segura usando bcryptjs.
- */
+
 class CriptografiaController {
     
-    /**
-     * POST /criptografia/cadastrar-usuario
-     * 
-     * Demonstra o processo completo de cadastro com criptografia:
-     * 1. Validação dos dados
-     * 2. Verificação se usuário já existe
-     * 3. Criptografia da senha
-     * 4. Salvamento no banco de dados
-     */
+   
     static async cadastrarUsuario(req, res) {
         try {
             const { nome, email, senha, tipo } = req.body;
@@ -26,7 +13,7 @@ class CriptografiaController {
             console.log('==========================================');
             console.log('');
             
-            // 1. VALIDAÇÕES BÁSICAS
+       
             console.log('1️⃣ VALIDAÇÕES BÁSICAS');
             console.log('----------------------');
             
@@ -89,7 +76,6 @@ class CriptografiaController {
             console.log('✅ Validações passaram!');
             console.log('');
 
-            // 2. VERIFICAR SE USUÁRIO JÁ EXISTE
             console.log('2️⃣ VERIFICAÇÃO DE USUÁRIO EXISTENTE');
             console.log('-----------------------------------');
             
@@ -107,7 +93,7 @@ class CriptografiaController {
             console.log('✅ Email disponível!');
             console.log('');
 
-            // 3. DEMONSTRAÇÃO DA CRIPTOGRAFIA
+      
             console.log('3️⃣ DEMONSTRAÇÃO DA CRIPTOGRAFIA');
             console.log('-------------------------------');
             
@@ -115,9 +101,9 @@ class CriptografiaController {
             console.log('⚠️  NUNCA armazene senhas em texto puro!');
             console.log('');
 
-            // Gerar salt e hash da senha
+            
             console.log('🔐 Gerando hash da senha com bcrypt...');
-            const saltRounds = 10; // Número de rounds para o salt
+            const saltRounds = 10;
             console.log(`📊 Salt rounds: ${saltRounds} (recomendado: 10-12)`);
             
             const senhaHash = await bcrypt.hash(senha, saltRounds);
@@ -137,7 +123,7 @@ class CriptografiaController {
             const dadosUsuario = {
                 nome: nome.trim(),
                 email: email.trim().toLowerCase(),
-                senha: senhaHash, // ← SENHA CRIPTOGRAFADA
+                senha: senhaHash, 
                 tipo: tipo || 'comum'
             };
 
@@ -148,7 +134,7 @@ class CriptografiaController {
             console.log('   Senha: [CRIPTOGRAFADA - não visível]');
             console.log('');
 
-            // 5. SALVAR NO BANCO DE DADOS
+           
             console.log('5️⃣ SALVAMENTO NO BANCO DE DADOS');
             console.log('-------------------------------');
             
@@ -157,11 +143,10 @@ class CriptografiaController {
             console.log(`🆔 ID gerado: ${usuarioId}`);
             console.log('');
 
-            // 6. DEMONSTRAÇÃO DE VERIFICAÇÃO
             console.log('6️⃣ DEMONSTRAÇÃO DE VERIFICAÇÃO');
             console.log('------------------------------');
             
-            // Simular verificação de login
+            
             const senhaCorreta = await bcrypt.compare(senha, senhaHash);
             const senhaIncorreta = await bcrypt.compare('senhaerrada', senhaHash);
             
@@ -170,7 +155,7 @@ class CriptografiaController {
             console.log(`   Senha incorreta: ${senhaIncorreta ? '✅' : '❌'}`);
             console.log('');
 
-            // Resposta de sucesso
+            
             res.status(201).json({
                 sucesso: true,
                 mensagem: 'Usuário cadastrado com sucesso!',
@@ -206,11 +191,7 @@ class CriptografiaController {
         }
     }
 
-    /**
-     * GET /criptografia/info
-     * 
-     * Retorna informações sobre criptografia de senhas
-     */
+  
     static async obterInfoCriptografia(req, res) {
         try {
             res.status(200).json({

@@ -24,11 +24,6 @@ export default function DashboardHistorico() {
                             <Link href="/gerenciar_Treinamento_admin"><span>Gerenciar Treinamentos</span></Link>
                         </li>
 
-                        <li className="mb-3 d-flex align-items-center gap-2">
-                            <i className="bi bi-bar-chart"></i>
-                            <Link href="/Relatorio"><span>Relatório de Skill Gap</span></Link>
-                        </li>
-
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
                             <Link href="/colaboradorAdmin"><span>Gerenciar Colaboradores</span></Link>
@@ -36,10 +31,10 @@ export default function DashboardHistorico() {
                     </ul>
                 </aside>
 
-                {/* ===== CONTEÚDO PRINCIPAL ===== */}
-                <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
+                    {/* ===== CONTEÚDO PRINCIPAL ===== */}
+                    <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
 
-                    <div className="corPagina">
+
 
                         {/* NAV DE TROCA DE PÁGINA */}
                         <section className="introducao mb-4">
@@ -67,10 +62,9 @@ export default function DashboardHistorico() {
                             </div>
                         </div>
 
-                    </div>
-                </main>
 
-            </div>
+                    </main>
+                </div>
         </div>
     );
 }

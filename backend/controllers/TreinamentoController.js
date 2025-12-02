@@ -1,6 +1,6 @@
 import { getConnection } from '../config/database.js';
 
-// Função auxiliar para tratamento de dados
+// auxiliar para tratamento de dados
 const tratarData = (data) => data && data !== '' ? data : null;
 
 // GET - LISTAR (Corrigido para trazer o nome do instrutor)
@@ -48,7 +48,7 @@ export const listarInstrutores = async (req, res) => {
     }
 };
 
-// POST - CRIAR (Corrigido contagem de ? e colunas)
+// POST - CRIAR 
 export const criarTreinamento = async (req, res) => {
     const conn = await getConnection();
     try {
@@ -114,7 +114,7 @@ export const excluirTreinamento = async (req, res) => {
     }
 };
 
-// PUT - ATUALIZAR (Corrigido o erro de digitação iinstrutor_id)
+// PUT - ATUALIZAR 
 export const atualizarTreinamento = async (req, res) => {
     const conn = await getConnection();
     try {
@@ -167,7 +167,7 @@ export const atualizarTreinamento = async (req, res) => {
     }
 };
 
-// BUSCAR POR ID (Corrigido para trazer nome do instrutor)
+// BUSCAR POR ID
 export const buscarTreinamentoPorId = async (req, res) => {
     const conn = await getConnection();
     try {

@@ -76,10 +76,6 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                             <i className="bi bi-grid"></i>
                             <Link href="/gerenciar_Treinamento_admin"><span>Gerenciar Treinamentos</span></Link>
                         </li>
-                        <li className="mb-3 d-flex align-items-center gap-2">
-                            <i className="bi bi-bar-chart"></i>
-                            <Link href="/Relatorio"><span>Relatório de Skill Gap</span></Link>
-                        </li>
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
                             <Link href="/colaboradorAdmin"><span>Gerenciar Colaboradores</span></Link>
@@ -111,7 +107,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                     {/* CARDS INICIAIS RESPONSIVOS */}
                     <div className="row g-3 row-cards mt-3">
 
-                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                          <div className="col-12 col-md-4">
                             <div className="card-info azul">
                                 <div>
                                     <p className="titulo">Treinamentos Ativos</p>
@@ -121,7 +117,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                             </div>
                         </div>
 
-                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                          <div className="col-12 col-md-4">
                             <div className="card-info laranja">
                                 <div>
                                     <p className="titulo">Colaboradores Inscritos</p>
@@ -132,7 +128,7 @@ const [totalColaboradores, setTotalColaboradores] = useState(0);
                             </div>
                         </div>
 
-                        <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                          <div className="col-12 col-md-4">
                             <div className="card-info roxo">
                                 <div>
                                     <p className="titulo">Taxa de Conclusão</p>

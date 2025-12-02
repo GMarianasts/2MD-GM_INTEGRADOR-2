@@ -9,7 +9,7 @@ router.get("/", UsuarioController.listarUsuarios);
 // Criar usuário
 router.post("/", UsuarioController.criarUsuario);
 
-// Atualizar perfil do usuário (rota funcional para o frontend)
+// Atualizar perfil do usuário
 router.put("/:id/perfil", UsuarioController.atualizarPerfil);
 
 // Atualizar usuário (rota admin)

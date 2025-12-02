@@ -2,7 +2,7 @@ import { create, read, update, deleteRecord, getConnection } from '../config/dat
 
 // Model para operações com produtos
 class ProdutoModel {
-    // Listar todos os produtos (com paginação)
+    // Listar todos os produtos
     static async listarTodos(limite, offset) {
         try {
 

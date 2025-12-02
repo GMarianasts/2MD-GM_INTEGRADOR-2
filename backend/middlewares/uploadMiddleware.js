@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Criar pastas de uploads se não existirem
+
 const uploadPathImagens = path.join(__dirname, '..', 'uploads', 'imagens');
 const uploadPathArquivos = path.join(__dirname, '..', 'uploads', 'arquivos');
 
@@ -18,7 +18,6 @@ if (!fs.existsSync(uploadPathArquivos)) {
     fs.mkdirSync(uploadPathArquivos, { recursive: true });
 }
 
-// Função para gerar nome único com timestamp
 const gerarNomeUnico = (nomeOriginal) => {
     const timestamp = Date.now();
     const extensao = path.extname(nomeOriginal);
@@ -26,10 +25,10 @@ const gerarNomeUnico = (nomeOriginal) => {
     return `${timestamp}-${nomeSemExtensao}${extensao}`;
 };
 
-// Configuração do multer para upload de imagens
+
 const storageImagens = multer.diskStorage({
     destination: (req, file, cb) => {
-        // Verificar se pasta existe, criar se não existir
+       
         if (!fs.existsSync(uploadPathImagens)) {
             fs.mkdirSync(uploadPathImagens, { recursive: true });
         }
@@ -41,10 +40,10 @@ const storageImagens = multer.diskStorage({
     }
 });
 
-// Configuração do multer para upload de outros arquivos
+
 const storageArquivos = multer.diskStorage({
     destination: (req, file, cb) => {
-        // Verificar se pasta existe, criar se não existir
+     
         if (!fs.existsSync(uploadPathArquivos)) {
             fs.mkdirSync(uploadPathArquivos, { recursive: true });
         }
@@ -56,12 +55,11 @@ const storageArquivos = multer.diskStorage({
     }
 });
 
-// Verificar se é imagem
+
 const isImage = (mimetype) => {
     return mimetype.startsWith('image/');
 };
 
-// Filtro para tipos de arquivo permitidos (imagens)
 const fileFilterImagens = (req, file, cb) => {
     const tiposPermitidos = process.env.ALLOWED_FILE_TYPES ? 
         process.env.ALLOWED_FILE_TYPES.split(',').map(t => t.trim()) : 
@@ -74,14 +72,14 @@ const fileFilterImagens = (req, file, cb) => {
     }
 };
 
-// Filtro genérico para outros arquivos (pode ser expandido)
+
 const fileFilterArquivos = (req, file, cb) => {
-    // Por padrão, aceitar qualquer tipo de arquivo para uploads genéricos
+    
     cb(null, true);
 };
 
-// Obter tamanho máximo do arquivo
-const maxFileSize = parseInt(process.env.MAX_FILE_SIZE) || 5242880; // 5MB por padrão
+
+const maxFileSize = parseInt(process.env.MAX_FILE_SIZE) || 5242880;
 
 // Upload para imagens
 const uploadImagens = multer({
@@ -92,16 +90,14 @@ const uploadImagens = multer({
     fileFilter: fileFilterImagens
 });
 
-// Upload para outros arquivos
 const uploadArquivos = multer({
     storage: storageArquivos,
     limits: {
-        fileSize: maxFileSize * 2 // 10MB para arquivos não-imagem
+        fileSize: maxFileSize * 2 
     },
     fileFilter: fileFilterArquivos
 });
 
-// Middleware para tratamento de erros do multer
 const handleUploadError = (error, req, res, next) => {
     if (error instanceof multer.MulterError) {
         if (error.code === 'LIMIT_FILE_SIZE') {
@@ -138,7 +134,6 @@ const handleUploadError = (error, req, res, next) => {
     next(error);
 };
 
-// Função helper para remover arquivo antigo
 export const removerArquivoAntigo = async (nomeArquivo, tipo = 'imagem') => {
     try {
         if (!nomeArquivo) return;

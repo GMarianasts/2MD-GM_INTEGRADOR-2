@@ -2,13 +2,12 @@ import mysql from 'mysql2/promise';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 
-// Carregar variáveis do arquivo .env
+
 dotenv.config();
 
-// Configuração do pool de conexões
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT, // <-- ADICIONE ESTA LINHA
+    port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
@@ -17,12 +16,12 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Função para obter uma conexão do pool
+
 async function getConnection() {
     return pool.getConnection();
 }
 
-// Função para ler registros (um ou múltiplos)
+
 async function read(table, where = null) {
     const connection = await getConnection();
     try {
@@ -38,7 +37,6 @@ async function read(table, where = null) {
     }
 }
 
-// Função para inserir um novo registro
 async function create(table, data) {
     const connection = await getConnection();
     try {
@@ -54,7 +52,6 @@ async function create(table, data) {
     }
 }
 
-// Função para atualizar um registro
 async function update(table, data, where) {
     const connection = await getConnection();
     try {
@@ -72,7 +69,7 @@ async function update(table, data, where) {
     }
 }
 
-// Função para excluir um registro
+
 async function deleteRecord(table, where) {
     const connection = await getConnection();
     try {
@@ -84,7 +81,7 @@ async function deleteRecord(table, where) {
     }
 }
 
-// Função para comparar senha com hash
+
 async function comparePassword(password, hash) {
     try {
         return await bcrypt.compare(password, hash);
@@ -94,7 +91,7 @@ async function comparePassword(password, hash) {
     }
 }
 
-// Função para gerar hash da senha
+
 async function hashPassword(password) {
     try {
         return await bcrypt.hash(password, 10);

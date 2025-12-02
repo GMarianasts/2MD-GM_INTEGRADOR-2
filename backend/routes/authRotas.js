@@ -8,10 +8,10 @@ const router = express.Router();
 router.post('/login', AuthController.login);
 router.post('/registrar', AuthController.registrar);
 
-// Rotas protegidas (precisam de autenticação)
+// Rotas protegidas
 router.get('/perfil', authMiddleware, AuthController.obterPerfil);
 
-// Rotas OPTIONS para CORS (preflight requests)
+// Rotas OPTIONS para CORS 
 router.options('/login', (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');

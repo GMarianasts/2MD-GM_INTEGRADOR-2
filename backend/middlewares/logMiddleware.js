@@ -84,7 +84,6 @@ async function saveLog(data) {
     }
 }
 
-// Versão simples do log (console)
 export const simpleLogMiddleware = (req, res, next) => {
     const ts = new Date().toISOString();
     const user = req.usuario ? `[${req.usuario.email}]` : '[Anônimo]';

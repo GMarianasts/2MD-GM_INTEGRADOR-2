@@ -13,7 +13,7 @@ const authMiddleware = (req, res, next) => {
             });
         }
 
-        // Extrair token
+        
         const token = authHeader.split(' ')[1];
         
         if (!token) {
@@ -26,7 +26,7 @@ const authMiddleware = (req, res, next) => {
         // Verificar e decodificar token
         const decoded = jwt.verify(token, JWT_CONFIG.secret);
 
-        // Adiciona dados ao req.usuario
+       
         req.usuario = {
             id: decoded.id,
             email: decoded.email,
@@ -60,7 +60,6 @@ const authMiddleware = (req, res, next) => {
 // Middleware para verificar se o usuário é administrador
 const adminMiddleware = (req, res, next) => {
 
-    // 🔥 VERIFICAÇÃO CORRIGIDA
     if (req.usuario.nivel_acesso !== 'Admin') {
         return res.status(403).json({ 
             erro: 'Acesso negado',

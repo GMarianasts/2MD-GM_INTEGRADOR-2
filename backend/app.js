@@ -30,13 +30,12 @@ const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3001;
 
-// no topo do server.js (junto com outros imports)
+
 import { contarTreinamentosAtivos } from './controllers/TreinamentoController.js';
 
-// logo antes de registrar os routers da API (temporário)
 app.get('/api/treinamentos/ativos/count-test', async (req, res) => {
   try {
-    await contarTreinamentosAtivos(req, res); // reaproveita a função existente
+    await contarTreinamentosAtivos(req, res);
   } catch (e) {
     console.error('erro rota test direta:', e);
     res.status(500).json({ sucesso: false, erro: e.message });
@@ -46,7 +45,6 @@ app.get('/api/treinamentos/ativos/count-test', async (req, res) => {
 // Middlewares globais
 app.use(helmet()); // Segurança HTTP headers
 
-// Configurar CORS para permitir que rotas OPTIONS específicas sejam processadas
 app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -109,7 +107,7 @@ app.use('*', (req, res) => {
 
 app.use(errorMiddleware);
 
-// debug: listar rotas registradas
+
 function listRoutes() {
   console.log('--- Rotas registradas (app._router.stack) ---');
   app._router.stack.forEach((middleware) => {

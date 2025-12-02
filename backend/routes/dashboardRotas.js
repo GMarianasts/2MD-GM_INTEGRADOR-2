@@ -3,7 +3,7 @@ import db from '../config/db.js';
 
 const router = express.Router();
 
-/* 1) Colaboradores por departamento */
+/* Colaboradores por departamento */
 router.get('/colaboradores-por-departamento', async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -18,7 +18,7 @@ router.get('/colaboradores-por-departamento', async (req, res) => {
     }
 });
 
-/* 2) Colaboradores por unidade */
+/* Colaboradores por unidade */
 router.get('/colaboradores-por-unidade', async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -33,7 +33,7 @@ router.get('/colaboradores-por-unidade', async (req, res) => {
     }
 });
 
-/* 3) Inscrições por treinamento */
+/* Inscrições por treinamento */
 router.get('/inscricoes-por-treinamento', async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -50,7 +50,7 @@ router.get('/inscricoes-por-treinamento', async (req, res) => {
     }
 });
 
-/* 4) Treinamentos por categoria */
+/* Treinamentos por categoria */
 router.get('/treinamentos-por-categoria', async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -65,7 +65,7 @@ router.get('/treinamentos-por-categoria', async (req, res) => {
     }
 });
 
-/* 5) Colaboradores por status de inscrição */
+/* Colaboradores por status de inscrição */
 router.get('/status-inscricoes', async (req, res) => {
     try {
         const [rows] = await db.query(`

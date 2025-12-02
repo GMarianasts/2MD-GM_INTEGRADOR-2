@@ -3,20 +3,13 @@ import CriptografiaController from '../controllers/CriptografiaController.js';
 
 const router = express.Router();
 
-/**
- * ROTAS EDUCACIONAIS PARA DEMONSTRAÇÃO DE CRIPTOGRAFIA
- * 
- * Estas rotas são específicas para ensinar aos alunos como implementar
- * criptografia de senhas de forma segura.
- */
-
-// GET /criptografia/info - Informações sobre criptografia
+// GET /criptografia/info
 router.get('/info', CriptografiaController.obterInfoCriptografia);
 
-// POST /criptografia/cadastrar-usuario - Demonstração completa de cadastro com criptografia
+// POST /criptografia/cadastrar-usuario
 router.post('/cadastrar-usuario', CriptografiaController.cadastrarUsuario);
 
-// Rotas OPTIONS para CORS (preflight requests)
+// Rotas OPTIONS para CORS
 router.options('/info', (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');

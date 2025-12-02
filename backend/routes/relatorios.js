@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-// 🔵 Tendência Mensal
 router.get("/inscricoes-mensais", async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -21,7 +20,6 @@ router.get("/inscricoes-mensais", async (req, res) => {
     }
 });
 
-// 🟣 Categorias
 router.get("/categorias-treinamentos", async (req, res) => {
     try {
         const [rows] = await db.query(`
@@ -37,7 +35,6 @@ router.get("/categorias-treinamentos", async (req, res) => {
     }
 });
 
-// ROTAS PARA GRÁFICO – colaboradores por departamento
 router.get("/dashboard/colaboradores-por-departamento", async (req, res) => {
     try {
         const [rows] = await db.query(`

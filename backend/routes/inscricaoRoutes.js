@@ -7,6 +7,6 @@ router.get("/", InscricaoController.listar);
 router.post("/", InscricaoController.criar);
 router.get("/usuario/:id", InscricaoController.listarPorUsuario);
 router.put("/:id/concluir", InscricaoController.concluir);
-router.delete("/:id", InscricaoController.excluir); // 👈 ou excluirInscricao (depende do nome)
+router.delete("/:id", InscricaoController.excluir); 
 
 export default router;

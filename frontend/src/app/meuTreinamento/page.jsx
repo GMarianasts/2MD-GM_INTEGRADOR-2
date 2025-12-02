@@ -105,9 +105,8 @@ export default function MeuTreinamentosPage() {
   if (!user) return <div className="p-5 text-center">Faça login para ver seus cursos.</div>;
 
   return (
-    <div className="container-fluid pagina-treinamentos bg-light min-vh-100">
-      <div className="row flex-nowrap">
-
+    <div className="container-fluid pagina-usuario">
+      <div className="row g-0">
         {/* Sidebar */}
         <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
           <ul className="list-unstyled menu">

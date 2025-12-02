@@ -36,10 +36,10 @@ export default function DashboardHistorico() {
                     </ul>
                 </aside>
 
-                {/* ===== CONTEÚDO PRINCIPAL ===== */}
-                <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
+                    {/* ===== CONTEÚDO PRINCIPAL ===== */}
+                    <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
 
-                    <div className="corPagina">
+
 
                         {/* NAV DE TROCA DE PÁGINA */}
                         <section className="introducao mb-4">
@@ -67,10 +67,9 @@ export default function DashboardHistorico() {
                             </div>
                         </div>
 
-                    </div>
-                </main>
 
-            </div>
+                    </main>
+                </div>
         </div>
     );
 }

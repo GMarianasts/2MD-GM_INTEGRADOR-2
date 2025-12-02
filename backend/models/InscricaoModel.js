@@ -17,7 +17,7 @@ class InscricaoModel {
         }
     }
 
-    // Listar inscrições de um usuário específico (Para a tela Meus Treinamentos)
+    // Listar inscrições de um usuário específico 
     static async listarPorUsuario(usuario_id) {
         const connection = await getConnection();
         try {

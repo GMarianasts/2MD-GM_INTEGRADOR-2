@@ -57,7 +57,7 @@ class UsuarioModel {
     try {
         const senhaHash = await hashPassword(dadosUsuario.senha);
 
-        // remove o campo errado vindo do front
+    
         if ("nivelAcesso" in dadosUsuario) {
             delete dadosUsuario.nivelAcesso;
         }

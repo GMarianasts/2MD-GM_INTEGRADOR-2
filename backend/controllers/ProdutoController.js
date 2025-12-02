@@ -6,10 +6,10 @@ import { removerArquivoAntigo } from '../middlewares/uploadMiddleware.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Controller para operações com produtos
+
 class ProdutoController {
 
-    // GET /produtos - Listar todos os produtos (com paginação)
+  
     static async listarTodos(req, res) {
         try {
            
@@ -42,16 +42,16 @@ class ProdutoController {
 
             const offset = (pagina - 1) * limite;
 
-            const resultado = await ProdutoModel.listarTodos(limite, offset); // <-- MUDANÇA AQUI
+            const resultado = await ProdutoModel.listarTodos(limite, offset);
 
             res.status(200).json({
                 sucesso: true,
                 dados: resultado.produtos,
                 paginacao: {
-                    pagina: resultado.pagina, // O Model deve calcular e retornar isso
-                    limite: resultado.limite, // O Model deve retornar isso
-                    total: resultado.total,   // O Model deve calcular e retornar isso
-                    totalPaginas: resultado.totalPaginas // O Model deve calcular e retornar isso
+                    pagina: resultado.pagina, 
+                    limite: resultado.limite, 
+                    total: resultado.total,   
+                    totalPaginas: resultado.totalPaginas 
                 }
             });
         } catch (error) {
@@ -242,7 +242,7 @@ class ProdutoController {
 
             // Adicionar nova imagem se foi enviada
             if (req.file) {
-                // Remover imagem antiga se existir
+            
                 if (produtoExistente.imagem) {
                     await removerArquivoAntigo(produtoExistente.imagem, 'imagem');
                 }

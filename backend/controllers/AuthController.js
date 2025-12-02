@@ -16,20 +16,19 @@ class AuthController {
             const emailNormalizado = email.trim().toLowerCase();
             console.log('EMAIL NORMALIZADO:', emailNormalizado);
 
-            // busca o usuário (raw, com senha) para debug
+        
             const usuarioDb = await UsuarioModel.buscarPorEmail(emailNormalizado);
             console.log('USUARIO DO DB (raw):', usuarioDb ? { id: usuarioDb.id, email: usuarioDb.email, nivel_acesso: usuarioDb.nivel_acesso, senha_hash_presente: !!usuarioDb.senha } : null);
 
             if (!usuarioDb) {
-                // não expõe detalhes sensíveis, mas loga no servidor
+            
                 console.warn(`Tentativa de login com email não cadastrado: ${emailNormalizado}`);
                 return res.status(401).json({ sucesso: false, mensagem: 'Email ou senha incorretos' });
             }
 
-            // usa o método já existente que compara (lembre-se: ele retorna o usuário sem senha)
             const usuario = await UsuarioModel.verificarCredenciais(emailNormalizado, senha);
 
-            // caso verificarCredenciais retorne null, a senha está incorreta
+          
             if (!usuario) {
                 console.warn(`Senha inválida para usuario id=${usuarioDb.id} email=${emailNormalizado}`);
                 return res.status(401).json({ sucesso: false, mensagem: 'Email ou senha incorretos' });

@@ -40,9 +40,13 @@ export default function CardConcluido({ t }) {
         </div>
 
         <div className="mt-4 d-flex gap-2">
-          <button className="btn btn-success w-100 fw-medium rounded-3 d-flex align-items-center justify-content-center gap-2">
+          <a 
+            href="/certificado_padrao.png" 
+            download={`Certificado-${t.titulo}.jpg`}
+            className="btn btn-success w-100 fw-medium rounded-3 d-flex align-items-center justify-content-center gap-2 text-decoration-none"
+          >
             <i className="bi bi-download"></i> Baixar Certificado
-          </button>
+          </a>
         </div>
 
       </div>

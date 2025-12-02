@@ -106,11 +106,6 @@ export default function PaginaPerfil() {
 
         {/* Sidebar */}
         <aside className="d-none d-md-block col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
-          <div className="mb-4 px-2">
-            <h5 className="fw-bold" style={{ color: "#0a2b6b" }}>
-              Portal de Treinamentos
-            </h5>
-          </div>
           <ul className="list-unstyled menu">
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-house-door"></i>

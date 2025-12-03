@@ -107,6 +107,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   background-color: white !important;
+  gap: 2rem;
 }
 
 .icon {
@@ -235,7 +236,7 @@ a:hover {
   align-items: center;
   position: relative;
   padding-left: 45px;
-  min-width: 0; /* importante */
+  min-width: 0; 
 }
 
 .search-container .search-icon {
@@ -381,9 +382,8 @@ a:hover {
   border-radius: 8px;
   font-size: 12px;
 }
-@media (max-width: 768px) {
-  
 
+@media (max-width: 768px) {
   .menu-lateral {
     width: 100% !important; 
     min-height: auto; 
@@ -403,7 +403,6 @@ a:hover {
     padding: 8px 12px;
     font-size: 0.9rem;
   }
-
 
   .introducao {
     flex-direction: column;
@@ -434,7 +433,7 @@ a:hover {
     gap: 20px;
 }
 
-/* Garantir que cada card sempre tenha tamanho uniforme */
+/* Tamanho uniforme */
 .row-cards .col-12,
 .row-cards .col-sm-6,
 .row-cards .col-md-4,
@@ -442,7 +441,7 @@ a:hover {
     max-width: 330px;
 }
 
-/* Linha dos cards ocupando 100% da largura */
+/* Cards ocupando 100% da largura */
 .row-cards {
     width: 100%;
     display: flex;
@@ -453,19 +452,17 @@ a:hover {
 /* Cada card expande igualmente */
 .row-cards .col-12,
 .row-cards .col-md-4 {
-    flex: 1;               /* ocupa todo espaço disponível */
+    flex: 1;              
     max-width: none !important;
 }
 
-/* Ajuste para o conteúdo interno do card preencher */
 .card-info {
     height: 150px;
     width: 100%;
 }
 
-/* 📱 CELULARES PEQUENOS (Abaixo de 576px) */
+/* CELULARES */
 @media (max-width: 576px) {
-    /* Lista de Cursos: Ícone em cima, texto no meio, botão embaixo */
     .curso-item {
         flex-direction: column;
         align-items: flex-start !important;
@@ -490,14 +487,11 @@ a:hover {
         margin-bottom: 0;
     }
 
-    /* Ajuste de fontes dos Cards de Topo */
     .titulo { font-size: 0.8rem; margin-right: 0; }
     .valor { font-size: 1.4rem; }
     .card-info { padding: 0 10px; height: 120px; }
     .icon { font-size: 1.4rem; }
 }
-
-
 
 .grafico-container {
     width: 100%;

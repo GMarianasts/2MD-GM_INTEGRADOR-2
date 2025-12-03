@@ -1,6 +1,5 @@
 import InscricaoModel from "../models/InscricaoModel.js";
 import UsuarioModel from "../models/UsuarioModel.js";
-import { getConnection } from "../config/database.js";
 import { registrarHistorico } from "../utils/historico.js";
 
 class InscricaoController {
@@ -10,30 +9,25 @@ class InscricaoController {
         try {
             const { usuario_id, treinamento_id } = req.body;
 
-            // Buscar usuário antes de criar inscrição
+            // Buscar usuário
             const user = await UsuarioModel.buscarPorId(usuario_id);
-
-            if (!user) {
-                return res.status(404).json({ erro: "Usuário não encontrado." });
-            }
+            if (!user) return res.status(404).json({ erro: "Usuário não encontrado." });
 
             if (user.nivel_acesso !== "Colaborador") {
-                return res.status(403).json({
-                    erro: "Administradores não podem se inscrever em cursos."
-                });
+                return res.status(403).json({ erro: "Administradores não podem se inscrever em cursos." });
             }
 
             // Criar inscrição
-            const novaInscricao = await InscricaoModel.criar({
-                usuario_id,
-                treinamento_id
-            });
+            const novaInscricao = await InscricaoModel.criar({ usuario_id, treinamento_id });
+
+            // Buscar título do curso
+            const curso = await InscricaoModel.buscarCursoPorId(treinamento_id);
 
             // Registrar no histórico
             await registrarHistorico(
-                "Criar Inscrição",
-                `Usuário ${user.nome} se inscreveu no treinamento ${treinamento_id}.`,
-                usuario_id
+                "Inscrição criada",
+                `O colaborador "${user.nome}" se inscreveu no curso "${curso.titulo}".`,
+                req.usuarioId || "Sistema"
             );
 
             return res.status(201).json({
@@ -47,56 +41,29 @@ class InscricaoController {
         }
     }
 
-    // Listar inscrições por usuário
-    static async listarPorUsuario(req, res) {
-        try {
-            const { id } = req.params;
-
-            const inscricoes = await InscricaoModel.listarPorUsuario(id);
-
-            return res.status(200).json({
-                sucesso: true,
-                dados: inscricoes
-            });
-
-        } catch (error) {
-            console.error("Erro ao listar inscrições do usuário:", error);
-            return res.status(500).json({
-                sucesso: false,
-                erro: "Erro ao buscar treinamentos do usuário."
-            });
-        }
-    }
-
     // Concluir inscrição
     static async concluir(req, res) {
         let conn;
         try {
             const { id } = req.params;
+            if (!id) return res.status(400).json({ erro: "ID da inscrição inválido." });
 
-            if (!id || id === 'undefined') {
-                return res.status(400).json({ erro: "ID da inscrição inválido." });
-            }
+            // Buscar inscrição e dados do usuário/curso antes de concluir
+            const inscricao = await InscricaoModel.buscarPorId(id);
+            if (!inscricao) return res.status(404).json({ erro: "Inscrição não encontrada." });
 
-            conn = await getConnection();
-
-            const sql = `
-                UPDATE inscricoes 
-                SET status = 'Concluído', data_conclusao = NOW() 
-                WHERE id = ?
-            `;
-
-            const [result] = await conn.query(sql, [id]);
-
-            if (result.affectedRows === 0) {
-                return res.status(404).json({ erro: "Inscrição não encontrada ou já concluída." });
-            }
+            conn = await InscricaoModel.getConnection();
+            await conn.query(
+                `UPDATE inscricoes SET status='Concluído', data_conclusao=NOW() WHERE id=?`,
+                [id]
+            );
+            conn.release();
 
             // Registrar no histórico
             await registrarHistorico(
-                "Concluir Inscrição",
-                `A inscrição ID ${id} foi concluída.`,
-                req.usuarioId || null
+                "Inscrição concluída",
+                `O colaborador "${inscricao.usuario}" concluiu o curso "${inscricao.treinamento}".`,
+                req.usuarioId || "Sistema"
             );
 
             return res.status(200).json({
@@ -112,31 +79,22 @@ class InscricaoController {
         }
     }
 
-    // Listar todas inscrições
-    static async listar(req, res) {
-        try {
-            const inscricoes = await InscricaoModel.listar();
-
-            return res.status(200).json(inscricoes);
-
-        } catch (error) {
-            console.error("Erro ao listar inscrições:", error);
-            return res.status(500).json({ erro: "Erro ao listar inscrições" });
-        }
-    }
-
     // Excluir inscrição
     static async excluir(req, res) {
         try {
             const { id } = req.params;
 
+            // Buscar inscrição antes de excluir
+            const inscricao = await InscricaoModel.buscarPorId(id);
+            if (!inscricao) return res.status(404).json({ erro: "Inscrição não encontrada." });
+
             await InscricaoModel.excluir(id);
 
-            // Registrar no histórico
+            // Registrar histórico
             await registrarHistorico(
-                "Excluir Inscrição",
-                `A inscrição ID ${id} foi excluída.`,
-                req.usuarioId || null
+                "Inscrição excluída",
+                `A inscrição do colaborador "${inscricao.usuario}" no curso "${inscricao.treinamento}" foi excluída.`,
+                req.usuarioId || "Sistema"
             );
 
             return res.status(200).json({ mensagem: "Inscrição excluída com sucesso!" });
@@ -146,6 +104,7 @@ class InscricaoController {
             return res.status(500).json({ erro: "Erro ao excluir inscrição" });
         }
     }
+
 }
 
 export default InscricaoController;

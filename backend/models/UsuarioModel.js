@@ -58,8 +58,8 @@ class UsuarioModel {
         const senhaHash = await hashPassword(dadosUsuario.senha);
 
     
-        if ("nivelAcesso" in dadosUsuario) {
-            delete dadosUsuario.nivelAcesso;
+        if ("nivel_acesso" in dadosUsuario) {
+            delete dadosUsuario.nivel_acesso;
         }
 
         const dadosComHash = {

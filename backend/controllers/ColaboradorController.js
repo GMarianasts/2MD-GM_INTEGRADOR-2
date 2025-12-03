@@ -23,14 +23,7 @@ export async function listarColaboradores(req, res) {
 // CRIAR COLABORADOR
 export async function criarColaborador(req, res) {
     try {
-        const {
-            nome,
-            email,
-            senha,
-            cargo,
-            departamento,
-            unidade
-        } = req.body;
+        const { nome, email, senha, cargo, departamento, unidade } = req.body;
 
         const conn = await getConnection();
         const sql = `
@@ -43,9 +36,10 @@ export async function criarColaborador(req, res) {
         const [result] = await conn.query(sql, values);
         conn.release();
 
+        // Registrar no histórico
         await registrarHistorico(
-            "Criar Colaborador",
-            `Colaborador ${nome} (ID ${result.insertId}) foi criado.`,
+            "Colaborador criado",
+            `Colaborador ${nome} foi criado.`,
             req.usuarioId || "Sistema"
         );
 
@@ -69,23 +63,24 @@ export async function atualizarColaborador(req, res) {
 
         const conn = await getConnection();
 
+        // Buscar nome antigo
+        const [old] = await conn.query(`SELECT nome FROM usuarios WHERE id=? AND nivel_acesso='Colaborador'`, [id]);
+        const nomeAntigo = old[0]?.nome || "Colaborador";
+
         const sql = `
             UPDATE usuarios SET 
             nome=?, email=?, cargo=?, departamento=?, unidade=?
             WHERE id=? AND nivel_acesso='Colaborador'
         `;
-
-        const values = [
-            dados.nome, dados.email, dados.cargo,
-            dados.departamento, dados.unidade, id
-        ];
+        const values = [dados.nome, dados.email, dados.cargo, dados.departamento, dados.unidade, id];
 
         await conn.query(sql, values);
         conn.release();
 
+        // Registrar no histórico
         await registrarHistorico(
-            "Atualizar Colaborador",
-            `Colaborador ID ${id} foi atualizado.`,
+            "Colaborador atualizado",
+            `Colaborador ${nomeAntigo} foi atualizado para ${dados.nome}.`,
             req.usuarioId || "Sistema"
         );
 
@@ -103,15 +98,18 @@ export async function excluirColaborador(req, res) {
         const { id } = req.params;
 
         const conn = await getConnection();
-        await conn.query(
-            `DELETE FROM usuarios WHERE id=? AND nivel_acesso='Colaborador'`,
-            [id]
-        );
+
+        // Buscar nome antes de deletar
+        const [rows] = await conn.query(`SELECT nome FROM usuarios WHERE id=? AND nivel_acesso='Colaborador'`, [id]);
+        const nome = rows[0]?.nome || "Colaborador";
+
+        await conn.query(`DELETE FROM usuarios WHERE id=? AND nivel_acesso='Colaborador'`, [id]);
         conn.release();
 
+        // Registrar no histórico
         await registrarHistorico(
-            "Excluir Colaborador",
-            `O colaborador ID ${id} foi excluído.`,
+            "Colaborador excluído",
+            `Colaborador ${nome} foi excluído.`,
             req.usuarioId || "Sistema"
         );
 

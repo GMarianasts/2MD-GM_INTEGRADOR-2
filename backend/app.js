@@ -16,7 +16,6 @@ import historicoRoutes from "./routes/historicoRotas.js";
 
 
 import usuarioRotas from './routes/usuarioRotas.js';
-import treinamentoCountRotas from './routes/treinamentoCountRotas.js';
 
 import treinamentoRotas from './routes/treinamentoRotas.js';
 
@@ -66,11 +65,9 @@ app.use('/api/colaboradores', colaboradoresRotas);
 app.use("/api/usuarios", usuarioRotas);
 app.use('/api/auth', authRotas);
 app.use('/api/produtos', produtoRotas);
-app.use('/api/treinamentos', treinamentoCountRotas);
 app.use('/api/treinamentos', treinamentoRotas);
 app.use("/api/inscricoes", inscricaoRoutes);
 app.use("/historico", historicoRoutes);
-
 
 
 app.get('/', (req, res) => {

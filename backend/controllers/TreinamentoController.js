@@ -118,7 +118,7 @@ export const criarTreinamento = async (req, res) => {
 
         // HISTÓRICO
         await registrarHistorico(
-            "Criar Treinamento",
+            "Treinamento criado",
             `O treinamento "${dados.titulo}" (ID ${novoId}) foi criado.`,
             req.usuarioId || "Sistema"
         );
@@ -149,7 +149,7 @@ export const excluirTreinamento = async (req, res) => {
 
         // HISTÓRICO
         await registrarHistorico(
-            "Excluir Treinamento",
+            "Treinamento excluído",
             `O treinamento ID ${id} foi excluído.`,
             req.usuarioId || "Sistema"
         );
@@ -240,7 +240,7 @@ export const atualizarTreinamento = async (req, res) => {
 
         // HISTÓRICO
         await registrarHistorico(
-            "Atualizar Treinamento",
+            "Treinamento atualizado",
             `O treinamento ID ${id} foi atualizado.`,
             req.usuarioId || "Sistema"
         );
@@ -295,12 +295,6 @@ export const buscarTreinamentoPorId = async (req, res) => {
             ? treino.competencias_lista.split(',')
             : [];
 
-        // Histórico
-        await registrarHistorico(
-            "Buscar Treinamento",
-            `Treinamento ID ${id} foi visualizado.`,
-            req.usuarioId || "Sistema"
-        );
 
         res.json({ sucesso: true, dados: treino });
 

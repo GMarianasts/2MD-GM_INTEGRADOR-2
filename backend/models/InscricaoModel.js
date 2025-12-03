@@ -39,7 +39,7 @@ class InscricaoModel {
                 WHERE i.usuario_id = ?
                 ORDER BY i.data_inscricao DESC
             `;
-
+            
             const [rows] = await connection.query(sql, [usuario_id]);
             return rows;
         } finally {
@@ -51,7 +51,7 @@ class InscricaoModel {
     static async listar() {
         const connection = await getConnection();
         try {
-            const sql = `
+           const sql = `
         SELECT 
         i.id,
         u.nome AS usuario,
@@ -65,6 +65,7 @@ class InscricaoModel {
         WHERE u.nivel_acesso = 'Colaborador'
         ORDER BY i.id DESC
         `;
+
 
             const [rows] = await connection.query(sql);
             return rows;
@@ -82,6 +83,41 @@ class InscricaoModel {
             await connection.query(sql, [id]);
             return true;
 
+        } finally {
+            connection.release();
+        }
+    }
+    
+    // Buscar inscrição por ID com usuário e curso
+    static async buscarPorId(id) {
+        const connection = await getConnection();
+        try {
+            const sql = `
+            SELECT 
+                i.id,
+                u.nome AS usuario,
+                t.titulo AS treinamento
+            FROM inscricoes i
+            JOIN usuarios u ON i.usuario_id = u.id
+            JOIN treinamentos t ON i.treinamento_id = t.id
+            WHERE i.id = ?
+        `;
+            const [rows] = await connection.query(sql, [id]);
+            return rows[0];
+        } finally {
+            connection.release();
+        }
+    }
+
+    // Buscar curso por ID
+    static async buscarCursoPorId(id) {
+        const connection = await getConnection();
+        try {
+            const [rows] = await connection.query(
+                `SELECT titulo FROM treinamentos WHERE id = ?`,
+                [id]
+            );
+            return rows[0];
         } finally {
             connection.release();
         }

@@ -13,23 +13,6 @@ import { useState, useEffect } from "react";
 export default function DashboardAdmin() {
     const [taxaConclusao, setTaxaConclusao] = useState(0);
 
-    const dadosTendencia = [
-        { mes: "Jan", inscricoes: 70, conclusoes: 68 },
-        { mes: "Fev", inscricoes: 75, conclusoes: 72 },
-        { mes: "Mar", inscricoes: 90, conclusoes: 85 },
-        { mes: "Abr", inscricoes: 110, conclusoes: 100 },
-        { mes: "Mai", inscricoes: 125, conclusoes: 115 },
-        { mes: "Jun", inscricoes: 140, conclusoes: 125 },
-    ];
-
-    const dadosCategorias = [
-        { name: "Segurança", value: 30, color: "#1E56A0" },
-        { name: "Técnico", value: 27, color: "#00B894" },
-        { name: "Liderança", value: 17, color: "#A29BFE" },
-        { name: "Compliance", value: 14, color: "#F0932B" },
-        { name: "Qualidade", value: 11, color: "#E74C3C" },
-    ];
-
     const [ativos, setAtivos] = useState(0);
 
     useEffect(() => {

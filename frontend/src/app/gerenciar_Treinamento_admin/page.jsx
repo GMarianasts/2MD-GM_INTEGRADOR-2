@@ -1,5 +1,6 @@
 "use client";
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./gerenciar.css";
@@ -7,7 +8,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import ModalNovoTreinamento from "@/components/modalNovoTreinamento/modalNovoTreinamento";
 
+
 export default function GerenciadorTreinamento() {
+
 
     const [treinamentos, setTreinamentos] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -22,6 +25,7 @@ export default function GerenciadorTreinamento() {
     const [menuAberto, setMenuAberto] = useState(null);
     const [cursoParaEditar, setCursoParaEditar] = useState(null);
 
+
     const [estatisticas, setEstatisticas] = useState({
         total: 0,
         ativos: 0,
@@ -29,6 +33,7 @@ export default function GerenciadorTreinamento() {
         taxaOcupacao: 0,
         porcentagemAtivos: 0
     });
+
 
     // --- LÓGICA DE FILTRAGEM CORRIGIDA ---
     const treinamentosFiltrados = treinamentos.filter((item) => {
@@ -39,26 +44,32 @@ export default function GerenciadorTreinamento() {
         const competenciaMatch = item.competencias?.some(comp => comp.toLowerCase().includes(termo));
         const matchTexto = tituloMatch || instrutorMatch || competenciaMatch;
 
+
         // 2. Filtro de Status
         const matchStatus = filtroStatus ? item.status === filtroStatus : true;
+
 
         // 3. Filtro de Modalidade
         const matchModalidade = filtroModalidade ? item.modalidade === filtroModalidade : true;
 
+
         // Retorna só se atender a TODOS os critérios
         return matchTexto && matchStatus && matchModalidade;
     });
+
 
     const handleNovoTreinamento = () => {
         setCursoParaEditar(null);
         setShowModal(true);
     };
 
+
     const handleEditar = (curso) => {
         setCursoParaEditar(curso);
         setShowModal(true);
         setMenuAberto(null);
     };
+
 
     const toggleMenu = (id) => {
         if (menuAberto === id) {
@@ -67,6 +78,7 @@ export default function GerenciadorTreinamento() {
             setMenuAberto(id);
         }
     };
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -78,15 +90,18 @@ export default function GerenciadorTreinamento() {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
+
     async function fetchTreinamentos() {
         setLoading(true);
         try {
             const res = await fetch('http://localhost:3001/api/treinamentos');
             const data = await res.json();
 
+
             if (data.sucesso) {
                 const listaTreinos = data.dados;
                 setTreinamentos(listaTreinos);
+
 
                 const total = listaTreinos.length;
                 const ativos = listaTreinos.filter(t => t.status === 'Ativo').length;
@@ -94,6 +109,7 @@ export default function GerenciadorTreinamento() {
                 const capacidadeTotal = listaTreinos.reduce((acc, curr) => acc + (curr.capacidade || 0), 0);
                 const taxa = capacidadeTotal > 0 ? Math.round((totalInscritos / capacidadeTotal) * 100) : 0;
                 const porcAtivos = total > 0 ? Math.round((ativos / total) * 100) : 0;
+
 
                 setEstatisticas({
                     total: total,
@@ -110,6 +126,7 @@ export default function GerenciadorTreinamento() {
         }
     }
 
+
     const handleExcluir = async (id) => {
         if (window.confirm("Tem certeza que deseja excluir este treinamento?")) {
             try {
@@ -117,7 +134,9 @@ export default function GerenciadorTreinamento() {
                     method: 'DELETE'
                 });
 
+
                 const data = await res.json();
+
 
                 if (data.sucesso) {
                     fetchTreinamentos();
@@ -132,9 +151,11 @@ export default function GerenciadorTreinamento() {
         }
     };
 
+
     useEffect(() => {
         fetchTreinamentos();
     }, []);
+
 
     const formatarData = (dataISO) => {
         if (!dataISO) return '-';
@@ -142,14 +163,17 @@ export default function GerenciadorTreinamento() {
         return data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
     };
 
+
     const getStatusBadge = (status) => {
         if (status === 'Ativo') return 'bg-success-subtle text-success border-success-subtle';
         if (status === 'Rascunho') return 'bg-secondary-subtle text-secondary border-secondary-subtle';
         return 'bg-light text-dark border';
     };
 
+
     return (
         <div className="container-fluid pagina-usuario">
+
 
             {showModal && (
                 <ModalNovoTreinamento
@@ -158,6 +182,7 @@ export default function GerenciadorTreinamento() {
                     dadosEditar={cursoParaEditar}
                 />
             )}
+
 
             <div className="row flex-nowrap">
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: '100vh' }}>
@@ -171,6 +196,7 @@ export default function GerenciadorTreinamento() {
                             <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
                         </li>
 
+
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
                             <Link href={'colaboradorAdmin'}><span>Gerenciar Colaboradores</span></Link>
@@ -179,6 +205,8 @@ export default function GerenciadorTreinamento() {
                 </aside>
                 <main className="col-12 col-md-9 col-lg-10 p-4 bg-light">
 
+
+                    {/* Bloco de Título e Botão Responsivo */}
                     <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
                         <div>
                             <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Treinamentos</h2>
@@ -198,9 +226,11 @@ export default function GerenciadorTreinamento() {
                         </button>
                     </div>
 
+
                     <div className="row g-3">
                         <div className="col-12">
                             <div className="row justify-content-start g-3">
+
 
                                 {/* Card Total */}
                                 <div className="col-12 col-md-6 col-lg-3">
@@ -217,6 +247,7 @@ export default function GerenciadorTreinamento() {
                                     </div>
                                 </div>
 
+
                                 {/* Card Ativos */}
                                 <div className="col-12 col-md-6 col-lg-3">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
@@ -232,6 +263,7 @@ export default function GerenciadorTreinamento() {
                                     </div>
                                 </div>
 
+
                                 {/* Card Inscritos */}
                                 <div className="col-12 col-md-6 col-lg-3">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
@@ -246,6 +278,7 @@ export default function GerenciadorTreinamento() {
                                         </div>
                                     </div>
                                 </div>
+
 
                                 {/* Card Taxa de Ocupação */}
                                 <div className="col-12 col-md-6 col-lg-3">
@@ -265,8 +298,10 @@ export default function GerenciadorTreinamento() {
                         </div>
                     </div>
 
+
                     <div className="row g-3 mb-4 mt-4">
                         <div className="col-12">
+
 
                             {/* --- CARD DA BUSCA E FILTROS --- */}
                             <div className="card1 border rounded-4 bg-white shadow-sm p-4">
@@ -290,6 +325,7 @@ export default function GerenciadorTreinamento() {
                                         />
                                     </div>
 
+
                                     {/* Botão Filtros */}
                                     <button
                                         className={`btn d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap ${mostrarFiltros ? 'btn-primary' : 'btn-light border'}`}
@@ -300,6 +336,7 @@ export default function GerenciadorTreinamento() {
                                         Filtros
                                     </button>
                                 </div>
+
 
                                 {/* LINHA INFERIOR: ÁREA DOS FILTROS */}
                                 {mostrarFiltros && (
@@ -319,6 +356,7 @@ export default function GerenciadorTreinamento() {
                                                 </select>
                                             </div>
 
+
                                             <div className="col-12 col-md-4">
                                                 <label className="form-label small fw-bold text-muted mb-1 ms-1">Modalidade</label>
                                                 <select
@@ -332,6 +370,7 @@ export default function GerenciadorTreinamento() {
                                                     <option value="Híbrido">Híbrido</option>
                                                 </select>
                                             </div>
+
 
                                             <div className="col-12 col-md-4 d-flex align-items-end">
                                                 <button
@@ -347,19 +386,23 @@ export default function GerenciadorTreinamento() {
                                                 </button>
                                             </div>
 
+
                                         </div>
                                     </div>
                                 )}
                             </div>
                             {/* --- FIM DO CARD DA BUSCA --- */}
 
+
                         </div>
                     </div>
+
 
                     <div className="row g-3 mt-3">
                         <div className="col-12">
                             <div className="card1 border rounded-4 bg-white shadow-sm">
                                 <div className="card-body p-4">
+
 
                                     <div className="mb-4">
                                         <h5 className="fw-bold mb-1">Todos os Treinamentos</h5>
@@ -367,6 +410,7 @@ export default function GerenciadorTreinamento() {
                                             {treinamentosFiltrados.length} treinamentos cadastrados
                                         </p>
                                     </div>
+
 
                                     <div className="table-responsive">
                                         <table className="table table-hover align-middle">
@@ -383,6 +427,7 @@ export default function GerenciadorTreinamento() {
                                                 </tr>
                                             </thead>
                                             <tbody>
+
 
                                                 {loading ? (
                                                     <tr><td colSpan="8" className="text-center py-4">Carregando...</td></tr>
@@ -412,6 +457,7 @@ export default function GerenciadorTreinamento() {
                                                             </td>
                                                             <td className="text-muted">{formatarData(item.data_inicio)}</td>
 
+
                                                             <td className="text-end pe-3 position-relative dropdown-acao">
                                                                 <i
                                                                     className="bi bi-three-dots-vertical text-muted p-2"
@@ -421,6 +467,7 @@ export default function GerenciadorTreinamento() {
                                                                         toggleMenu(item.id);
                                                                     }}
                                                                 ></i>
+
 
                                                                 {menuAberto === item.id && (
                                                                     <div className="dropdown-menu show shadow border-0"

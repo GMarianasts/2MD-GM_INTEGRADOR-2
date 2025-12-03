@@ -25,6 +25,7 @@ const HistoricoItem = ({ item }) => (
 );
 
 export default function GerenciarHistorico() {
+
     const [historico, setHistorico] = useState([]);
 
     useEffect(() => {
@@ -33,15 +34,14 @@ export default function GerenciarHistorico() {
                 const res = await fetch("http://localhost:3001/historico");
                 const dados = await res.json();
 
+                console.log("RESPOSTA DA API:", dados);
+
                 if (dados.sucesso && Array.isArray(dados.dados)) {
-                    // FILTRAR todas ações que contenham "buscar"
-                    const historicoFiltrado = dados.dados.filter(
-                        (item) => !item.acao.toLowerCase().includes("buscar")
-                    );
-                    setHistorico(historicoFiltrado);
+                    setHistorico(dados.dados);
                 } else {
                     console.warn("Formato inesperado da API:", dados);
                 }
+
             } catch (err) {
                 console.error("Erro ao buscar histórico:", err);
             }

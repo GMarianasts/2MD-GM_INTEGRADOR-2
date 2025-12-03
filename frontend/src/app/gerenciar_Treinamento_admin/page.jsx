@@ -7,12 +7,18 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import ModalNovoTreinamento from "@/components/modalNovoTreinamento/modalNovoTreinamento";
 
-export default function gerecinadorTreinamento() {
+export default function GerenciadorTreinamento() {
 
     const [treinamentos, setTreinamentos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    
+    // --- ESTADOS DOS FILTROS ---
     const [busca, setBusca] = useState('');
+    const [filtroStatus, setFiltroStatus] = useState('');
+    const [filtroModalidade, setFiltroModalidade] = useState('');
+    const [mostrarFiltros, setMostrarFiltros] = useState(false);
+    
     const [menuAberto, setMenuAberto] = useState(null);
     const [cursoParaEditar, setCursoParaEditar] = useState(null);
 
@@ -24,13 +30,23 @@ export default function gerecinadorTreinamento() {
         porcentagemAtivos: 0
     });
 
+    // --- LÓGICA DE FILTRAGEM CORRIGIDA ---
     const treinamentosFiltrados = treinamentos.filter((item) => {
+        // 1. Filtro de Texto
         const termo = busca.toLowerCase();
         const tituloMatch = item.titulo?.toLowerCase().includes(termo);
         const instrutorMatch = item.instrutor_nome?.toLowerCase().includes(termo);
         const competenciaMatch = item.competencias?.some(comp => comp.toLowerCase().includes(termo));
+        const matchTexto = tituloMatch || instrutorMatch || competenciaMatch;
 
-        return tituloMatch || instrutorMatch || competenciaMatch;
+        // 2. Filtro de Status
+        const matchStatus = filtroStatus ? item.status === filtroStatus : true;
+
+        // 3. Filtro de Modalidade
+        const matchModalidade = filtroModalidade ? item.modalidade === filtroModalidade : true;
+
+        // Retorna só se atender a TODOS os critérios
+        return matchTexto && matchStatus && matchModalidade;
     });
 
     const handleNovoTreinamento = () => {
@@ -164,7 +180,6 @@ export default function gerecinadorTreinamento() {
                 <main className="col-12 col-md-9 col-lg-10 p-4 bg-light">
 
                     <div className="d-flex justify-content-between align-items-center mb-4">
-
                         <div>
                             <h2 className="h4 fw-bold mb-1" style={{ color: "#0a2b6b" }}>Gerenciar Treinamentos</h2>
                             <p className="descricao text-muted mb-0">
@@ -181,7 +196,6 @@ export default function gerecinadorTreinamento() {
                         >
                             <i className="bi bi-plus-lg"></i> Novo Treinamento
                         </button>
-
                     </div>
 
                     <div className="row g-3">
@@ -254,10 +268,13 @@ export default function gerecinadorTreinamento() {
                     <div className="row g-3 mb-4 mt-4">
                         <div className="col-12">
 
-                            <div className="card1 border rounded-4 bg-white shadow-sm p-3">
+                            {/* --- CARD DA BUSCA E FILTROS --- */}
+                            <div className="card1 border rounded-4 bg-white shadow-sm p-4">
+                                
+                                {/* LINHA SUPERIOR: BUSCA E BOTÃO */}
                                 <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100">
-
-                                    {/* BARRA DE BUSCA */}
+                                    
+                                    {/* Barra de Busca */}
                                     <div
                                         className="d-flex align-items-center px-3 py-2 rounded-3 flex-grow-1"
                                         style={{ backgroundColor: "#f8f9fa" }}
@@ -273,18 +290,69 @@ export default function gerecinadorTreinamento() {
                                         />
                                     </div>
 
-                                    <div className="d-flex gap-2">
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
-                                            <i className="bi bi-funnel"></i> Filtros
-                                        </button>
-
-                                        <button className="btn btn-no-hover d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap">
-                                            <i className="bi bi-download"></i> Exportar
-                                        </button>
-                                    </div>
-
+                                    {/* Botão Filtros */}
+                                    <button
+                                        className={`btn d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap ${mostrarFiltros ? 'btn-primary' : 'btn-light border'}`}
+                                        onClick={() => setMostrarFiltros(!mostrarFiltros)}
+                                        style={mostrarFiltros ? { backgroundColor: "#0a2b6b", borderColor: "#0a2b6b" } : {}}
+                                    >
+                                        <i className={`bi ${mostrarFiltros ? 'bi-funnel-fill' : 'bi-funnel'}`}></i> 
+                                        Filtros
+                                    </button>
                                 </div>
+
+                                {/* LINHA INFERIOR: ÁREA DOS FILTROS */}
+                                {mostrarFiltros && (
+                                    <div className="mt-4 pt-3 border-top animate__animated animate__fadeIn">
+                                        <div className="row g-3">
+                                            
+                                            <div className="col-12 col-md-4">
+                                                <label className="form-label small fw-bold text-muted mb-1 ms-1">Status</label>
+                                                <select 
+                                                    className="form-select"
+                                                    value={filtroStatus}
+                                                    onChange={(e) => setFiltroStatus(e.target.value)}
+                                                >
+                                                    <option value="">Todos os Status</option>
+                                                    <option value="Ativo">Ativo</option>
+                                                    <option value="Rascunho">Rascunho</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="col-12 col-md-4">
+                                                <label className="form-label small fw-bold text-muted mb-1 ms-1">Modalidade</label>
+                                                <select 
+                                                    className="form-select"
+                                                    value={filtroModalidade}
+                                                    onChange={(e) => setFiltroModalidade(e.target.value)}
+                                                >
+                                                    <option value="">Todas as Modalidades</option>
+                                                    <option value="Online">Online</option>
+                                                    <option value="Presencial">Presencial</option>
+                                                    <option value="Híbrido">Híbrido</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="col-12 col-md-4 d-flex align-items-end">
+                                                <button 
+                                                    className="btn btn-outline-danger w-100"
+                                                    onClick={() => {
+                                                        setFiltroStatus('');
+                                                        setFiltroModalidade('');
+                                                        setBusca('');
+                                                    }}
+                                                >
+                                                    <i className="bi bi-x-circle me-2"></i>
+                                                    Limpar Filtros
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                )}
                             </div>
+                            {/* --- FIM DO CARD DA BUSCA --- */}
+
                         </div>
                     </div>
 

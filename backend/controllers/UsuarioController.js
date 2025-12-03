@@ -137,20 +137,53 @@ class UsuarioController {
     // Atualizar (admin)
     static async atualizarUsuario(req, res) {
         try {
-            const dados = req.body;
+            const { id } = req.params;
+            const {
+                nome,
+                email,
+                senha,
+                cargo,
+                departamento,
+                unidade,
+                nivelAcesso
+            } = req.body;
 
-            const resultado = await UsuarioModel.atualizar(req.params.id, dados);
+            // Monta os dados corretamente com os nomes DO BANCO
+            const dadosAtualizados = {
+                nome,
+                email,
+                cargo,
+                departamento,
+                unidade,
+                nivel_acesso: nivelAcesso
+            };
+
+            // Se senha vier vazia, remove do update
+            if (!senha || senha.trim() === "") {
+                delete dadosAtualizados.senha;
+            } else {
+                dadosAtualizados.senha = senha;
+            }
+
+            const resultado = await UsuarioModel.atualizar(id, dadosAtualizados);
+
+            if (!resultado) {
+                return res.status(400).json({ erro: "Usuário não encontrado ou não atualizado" });
+            }
 
             return res.status(200).json({
                 mensagem: "Usuário atualizado com sucesso!",
-                resultado
+                usuario: resultado
             });
 
         } catch (error) {
-            console.error('Erro ao atualizar usuário:', error);
-            return res.status(500).json({ erro: 'Erro ao atualizar usuário' });
+            console.error("Erro ao atualizar usuário:", error);
+            return res.status(500).json({
+                erro: error.message || "Erro interno ao atualizar usuário"
+            });
         }
     }
+
 
 
 

@@ -168,3 +168,26 @@ a:hover {
 .filtro-dropdown select:focus {
     border-color: #0a2b6b;
 }
+
+.btn-novo-treinamento {
+    background-color: #0a2b6b !important;
+    border: 1px solid #0a2b6b !important;
+    color: white !important;
+    display: flex !important; 
+    align-items: center;
+    justify-content: center;
+    gap: 8px; 
+    padding: 10px 20px; 
+    border-radius: 6px;
+    font-weight: 500;
+    white-space: nowrap; 
+    transition: background 0.3s ease;
+    text-decoration: none;
+    height: 46px; 
+}
+
+.btn-novo-treinamento:hover {
+    background-color: #082252 !important;
+    border-color: #082252 !important;
+    color: #fff !important;
+}

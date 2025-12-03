@@ -31,6 +31,7 @@ class InscricaoModel {
                     t.modalidade,
                     t.nivel,
                     i.status,
+                    i.data_conclusao,
                     i.data_inscricao,
                     0 AS progresso -- O banco ainda não tem essa coluna, fixamos em 0 por enquanto
                 FROM inscricoes i
@@ -38,7 +39,7 @@ class InscricaoModel {
                 WHERE i.usuario_id = ?
                 ORDER BY i.data_inscricao DESC
             `;
-            
+
             const [rows] = await connection.query(sql, [usuario_id]);
             return rows;
         } finally {
@@ -55,14 +56,15 @@ class InscricaoModel {
         i.id,
         u.nome AS usuario,
         t.titulo AS treinamento,
-        i.data_inscricao
+        i.data_inscricao,
+        i.status,          
+        i.data_conclusao
         FROM inscricoes i
         JOIN usuarios u ON i.usuario_id = u.id
         JOIN treinamentos t ON i.treinamento_id = t.id
         WHERE u.nivel_acesso = 'Colaborador'
         ORDER BY i.id DESC
-`;
-
+        `;
 
             const [rows] = await connection.query(sql);
             return rows;

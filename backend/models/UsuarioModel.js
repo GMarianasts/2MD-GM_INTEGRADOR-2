@@ -17,21 +17,18 @@ class UsuarioModel {
 
             const connection = await getConnection();
             try {
-                const [usuarios] = await connection.query(
-                    'SELECT * FROM usuarios ORDER BY id DESC LIMIT ? OFFSET ?',
-                    [limite, offset]
-                );
+                const sql = 'SELECT * FROM usuarios ORDER BY id DESC LIMIT ? OFFSET ?';
+                const [usuarios] = await connection.query(sql, [limite, offset]);
 
-                const [totalResult] = await connection.execute(
-                    'SELECT COUNT(*) AS total FROM usuarios'
-                );
+                const [totalResult] = await connection.execute('SELECT COUNT(*) AS total FROM usuarios');
+                const total = totalResult[0].total;
 
                 return {
                     usuarios,
-                    total: totalResult[0].total,
+                    total,
                     pagina,
                     limite,
-                    totalPaginas: Math.ceil(totalResult[0].total / limite)
+                    totalPaginas: Math.ceil(total / limite)
                 };
             } finally {
                 connection.release();
@@ -57,44 +54,37 @@ class UsuarioModel {
 
     // Criar usuário
     static async criar(dadosUsuario) {
-        try {
-            const senhaHash = await hashPassword(dadosUsuario.senha);
-            
-            if ("nivel_acesso" in dadosUsuario) {
-                delete dadosUsuario.nivel_acesso;
-            }
+    try {
+        const senhaHash = await hashPassword(dadosUsuario.senha);
 
-            const dadosComHash = {
-                ...dadosUsuario,
-                email: dadosUsuario.email.toLowerCase(),
-                senha: senhaHash
-            };
-
-            return await create('usuarios', dadosComHash);
-
-        } catch (error) {
-            console.error('Erro ao criar usuário:', error);
-            throw error;
+    
+        if ("nivel_acesso" in dadosUsuario) {
+            delete dadosUsuario.nivel_acesso;
         }
-    }
 
+        const dadosComHash = {
+            ...dadosUsuario,
+            email: dadosUsuario.email.toLowerCase(),
+            senha: senhaHash
+        };
+
+        return await create('usuarios', dadosComHash);
+
+    } catch (error) {
+        console.error('Erro ao criar usuário:', error);
+        throw error;
+    }
+}
+    // Atualizar usuário
     static async atualizar(id, dadosUsuario) {
         try {
-            if (!dadosUsuario || typeof dadosUsuario !== "object") {
-                throw new Error("Dados inválidos para atualização.");
-            }
-            if ("nivel_acesso" in dadosUsuario) {
-                delete dadosUsuario.nivel_acesso;
-            }
             if (dadosUsuario.senha) {
                 dadosUsuario.senha = await hashPassword(dadosUsuario.senha);
-            } else {
-                delete dadosUsuario.senha;
             }
+
             if (dadosUsuario.email) {
                 dadosUsuario.email = dadosUsuario.email.toLowerCase();
             }
-            delete dadosUsuario.id;
 
             return await update('usuarios', dadosUsuario, `id = ${id}`);
 
@@ -117,9 +107,11 @@ class UsuarioModel {
             if (!usuario) return null;
 
             const senhaValida = await comparePassword(senha, usuario.senha);
+
             if (!senhaValida) return null;
 
             const { senha: _, ...usuarioSemSenha } = usuario;
+
             return usuarioSemSenha;
 
         } catch (error) {

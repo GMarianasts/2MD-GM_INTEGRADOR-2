@@ -176,67 +176,6 @@ export default function DashboardAdmin() {
                         </div>
                     </div>
 
-                    {/* GRÁFICOS */}
-                    <div className="row g-3 mt-3">
-                        <div className="col-12 col-lg-7 card-treinamento shadow-sm p-3">
-                            <div className="d-flex align-items-center mb-2">
-                                <div className="icon bg-primary text-white rounded-3 p-2 me-2">
-                                    <i className="bi bi-graph-up"></i>
-                                </div>
-                                <div>
-                                    <h6 className="fw-bold mb-0">Tendência Mensal</h6>
-                                    <small className="text-muted">Inscrições vs Conclusões</small>
-                                </div>
-                            </div>
-
-                            <ResponsiveContainer width="100%" height={220}>
-                                <LineChart data={dadosTendencia}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                    <XAxis dataKey="mes" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Legend />
-                                    <Line type="monotone" dataKey="inscricoes" stroke="#1E56A0" strokeWidth={2} />
-                                    <Line type="monotone" dataKey="conclusoes" stroke="#00B894" strokeWidth={2} />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-
-                        <div className="col-12 col-lg-5 card-treinamento shadow-sm p-3">
-                            <div className="d-flex align-items-center mb-2">
-                                <div className="icon bg-primary text-white rounded-3 p-2 me-2">
-                                    <i className="bi bi-pie-chart"></i>
-                                </div>
-                                <div>
-                                    <h6 className="fw-bold mb-0">Treinamentos por Categoria</h6>
-                                    <small className="text-muted">Distribuição de participantes</small>
-                                </div>
-                            </div>
-
-                            <ResponsiveContainer width="100%" height={280}>
-                                <PieChart>
-                                    <Pie
-                                        data={dadosCategorias}
-                                        dataKey="value"
-                                        nameKey="name"
-                                        cx="50%"
-                                        cy="50%"
-                                        outerRadius={90}
-                                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                                    >
-                                        {dadosCategorias.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.color} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip
-                                        formatter={(value, name, props) => [`${value}`, `${props.payload.name}`]}
-                                    />
-                                </PieChart>
-                            </ResponsiveContainer>
-
-                        </div>
-                    </div>
-
                     {/* LISTA DE CURSOS */}
                     <div className="card-treinamento mt-4">
                         <div className="Cards">

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "../../app/colaboradorAdmin/colaborador.css";
+import "../colaboradoresTabela/colaboradorTabela.css";
+
 
 export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelete }) {
   const [colaboradores, setColaboradores] = useState([]);
@@ -11,11 +12,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
   const getIniciais = (nome) => {
     if (!nome) return "U";
     const partes = nome.trim().split(" ");
-
-    if (partes.length === 1) {
-      return partes[0].substring(0, 2).toUpperCase();
-    }
-
+    if (partes.length === 1) return partes[0].substring(0, 2).toUpperCase();
     return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
   };
 
@@ -23,7 +20,6 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
     try {
       const response = await fetch("http://localhost:3001/api/usuarios");
       const data = await response.json();
-
       if (response.ok) setColaboradores(data.usuarios || []);
     } catch (error) {
       console.error(error);
@@ -31,7 +27,6 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
       setLoading(false);
     }
   };
-
 
   useEffect(() => {
     carregarDados();
@@ -51,15 +46,16 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
   return (
     <div className="tabela-container shadow-sm bg-white rounded-3 border mt-4">
 
-      <div className="header-lista p-4 border-bottom d-flex justify-content-between align-items-center">
-        <div>
+      {/* HEADER RESPONSIVO */}
+      <div className="header-lista p-4 border-bottom d-flex flex-wrap gap-3 justify-content-between align-items-center">
+        <div className="header-info">
           <h5 className="fw-semibold mb-1" style={{ color: "#0a2b6b" }}>
             <i className="bi bi-people me-2"></i> Lista de Colaboradores
           </h5>
           <p className="text-muted small mb-0">Gerencie cadastros, permissões e histórico</p>
         </div>
 
-        <div className="ms-3" style={{ width: "300px" }}>
+        <div className="input-busca">
           <input
             type="text"
             className="form-control"
@@ -70,18 +66,20 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
         </div>
       </div>
 
+      {/* TABELA RESPONSIVA */}
       <div className="table-responsive">
         <table className="table tabela-colaboradores table-hover align-middle mb-0">
-          <thead className="table-light">
+          <thead className="table-light d-none d-md-table-header-group">
             <tr>
               <th className="ps-4">Colaborador</th>
-             <th className="ps-5">Departamento</th>
+              <th className="ps-5">Departamento</th>
               <th>Cargo</th>
               <th>Unidade</th>
               <th>Acesso</th>
               <th className="text-end pe-4">Ações</th>
             </tr>
           </thead>
+
           <tbody>
             {loading ? (
               <tr>
@@ -97,41 +95,45 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
               </tr>
             ) : (
               colaboradoresFiltrados.map((c) => (
-                <tr key={c.id}>
+                <tr key={c.id} className="linha-responsiva">
+                  {/* COLABORADOR */}
                   <td className="ps-4">
                     <div className="d-flex align-items-center">
                       <div
-                        className="rounded-circle d-flex justify-content-center align-items-center text-white fw-bold flex-shrink-0"
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          backgroundColor: "#0a2b6b",
-                          fontSize: "0.9rem",
-                        }}
+                        className="avatar-colaborador"
                       >
                         {getIniciais(c.nome)}
-
                       </div>
 
                       <div className="ms-3">
-                        <strong className="text-dark d-block mb-0">{c.nome}</strong>
+                        <strong className="text-dark d-block mb-0 nome-col">
+                          {c.nome}
+                        </strong>
                         <span className="text-muted small">{c.email}</span>
                       </div>
                     </div>
                   </td>
 
-                 <td className="ps-5">
-                    <span className="badge bg-light text-dark border">{c.departamento}</span>
+                  {/* Departamento */}
+                  <td data-label="Departamento" className="ps-5">
+                    <span className="badge bg-light text-dark border">
+                      {c.departamento}
+                    </span>
                   </td>
 
-                  <td>{c.cargo}</td>
-                  <td>{c.unidade}</td>
+                  {/* Cargo */}
+                  <td data-label="Cargo">{c.cargo}</td>
 
-                  <td>
-                    <span className={`badge bg-light text-dark border`}>{c.nivel_acesso}</span>
+                  {/* Unidade */}
+                  <td data-label="Unidade">{c.unidade}</td>
+
+                  {/* Nível de Acesso */}
+                  <td data-label="Acesso">
+                    <span className="badge bg-light text-dark border">{c.nivel_acesso}</span>
                   </td>
 
-                  <td className="text-end pe-4">
+                  {/* AÇÕES */}
+                  <td className="text-end pe-4" data-label="Ações">
                     <button
                       className="btn btn-sm btn-light rounded-circle text-primary me-1"
                       onClick={() => onEdit(c)}
@@ -150,9 +152,9 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
               ))
             )}
           </tbody>
+
         </table>
       </div>
-
 
     </div>
   );

@@ -154,47 +154,126 @@ export default function PaginaColaboradores() {
 
             <div className="modal-body-scroll">
               <form className="row g-3">
-                <h6 className="fw-bold mt-2">🧍 Informações Pessoais</h6> <hr />
-                <div className="col-md-12"><label className="form-label fw-semibold">Nome Completo *</label><input type="text" name="nome" value={formData.nome} onChange={handleChange} className="form-control" /></div>
 
-                <h6 className="fw-bold mt-3">📧 Acesso</h6> <hr />
-                <div className="col-md-6"><label className="form-label fw-semibold">E-mail *</label><input type="email" name="email" value={formData.email} onChange={handleChange} className="form-control" /></div>
+                <h6 className="fw-bold mt-2">🧍 Informações Pessoais</h6>
+                <hr />
+
+                <div className="col-md-12">
+                  <label className="form-label fw-semibold">Nome Completo *</label>
+                  <input
+                    type="text"
+                    name="nome"
+                    value={formData.nome}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+
+                <h6 className="fw-bold mt-3">📧 Acesso</h6>
+                <hr />
+
                 <div className="col-md-6">
-                  <label className="form-label fw-semibold">{editingId ? "Nova Senha (Opcional)" : "Senha Inicial *"}</label>
-                  <input type="text" name="senha" value={formData.senha} onChange={handleChange} className="form-control" placeholder={editingId ? "Deixe em branco para não mudar" : ""} />
+                  <label className="form-label fw-semibold">E-mail *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
                 </div>
 
-                <h6 className="fw-bold mt-3">🏢 Profissional</h6> <hr />
-                <div className="col-md-6"><label className="form-label fw-semibold">Cargo</label><input type="text" name="cargo" value={formData.cargo} onChange={handleChange} className="form-control" /></div>
-                <div className="col-md-6"><label className="form-label fw-semibold">Departamento</label>
-                  <select name="departamento" value={formData.departamento} onChange={handleChange} className="form-select">
+                <div className="col-md-6">
+                  <label className="form-label fw-semibold">
+                    {editingId ? "Nova Senha (Opcional)" : "Senha Inicial *"}
+                  </label>
+                  <input
+                    type="password"
+                    name="senha"
+                    value={formData.senha}
+                    onChange={handleChange}
+                    className="form-control"
+                    placeholder={editingId ? "Deixe em branco para manter" : ""}
+                  />
+                </div>
+
+                <h6 className="fw-bold mt-3">🏢 Profissional</h6>
+                <hr />
+
+                <div className="col-md-6">
+                  <label className="form-label fw-semibold">Cargo</label>
+                  <input
+                    type="text"
+                    name="cargo"
+                    value={formData.cargo}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-semibold">Departamento</label>
+                  <select
+                    name="departamento"
+                    value={formData.departamento}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
                     <option value="">Selecione...</option>
-                    <option>Engenharia</option><option>RH</option><option>TI</option><option>Vendas</option>
+                    <option>Engenharia</option>
+                    <option>RH</option>
+                    <option>TI</option>
+                    <option>Vendas</option>
                   </select>
                 </div>
-                <div className="col-md-6"><label className="form-label fw-semibold">Unidade</label>
-                  <select name="unidade" value={formData.unidade} onChange={handleChange} className="form-select">
+
+                <div className="col-md-6">
+                  <label className="form-label fw-semibold">Unidade</label>
+                  <select
+                    name="unidade"
+                    value={formData.unidade}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
                     <option value="">Selecione...</option>
-                    <option>São Caetano do Sul</option><option>São José dos Campos</option>
+                    <option>São Caetano do Sul</option>
+                    <option>São José dos Campos</option>
                   </select>
                 </div>
-                <div className="col-md-6"><label className="form-label fw-semibold">Perfil</label>
-                  <select name="nivelAcesso" value={formData.nivelAcesso} onChange={handleChange} className="form-select">
+
+                <div className="col-md-6">
+                  <label className="form-label fw-semibold">Perfil</label>
+                  <select
+                    name="nivelAcesso"
+                    value={formData.nivelAcesso}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
                     <option value="Colaborador">Colaborador</option>
                     <option value="Admin">Administrador</option>
-
                   </select>
                 </div>
+
               </form>
             </div>
 
             <div className="modal-footer bg-light p-3 rounded-bottom">
-              <button className="btn btn-secondary px-4" onClick={handleCloseModal}>Cancelar</button>
-              <button className="btn btn-primary px-4" onClick={handleSave} style={{ backgroundColor: '#0a2b6b', borderColor: '#0a2b6b' }}>Salvar</button>
+              <button className="btn btn-secondary px-4" onClick={handleCloseModal}>
+                Cancelar
+              </button>
+
+              <button
+                className="btn btn-primary px-4"
+                onClick={handleSave}
+                style={{ backgroundColor: "#0a2b6b", borderColor: "#0a2b6b" }}
+              >
+                Salvar
+              </button>
             </div>
           </div>
         </div>
       )}
+
     </>
   );
 }

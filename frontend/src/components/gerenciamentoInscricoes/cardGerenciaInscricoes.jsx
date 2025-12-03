@@ -5,7 +5,6 @@ import "./cardGerenciarInscricoes.css";
 import Swal from 'sweetalert2';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-
 const ProgressBar = ({ progresso }) => (
     <div className="progress-bar-container">
         <div className="progress-bar-fill" style={{ width: `${progresso}%` }}></div>
@@ -23,18 +22,16 @@ const StatusBadge = ({ status }) => {
 export default function GerenciarInscricoes() {
     const [inscricoes, setInscricoes] = useState([]);
 
-    // Carregar do backend
     async function carregarInscricoes() {
         const response = await fetch("http://localhost:3001/api/inscricoes");
         const data = await response.json();
         console.log("INSCRIÇÕES:", data);
 
-        // CORREÇÃO: Verifica se 'data' é um array direto OU se está dentro de 'dados'
         if (Array.isArray(data)) {
             setInscricoes(data);
         } else {
             setInscricoes(data.dados || []);
-        } // ✅ agora é sempre array
+        }
     }
 
     async function remover(id) {
@@ -49,11 +46,9 @@ export default function GerenciarInscricoes() {
             cancelButtonText: "Cancelar"
         });
 
-        if (!resultado.isConfirmed) {
-            return; // cancelou → não remove
-        }
+        if (!resultado.isConfirmed) return;
 
-        await fetch(`http://localhost:3001/inscricoes/${id}`, {
+        await fetch(`http://localhost:3001/api/inscricoes/${id}`, {
             method: "DELETE",
         });
 
@@ -84,13 +79,11 @@ export default function GerenciarInscricoes() {
                 </button>
             </header>
 
-            {/* Barra de busca */}
             <div className="search-bar-inscricoes">
                 <i className="bi bi-search"></i>
                 <input type="text" placeholder="Buscar inscrições..." />
             </div>
 
-            {/* Tabela */}
             <div className="inscricoes-table">
                 <div className="table-header">
                     <span>Colaborador</span>

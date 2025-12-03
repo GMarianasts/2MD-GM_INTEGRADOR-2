@@ -481,9 +481,6 @@ export default function GerenciadorTreinamento() {
                                                                         <div className="px-3 py-2 border-bottom">
                                                                             <span className="small text-muted fw-bold">Ações</span>
                                                                         </div>
-                                                                        <button className="dropdown-item py-2 d-flex align-items-center gap-2">
-                                                                            <i className="bi bi-eye"></i> Visualizar
-                                                                        </button>
                                                                         <button
                                                                             className="dropdown-item py-2 d-flex align-items-center gap-2"
                                                                             onClick={(e) => {
@@ -492,9 +489,6 @@ export default function GerenciadorTreinamento() {
                                                                             }}
                                                                         >
                                                                             <i className="bi bi-pencil"></i> Editar
-                                                                        </button>
-                                                                        <button className="dropdown-item py-2 d-flex align-items-center gap-2">
-                                                                            <i className="bi bi-people"></i> Ver Inscrições
                                                                         </button>
                                                                         <div className="dropdown-divider my-1"></div>
                                                                         <button

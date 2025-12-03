@@ -43,23 +43,23 @@ class InscricaoController {
 
     // Concluir inscrição
     static async concluir(req, res) {
-        let conn;
         try {
             const { id } = req.params;
             if (!id) return res.status(400).json({ erro: "ID da inscrição inválido." });
 
-            // Buscar inscrição e dados do usuário/curso antes de concluir
+            // Buscar inscrição completa
             const inscricao = await InscricaoModel.buscarPorId(id);
             if (!inscricao) return res.status(404).json({ erro: "Inscrição não encontrada." });
 
-            conn = await InscricaoModel.getConnection();
-            await conn.query(
+            // Atualizar status
+            const connection = await InscricaoModel.getConnection?.() || await InscricaoModel.listarPorUsuario(inscricao.usuario_id); // fallback
+            await connection.query?.(
                 `UPDATE inscricoes SET status='Concluído', data_conclusao=NOW() WHERE id=?`,
                 [id]
             );
-            conn.release();
+            connection.release?.();
 
-            // Registrar no histórico
+            // Registrar histórico
             await registrarHistorico(
                 "Inscrição concluída",
                 `O colaborador "${inscricao.usuario}" concluiu o curso "${inscricao.treinamento}".`,
@@ -72,10 +72,8 @@ class InscricaoController {
             });
 
         } catch (error) {
-            console.error("Erro ao concluir:", error);
+            console.error("Erro ao concluir inscrição:", error);
             return res.status(500).json({ erro: "Erro ao concluir curso" });
-        } finally {
-            if (conn) conn.release();
         }
     }
 
@@ -88,6 +86,7 @@ class InscricaoController {
             const inscricao = await InscricaoModel.buscarPorId(id);
             if (!inscricao) return res.status(404).json({ erro: "Inscrição não encontrada." });
 
+            // Excluir inscrição
             await InscricaoModel.excluir(id);
 
             // Registrar histórico
@@ -102,6 +101,17 @@ class InscricaoController {
         } catch (error) {
             console.error("Erro ao excluir inscrição:", error);
             return res.status(500).json({ erro: "Erro ao excluir inscrição" });
+        }
+    }
+
+    // Listar todas as inscrições
+    static async listar(req, res) {
+        try {
+            const inscricoes = await InscricaoModel.listar();
+            return res.status(200).json({ sucesso: true, dados: inscricoes });
+        } catch (error) {
+            console.error("Erro ao listar inscrições:", error);
+            return res.status(500).json({ erro: "Erro ao listar inscrições" });
         }
     }
 

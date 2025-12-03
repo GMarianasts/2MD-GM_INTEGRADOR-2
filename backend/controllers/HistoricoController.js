@@ -7,7 +7,7 @@ export async function listarHistoricoController(req, res) {
 
         return res.json({
             sucesso: true,
-            dados: rows 
+            dados: rows   // <-- AGORA O FRONT RECEBE "dados"
         });
 
     } catch (err) {

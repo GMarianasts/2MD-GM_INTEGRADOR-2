@@ -11,12 +11,10 @@ import ModalNovoTreinamento from "@/components/modalNovoTreinamento/modalNovoTre
 
 export default function GerenciadorTreinamento() {
 
-
     const [treinamentos, setTreinamentos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
-    // --- ESTADOS DOS FILTROS ---
     const [busca, setBusca] = useState('');
     const [filtroStatus, setFiltroStatus] = useState('');
     const [filtroModalidade, setFiltroModalidade] = useState('');
@@ -24,7 +22,6 @@ export default function GerenciadorTreinamento() {
 
     const [menuAberto, setMenuAberto] = useState(null);
     const [cursoParaEditar, setCursoParaEditar] = useState(null);
-
 
     const [estatisticas, setEstatisticas] = useState({
         total: 0,
@@ -34,42 +31,33 @@ export default function GerenciadorTreinamento() {
         porcentagemAtivos: 0
     });
 
-
-    // --- LÓGICA DE FILTRAGEM CORRIGIDA ---
     const treinamentosFiltrados = treinamentos.filter((item) => {
-        // 1. Filtro de Texto
+        // Filtro de Texto
         const termo = busca.toLowerCase();
         const tituloMatch = item.titulo?.toLowerCase().includes(termo);
         const instrutorMatch = item.instrutor_nome?.toLowerCase().includes(termo);
         const competenciaMatch = item.competencias?.some(comp => comp.toLowerCase().includes(termo));
         const matchTexto = tituloMatch || instrutorMatch || competenciaMatch;
 
-
-        // 2. Filtro de Status
+        // Filtro de Status
         const matchStatus = filtroStatus ? item.status === filtroStatus : true;
 
-
-        // 3. Filtro de Modalidade
+        // Filtro de Modalidade
         const matchModalidade = filtroModalidade ? item.modalidade === filtroModalidade : true;
 
-
-        // Retorna só se atender a TODOS os critérios
         return matchTexto && matchStatus && matchModalidade;
     });
-
 
     const handleNovoTreinamento = () => {
         setCursoParaEditar(null);
         setShowModal(true);
     };
 
-
     const handleEditar = (curso) => {
         setCursoParaEditar(curso);
         setShowModal(true);
         setMenuAberto(null);
     };
-
 
     const toggleMenu = (id) => {
         if (menuAberto === id) {
@@ -78,7 +66,6 @@ export default function GerenciadorTreinamento() {
             setMenuAberto(id);
         }
     };
-
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -90,18 +77,15 @@ export default function GerenciadorTreinamento() {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
-
     async function fetchTreinamentos() {
         setLoading(true);
         try {
             const res = await fetch('http://localhost:3001/api/treinamentos');
             const data = await res.json();
 
-
             if (data.sucesso) {
                 const listaTreinos = data.dados;
                 setTreinamentos(listaTreinos);
-
 
                 const total = listaTreinos.length;
                 const ativos = listaTreinos.filter(t => t.status === 'Ativo').length;
@@ -109,7 +93,6 @@ export default function GerenciadorTreinamento() {
                 const capacidadeTotal = listaTreinos.reduce((acc, curr) => acc + (curr.capacidade || 0), 0);
                 const taxa = capacidadeTotal > 0 ? Math.round((totalInscritos / capacidadeTotal) * 100) : 0;
                 const porcAtivos = total > 0 ? Math.round((ativos / total) * 100) : 0;
-
 
                 setEstatisticas({
                     total: total,
@@ -126,7 +109,6 @@ export default function GerenciadorTreinamento() {
         }
     }
 
-
     const handleExcluir = async (id) => {
         if (window.confirm("Tem certeza que deseja excluir este treinamento?")) {
             try {
@@ -134,9 +116,7 @@ export default function GerenciadorTreinamento() {
                     method: 'DELETE'
                 });
 
-
                 const data = await res.json();
-
 
                 if (data.sucesso) {
                     fetchTreinamentos();
@@ -151,11 +131,9 @@ export default function GerenciadorTreinamento() {
         }
     };
 
-
     useEffect(() => {
         fetchTreinamentos();
     }, []);
-
 
     const formatarData = (dataISO) => {
         if (!dataISO) return '-';
@@ -163,17 +141,14 @@ export default function GerenciadorTreinamento() {
         return data.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
     };
 
-
     const getStatusBadge = (status) => {
         if (status === 'Ativo') return 'bg-success-subtle text-success border-success-subtle';
         if (status === 'Rascunho') return 'bg-secondary-subtle text-secondary border-secondary-subtle';
         return 'bg-light text-dark border';
     };
 
-
     return (
         <div className="container-fluid pagina-usuario">
-
 
             {showModal && (
                 <ModalNovoTreinamento
@@ -182,7 +157,6 @@ export default function GerenciadorTreinamento() {
                     dadosEditar={cursoParaEditar}
                 />
             )}
-
 
             <div className="row flex-nowrap">
                 <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: '100vh' }}>
@@ -195,16 +169,14 @@ export default function GerenciadorTreinamento() {
                             <i className="bi bi-grid"></i>
                             <Link href={'gerenciar_Treinamento_admin'}><span>Gerenciar Treinamentos</span></Link>
                         </li>
-
-
                         <li className="d-flex align-items-center gap-2">
                             <i className="bi bi-person"></i>
                             <Link href={'colaboradorAdmin'}><span>Gerenciar Colaboradores</span></Link>
                         </li>
                     </ul>
                 </aside>
-                <main className="col-12 col-md-9 col-lg-10 p-4 bg-light">
 
+                <main className="col-12 col-md-9 col-lg-10 p-4 bg-light">
 
                     {/* Bloco de Título e Botão Responsivo */}
                     <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
@@ -226,11 +198,9 @@ export default function GerenciadorTreinamento() {
                         </button>
                     </div>
 
-
                     <div className="row g-3">
                         <div className="col-12">
                             <div className="row justify-content-start g-3">
-
 
                                 {/* Card Total */}
                                 <div className="col-12 col-md-6 col-lg-3">
@@ -247,7 +217,6 @@ export default function GerenciadorTreinamento() {
                                     </div>
                                 </div>
 
-
                                 {/* Card Ativos */}
                                 <div className="col-12 col-md-6 col-lg-3">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
@@ -263,7 +232,6 @@ export default function GerenciadorTreinamento() {
                                     </div>
                                 </div>
 
-
                                 {/* Card Inscritos */}
                                 <div className="col-12 col-md-6 col-lg-3">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
@@ -278,7 +246,6 @@ export default function GerenciadorTreinamento() {
                                         </div>
                                     </div>
                                 </div>
-
 
                                 {/* Card Taxa de Ocupação */}
                                 <div className="col-12 col-md-6 col-lg-3">
@@ -298,15 +265,11 @@ export default function GerenciadorTreinamento() {
                         </div>
                     </div>
 
-
                     <div className="row g-3 mb-4 mt-4">
                         <div className="col-12">
 
-
-                            {/* --- CARD DA BUSCA E FILTROS --- */}
                             <div className="card1 border rounded-4 bg-white shadow-sm p-4">
 
-                                {/* LINHA SUPERIOR: BUSCA E BOTÃO */}
                                 <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 w-100">
 
                                     {/* Barra de Busca */}
@@ -325,7 +288,6 @@ export default function GerenciadorTreinamento() {
                                         />
                                     </div>
 
-
                                     {/* Botão Filtros */}
                                     <button
                                         className={`btn d-flex align-items-center gap-2 rounded-3 px-3 fw-medium text-nowrap ${mostrarFiltros ? 'btn-primary' : 'btn-light border'}`}
@@ -336,7 +298,6 @@ export default function GerenciadorTreinamento() {
                                         Filtros
                                     </button>
                                 </div>
-
 
                                 {/* LINHA INFERIOR: ÁREA DOS FILTROS */}
                                 {mostrarFiltros && (
@@ -356,7 +317,6 @@ export default function GerenciadorTreinamento() {
                                                 </select>
                                             </div>
 
-
                                             <div className="col-12 col-md-4">
                                                 <label className="form-label small fw-bold text-muted mb-1 ms-1">Modalidade</label>
                                                 <select
@@ -371,7 +331,6 @@ export default function GerenciadorTreinamento() {
                                                 </select>
                                             </div>
 
-
                                             <div className="col-12 col-md-4 d-flex align-items-end">
                                                 <button
                                                     className="btn btn-outline-danger w-100"
@@ -385,24 +344,17 @@ export default function GerenciadorTreinamento() {
                                                     Limpar Filtros
                                                 </button>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 )}
                             </div>
-                            {/* --- FIM DO CARD DA BUSCA --- */}
-
-
                         </div>
                     </div>
-
 
                     <div className="row g-3 mt-3">
                         <div className="col-12">
                             <div className="card1 border rounded-4 bg-white shadow-sm">
                                 <div className="card-body p-4">
-
 
                                     <div className="mb-4">
                                         <h5 className="fw-bold mb-1">Todos os Treinamentos</h5>
@@ -411,8 +363,7 @@ export default function GerenciadorTreinamento() {
                                         </p>
                                     </div>
 
-
-                                    <div className="table-responsive">
+                                    <div className="table-responsive d-none d-md-block">
                                         <table className="table table-hover align-middle">
                                             <thead className="table-light">
                                                 <tr>
@@ -508,6 +459,79 @@ export default function GerenciadorTreinamento() {
                                                 )}
                                             </tbody>
                                         </table>
+                                    </div>
+
+                                    <div className="d-md-none d-flex flex-column gap-3">
+                                        {loading ? (
+                                            <div className="text-center py-4">Carregando...</div>
+                                        ) : (
+                                            treinamentosFiltrados.map((item) => (
+                                                <div key={item.id} className="card border rounded-4 shadow-sm p-3">
+                                                    
+                                                    {/* Cabeçalho do Card */}
+                                                    <div className="d-flex justify-content-between align-items-start mb-3">
+                                                        <div>
+                                                            <h6 className="fw-bold mb-1" style={{ color: '#0a2b6b' }}>{item.titulo}</h6>
+                                                            <span className={`badge rounded-pill border px-3 ${getStatusBadge(item.status)}`}>
+                                                                {item.status}
+                                                            </span>
+                                                        </div>
+                                                        {/* Menu de Ações Mobile */}
+                                                        <div className="position-relative dropdown-acao">
+                                                            <i 
+                                                                className="bi bi-three-dots-vertical text-muted fs-5 p-2" 
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    toggleMenu(item.id);
+                                                                }}
+                                                            ></i>
+                                                            {menuAberto === item.id && (
+                                                                <div className="dropdown-menu show shadow border-0 end-0"
+                                                                    style={{ position: 'absolute', top: '30px', zIndex: 1050 }}>
+                                                                    <button className="dropdown-item gap-2 d-flex align-items-center" onClick={() => handleEditar(item)}>
+                                                                        <i className="bi bi-pencil"></i> Editar
+                                                                    </button>
+                                                                    <button className="dropdown-item gap-2 d-flex align-items-center text-danger" onClick={() => handleExcluir(item.id)}>
+                                                                        <i className="bi bi-trash"></i> Excluir
+                                                                    </button>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Detalhes do Card */}
+                                                    <div className="d-flex flex-column gap-2 mb-3">
+                                                        <div className="d-flex align-items-center text-muted small">
+                                                            <i className="bi bi-person-video3 me-2" style={{width: '20px'}}></i>
+                                                            <span className="fw-semibold me-1">Instrutor:</span> {item.instrutor_nome}
+                                                        </div>
+                                                        <div className="d-flex align-items-center text-muted small">
+                                                            <i className="bi bi-laptop me-2" style={{width: '20px'}}></i>
+                                                            <span className="fw-semibold me-1">Modalidade:</span> {item.modalidade}
+                                                        </div>
+                                                        <div className="d-flex align-items-center text-muted small">
+                                                            <i className="bi bi-calendar-event me-2" style={{width: '20px'}}></i>
+                                                            <span className="fw-semibold me-1">Início:</span> {formatarData(item.data_inicio)}
+                                                        </div>
+                                                        <div className="d-flex align-items-center text-muted small">
+                                                            <i className="bi bi-people me-2" style={{width: '20px'}}></i>
+                                                            <span className="fw-semibold me-1">Vagas:</span> {item.inscritos_atuais}/{item.capacidade}
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Competências (Tags) */}
+                                                    {item.competencias && item.competencias.length > 0 && (
+                                                        <div className="d-flex flex-wrap gap-1 mt-auto pt-2 border-top">
+                                                            {item.competencias.map((comp, idx) => (
+                                                                <span key={idx} className="badge bg-light text-dark border fw-normal" style={{fontSize: '0.75rem'}}>
+                                                                    {comp}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))
+                                        )}
                                     </div>
                                 </div>
                             </div>

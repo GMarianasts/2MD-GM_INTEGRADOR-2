@@ -45,27 +45,33 @@ class InscricaoController {
     static async concluir(req, res) {
         try {
             const { id } = req.params;
-            if (!id) return res.status(400).json({ erro: "ID da inscrição inválido." });
+            
+            // Validação básica
+            if (!id || id === 'undefined') {
+                return res.status(400).json({ erro: "ID da inscrição inválido." });
+            }
 
-           
+            // 1. Busca dados para o histórico (opcional, mas bom pra log)
             const inscricao = await InscricaoModel.buscarPorId(id);
-            if (!inscricao) return res.status(404).json({ erro: "Inscrição não encontrada." });
+            if (!inscricao) {
+                return res.status(404).json({ erro: "Inscrição não encontrada." });
+            }
 
-            // Atualizar status
-            const connection = await InscricaoModel.getConnection?.() || await InscricaoModel.listarPorUsuario(inscricao.usuario_id); // fallback
-            await connection.query?.(
-                `UPDATE inscricoes SET status='Concluído', data_conclusao=NOW() WHERE id=?`,
-                [id]
-            );
-            connection.release?.();
+            // 2. Chama o método do Model que criamos no Passo 1
+            const atualizou = await InscricaoModel.concluir(id);
 
-            // Registrar histórico
+            if (!atualizou) {
+                return res.status(500).json({ erro: "Não foi possível atualizar o status no banco." });
+            }
+
+            // 3. Registra histórico
             await registrarHistorico(
                 "Inscrição concluída",
                 `O colaborador "${inscricao.usuario}" concluiu o curso "${inscricao.treinamento}".`,
                 req.usuarioId || "Sistema"
             );
 
+            // 4. Retorna sucesso
             return res.status(200).json({
                 sucesso: true,
                 mensagem: "Parabéns! Curso concluído."
@@ -73,7 +79,22 @@ class InscricaoController {
 
         } catch (error) {
             console.error("Erro ao concluir inscrição:", error);
-            return res.status(500).json({ erro: "Erro ao concluir curso" });
+            return res.status(500).json({ erro: "Erro interno ao concluir curso" });
+        }
+    }
+
+    static async listarPorUsuario(req, res) {
+        try {
+            const { id } = req.params;
+            
+            // Chama o método que JÁ EXISTE no seu Model
+            const inscricoes = await InscricaoModel.listarPorUsuario(id);
+            
+            // Retorna no formato que o page.jsx espera ({ sucesso: true, dados: [...] })
+            return res.status(200).json({ sucesso: true, dados: inscricoes });
+        } catch (error) {
+            console.error("Erro ao listar inscrições do usuário:", error);
+            return res.status(500).json({ erro: "Erro ao buscar cursos do usuário" });
         }
     }
 

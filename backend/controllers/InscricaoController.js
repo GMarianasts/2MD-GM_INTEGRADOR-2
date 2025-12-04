@@ -47,7 +47,7 @@ class InscricaoController {
             const { id } = req.params;
             if (!id) return res.status(400).json({ erro: "ID da inscrição inválido." });
 
-            // Buscar inscrição completa
+           
             const inscricao = await InscricaoModel.buscarPorId(id);
             if (!inscricao) return res.status(404).json({ erro: "Inscrição não encontrada." });
 

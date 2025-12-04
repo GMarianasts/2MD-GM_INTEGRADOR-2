@@ -11,7 +11,7 @@ export default function DashboardHistorico() {
         <div className="container-fluid pagina-usuario">
             <div className="row g-0">
 
-                {/* ===== SIDEBAR ===== */}
+                {/* SIDEBAR */}
                 <aside className="sidebar col-12 col-md-3 col-lg-2 p-3">
                     <ul className="list-unstyled menu">
                         <li className="ativo mb-3 d-flex align-items-center gap-2">
@@ -31,40 +31,36 @@ export default function DashboardHistorico() {
                     </ul>
                 </aside>
 
-                    {/* ===== CONTEÚDO PRINCIPAL ===== */}
-                    <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
+                {/* CONTEÚDO PRINCIPAL */}
+                <main className="col-12 col-md-9 col-lg-10 px-4 py-4 conteudo">
 
+                    {/* NAV DE TROCA DE PÁGINA */}
+                    <section className="introducao mb-4">
+                        <div className="trocaPagina">
+                            <ul className="nav nav-pills nav-fill">
+                                <li className="nav-item">
+                                    <Link className="nav-link" href={'dashboardAdmin'}>Dashboard</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link href={'inscricoesAdmin'} className="nav-link">Inscrições</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link href={'historicoAdmin'} className="nav-link active">Histórico</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
 
-
-                        {/* NAV DE TROCA DE PÁGINA */}
-                        <section className="introducao mb-4">
-                            <div className="trocaPagina">
-                                <ul className="nav nav-pills nav-fill flex-column flex-sm-row">
-                                    <li className="nav-item">
-                                        <Link className="nav-link" href="/dashboardAdmin">Dashboard</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" href="/inscricoesAdmin">Inscrições</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link active" href="/historicoAdmin">Histórico</Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
-
-                        {/* CONTEÚDO */}
-                        <div className="container-fluid my-2">
-                            <div className="row g-3">
-                                <div className="col-12">
-                                    <GerenciarHistorico />
-                                </div>
+                    {/* CONTEÚDO */}
+                    <div className="container-fluid my-2">
+                        <div className="row g-3">
+                            <div className="col-12">
+                                <GerenciarHistorico />
                             </div>
                         </div>
-
-
-                    </main>
-                </div>
+                    </div>
+                </main>
+            </div>
         </div>
     );
 }

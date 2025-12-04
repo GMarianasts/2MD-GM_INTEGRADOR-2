@@ -57,10 +57,6 @@ export default function GerenciarHistorico() {
                     <h2>Histórico de Atividades</h2>
                     <p>Visualize o histórico completo de ações no sistema</p>
                 </div>
-
-                <button className="btn-exportar">
-                    <i className="bi bi-download"></i> Exportar
-                </button>
             </header>
 
             <div className="historico-lista">

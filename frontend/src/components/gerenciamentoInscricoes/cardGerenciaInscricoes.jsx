@@ -21,6 +21,7 @@ const StatusBadge = ({ status }) => {
 
 export default function GerenciarInscricoes() {
     const [inscricoes, setInscricoes] = useState([]);
+    const [termoBusca, setTermoBusca] = useState("");
 
     async function carregarInscricoes() {
         const response = await fetch("http://localhost:3001/api/inscricoes");
@@ -67,6 +68,14 @@ export default function GerenciarInscricoes() {
         carregarInscricoes();
     }, []);
 
+    const inscricoesFiltradas = inscricoes.filter((item) => {
+        const texto = termoBusca.toLowerCase();
+        return (
+            (item.usuario && item.usuario.toLowerCase().includes(texto)) ||
+            (item.treinamento && item.treinamento.toLowerCase().includes(texto))
+        );
+    });
+
     return (
         <div className="inscricoes-card-container">
             <header className="inscricoes-header">
@@ -74,14 +83,16 @@ export default function GerenciarInscricoes() {
                     <h2>Gerenciar Inscrições</h2>
                     <p>Visualize e gerencie as inscrições dos colaboradores</p>
                 </div>
-                <button className="btn-filtros">
-                    <i className="bi bi-funnel"></i> Filtros
-                </button>
             </header>
 
             <div className="search-bar-inscricoes">
                 <i className="bi bi-search"></i>
-                <input type="text" placeholder="Buscar inscrições..." />
+                <input 
+                    type="text" 
+                    placeholder="Buscar inscrições..." 
+                    value={termoBusca}
+                    onChange={(e) => setTermoBusca(e.target.value)}
+                />
             </div>
 
             <div className="inscricoes-table">
@@ -93,26 +104,32 @@ export default function GerenciarInscricoes() {
                     <span>Ações</span>
                 </div>
 
-                {inscricoes.map((item) => (
-                    <div className="table-row" key={item.id}>
-                        <span className="colaborador-nome">{item.usuario}</span>
-                        <span>{item.treinamento}</span>
-                        <span>
-                            {new Date(item.data_inscricao).toLocaleDateString("pt-BR")}
-                        </span>
-                        <span>
-                            <StatusBadge status={item.status ?? "Ativo"} />
-                        </span>
-                        <span className="acoes-cell">
-                            <button
-                                className="btn-acao-remover"
-                                onClick={() => remover(item.id)}
-                            >
-                                <i className="bi bi-x-circle-fill"></i>
-                            </button>
-                        </span>
+                {inscricoesFiltradas.length > 0 ? (
+                    inscricoesFiltradas.map((item) => (
+                        <div className="table-row" key={item.id}>
+                            <span className="colaborador-nome">{item.usuario}</span>
+                            <span>{item.treinamento}</span>
+                            <span>
+                                {new Date(item.data_inscricao).toLocaleDateString("pt-BR")}
+                            </span>
+                            <span>
+                                <StatusBadge status={item.status ?? "Ativo"} />
+                            </span>
+                            <span className="acoes-cell">
+                                <button
+                                    className="btn-acao-remover"
+                                    onClick={() => remover(item.id)}
+                                >
+                                    <i className="bi bi-x-circle-fill"></i>
+                                </button>
+                            </span>
+                        </div>
+                    ))
+                ) : (
+                    <div className="p-4 text-center text-muted">
+                        Nenhuma inscrição encontrada para "{termoBusca}"
                     </div>
-                ))}
+                )}
             </div>
         </div>
     );

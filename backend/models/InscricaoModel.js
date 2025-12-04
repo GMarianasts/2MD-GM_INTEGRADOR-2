@@ -30,6 +30,7 @@ class InscricaoModel {
                     t.duracao_horas,
                     t.modalidade,
                     t.nivel,
+                    t.data_fim,
                     i.status,
                     i.data_conclusao,
                     i.data_inscricao,
@@ -104,6 +105,21 @@ class InscricaoModel {
         `;
             const [rows] = await connection.query(sql, [id]);
             return rows[0];
+        } finally {
+            connection.release();
+        }
+    }
+
+    static async concluir(id) {
+        const connection = await getConnection();
+        try {
+            const sql = `
+                UPDATE inscricoes 
+                SET status = 'Concluído', data_conclusao = NOW() 
+                WHERE id = ?
+            `;
+            const [result] = await connection.query(sql, [id]);
+            return result.affectedRows > 0;
         } finally {
             connection.release();
         }

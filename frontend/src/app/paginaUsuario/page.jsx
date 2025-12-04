@@ -15,7 +15,7 @@ export default function PaginaUsuario() {
   const [stats, setStats] = useState({ concluidos: 0, horas: 0, progresso: 0 });
   const [loading, setLoading] = useState(true);
 
-  // 1. useEffect para carregar Cursos Recomendados (Geral)
+  // 1. useEffect para carregar Cursos Recomendados
   useEffect(() => {
     async function fetchCursos() {
       try {
@@ -24,7 +24,6 @@ export default function PaginaUsuario() {
 
         if (data.sucesso) {
           const ativos = data.dados.filter(c => c.status === 'Ativo');
-          // Pegamos 3 cursos para ficar alinhado com a lista da direita
           const tresUltimos = ativos.slice(0, 3);
           setCursosRecomendados(tresUltimos);
         }
@@ -38,7 +37,7 @@ export default function PaginaUsuario() {
     fetchCursos();
   }, []);
 
-  // 2. useEffect para carregar Estatísticas do Usuário
+  // 2. useEffect para carregar Estatísticas
   useEffect(() => {
     async function fetchStatsUsuario() {
       if (!user || !user.id) return;
@@ -49,12 +48,12 @@ export default function PaginaUsuario() {
 
         if (data.sucesso) {
           const meusCursos = data.dados || [];
-          
-          const statusConcluidos = ['Concluído', 'Concluido', 'concluido'];
+
+          const statusConcluidos = ["Concluído", "Concluido", "concluido"];
           const cursosConcluidos = meusCursos.filter(c => statusConcluidos.includes(c.status));
-          
+
           const totalHoras = cursosConcluidos.reduce((acc, curr) => acc + (curr.duracao_horas || 0), 0);
-          
+
           const totalCursos = meusCursos.length;
           const taxa = totalCursos > 0 ? Math.round((cursosConcluidos.length / totalCursos) * 100) : 0;
 
@@ -74,14 +73,15 @@ export default function PaginaUsuario() {
 
   const getPrimeiroNome = (nomeCompleto) => {
     if (!nomeCompleto) return "Colaborador";
-    return nomeCompleto.split(' ')[0];
+    return nomeCompleto.split(" ")[0];
   };
 
   return (
     <div className="container-fluid pagina-usuario">
       <div className="row g-0">
+
         {/* Sidebar */}
-        <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+        <aside className="d-none d-md-block col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
           <ul className="list-unstyled menu">
             <li className="ativo mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-house-door"></i>
@@ -89,20 +89,22 @@ export default function PaginaUsuario() {
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-book"></i>
-              <Link href={'catalogo'}><span>Catálogo de Treinamentos</span></Link>
+              <Link href={"catalogo"}><span>Catálogo de Treinamentos</span></Link>
             </li>
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-award"></i>
-              <Link href={'meuTreinamento'}><span>Meus Treinamentos</span></Link>
+              <Link href={"meuTreinamento"}><span>Meus Treinamentos</span></Link>
             </li>
             <li className="d-flex align-items-center gap-2">
               <i className="bi bi-person"></i>
-              <Link href={'paginaPerfil'}><span>Meu Perfil</span></Link>
+              <Link href={"paginaPerfil"}><span>Meu Perfil</span></Link>
             </li>
           </ul>
         </aside>
 
+        {/* Conteúdo principal */}
         <main className="col-12 col-md-9 px-4 py-4">
+
           <section className="bemVindo mb-4">
             <p className="fs-5 fw-semibold">
               Bem-vindo, <strong>{user ? getPrimeiroNome(user.nome) : "..."}</strong>
@@ -111,13 +113,13 @@ export default function PaginaUsuario() {
             </p>
           </section>
 
-          {/* Cards de Estatísticas Centralizados */}
+          {/* Cards estatísticos */}
           <div className="container-fluid my-2">
             <div className="row g-3">
               <div className="col-12">
                 <div className="row justify-content-center g-3">
-                  
-                  <div className="col-6 col-sm-6 col-md-3 px-2">
+
+                  <div className="col-12 col-sm-6 col-md-4 px-2">
                     <div className="card card-info azul">
                       <div className="card-body d-flex align-items-center">
                         <div className="progresso">
@@ -131,7 +133,7 @@ export default function PaginaUsuario() {
                     </div>
                   </div>
 
-                  <div className="col-6 col-sm-6 col-md-3 px-2">
+                  <div className="col-12 col-sm-6 col-md-4 px-2">
                     <div className="card card-info laranja">
                       <div className="card-body d-flex align-items-center">
                         <div className="progresso">
@@ -145,7 +147,7 @@ export default function PaginaUsuario() {
                     </div>
                   </div>
 
-                  <div className="col-6 col-sm-6 col-md-3 px-2">
+                  <div className="col-12 col-sm-6 col-md-4 px-2">
                     <div className="card card-info roxo">
                       <div className="card-body d-flex align-items-center">
                         <div className="progresso">
@@ -158,17 +160,20 @@ export default function PaginaUsuario() {
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Seção Principal Dividida 50% / 50% */}
+
+          {/* DIVISÃO EM 2 COLUNAS */}
           <div className="row g-4 mt-2">
 
-            {/* Coluna Esquerda: Cursos Recomendados */}
-            <div className="col-12 col-lg-6"> 
-              <div className="Cards h-100"> {/* h-100 para garantir mesma altura visual se possível */}
+            {/* Coluna esquerda */}
+            <div className="col-12 col-md-12 col-lg-6">
+              <div className="Cards h-100">
+
                 <div className="Cards-estrutura">
                   <div>
                     <p className="titulo-principal">Cursos Recomendados</p>
@@ -196,24 +201,23 @@ export default function PaginaUsuario() {
                       </div>
                     ))
                   )}
-
-                  {!loading && cursosRecomendados.length === 0 && (
-                    <p className="text-center text-muted small py-3">Nenhuma recomendação no momento.</p>
-                  )}
                 </div>
 
-                <Link href={'catalogo'}><button className="btn-todos-cursos mt-3">Ver Todos os Cursos</button></Link>
+                <Link href={"catalogo"}>
+                  <button className="btn-todos-cursos mt-3">Ver Todos os Cursos</button>
+                </Link>
+
               </div>
             </div>
 
-            {/* Coluna Direita: Próximos Treinamentos */}
-            <aside className="col-12 col-lg-6">
+            {/* Coluna direita */}
+            <aside className="col-12 col-md-12 col-lg-6">
               <div className="Cards h-100">
+
                 <p className="titulo-principal mb-3">
                   <i className="bi bi-calendar-event me-2"></i> Próximos Treinamentos
                 </p>
 
-                {/* Item 1 */}
                 <div className="treinamento mb-3">
                   <p className="titulo-treinamento">Workshop: Cultura de Segurança</p>
                   <p className="detalhe-treinamento">
@@ -225,7 +229,6 @@ export default function PaginaUsuario() {
                   <span className="status confirmado">Confirmado</span>
                 </div>
 
-                {/* Item 2 */}
                 <div className="treinamento mb-3">
                   <p className="titulo-treinamento">Webinar: Tendências Automotivas 2026</p>
                   <p className="detalhe-treinamento">
@@ -237,7 +240,6 @@ export default function PaginaUsuario() {
                   <span className="status aguardando">Aguardando Confirmação</span>
                 </div>
 
-                {/* Item 3 (Novo, para equilibrar o layout) */}
                 <div className="treinamento">
                   <p className="titulo-treinamento">Palestra: Futuro da Mobilidade Elétrica</p>
                   <p className="detalhe-treinamento">
@@ -251,7 +253,9 @@ export default function PaginaUsuario() {
 
               </div>
             </aside>
+
           </div>
+
         </main>
       </div>
     </div>

@@ -1,7 +1,10 @@
 "use client";
 
+
 import { useEffect, useState } from "react";
 import "../colaboradoresTabela/colaboradorTabela.css";
+
+
 
 
 export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelete }) {
@@ -9,12 +12,14 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
+
   const getIniciais = (nome) => {
     if (!nome) return "U";
     const partes = nome.trim().split(" ");
     if (partes.length === 1) return partes[0].substring(0, 2).toUpperCase();
     return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
   };
+
 
   const carregarDados = async () => {
     try {
@@ -28,9 +33,11 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
     }
   };
 
+
   useEffect(() => {
     carregarDados();
   }, []);
+
 
   const colaboradoresFiltrados = colaboradores.filter((c) => {
     const termo = searchTerm.toLowerCase();
@@ -43,8 +50,10 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
     );
   });
 
+
   return (
     <div className="tabela-container shadow-sm bg-white rounded-3 border mt-4">
+
 
       {/* HEADER RESPONSIVO */}
       <div className="header-lista p-4 border-bottom d-flex flex-wrap gap-3 justify-content-between align-items-center">
@@ -54,6 +63,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
           </h5>
           <p className="text-muted small mb-0">Gerencie cadastros, permissões e histórico</p>
         </div>
+
 
         <div className="input-busca">
           <input
@@ -65,6 +75,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
           />
         </div>
       </div>
+
 
       {/* TABELA RESPONSIVA */}
       <div className="table-responsive">
@@ -79,6 +90,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
               <th className="text-end pe-4">Ações</th>
             </tr>
           </thead>
+
 
           <tbody>
             {loading ? (
@@ -105,6 +117,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                         {getIniciais(c.nome)}
                       </div>
 
+
                       <div className="ms-3">
                         <strong className="text-dark d-block mb-0 nome-col">
                           {c.nome}
@@ -114,6 +127,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                     </div>
                   </td>
 
+
                   {/* Departamento */}
                   <td data-label="Departamento" className="ps-5">
                     <span className="badge bg-light text-dark border">
@@ -121,16 +135,20 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                     </span>
                   </td>
 
+
                   {/* Cargo */}
                   <td data-label="Cargo">{c.cargo}</td>
 
+
                   {/* Unidade */}
                   <td data-label="Unidade">{c.unidade}</td>
+
 
                   {/* Nível de Acesso */}
                   <td data-label="Acesso">
                     <span className="badge bg-light text-dark border">{c.nivel_acesso}</span>
                   </td>
+
 
                   {/* AÇÕES */}
                   <td className="text-end pe-4" data-label="Ações">
@@ -140,6 +158,7 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
                     >
                       <i className="bi bi-pencil-square"></i>
                     </button>
+
 
                     <button
                       className="btn btn-sm btn-light rounded-circle text-danger"
@@ -153,9 +172,14 @@ export default function ColaboradoresTabela({ onNovoColaborador, onEdit, onDelet
             )}
           </tbody>
 
+
         </table>
       </div>
+
 
     </div>
   );
 }
+
+
+

@@ -8,12 +8,12 @@ export default function Home() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [verificandoToken, setVerificandoToken] = useState(true); // 🔹 controla checagem do token
+  const [verificandoToken, setVerificandoToken] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setVerificandoToken(false); // sem token, liberar formulário
+      setVerificandoToken(false);
       return;
     }
 
@@ -27,11 +27,7 @@ export default function Home() {
         return;
       }
 
-      // Se quiser redirecionar automático, pode descomentar:
-      // if (payload.tipo === "admin") router.push("/dashboardAdmin");
-      // else router.push("/paginaUsuario");
-
-      setVerificandoToken(false); // liberar formulário mesmo com token válido
+      setVerificandoToken(false);
     } catch (err) {
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
@@ -61,14 +57,12 @@ export default function Home() {
         alert(json.mensagem);
         return;
       }
-      
+
       localStorage.setItem("token", json.dados.token);
       localStorage.setItem("usuario", JSON.stringify(json.dados.usuario));
-      
-      // 🔥 Normaliza para minúsculo, independentemente de como vem do backend
+
       const nivel = json.dados.usuario.nivel_acesso?.toLowerCase();
-      
-      // 🔥 Redireciona corretamente
+
       if (nivel === "admin") {
         window.location.href = "/dashboardAdmin";
       } else {
@@ -89,10 +83,11 @@ export default function Home() {
   }
 
   return (
-    <main className="login-container">
-      <div className="row g-0 h-100">
+    <main className="login-container w-100 min-vh-100 d-flex flex-column">
 
-        <div className="col-lg-6 d-none d-lg-flex flex-column justify-content-center login-fundo-esquerdo">
+      <div className="row g-0 flex-grow-1">
+        
+        <div className="col-12 col-lg-6 d-flex flex-column justify-content-center login-fundo-esquerdo p-5" style={{ minHeight: '40vh' }}>
           <div className="login-conteudo-esquerdo">
             <h1 className="login-titulo mb-3">Acelere seu Desenvolvimento Profissional</h1>
             <p className="login-descricao mb-5">
@@ -107,9 +102,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-center login-form-side">
-          <div className="login-form-wrapper">
-            <h2 className="login-title mb-4">Bem-vindo de volta</h2>
+        <div className="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center login-form-side py-5">
+          <div className="login-form-wrapper p-4 bg-white rounded-4 shadow-sm" style={{ width: '90%', maxWidth: '400px' }}>
+            <h2 className="login-title mb-4 text-center">Bem-vindo de volta</h2>
 
             <form className="formLogin" onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -143,7 +138,6 @@ export default function Home() {
                 Entrar
               </button>
             </form>
-
           </div>
         </div>
       </div>

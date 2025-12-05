@@ -124,6 +124,12 @@ a:hover {
     color: #005DAA !important; 
 }
 
+.pagina-usuario .row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+
 @media (max-width: 768px) {
 .sidebar {
 height: auto;

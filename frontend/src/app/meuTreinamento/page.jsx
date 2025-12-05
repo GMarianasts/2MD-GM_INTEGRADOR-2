@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from "@/context/AuthContext";
+import Swal from "sweetalert2";
 import ResumoCard from '@/components/componentsMeusTreinamentos/ResumoCard';
 import TabsTreinamento from '@/components/componentsMeusTreinamentos/TabsTreinamento';
 import CardEmAndamento from '@/components/componentsMeusTreinamentos/CardemAndamento';
@@ -15,13 +16,13 @@ export default function MeuTreinamentosPage() {
   const [meusCursos, setMeusCursos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
+  useEffect(() => {
 
     if (!user || !user.id) return;
 
     async function fetchMeusTreinamentos() {
       try {
-        setLoading(true); 
+        setLoading(true);
         const res = await fetch(`http://localhost:3001/api/inscricoes/usuario/${user.id}?t=${new Date().getTime()}`);
         const data = await res.json();
 
@@ -38,23 +39,48 @@ useEffect(() => {
   }, [user]);
 
   const handleConcluir = async (inscricaoId) => {
-    if (window.confirm("Deseja marcar este curso como concluído?")) {
+    const confirm = await Swal.fire({
+      title: "Concluir curso?",
+      text: "Deseja marcar este curso como concluído?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Cancelar"
+    });
+
+    if (confirm.isConfirmed) {
       try {
         const res = await fetch(`http://localhost:3001/api/inscricoes/${inscricaoId}/concluir`, {
           method: 'PUT'
         });
 
         if (res.ok) {
-          alert("Curso concluído!");
+          await Swal.fire({
+            icon: "success",
+            title: "Concluído!",
+            text: "Curso concluído com sucesso!"
+          });
+
           window.location.reload();
         } else {
-          alert("Erro ao concluir.");
+          await Swal.fire({
+            icon: "error",
+            title: "Erro!",
+            text: "Erro ao concluir o curso."
+          });
         }
       } catch (error) {
         console.error("Erro:", error);
+
+        await Swal.fire({
+          icon: "error",
+          title: "Erro!",
+          text: "Erro de conexão. Tente novamente."
+        });
       }
     }
   };
+
 
   // Filtros
   const statusAtivos = ['Ativo', 'Inscrito', 'ativo', 'inscrito'];

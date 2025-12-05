@@ -1,11 +1,14 @@
 "use client";
 
+"use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../catalogo.css";
 import { useAuth } from "@/context/AuthContext";
+import Swal from "sweetalert2";
 
 export default function DetalhesCurso() {
   const { id } = useParams();
@@ -49,10 +52,21 @@ export default function DetalhesCurso() {
   }, [id, user]);
 
   const handleInscrever = async () => {
-    if (!user) return alert("Faça login para se inscrever.");
+    if (!user) {
+      Swal.fire({
+        icon: "warning",
+        title: "Atenção",
+        text: "Faça login para se inscrever."
+      });
+      return;
+    }
 
     if (estaInscrito) {
-      alert("Você já está participando deste curso.");
+      Swal.fire({
+        icon: "info",
+        title: "Aviso",
+        text: "Você já está participando deste curso."
+      });
       return;
     }
 
@@ -64,21 +78,44 @@ export default function DetalhesCurso() {
       });
 
       if (res.ok) {
-        alert("✅ Inscrição realizada com sucesso!");
+        Swal.fire({
+          icon: "success",
+          title: "Inscrição realizada!",
+          text: "Você foi inscrito com sucesso 🎉"
+        });
+
         setEstaInscrito(true);
         setProgresso(0);
       } else {
         const erro = await res.json().catch(() => ({}));
-        if (res.status === 409 || res.status === 400 || (erro.mensagem && erro.mensagem.includes('inscrito'))) {
-          alert("Aviso: Você já está inscrito neste curso!");
+
+        if (
+          res.status === 409 ||
+          res.status === 400 ||
+          (erro.mensagem && erro.mensagem.includes('inscrito'))
+        ) {
+          Swal.fire({
+            icon: "info",
+            title: "Aviso",
+            text: "Você já está inscrito neste curso!"
+          });
           setEstaInscrito(true);
         } else {
-          alert("Erro: " + (erro.mensagem || "Não foi possível realizar a inscrição. Tente novamente."));
+          Swal.fire({
+            icon: "error",
+            title: "Erro",
+            text: erro.mensagem || "Não foi possível realizar a inscrição. Tente novamente."
+          });
         }
       }
     } catch (error) {
       console.error(error);
-      alert("Erro de conexão. Verifique se o servidor está rodando.");
+
+      Swal.fire({
+        icon: "error",
+        title: "Erro de conexão",
+        text: "Não foi possível conectar ao servidor."
+      });
     }
   };
 

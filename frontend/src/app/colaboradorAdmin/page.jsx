@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import TabelaColaboradores from "../../components/colaboradoresTabela/colaboradoresTabela";
 import "./colaborador.css";
+import Swal from "sweetalert2";
 
 export default function PaginaColaboradores() {
   const [showModal, setShowModal] = useState(false);
@@ -42,24 +43,58 @@ export default function PaginaColaboradores() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // ============================
+  // 🔥 SUBSTITUINDO CONFIRM + ALERT POR SWEETALERT
+  // ============================
   const handleDelete = async (id) => {
-    if (confirm("Tem certeza que deseja excluir este colaborador?")) {
-      try {
-        const response = await fetch(`http://localhost:3001/api/usuarios/${id}`, {
-          method: "DELETE",
+    const resultado = await Swal.fire({
+      title: "Tem certeza?",
+      text: "Você está prestes a excluir este colaborador.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sim, excluir",
+      cancelButtonText: "Cancelar"
+    });
+
+    if (!resultado.isConfirmed) return;
+
+    try {
+      const response = await fetch(`http://localhost:3001/api/usuarios/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        await Swal.fire({
+          title: "Excluído!",
+          text: "O colaborador foi removido com sucesso.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
         });
-        if (response.ok) {
-          alert("🗑️ Colaborador excluído!");
-          window.location.reload();
-        } else {
-          alert("Erro ao excluir.");
-        }
-      } catch (error) {
-        console.error(error);
+
+        window.location.reload();
+      } else {
+        Swal.fire({
+          title: "Erro",
+          text: "Erro ao excluir.",
+          icon: "error"
+        });
       }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        title: "Erro de conexão",
+        text: "Não foi possível se conectar ao servidor.",
+        icon: "error"
+      });
     }
   };
 
+  // ============================
+  // 🔥 SUBSTITUINDO TODOS OS ALERTS DO SALVAR
+  // ============================
   const handleSave = async (e) => {
     e.preventDefault();
 
@@ -79,15 +114,30 @@ export default function PaginaColaboradores() {
       const data = await response.json();
 
       if (response.ok) {
-        alert(editingId ? "✅ Dados atualizados!" : "✅ Colaborador cadastrado!");
+        await Swal.fire({
+          title: "Sucesso!",
+          text: editingId ? "Dados atualizados!" : "Colaborador cadastrado!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+        });
+
         handleCloseModal();
         window.location.reload();
       } else {
-        alert("❌ Erro: " + data.mensagem);
+        Swal.fire({
+          title: "Erro",
+          text: data.mensagem || "Erro ao salvar.",
+          icon: "error"
+        });
       }
     } catch (error) {
       console.error(error);
-      alert("Erro de conexão com o servidor.");
+      Swal.fire({
+        title: "Erro de conexão",
+        text: "Não foi possível se conectar ao servidor.",
+        icon: "error"
+      });
     }
   };
 

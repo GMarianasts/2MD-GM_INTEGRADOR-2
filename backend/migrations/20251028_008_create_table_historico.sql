@@ -1,3 +1,5 @@
+
+USE produtos_api;
 CREATE TABLE historico ( 
 id INT AUTO_INCREMENT PRIMARY KEY, 
 acao VARCHAR(255) NOT NULL, 

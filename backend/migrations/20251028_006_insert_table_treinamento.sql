@@ -1,3 +1,5 @@
+USE produtos_api;
+
 INSERT INTO competencias (nome) VALUES ('Agilidade'), ('Gestão'), ('Tecnologia'), ('Processos'), ('Inovação'), ('Logística'), ('Segurança');
 
 -- B) Inserir Instrutores (Necessário criar antes dos cursos)

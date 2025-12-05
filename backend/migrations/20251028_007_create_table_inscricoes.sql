@@ -1,3 +1,5 @@
+USE produtos_api;
+
 CREATE TABLE inscricoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     

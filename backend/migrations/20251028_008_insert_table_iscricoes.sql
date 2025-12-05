@@ -1,3 +1,4 @@
+USE produtos_api;
 INSERT INTO inscricoes (usuario_id, treinamento_id, data_inscricao, status)
 VALUES
 -- Rafael Costa (6)

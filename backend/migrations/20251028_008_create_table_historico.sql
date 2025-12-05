@@ -1,0 +1,8 @@
+CREATE TABLE historico ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+acao VARCHAR(255) NOT NULL, 
+descricao TEXT, 
+usuario_id INT NULL, 
+datahora TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL 
+)

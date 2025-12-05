@@ -5,20 +5,6 @@ import "./cardGerenciarInscricoes.css";
 import Swal from 'sweetalert2';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const ProgressBar = ({ progresso }) => (
-    <div className="progress-bar-container">
-        <div className="progress-bar-fill" style={{ width: `${progresso}%` }}></div>
-    </div>
-);
-
-const StatusBadge = ({ status }) => {
-    let className = "status-badge";
-    if (status === "Ativo") className += " status-ativo";
-    else if (status === "Concluído") className += " status-concluido";
-    else if (status === "Cancelado") className += " status-cancelado";
-    return <span className={className}>{status}</span>;
-};
-
 export default function GerenciarInscricoes() {
     const [inscricoes, setInscricoes] = useState([]);
     const [termoBusca, setTermoBusca] = useState("");
@@ -100,7 +86,6 @@ export default function GerenciarInscricoes() {
                     <span>Colaborador</span>
                     <span>Curso</span>
                     <span>Data de Inscrição</span>
-                    <span>Status</span>
                     <span>Ações</span>
                 </div>
 
@@ -112,9 +97,9 @@ export default function GerenciarInscricoes() {
                             <span>
                                 {new Date(item.data_inscricao).toLocaleDateString("pt-BR")}
                             </span>
-                            <span>
-                                <StatusBadge status={item.status ?? "Ativo"} />
-                            </span>
+                            
+                            {/* Coluna STATUS removida aqui */}
+
                             <span className="acoes-cell">
                                 <button
                                     className="btn-acao-remover"

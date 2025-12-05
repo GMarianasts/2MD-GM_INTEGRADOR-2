@@ -91,11 +91,12 @@
 .table-header,
 .table-row {
     display: grid;
-    grid-template-columns: 1.4fr 1.4fr 1fr 1fr 0.5fr;
+    grid-template-columns: 1.4fr 1.4fr 1fr 0.4fr;
     padding: 14px 12px;
     border-bottom: 1px solid #e6e6e6;
     align-items: center;
 }
+
 
 .table-header {
     font-weight: 600;
@@ -152,10 +153,11 @@
 @media (max-width: 900px) {
     .table-header,
     .table-row {
-        grid-template-columns: 1fr 1fr 1fr 1fr 0.4fr;
+        grid-template-columns: 1fr 1fr 1fr 0.4fr;
         gap: 5px;
     }
 }
+
 
 @media (max-width: 700px) {
     .table-header {

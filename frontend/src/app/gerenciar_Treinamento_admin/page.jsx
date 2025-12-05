@@ -4,6 +4,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./gerenciar.css";
+import Swal from "sweetalert2";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import ModalNovoTreinamento from "@/components/modalNovoTreinamento/modalNovoTreinamento";
@@ -110,26 +111,50 @@ export default function GerenciadorTreinamento() {
     }
 
     const handleExcluir = async (id) => {
-        if (window.confirm("Tem certeza que deseja excluir este treinamento?")) {
-            try {
-                const res = await fetch(`http://localhost:3001/api/treinamentos/${id}`, {
-                    method: 'DELETE'
-                });
+    const confirmacao = await Swal.fire({
+        title: "Confirmar Exclusão",
+        text: "Tem certeza que deseja excluir este treinamento?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6"
+    });
 
-                const data = await res.json();
+    if (!confirmacao.isConfirmed) return;
 
-                if (data.sucesso) {
-                    fetchTreinamentos();
-                    setMenuAberto(null);
-                } else {
-                    alert('Erro ao excluir: ' + data.erro);
-                }
-            } catch (error) {
-                console.error("Erro na exclusão:", error);
-                alert("Erro ao conectar com o servidor.");
-            }
+    try {
+        const response = await fetch(`http://localhost:3001/api/treinamentos/${id}`, {
+            method: "DELETE",
+        });
+
+        const data = await response.json();
+
+        if (data.sucesso) {
+            Swal.fire({
+                icon: "success",
+                title: "Excluído!",
+                text: "Treinamento removido com sucesso."
+            });
+
+            fetchTreinamentos();
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Erro ao excluir",
+                text: data.erro
+            });
         }
-    };
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Erro de conexão",
+            text: "Não foi possível conectar ao servidor."
+        });
+    }
+};
+
 
     useEffect(() => {
         fetchTreinamentos();

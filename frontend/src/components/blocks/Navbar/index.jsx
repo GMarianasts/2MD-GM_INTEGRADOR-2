@@ -8,7 +8,6 @@ export default function Navbar() {
   console.log("USUÁRIO NO NAVBAR:", user);
   console.log("TIPO DO USUÁRIO NO NAVBAR:", user?.tipo);
 
-  // Evita erro durante a renderização inicial
   if (user === null) {
     return null;
   }
@@ -22,9 +21,7 @@ export default function Navbar() {
     return (nomes[0][0] + nomes[nomes.length - 1][0]).toUpperCase();
   };
 
-  const isAdmin = ["admin", "Admin", "Administrador", "ADM"].includes(
-    user?.tipo
-  );
+  const isAdmin = ["admin", "Admin", "Administrador", "ADM"].includes(user?.nivel_acesso);
 
   const LinksAdmin = () => (
     <ul className="list-unstyled">
@@ -46,15 +43,7 @@ export default function Navbar() {
       </li>
       <li className="mb-3">
         <Link
-          href="/Relatorio"
-          className="text-decoration-none text-dark d-flex align-items-center gap-2"
-        >
-          <i className="bi bi-bar-chart"></i> Relatório Skill Gap
-        </Link>
-      </li>
-      <li className="mb-3">
-        <Link
-          href="/gerenciarColaboradores"
+          href="/colaboradorAdmin"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
         >
           <i className="bi bi-person"></i> Gerenciar Colaboradores
@@ -171,7 +160,7 @@ export default function Navbar() {
                       <i className="bi bi-person me-2"></i> Perfil
                     </Link>
                   </li>
-                  
+
                   <li>
                     <hr className="dropdown-divider" />
                   </li>

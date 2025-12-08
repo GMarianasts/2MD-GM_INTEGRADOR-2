@@ -1,8 +1,10 @@
+-- Senha admin "123456"
+INSERT INTO usuarios (nome, email, senha, nivel_acesso)
+VALUES ('Admin', 'admin@gm.com','$2b$12$.ZSDbfYo5b1JNXoLP42iXOw9g2I.yLxOXELc2z5zR/kMcuOuFPfdy', 'Admin');
 
--- Outros usuários com senha "123"
+-- Outros usuários(Colaborador) com senha "123"
 INSERT INTO usuarios (nome, email, senha, nivel_acesso, cargo, departamento, unidade)
 VALUES
-('Admin', 'admin@gm.com','$2b$12$.ZSDbfYo5b1JNXoLP42iXOw9g2I.yLxOXELc2z5zR/kMcuOuFPfdy', 'Admin', NULL, NULL, NULL),
 ('João Silva', 'joao.silva@gm.com', '$2b$12$fxkaA/JVxyThD4N8LOFGyeBwGRWrrB4.CJitMLDxgnuwhtGSstaga', 'Colaborador', 'Desenvolvedor Junior', 'TI', 'São Caetano do Sul'),
 ('Ana Souza', 'ana.souza@empresa.com', '$2b$12$fxkaA/JVxyThD4N8LOFGyeBwGRWrrB4.CJitMLDxgnuwhtGSstaga', 'Colaborador', 'Analista Jr', 'RH', 'São Paulo'),
 ('Carlos Mendes', 'carlos.mendes@empresa.com', '$2b$12$fxkaA/JVxyThD4N8LOFGyeBwGRWrrB4.CJitMLDxgnuwhtGSstaga', 'Colaborador', 'Desenvolvedor Pleno', 'TI', 'São Paulo'),
@@ -19,4 +21,3 @@ VALUES
 ('Isabela Monteiro', 'isabela.monteiro@empresa.com','$2b$12$fxkaA/JVxyThD4N8LOFGyeBwGRWrrB4.CJitMLDxgnuwhtGSstaga', 'Colaborador', 'Assistente de RH', 'RH', 'São Paulo'),
 ('Gustavo Pereira', 'gustavo.pereira@empresa.com','$2b$12$fxkaA/JVxyThD4N8LOFGyeBwGRWrrB4.CJitMLDxgnuwhtGSstaga', 'Colaborador', 'Engenheiro de Segurança', 'Segurança e EHS', 'Gravataí'),
 ('Renata Sousa', 'renata.sousa@empresa.com', '$2b$12$fxkaA/JVxyThD4N8LOFGyeBwGRWrrB4.CJitMLDxgnuwhtGSstaga', 'Colaborador', 'Supervisora de Produção', 'Manufatura', 'São Caetano');
-

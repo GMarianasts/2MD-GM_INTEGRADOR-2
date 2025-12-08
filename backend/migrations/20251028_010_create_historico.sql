@@ -1,4 +1,4 @@
-
+-- Criar tabela Histórico
 
 CREATE TABLE IF NOT EXISTS historico (
     id INT AUTO_INCREMENT PRIMARY KEY,

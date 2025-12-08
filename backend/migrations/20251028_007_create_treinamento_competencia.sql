@@ -1,3 +1,5 @@
+-- Criar tabela treinamento_competencia
+
 CREATE TABLE IF NOT EXISTS treinamento_competencia (
     treinamento_id INT NOT NULL,
     competencia_id INT NOT NULL,

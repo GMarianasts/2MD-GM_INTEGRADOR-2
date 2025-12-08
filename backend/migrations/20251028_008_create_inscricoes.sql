@@ -1,3 +1,4 @@
+-- Criar tabelas inscrições
 
 CREATE TABLE IF NOT EXISTS inscricoes (
     id INT AUTO_INCREMENT PRIMARY KEY,

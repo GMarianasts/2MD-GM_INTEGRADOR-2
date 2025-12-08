@@ -1,3 +1,5 @@
+-- Criar tabela Instrutores
+
 CREATE TABLE IF NOT EXISTS instrutores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,

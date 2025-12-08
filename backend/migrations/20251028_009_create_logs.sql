@@ -1,3 +1,4 @@
+-- Criar tabela logs
 
 CREATE TABLE IF NOT EXISTS logs (
     id INT AUTO_INCREMENT PRIMARY KEY,

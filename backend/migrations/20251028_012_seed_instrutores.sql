@@ -1,3 +1,4 @@
+-- B) Inserir Instrutores (Necessário criar antes dos cursos)
 INSERT INTO instrutores (nome, email, cargo, bio, experiencia) VALUES 
 ('Maria Santos', 'maria.santos@gm.com', 'Agile Coach Senior', 'Especialista em transformação ágil com foco em indústria automotiva.', 'Agile Coach na GM (2020-Atual)\nScrum Master na TechSolutions'),
 ('Fernanda Lima', 'fernanda.lima@gm.com', 'Data Analyst Lead', 'Apaixonada por dados e visualização de informações.', 'Analista Sênior GM'),

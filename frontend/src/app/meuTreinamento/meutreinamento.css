@@ -142,20 +142,20 @@ border-bottom: 1px solid #e0e0e0;
  }
 }
 
-/* ===== CORRIGE SUMIÇO DO DASHBOARD NO MOBILE ===== */
+
 @media (max-width: 768px) {
 
-  /* Permite os cards quebrarem corretamente */
+
   .row {
     flex-wrap: wrap !important;
   }
 
-  /* Evita scroll lateral no conteúdo */
+
   .conteudo {
     overflow-x: hidden !important;
   }
 
-  /* Sidebar ocupa a largura total no mobile */
+
   .sidebar {
     width: 100% !important;
     min-height: auto !important;
@@ -163,7 +163,7 @@ border-bottom: 1px solid #e0e0e0;
     border-bottom: 1px solid #eee;
   }
 
-  /* Conteúdo principal volta a ocupar 100% */
+
   .pagina-usuario .conteudo {
     width: 100% !important;
   }

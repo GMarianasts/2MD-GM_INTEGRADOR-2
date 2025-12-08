@@ -21,6 +21,11 @@ export default function Navbar() {
     return (nomes[0][0] + nomes[nomes.length - 1][0]).toUpperCase();
   };
 
+  const handleCloseMenu = () => {
+    const btnClose = document.querySelector('#menuMobile .btn-close');
+    if (btnClose) btnClose.click();
+  };
+
   const isAdmin = ["admin", "Admin", "Administrador", "ADM"].includes(user?.nivel_acesso);
 
   const LinksAdmin = () => (
@@ -29,6 +34,7 @@ export default function Navbar() {
         <Link
           href="/dashboardAdmin"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
+          onClick={handleCloseMenu}
         >
           <i className="bi bi-house-door"></i> Dashboard
         </Link>
@@ -37,6 +43,7 @@ export default function Navbar() {
         <Link
           href="/gerenciar_Treinamento_admin"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
+          onClick={handleCloseMenu}
         >
           <i className="bi bi-grid"></i> Gerenciar Treinamentos
         </Link>
@@ -45,6 +52,7 @@ export default function Navbar() {
         <Link
           href="/colaboradorAdmin"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
+          onClick={handleCloseMenu}
         >
           <i className="bi bi-person"></i> Gerenciar Colaboradores
         </Link>
@@ -58,6 +66,7 @@ export default function Navbar() {
         <Link
           href="/paginaUsuario"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
+          onClick={handleCloseMenu}
         >
           <i className="bi bi-house-door"></i> Dashboard
         </Link>
@@ -66,6 +75,7 @@ export default function Navbar() {
         <Link
           href="/catalogo"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
+          onClick={handleCloseMenu}
         >
           <i className="bi bi-book"></i> Catálogo
         </Link>
@@ -74,6 +84,7 @@ export default function Navbar() {
         <Link
           href="/meuTreinamento"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
+          onClick={handleCloseMenu}
         >
           <i className="bi bi-award"></i> Meus Treinamentos
         </Link>
@@ -82,6 +93,7 @@ export default function Navbar() {
         <Link
           href="/paginaPerfil"
           className="text-decoration-none text-dark d-flex align-items-center gap-2"
+          onClick={handleCloseMenu}
         >
           <i className="bi bi-person"></i> Meu Perfil
         </Link>

@@ -111,49 +111,49 @@ export default function GerenciadorTreinamento() {
     }
 
     const handleExcluir = async (id) => {
-    const confirmacao = await Swal.fire({
-        title: "Confirmar Exclusão",
-        text: "Tem certeza que deseja excluir este treinamento?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sim, excluir",
-        cancelButtonText: "Cancelar",
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6"
-    });
-
-    if (!confirmacao.isConfirmed) return;
-
-    try {
-        const response = await fetch(`http://localhost:3001/api/treinamentos/${id}`, {
-            method: "DELETE",
+        const confirmacao = await Swal.fire({
+            title: "Confirmar Exclusão",
+            text: "Tem certeza que deseja excluir este treinamento?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, excluir",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6"
         });
 
-        const data = await response.json();
+        if (!confirmacao.isConfirmed) return;
 
-        if (data.sucesso) {
-            Swal.fire({
-                icon: "success",
-                title: "Excluído!",
-                text: "Treinamento removido com sucesso."
+        try {
+            const response = await fetch(`http://localhost:3001/api/treinamentos/${id}`, {
+                method: "DELETE",
             });
 
-            fetchTreinamentos();
-        } else {
+            const data = await response.json();
+
+            if (data.sucesso) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Excluído!",
+                    text: "Treinamento removido com sucesso."
+                });
+
+                fetchTreinamentos();
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro ao excluir",
+                    text: data.erro
+                });
+            }
+        } catch (error) {
             Swal.fire({
                 icon: "error",
-                title: "Erro ao excluir",
-                text: data.erro
+                title: "Erro de conexão",
+                text: "Não foi possível conectar ao servidor."
             });
         }
-    } catch (error) {
-        Swal.fire({
-            icon: "error",
-            title: "Erro de conexão",
-            text: "Não foi possível conectar ao servidor."
-        });
-    }
-};
+    };
 
 
     useEffect(() => {
@@ -184,7 +184,7 @@ export default function GerenciadorTreinamento() {
             )}
 
             <div className="row flex-nowrap">
-                <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: '100vh' }}>
+                <aside className="d-none d-md-flex col-md-3 col-lg-2 bg-white border-end p-3 sidebar" style={{ minHeight: '100vh' }}>
                     <ul className="list-unstyled menu">
                         <li className=" mb-3 d-flex align-items-center gap-2">
                             <i className="bi bi-house-door"></i>
@@ -411,7 +411,7 @@ export default function GerenciadorTreinamento() {
                                                                     ))}
                                                                 </div>
                                                             </td>
-                                                            
+
                                                             <td className="text-muted">{formatarData(item.data_inicio)}</td>
 
 
@@ -469,6 +469,79 @@ export default function GerenciadorTreinamento() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div className="d-md-none d-flex flex-column gap-3">
+                        {loading ? (
+                            <div className="text-center py-4">Carregando...</div>
+                        ) : (
+                            treinamentosFiltrados.map((item) => (
+                                <div key={item.id} className="card border rounded-4 shadow-sm p-3">
+
+                                    {/* Cabeçalho do Card */}
+                                    <div className="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h6 className="fw-bold mb-1" style={{ color: '#0a2b6b' }}>{item.titulo}</h6>
+                                            <span className={`badge rounded-pill border px-3 ${getStatusBadge(item.status)}`}>
+                                                {item.status}
+                                            </span>
+                                        </div>
+                                        {/* Menu de Ações Mobile */}
+                                        <div className="position-relative dropdown-acao">
+                                            <i
+                                                className="bi bi-three-dots-vertical text-muted fs-5 p-2"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    toggleMenu(item.id);
+                                                }}
+                                            ></i>
+                                            {menuAberto === item.id && (
+                                                <div className="dropdown-menu show shadow border-0 end-0"
+                                                    style={{ position: 'absolute', top: '30px', zIndex: 1050 }}>
+                                                    <button className="dropdown-item gap-2 d-flex align-items-center" onClick={() => handleEditar(item)}>
+                                                        <i className="bi bi-pencil"></i> Editar
+                                                    </button>
+                                                    <button className="dropdown-item gap-2 d-flex align-items-center text-danger" onClick={() => handleExcluir(item.id)}>
+                                                        <i className="bi bi-trash"></i> Excluir
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Detalhes do Card */}
+                                    <div className="d-flex flex-column gap-2 mb-3">
+                                        <div className="d-flex align-items-center text-muted small">
+                                            <i className="bi bi-person-video3 me-2" style={{ width: '20px' }}></i>
+                                            <span className="fw-semibold me-1">Instrutor:</span> {item.instrutor_nome}
+                                        </div>
+                                        <div className="d-flex align-items-center text-muted small">
+                                            <i className="bi bi-laptop me-2" style={{ width: '20px' }}></i>
+                                            <span className="fw-semibold me-1">Modalidade:</span> {item.modalidade}
+                                        </div>
+                                        <div className="d-flex align-items-center text-muted small">
+                                            <i className="bi bi-calendar-event me-2" style={{ width: '20px' }}></i>
+                                            <span className="fw-semibold me-1">Início:</span> {formatarData(item.data_inicio)}
+                                        </div>
+                                        <div className="d-flex align-items-center text-muted small">
+                                            <i className="bi bi-people me-2" style={{ width: '20px' }}></i>
+                                            <span className="fw-semibold me-1">Vagas:</span> {item.inscritos_atuais}/{item.capacidade}
+                                        </div>
+                                    </div>
+
+                                    {/* Competências (Tags) */}
+                                    {item.competencias && item.competencias.length > 0 && (
+                                        <div className="d-flex flex-wrap gap-1 mt-auto pt-2 border-top">
+                                            {item.competencias.map((comp, idx) => (
+                                                <span key={idx} className="badge bg-light text-dark border fw-normal" style={{ fontSize: '0.75rem' }}>
+                                                    {comp}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))
+                        )}
                     </div>
                 </main>
             </div>

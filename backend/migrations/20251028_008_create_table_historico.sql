@@ -7,4 +7,3 @@ descricao TEXT,
 usuario_id INT NULL, 
 datahora TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
 FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL 
-)

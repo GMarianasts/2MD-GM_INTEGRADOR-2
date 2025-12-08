@@ -518,70 +518,85 @@ p {
     z-index: 10;
 }
 
-/* Container dos cards */
+/* --- AJUSTE GERAL: manter cards com visual unificado --- */
+.perfil-container,
 .infoProfissionais-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  /* min 330px (tamanho ideal do card) — adapta automaticamente */
-  
-  gap: 24px;
-  padding: 24px;
-  width: 100%;
-  box-sizing: border-box;
-  max-width: 900px;     /* 🔥 evita que os cards estiquem até o infinito */
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e7e7e7;
 }
 
-/* Card */
-.card-infoProfissional {
-  background: #fff;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.06);
-
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  min-height: 110px;
-  width: 100%;
-  box-sizing: border-box;
+/* --- ORGANIZAÇÃO DO CARD PROFISSIONAL --- */
+.infoProfissionais-container {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Ícone */
-.card-infoProfissional .icon {
-  flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.infoProfissionais-container h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
 }
 
-/* Texto */
-.card-infoProfissional .conteudo-infoProfissional {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
+/* Grid interno com bom espaçamento */
+.infoProfissionais-container .grid-prof {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
 }
 
-.card-infoProfissional .conteudo-infoProfissional span {
-  color: #6d6d6d;
-  font-size: 14px;
+/* --- ESTILO DOS CARDS INTERNOS --- */
+.card-info-prof-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
-.card-infoProfissional .conteudo-infoProfissional strong {
-  font-size: 16px;
-  color: #222;
-  font-weight: 600;
+/* Ícones */
+.card-info-prof-item .icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
 }
 
-/* Mobile */
+.icon-blue { background: #e9efff; color: #0a2b6b; }
+.icon-orange { background: #fff0e0; color: #ff9933; }
+.icon-green { background: #e6fae6; color: #3cb44e; }
+.icon-purple { background: #f5f0ff; color: #9966ff; }
+
+/* Textos organizados */
+.card-info-prof-item small {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.card-info-prof-item span {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* --- RESPONSIVO --- */
 @media (max-width: 768px) {
-  .infoProfissionais-container {
-    max-width: 100%;
-    grid-template-columns: 1fr;
-  }
+    .infoProfissionais-container .grid-prof {
+        grid-template-columns: 1fr;
+    }
 }
 
 

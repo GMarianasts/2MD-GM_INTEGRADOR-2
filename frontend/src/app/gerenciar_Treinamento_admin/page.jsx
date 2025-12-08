@@ -228,7 +228,7 @@ export default function GerenciadorTreinamento() {
                             <div className="row justify-content-start g-3">
 
                                 {/* Card Total */}
-                                <div className="col-12 col-md-6 col-lg-3">
+                                <div className="col-12 col-md-6 col-lg-4">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
                                         <div className="card-body p-4 d-flex flex-column justify-content-center">
                                             <span className="text-muted mb-2">Total de Treinamentos</span>
@@ -243,7 +243,7 @@ export default function GerenciadorTreinamento() {
                                 </div>
 
                                 {/* Card Ativos */}
-                                <div className="col-12 col-md-6 col-lg-3">
+                                <div className="col-12 col-md-6 col-lg-4">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
                                         <div className="card-body p-4 d-flex flex-column justify-content-center">
                                             <span className="text-muted mb-2">Treinamentos Ativos</span>
@@ -257,23 +257,8 @@ export default function GerenciadorTreinamento() {
                                     </div>
                                 </div>
 
-                                {/* Card Inscritos */}
-                                <div className="col-12 col-md-6 col-lg-3">
-                                    <div className="card h-100 border rounded-4 bg-white shadow-sm">
-                                        <div className="card-body p-4 d-flex flex-column justify-content-center">
-                                            <span className="text-muted mb-2">Total de Inscritos</span>
-                                            <h2 className="fw-bold mb-2" style={{ color: "#0a2b6b" }}>
-                                                {estatisticas.inscritos}
-                                            </h2>
-                                            <small className="text-muted" style={{ fontSize: "0.85rem" }}>
-                                                Alunos matriculados
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 {/* Card Taxa de Ocupação */}
-                                <div className="col-12 col-md-6 col-lg-3">
+                                <div className="col-12 col-md-6 col-lg-4">
                                     <div className="card h-100 border rounded-4 bg-white shadow-sm">
                                         <div className="card-body p-4 d-flex flex-column justify-content-center">
                                             <span className="text-muted mb-2">Taxa de Ocupação</span>
@@ -397,7 +382,6 @@ export default function GerenciadorTreinamento() {
                                                     <th className="border-0 text-muted small fw-semibold">Status</th>
                                                     <th className="border-0 text-muted small fw-semibold">Instrutor</th>
                                                     <th className="border-0 text-muted small fw-semibold">Competências</th>
-                                                    <th className="border-0 text-muted small fw-semibold">Inscritos</th>
                                                     <th className="border-0 text-muted small fw-semibold">Início</th>
                                                     <th className="border-0 text-muted small fw-semibold text-end pe-3">Ações</th>
                                                 </tr>
@@ -427,10 +411,7 @@ export default function GerenciadorTreinamento() {
                                                                     ))}
                                                                 </div>
                                                             </td>
-                                                            <td className="text-muted">
-                                                                <i className="bi bi-people text-secondary me-1"></i>
-                                                                {item.inscritos_atuais}/{item.capacidade}
-                                                            </td>
+                                                            
                                                             <td className="text-muted">{formatarData(item.data_inicio)}</td>
 
 

@@ -17,7 +17,6 @@ export default function MeuTreinamentosPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
     if (!user || !user.id) return;
 
     async function fetchMeusTreinamentos() {
@@ -35,6 +34,7 @@ export default function MeuTreinamentosPage() {
         setLoading(false);
       }
     }
+
     fetchMeusTreinamentos();
   }, [user]);
 
@@ -81,14 +81,12 @@ export default function MeuTreinamentosPage() {
     }
   };
 
-
   // Filtros
   const statusAtivos = ['Ativo', 'Inscrito', 'ativo', 'inscrito'];
   const statusConcluidos = ['Concluído', 'Concluido', 'concluido'];
 
   const cursosEmAndamento = meusCursos.filter(c => statusAtivos.includes(c.status));
   const cursosConcluidos = meusCursos.filter(c => statusConcluidos.includes(c.status));
-
 
   const totalCursos = meusCursos.length;
   const taxa = totalCursos > 0 ? Math.round((cursosConcluidos.length / totalCursos) * 100) : 0;
@@ -113,19 +111,28 @@ export default function MeuTreinamentosPage() {
 
     if (activeTab === 'Concluídos') {
       return cursosConcluidos.length > 0
-
-        ? <div className="row g-3">{cursosConcluidos.map((t) => <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4"><CardConcluido t={t} /></div>)}</div>
+        ? (
+          <div className="row g-3">
+            {cursosConcluidos.map((t) => (
+              <div key={t.inscricao_id} className="col-12 col-sm-6 col-lg-4">
+                <CardConcluido t={t} />
+              </div>
+            ))}
+          </div>
+        )
         : <div className="text-center py-4 text-muted">Nenhum curso concluído ainda.</div>;
     }
 
     return cursosEmAndamento.length > 0
-      ? <div className="row g-3">
-        {cursosEmAndamento.map((t) => (
-          <div key={t.inscricao_id} className="col-12 col-md-6 col-lg-4">
-            <CardEmAndamento t={t} onConcluir={handleConcluir} />
-          </div>
-        ))}
-      </div>
+      ? (
+        <div className="row g-3">
+          {cursosEmAndamento.map((t) => (
+            <div key={t.inscricao_id} className="col-12 col-sm-6 col-lg-4">
+              <CardEmAndamento t={t} onConcluir={handleConcluir} />
+            </div>
+          ))}
+        </div>
+      )
       : <div className="text-center py-4 text-muted">Nenhum curso em andamento</div>;
   };
 
@@ -134,8 +141,9 @@ export default function MeuTreinamentosPage() {
   return (
     <div className="container-fluid pagina-usuario">
       <div className="row g-0">
-        {/* Sidebar */}
-        <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar">
+
+        {/* Sidebar Responsiva */}
+        <aside className="col-12 col-md-3 col-lg-2 bg-white border-end p-3 sidebar d-none d-md-block">
           <ul className="list-unstyled menu">
             <li className="mb-3 d-flex align-items-center gap-2">
               <i className="bi bi-house-door"></i>
@@ -160,8 +168,7 @@ export default function MeuTreinamentosPage() {
           <h2 className="h4 fw-bold mb-2" style={{ color: "#0a2b6b" }}>Meus Treinamentos</h2>
           <p className="text-secondary mb-4">Acompanhe seu progresso e histórico de aprendizado.</p>
 
-
-          <div className="row row-cols-1 row-cols-md-3 g-3 mb-4">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
             {resumoData.map((item, index) => (
               <div key={index} className="col">
                 <ResumoCard title={item.title} value={item.value} icon={item.icon} color={item.color} bg={item.bg} />
@@ -169,12 +176,15 @@ export default function MeuTreinamentosPage() {
             ))}
           </div>
 
-          <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
+          <div className="w-100">
+            <TabsTreinamento activeTab={activeTab} setActiveTab={setActiveTab} />
+          </div>
 
           <div className="mt-4">
             {renderContent()}
           </div>
         </main>
+
       </div>
     </div>
   );

@@ -9,7 +9,6 @@
     "dev": "node --watch app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "node migrate.js"
-
   },
   "keywords": [
     "api",

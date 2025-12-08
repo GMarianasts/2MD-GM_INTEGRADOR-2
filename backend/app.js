@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { pool, create, read, update, deleteRecord, hashPassword, comparePassword } from './config/database.js';
 
 import produtoRotas from './routes/produtoRotas.js';
 import authRotas from './routes/authRotas.js';
@@ -11,6 +12,7 @@ import criptografiaRotas from './routes/criptografiaRotas.js';
 import colaboradoresRotas from './routes/colaboradoresRotas.js';
 import inscricaoRoutes from "./routes/inscricaoRoutes.js";
 import historicoRoutes from "./routes/historicoRotas.js";
+
 
 
 

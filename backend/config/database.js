@@ -1,11 +1,10 @@
 import mysql from 'mysql2/promise';
-import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
-const pool = mysql.createPool({
+export const pool = mysql.createPool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
@@ -16,20 +15,15 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-
-async function getConnection() {
+export async function getConnection() {
     return pool.getConnection();
 }
 
-
-async function read(table, where = null) {
+export async function read(table, where = null) {
     const connection = await getConnection();
     try {
         let sql = `SELECT * FROM ${table}`;
-        if (where) {
-            sql += ` WHERE ${where}`;
-        }
-
+        if (where) sql += ` WHERE ${where}`;
         const [rows] = await connection.execute(sql);
         return rows;
     } finally {
@@ -37,14 +31,13 @@ async function read(table, where = null) {
     }
 }
 
-async function create(table, data) {
+export async function create(table, data) {
     const connection = await getConnection();
     try {
         const columns = Object.keys(data).join(', ');
         const placeholders = Array(Object.keys(data).length).fill('?').join(', ');
         const sql = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
         const values = Object.values(data);
-
         const [result] = await connection.execute(sql, values);
         return result.insertId;
     } finally {
@@ -52,25 +45,20 @@ async function create(table, data) {
     }
 }
 
-async function update(table, data, where) {
+export async function update(table, data, where) {
     const connection = await getConnection();
     try {
-        const set = Object.keys(data)
-            .map(column => `${column} = ?`)
-            .join(', ');
-
+        const set = Object.keys(data).map(column => `${column} = ?`).join(', ');
         const sql = `UPDATE ${table} SET ${set} WHERE ${where}`;
         const values = Object.values(data);
-
-        const [result] = await connection.execute(sql, [...values]);
+        const [result] = await connection.execute(sql, values);
         return result.affectedRows;
     } finally {
         connection.release();
     }
 }
 
-
-async function deleteRecord(table, where) {
+export async function deleteRecord(table, where) {
     const connection = await getConnection();
     try {
         const sql = `DELETE FROM ${table} WHERE ${where}`;
@@ -81,8 +69,7 @@ async function deleteRecord(table, where) {
     }
 }
 
-
-async function comparePassword(password, hash) {
+export async function comparePassword(password, hash) {
     try {
         return await bcrypt.compare(password, hash);
     } catch (error) {
@@ -91,8 +78,7 @@ async function comparePassword(password, hash) {
     }
 }
 
-
-async function hashPassword(password) {
+export async function hashPassword(password) {
     try {
         return await bcrypt.hash(password, 10);
     } catch (error) {
@@ -100,15 +86,5 @@ async function hashPassword(password) {
         throw error;
     }
 }
-
-export { 
-    create, 
-    read, 
-    update, 
-    deleteRecord, 
-    comparePassword, 
-    hashPassword,
-    getConnection
-};
 
 export default pool;

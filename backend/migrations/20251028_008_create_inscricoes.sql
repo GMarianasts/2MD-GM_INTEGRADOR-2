@@ -1,8 +1,7 @@
-USE produtos_api;
 
-CREATE TABLE inscricoes (
+CREATE TABLE IF NOT EXISTS inscricoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    
+
     usuario_id INT NOT NULL,
     treinamento_id INT NOT NULL,
 
@@ -17,5 +16,5 @@ CREATE TABLE inscricoes (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (treinamento_id) REFERENCES treinamentos(id) ON DELETE CASCADE,
 
-    UNIQUE(usuario_id, treinamento_id) -- impede inscrição duplicada
+    UNIQUE(usuario_id, treinamento_id)
 );

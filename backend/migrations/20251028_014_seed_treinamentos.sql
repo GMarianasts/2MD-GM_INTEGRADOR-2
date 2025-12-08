@@ -1,6 +1,4 @@
-USE produtos_api;
 
-INSERT INTO competencias (nome) VALUES ('Agilidade'), ('Gestão'), ('Tecnologia'), ('Processos'), ('Inovação'), ('Logística'), ('Segurança');
 
 -- B) Inserir Instrutores (Necessário criar antes dos cursos)
 INSERT INTO instrutores (nome, email, cargo, bio, experiencia) VALUES 
@@ -14,12 +12,7 @@ INSERT INTO instrutores (nome, email, cargo, bio, experiencia) VALUES
 ('Mariana Costa', 'mariana.costa@gm.com', 'Técnica de Segurança', 'Especialista em máquinas e equipamentos.', 'Técnica EHS'),
 ('Paulo Andrade', 'paulo.andrade@gm.com', 'Coordenador de Logística', 'Gestão de Supply Chain global.', 'Logística GM'),
 ('Ana Paula Costa', 'ana.costa@gm.com', 'Facilitadora de Inovação', 'Designer de Serviços e UX.', 'UX Lead'),
-('Juliana Ferreira', 'juliana.ferreira@gm.com', 'Especialista ESG', 'Líder de sustentabilidade corporativa.', 'Engenheira Ambiental');
-
--- C) Inserir Treinamentos (Usando os IDs dos instrutores criados acima)
--- Nota: Os IDs dos instrutores seguem a ordem de inserção (1 a 11)
-
-INSERT INTO treinamentos (titulo, categoria, descricao, nivel, duracao_horas, capacidade, instrutor_id, modalidade, local_plataforma, data_inicio, data_fim, pre_requisitos, sobre, objetivos, status, inscritos_atuais) VALUES 
+('Juliana Ferreira', 'juliana.ferreira@gm.com', 'Especialista ESG', 'Líder de sustentabilidade corporativa.', 'Engenheira Ambiental'),
 ('Metodologias Ágeis na Prática', 'Gestão', 'Curso de Scrum e Kanban.', 'Intermediário', 12, 60, 1, 'Online', 'Teams', '2025-12-01', '2025-12-15', 'Nenhum', 'Aprenda Scrum e Kanban.', '- Aplicar Scrum\n- Gerir Backlog', 'Ativo', 45),
 ('Segurança da Informação', 'Tecnologia', 'Curso de LGPD e Cibersegurança.', 'Iniciante', 8, 50, 2, 'Online', 'Moodle', '2025-12-20', '2025-12-22', 'Nenhum', 'Fundamentos de proteção de dados.', '- Entender LGPD', 'Rascunho', 0),
 ('Segurança em Alta Tensão', 'Segurança e EHS', 'Manuseio de baterias EV.', 'Avançado', 16, 20, 3, 'Presencial', 'Lab EV', '2025-12-10', '2025-12-11', 'NR-10', 'Segurança para elétricos.', '- Desenergização\n- EPIs', 'Ativo', 15),
